@@ -10,13 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Student_Info {
-          id            String      @id @default(auto()) @map("_id") @db.ObjectId
-          name      String?
-          program   String?
-          yearlevel String?
-          gender    String?
-            }
 
 model User {
   id          String      @id @default(auto()) @map("_id") @db.ObjectId
@@ -36,11 +29,8 @@ model Data {
   middleName  String
   gender      String
   birthdate   String
-  hobbies     String[]
   address     String
   zip         String
-  civilStatus String
-  keyA        Int
-  keyB        Int
+  rank        String
 }
 

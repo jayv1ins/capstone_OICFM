@@ -8,7 +8,7 @@ exports.getCreate = (req, res) => {
 
 
 exports.postCreate = async (req, res) => {
-  const { lastName, firstName, middleName, gender, birthdate, address, zip, rank} = req.body;
+  const { lastName, firstName, middleName, gender, birthdate, address, zip, rank,} = req.body;
 
   //validation
   if (
@@ -28,8 +28,8 @@ exports.postCreate = async (req, res) => {
   }
 
   try {
-    const result = await prisma.details.create({
-      details: {
+    const result = await prisma.data.create({
+      data: {
         lastName,
         firstName,
         middleName,
@@ -37,11 +37,11 @@ exports.postCreate = async (req, res) => {
         birthdate,
         address,
         zip,
-        rank
+        rank,
       },
     });
 
-    return res.render('register', { SuccessMessage: 'Data created succesfully' });
+    return res.render('create', { SuccessMessage: 'Data created succesfully' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "An error occurred while creating the data." });

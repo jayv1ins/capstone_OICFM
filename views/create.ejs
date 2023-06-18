@@ -10,6 +10,13 @@
       <div class="col-md-8  border border-white p-4 rounded bg-white" >
         <form method="POST" action="/create">
           <div class="form-row">
+            
+            <% if (typeof ErrorMessage !== 'undefined') { %>
+              <p style="color: red;"><%= ErrorMessage %></p>
+            <% } else if (typeof SuccessMessage !== 'undefined') { %>
+              <p style="color: green;"><%= SuccessMessage %></p>
+            <% } %>
+            
             <div class="form-group col-md-5">
               <label for="inputEmail4">Last Name</label>
               <input type="text" class="form-control"  placeholder="Last Name" id="lastName" name="lastName" autocomplete="LastName" required min="4" pattern="[a-zA-Z]+">
@@ -37,7 +44,7 @@
 
             <div class="form-group col-md-5">
               <label for="inputPassword4">Birthday</label>
-              <input type="date" class="form-control" id="birthday" name="birthday">
+              <input type="date" class="form-control" id="birthdate" name="birthdate">
             </div>
 
 
