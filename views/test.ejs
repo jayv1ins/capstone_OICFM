@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+      </script>
+  <title>Creating</title>
+
+  <style>
+    body {
+    background-image: linear-gradient(-225deg, #2ba17e 0%, #5b86e2 100%);
+background-image: linear-gradient(to top, #a8edea 0%, #7a8ee7 100%);
+background-attachment: fixed;
+  background-repeat: no-repeat;
+
+    font-family: 'Vibur', cursive;
+/*   the main font */
+    font-family: 'Abel', sans-serif;
+opacity: .95;
+/* background-image: linear-gradient(to top, #d9afd9 0%, #97d9e1 100%); */
+}
+  </style>
+</head>
+<body>
+  
+<div class="container mt-5  ">
+  <div class="row d-flex justify-content-center align-items-center">
+      <div class="col-md-8  border border-white p-4 rounded bg-white" >
+        <form method="POST" action="/create">
+          <div class="form-row">
+            <div class="form-group col-md-5">
+              <label for="inputEmail4">Last Name</label>
+              <input type="text" class="form-control"  placeholder="Last Name" id="lastName" name="lastName" autocomplete="LastName" required min="4" pattern="[a-zA-Z]+">
+            </div>
+            <div class="form-group col-md-5">
+              <label for="inputPassword4">First Name</label>
+              <input type="text" class="form-control" placeholder="First Name" id="firstName" name="firstName" autocomplete="firstName" required min="4" pattern="[a-zA-Z]+">
+            </div>
+            <div class="form-group col-md-5">
+              <label for="inputPassword4">Middle Name</label>
+              <input type="text" class="form-control" placeholder="Middle Name" id="middleName" name="middleName" autocomplete="middleName" required min="4" pattern="[a-zA-Z]+">
+            </div>
+
+            <div class="form-group col-md-4">
+              <label for="gender"  name="gender" id="gender">Gender</label>
+              <select id="gender" name="gender" class="form-control">
+                <option selected>Choose...</option>
+                <option  value="male">MALE</option>
+                <option value="female">FEMALE</option>
+                <option  value="gay">GAY</option>
+                <option  value="Lesbian">LESBIAN</option>
+                <option value="others">Others</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-5">
+              <label for="inputPassword4">Birthday</label>
+              <input type="date" class="form-control" id="birthday" name="birthday">
+            </div>
+
+            <div class="form-group row">
+              <div class="col-sm-2">Hobby</div>
+              <div class="col-sm-10">
+
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="hobby" name="hobby[]" value="Watching" multiple>
+                  <label class="form-check-label" for="hobby">Watching</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="hobby" name="hobby[]" value="Reading" multiple>
+                  <label class="form-check-label" for="hobby">Reading</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" id="hobby" name="hobby[]" value="Playing" multiple>
+                  <label class="form-check-label" for="hobby">Playing</label>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+          <div class="form-group">
+            <label for="inputAddress">Address</label>
+            <input type="text" class="form-control" placeholder="Address" id="address" name="address" autocomplete="address" required min="4" >
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputCity">Country</label>
+              <input type="text" class="form-control" id="country" placeholder="Country" name="country" autocomplete="country" required min="4" pattern="[a-zA-Z]+">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputCity">City</label>
+              <input type="text" class="form-control" id="city" placeholder="City" name="city" autocomplete="city" required min="4" pattern="[a-zA-Z]+">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="region" name="region">Region</label>
+              <select id="region" name="region" class="form-control">
+                <option selected>Choose...</option>
+                <option id="region" value="metro manila">METRO MANILA</option>
+                <option id="region" value="cavite">CAVITE</option>
+              </select>
+            </div>
+            <div class="form-group col-md-2">
+              <label for="inputZip">Zip</label>
+              <input type="text" class="form-control" id="zip" name="zip">
+            </div>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label for="civilStatus" name="civilStatus">Civil status</label>
+            <select id="civilStatus" name="civilStatus" class="form-control">
+              <option selected>Choose...</option>
+              <option id="civilStatus" value="single">Single</option>
+              <option id="civilStatus" value="married">Married</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <div class="form-check">
+              
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+  </div>
+</div>
+
+
+    
+
+</body>
+</html>

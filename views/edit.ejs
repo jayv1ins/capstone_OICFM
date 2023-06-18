@@ -1,0 +1,228 @@
+
+
+  <!DOCTYPE html>
+<html>
+    <head>
+        <title>Illumiel</title>
+
+        <style>
+            body {
+                margin: 0;
+                margin-top: 50px;
+                font-family: sans-serif;
+            }
+
+            header {
+                display: flex;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 50px;
+                line-height: 50px;
+                background-color: #000000;
+            }
+
+            header * {
+                display: inline;
+                height: 50px;
+            }
+
+            header ul {
+                padding: 0;
+            }
+
+            header li {
+                margin-left: 20px;
+            }
+
+            section {
+                height: 100vh;
+                border: 1px solid black;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                
+                background-size: cover; /* Add this line */
+                background-position: center center; /* Add this line */
+                background-repeat: no-repeat; /* Add this line */
+                background-attachment: fixed; /* Add this line */
+            }
+
+            #hero .profile-img {
+                width: 350px;
+                border-radius: 35%;
+            }
+
+            footer {
+                text-align: center;
+                padding: 20px;
+                background-color: #000000;
+            }
+
+            footer h3{
+                text-align: center;
+                color: rgb(255, 255, 255);
+            }
+
+            #hero h1 {
+                font-size: 3em;
+            }
+
+            section h2 {
+                font-size: 2.5em;
+            }
+
+            section h3 {
+                font-size: 1.5em;
+            }
+
+            header a {
+                text-decoration: none;
+                color: rgb(255, 255, 255);
+            }
+
+            /* Add everything below here */
+
+            #hero {
+                background-image: linear-gradient(rgba(67, 60, 60, 0.75),rgba(139, 129, 129, 0.75)), url('https://mcdn.wallpapersafari.com/medium/13/78/ASZtnC.png');
+            }
+
+            #about {
+                background-image: linear-gradient(rgba(82, 66, 66, 0.75),rgba(137, 124, 124, 0.75)), url('https://mcdn.wallpapersafari.com/medium/69/47/hBNq5V.png');
+            }
+
+            #form {
+                background-image: linear-gradient(rgba(105, 95, 95, 0.75),rgba(75, 70, 70, 0.75)), url('https://mcdn.wallpapersafari.com/medium/41/70/Se6L4T.jpg');
+            }
+
+            #contact {
+                background-image: linear-gradient(rgba(105, 95, 95, 0.75),rgba(75, 70, 70, 0.75)), url('https://mcdn.wallpapersafari.com/medium/90/10/Y1c0Nu.png');
+            }
+
+            form {
+			max-width: 700px;
+			margin: 0 auto;
+			font-size: 18px;
+            }
+
+            input[type=text], select, input[type=date], input[type=email], textarea {
+                width: 100%;
+                padding: 12px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                margin-top: 6px;
+                margin-bottom: 16px;
+                resize: vertical;
+                font-size: 18px;
+            }
+
+            input[type=submit] {
+                background-color: #f5ab58;
+                color: white;
+                padding: 12px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 18px;
+            }
+
+            input[type=submit]:hover {
+                background-color: #ffdf76;
+            }
+
+            .container {
+                border-radius: 5px;
+                background-color: rgba(255, 255, 255, 0.5);
+                backdrop-filter: blur(5px);
+                padding: 20px;
+            }
+
+            .error {
+                color: red;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+        <header>
+          
+            <nav>
+                <ul>
+                  <div class="action-link-wrap">
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a onclick="history.back(-1)" class="link-button link-back-button">Go Back</a></li>
+                  </div>
+                </ul>
+            </nav>
+        </header>
+        <main>
+         
+            <section id="form">
+        
+                    <form id="registration-form" action="/edit/<%= data.id %>" method="POST">
+                        <div class="container">
+
+                            <h1>Edit Form</h1>
+
+                            <label for="last_name">Last Name:</label>
+                            <input type="text" id="last_name" name="lastName"  value="<%= data.lastName %>"required>
+                
+                            <label for="first_name">First Name:</label>
+                            <input type="text" id="first_name" name="firstName"  value="<%= data.firstName %>"required>
+                
+                            <label for="middle_name">Middle Name:</label>
+                            <input type="text" id="middle_name" name="middleName"  value="<%= data.middleName %>"required>
+                
+                            <label for="home_address">Home Address:</label>
+                            <input type="text" id="home_address" name="address"  value="<%= data.address %>"required>
+                
+                            <label for="zip_code">Zip Code:</label>
+                            <input type="text" id="zip-code" name="zip" pattern="\d+" required minlength="" maxlength="4"  value="<%= data.zip %>">
+                
+                            <label for="gender">Gender:</label>
+                            <select id="gender" name="gender" required>
+                                <option value="male" <% if (data.gender === 'male') { %>selected<% } %>>Male</option>
+                                <option value="female" <% if (data.gender === 'female') { %>selected<% } %>>Female</option>
+                                <option value="other" <% if (data.gender === 'other') { %>selected<% } %>>Other</option>
+                            </select>
+                
+                            <label for="birthdate">Birthdate:</label>
+                            <input type="date" id="birthdate" name="birthdate" value="<%= data.birthdate %>" required>
+                
+            
+                            <label for="hobby">Hobbies:</label>
+                            <% const hobbies = data.hobbies.join(', '); %>
+                            <input type="text" id="hobbies" name="hobbies" value="<%= hobbies %>">
+                            </label>
+                
+                            <label for="civil_status">Civil Status:</label>
+                            <select id="civil_status" name="civilStatus" required>
+                                <option value="single" <% if (data.civilStatus === 'single') { %>selected<% } %>>Single</option>
+                                <option value="married" <% if (data.civilStatus === 'married') { %>selected<% } %>>Married</option>
+                                <option value="divorced" <% if (data.civilStatus === 'divorced') { %>selected<% } %>>Divorced</option>
+                                <option value="widowed" <% if (data.civilStatus === 'widowed') { %>selected<% } %>>Widowed</option>
+                            </select>
+                
+                            <input type="submit" value="Save">
+                            <a type="button" href="/home" class="btn btn-link btn-lg btn-block">home</a>
+                    </div>
+                </form>
+                
+            </section>
+
+            <section id="contact">
+                <div class="section-inner">
+                
+                </div>
+            </section>
+        </main>
+      
+    </body>
+</html>

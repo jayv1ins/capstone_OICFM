@@ -1,0 +1,56 @@
+<div class="container">
+ 
+    <h1>Edit Data</h1>
+    <form action="/edit/<%= data.id %>" method="POST">
+      <div>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" value="<%= data.lastName %>">
+      </div>
+      <div>
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" value="<%= data.firstName %>">
+      </div>
+      <div>
+        <label for="middleName">Middle Name:</label>
+        <input type="text" id="middleName" name="middleName" value="<%= data.middleName %>">
+      </div>
+      <div>
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender">
+          <option value="male" <% if (data.gender === 'male') { %>selected<% } %>>Male</option>
+          <option value="female" <% if (data.gender === 'female') { %>selected<% } %>>Female</option>
+          <option value="other" <% if (data.gender === 'other') { %>selected<% } %>>Other</option>
+        </select>
+      </div>
+      <div>
+        <label for="birthdate">Birthdate:</label>
+        <input type="text" id="birthdate" name="birthdate" value="<%= data.birthdate %>">
+      </div>
+      <div>
+        <label for="hobbies">Hobbies:</label>
+        <% const hobbies = data.hobbies.join(', '); %>
+        <input type="text" id="hobbies" name="hobbies" value="<%= hobbies %>">
+      </div>
+      <div>
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" value="<%= data.address %>">
+      </div>
+      <div>
+        <label for="zip">Zip:</label>
+        <input type="text" id="zip" name="zip" value="<%= data.zip %>">
+      </div>
+      <div>
+        <label for="civilStatus">Civil Status:</label>
+        <select id="civilStatus" name="civilStatus">
+          <option value="single" <% if (data.civilStatus === 'single') { %>selected<% } %>>Single</option>
+          <option value="married" <% if (data.civilStatus === 'married') { %>selected<% } %>>Married</option>
+          <option value="divorced" <% if (data.civilStatus === 'divorced') { %>selected<% } %>>Divorced</option>
+          <option value="widowed" <% if (data.civilStatus === 'widowed') { %>selected<% } %>>Widowed</option>
+        </select>
+      </div>
+      <div>
+        <input type="submit" value="Save">
+      </div>
+    </form>
+  </div>
+  

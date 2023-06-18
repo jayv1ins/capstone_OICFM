@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Illumiel</title>
+        <link rel="stylesheet" href="style.css">
+
+        <style>
+            body {
+                margin: 0;
+                margin-top: 50px;
+                font-family: sans-serif;
+            }
+
+            header {
+                display: flex;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 50px;
+                line-height: 50px;
+                background-color: #000000;
+            }
+
+            header * {
+                display: inline;
+                height: 50px;
+            }
+
+            header ul {
+                padding: 0;
+            }
+
+            header li {
+                margin-left: 20px;
+            }
+
+            section {
+                height: 100vh;
+                border: 1px solid black;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                
+                background-size: cover; /* Add this line */
+                background-position: center center; /* Add this line */
+                background-repeat: no-repeat; /* Add this line */
+                background-attachment: fixed; /* Add this line */
+            }
+
+            #hero .profile-img {
+                width: 350px;
+                border-radius: 35%;
+            }
+
+            footer {
+                text-align: center;
+                padding: 20px;
+                background-color: #000000;
+            }
+
+            footer h3{
+                text-align: center;
+                color: rgb(255, 255, 255);
+            }
+
+            #hero h1 {
+                font-size: 3em;
+            }
+
+            section h2 {
+                font-size: 2.5em;
+            }
+
+            section h3 {
+                font-size: 1.5em;
+            }
+
+            header a {
+                text-decoration: none;
+                color: rgb(255, 255, 255);
+            }
+
+            /* Add everything below here */
+
+            #hero {
+                background-image: linear-gradient(rgba(67, 60, 60, 0.75),rgba(139, 129, 129, 0.75)), url('https://mcdn.wallpapersafari.com/medium/13/78/ASZtnC.png');
+            }
+
+            #about {
+                background-image: linear-gradient(rgba(82, 66, 66, 0.75),rgba(137, 124, 124, 0.75)), url('https://mcdn.wallpapersafari.com/medium/69/47/hBNq5V.png');
+            }
+
+            #form {
+                background-image: linear-gradient(rgba(105, 95, 95, 0.75),rgba(75, 70, 70, 0.75)), url('https://mcdn.wallpapersafari.com/medium/41/70/Se6L4T.jpg');
+            }
+
+            #contact {
+                background-image: linear-gradient(rgba(105, 95, 95, 0.75),rgba(75, 70, 70, 0.75)), url('https://mcdn.wallpapersafari.com/medium/90/10/Y1c0Nu.png');
+            }
+
+            form {
+			max-width: 700px;
+			margin: 0 auto;
+			font-size: 18px;
+            }
+
+            input[type=text], select, input[type=date], input[type=email], textarea {
+                width: 100%;
+                padding: 12px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                margin-top: 6px;
+                margin-bottom: 16px;
+                resize: vertical;
+                font-size: 18px;
+            }
+
+            input[type=submit] {
+                background-color: #f5ab58;
+                color: white;
+                padding: 12px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 18px;
+            }
+
+            input[type=submit]:hover {
+                background-color: #ffdf76;
+            }
+
+            .container {
+                border-radius: 5px;
+                background-color: rgba(255, 255, 255, 0.5);
+                backdrop-filter: blur(5px);
+                padding: 20px;
+            }
+
+            .error {
+                color: red;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+        <header>
+            <img src="https://www.talkesport.com/wp-content/uploads/image-570.png" class="profile-img">
+            <nav>
+                <ul>
+                  <div class="action-link-wrap">
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a onclick="history.back(-1)" class="link-button link-back-button">Go Back</a></li>
+                  </div>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <section id="hero">
+                <div class="section-inner">
+                    <img src="https://www.talkesport.com/wp-content/uploads/image-570.png" class="profile-img">
+                    <h1>Illumiel</h1>
+                </div>
+            </section>
+            <section id="about">
+                <div class="container">
+                    <% if (datas.length > 0) { %>
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>Last Name</th>
+                              <th>First Name</th>
+                              <th>Middle Name</th>
+                              <th>Gender</th>
+                              <th>Birthdate</th>
+                              <th>Hobbies</th>
+                              <th>Address</th>
+                              <th>Zip</th>
+                              <th>Civil Status home</th>
+                              <th>Acttion</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          <% datas.forEach(function(data) { %>
+                            <tr>
+                              <td><%= data.dataId %></td>
+                              <td><%= data.lastName %></td>
+                              <td><%= data.firstName %></td>
+                              <td><%= data.middleName %></td>
+                              <td><%= data.gender %></td>
+                              <td><%= data.birthdate %></td>
+                              <td><%= data.hobbies %></td>
+                              <td><%= data.address %></td>
+                              <td><%= data.zip %></td>
+                              <td><%= data.civilStatus %></td>
+                              <td> <a href="/edit/<%= data.dataId %>">Edit</a></td>
+                            </tr>
+                          <% }); %>
+                          </tbody>
+                        </table>
+                      <% } else { %>
+                        <p>No data found.</p>
+                      <% } %>
+            
+                </tbody>
+              </table>
+                </div>
+                   
+            </section>
+
+            <section id="form">
+        
+                    <form id="registration-form" action="/home" method="POST">
+                        <div class="container">
+
+                            <h1>Registration Form</h1>
+
+                            <label for="last_name">Last Name:</label>
+                            <input type="text" id="last_name" name="lastName" required>
+                
+                            <label for="first_name">First Name:</label>
+                            <input type="text" id="first_name" name="firstName" required>
+                
+                            <label for="middle_name">Middle Name:</label>
+                            <input type="text" id="middle_name" name="middleName" required>
+                
+                            <label for="home_address">Home Address:</label>
+                            <input type="text" id="home_address" name="address" required>
+                
+                            <label for="zip_code">Zip Code:</label>
+                            <input type="text" id="zip-code" name="zip" pattern="\d+" required minlength="" maxlength="4">
+                
+                            <label for="gender">Gender:</label>
+                            <select id="gender" name="gender" required>
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                
+                            <label for="birthdate">Birthdate:</label>
+                            <input type="date" id="birthdate" name="birthdate" required>
+                
+                            <label class="checkbox">
+                                <input type="checkbox" id="hobby" name="hobbies" value="basketball">
+                                Basketball
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" id="hobby" name="hobbies" value="volleyball">
+                                Volleyball
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" id="hobby" name="hobbies" value="football">
+                                Football
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" id="hobby" name="hobbies" value="drawing">
+                                Drawing
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" id="hobby" name="hobbies" value="singing">
+                                Singing
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" id="hobby" name="hobbies" value="billiard">
+                                Billiard
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" id="hobby" name="hobbies" value="dancing">
+                                Dancing
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" id="hobby" name="hobbies" value="reading">
+                                Reading
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" id="hobby" name="hobbies" value="computer gaming">
+                                Computer Gaming
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" id="hobby" name="hobbies" value="writing">
+                                Writing
+                            </label>
+                            <br><br>
+                            <label for="hobby">Others:</label>
+                                <input type="text" id="hobby" name="hobbies">
+                                Writing
+                            </label>
+                
+                            <label for="civil_status">Civil Status:</label>
+                            <select id="civil_status" name="civilStatus" required>
+                                <option value="">Select Civil Status</option>
+                                <option value="single">Single</option>
+                                <option value="married">Married</option>
+                                <option value="divorced">Divorced</option>
+                                <option value="widowed">Widowed</option>
+                            </select>
+                
+                        <button type="submit" >Submit</button>
+                    </div>
+                </form>
+                
+            </section>
+
+            <section id="contact">
+                <div class="section-inner">
+                    <h2>Contact me</h2>
+                    <p>You can find me on:</p>
+                    <ul>
+                        <li><a href="https://twitter.com/cbl_mrlnnn">Twitter</a></li>
+                        <li><a href="https://www.facebook.com/Oppapa.mo.Goblin">Facebook</a></li>
+                        <li><a href="https://www.instagram.com/mrln_cbl/">Instagram</a></li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <h3>© Copyright Illumiii69</h3>
+        </footer>
+    </body>
+</html>

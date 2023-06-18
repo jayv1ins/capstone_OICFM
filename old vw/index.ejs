@@ -1,0 +1,16 @@
+
+
+Number of users: <%= students.length %>
+<ul>
+
+  <% students.forEach((student) => {%>
+  <li> name: <b><%= student.name %></b></li>
+  <li> program: <b><%= student.program %></b></li>
+  <li> yearLevel: <b><%= student.yearlevel %></b></li>
+  <li> gender: <b><%= student.gender %></b></li>
+  <br>
+  <% }) %>
+  </ul>
+
+
+
