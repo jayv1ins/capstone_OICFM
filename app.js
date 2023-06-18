@@ -19,21 +19,33 @@ app.use(session({
   saveUninitialized: true
 }));
 
-const loginRoutes = require('./routes/login');
-const registerRoutes = require('./routes/register');
-const homeRoutes = require('./routes/home');
+//Details
+const createRoutes = require('./routes/create');
 const indexRoutes = require('./routes/index');
 const editRoutes = require('./routes/edit');
 const selectRoutes = require('./routes/select');
+
+app.use('/', createRoutes);
+app.use('/', editRoutes);
+app.use('/', selectRoutes);
+app.use('/', indexRoutes);
+
+//Account
+const loginRoutes = require('./routes/login');
+const registerRoutes = require('./routes/register');
 const logoutRoutes = require('./routes/logout');
 
 app.use('/', loginRoutes);
 app.use('/', registerRoutes);
-app.use('/', homeRoutes);
-app.use('/', indexRoutes);
-app.use('/', editRoutes);
-app.use('/', selectRoutes);
 app.use('/', logoutRoutes);
+
+//etc
+const homeRoutes = require('./routes/home');
+
+app.use('/', homeRoutes);
+
+//---------------------------------------------------------------------------------
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
