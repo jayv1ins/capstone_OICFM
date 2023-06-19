@@ -5,24 +5,21 @@ const prisma = new PrismaClient();
 exports.getHome = async function(req, res) {
     const data = await prisma.data.findMany();
     const datas = data.map((row) => {
-      const {id, keyA, keyB, lastName, firstName, middleName, gender, birthdate, hobbies, address, zip, civilStatus } = row;
+      const {id,lastName, firstName, middleName, gender, birthdate, address, zip, rank } = row;
       
       return {
         id,
-        keyA,
-        keyB,
         lastName,
         firstName,
         middleName,
         gender,
         birthdate,
-        hobbies,
         address,
         zip,
-        civilStatus,
+        rank,
       };
     });
-    res.render('home', { title: 'Express', datas: datas, user: req.user  });
+    res.render('home', { datas: datas, user: req.user  });
 };
   
 
