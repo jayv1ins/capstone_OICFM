@@ -24,13 +24,19 @@ model User {
 
 model Data {
   id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  Gtype       String
+  Gname       String
+  caliber     String
+  serialN     String
+  acquisition String
+  checkIn     String
+  checkOut    String
+  cost        String
+  station     String
+  rank        String
   lastName    String
   firstName   String
   middleName  String
-  gender      String
-  birthdate   String
-  address     String
-  zip         String
-  rank        String
+  QLFR        String
 }
 

@@ -10,14 +10,20 @@ exports.getEdit = async function (req, res) {
       where: { id },
       select: {
         id: true,
+        Gtype: true,
+        Gname: true,
+        caliber: true,
+        serialN: true,
+        acquisition: true,
+        checkIn: true,
+        checkOut: true,
+        cost: true,
+        station: true,
+        rank: true,
         lastName: true,
         firstName: true,
         middleName: true,
-        gender: true,
-        birthdate: true,
-        address: true,
-        zip: true,
-        rank: true,
+        QLFR: true,
       },
     });
 
@@ -27,9 +33,9 @@ exports.getEdit = async function (req, res) {
       return res.status(404).send("Data not found");
     }
 
-    const { lastName, firstName, middleName, gender, birthdate, address, zip, rank } = data;
+    const { Gtype, Gname, caliber, serialN, acquisition, checkIn, checkOut, cost, station, rank, lastName, firstName, middleName, QLFR} = data;
 
-    return res.render("edit", { title: "Edit Data", data: { id, lastName, firstName, middleName, gender, birthdate, address, zip, rank } });
+    return res.render("edit", { title: "Edit Data", data: { id, Gtype, Gname, caliber, serialN, acquisition, checkIn, checkOut, cost, station, rank, lastName, firstName, middleName, QLFR} });
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
@@ -38,30 +44,43 @@ exports.getEdit = async function (req, res) {
 
 exports.updatedData = async function (req, res) {
   const id = String(req.params.id);
-  const { lastName, firstName, middleName, gender, birthdate, address, zip } = req.body;
+  const {Gtype, Gname, caliber, serialN, acquisition, checkIn, checkOut, cost, station, rank, lastName, firstName, middleName, QLFR} = req.body;
 
   try {
     const updatedData = await prisma.data.update({
       where: { id },
       data: {
+        Gtype,
+        Gname,
+        caliber,
+        serialN,
+        acquisition,
+        checkIn,
+        checkOut,
+        cost,
+        station,
+        rank,
         lastName,
         firstName,
         middleName,
-        gender,
-        birthdate,
-        address,
-        zip,
+        QLFR,
       },
       select: {
         id: true,
+        Gtype: true,
+        Gname: true,
+        caliber: true,
+        serialN: true,
+        acquisition: true,
+        checkIn: true,
+        checkOut: true,
+        cost: true,
+        station: true,
+        rank: true,
         lastName: true,
         firstName: true,
         middleName: true,
-        gender: true,
-        birthdate: true,
-        address: true,
-        zip: true,
-        rank: true,
+        QLFR: true,
       },
     });
 

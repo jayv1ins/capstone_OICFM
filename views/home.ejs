@@ -8,13 +8,17 @@
       <thead class="thead-dark">
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Name</th>
-          <th scope="col">Category</th>
+          <th scope="col">Full Name</th>
+          <th scope="col">Rank</th>
+          <th scope="col">Gun Type</th>
+          <th scope="col">Gun Name</th>
           <th scope="col">Serial ID</th>
+          <th scope="col">Caliber</th>
+          <th scope="col">Cost</th>
+          <th scope="col">Station</th>
           <!-- <th scope="col">Check in</th>
           <th scope="col">Check Out</th> -->
           <th scope="col">Qr</th>
-          <th scope="col">Rank</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>  
@@ -25,10 +29,14 @@
             <tr>
               <td><%= counter %></td>
               <td><%= data.lastName %>, <%= data.firstName %> . <%= data.middleName %></td>
-              <td>Pistol</td>
-              <td><%= data.id %></td>
-              <td>working progress</td>
               <td><%= data.rank %></td>
+              <td><%= data.Gtype %></td>
+              <td><%= data.Gname %></td>
+              <td><%= data.serialN %></td>
+              <td><%= data.caliber %></td>
+              <td><%= data.cost %></td>
+              <td><%= data.station %></td>
+              <td>working progress</td>
               <td>
                 <a href="/select/<%= data.id %>">select</a>
                 <a href="/edit/<%= data.id %>">Edit</a>

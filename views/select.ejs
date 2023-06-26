@@ -234,49 +234,73 @@
         <div class="form-row">
           
           <div class="form-group col-md-5">
-            <label for="inputEmail4">Last Name</label>
-            <input type="text" id="lastName" name="lastName"  value="<%= data.lastName %>"required>
+            <label for="inputEmail4">Gun Type</label>
+            <input type="text" class="form-control" name="Gtype" autocomplete="Gtype" value="<%= data.Gtype %>" required min="4" pattern="^[A-Z][a-zA-Z]*$">
           </div>
+
+          <div class="form-group col-md-5">
+            <label for="inputEmail4">Gun Name</label>
+            <input type="text" class="form-control" name="Gname" autocomplete="Gname" value="<%= data.Gname %>" required min="4" pattern="^[A-Z][a-zA-Z]*$">
+          </div>
+
+          <div class="form-group col-md-5">
+            <label for="inputEmail4">Caliber</label>
+            <input type="text" class="form-control" name="caliber" autocomplete="caliber" value="<%= data.caliber %>" required>
+          </div>
+
+          <div class="form-group col-md-5">
+            <label for="inputEmail4">Serial Number</label>
+            <input type="text" class="form-control" name="serialN" autocomplete="serialN" value="<%= data.serialN %>" required min="4">
+          </div>
+
+          <div class="form-group col-md-5">
+            <label for="inputEmail4">Cost</label>
+            <input type="text" class="form-control" name="cost" autocomplete="cost" value="<%= data.cost %>" required min="4">
+          </div>
+
+          <div class="form-group col-md-5">
+            <label for="inputEmail4">Acquisition date</label>
+            <input type="date" class="form-control" name="acquisition" value="<%= data.acquisition %>" required>
+          </div>
+
+          <div class="form-group col-md-5">
+            <label for="inputEmail4">Check-in</label>
+            <input type="date" class="form-control" name="checkIn" autocomplete="checkIn" value="<%= data.checkIn %>" required min="4">
+          </div>
+
+          <div class="form-group col-md-5">
+            <label for="inputEmail4">Check-out</label>
+            <input type="date" class="form-control" name="checkOut" autocomplete="checkOut" value="<%= data.checkOut %>" required min="4">
+          </div>
+
+          <div class="form-group col-md-5">
+            <label for="inputEmail4">Station</label>
+            <input type="text" class="form-control" name="station" autocomplete="station" value="<%= data.station %>" required min="4" pattern="^[A-Z][a-zA-Z]*$">
+          </div>
+
+          <div class="form-group col-md-5">
+            <label for="inputEmail4">Last Name</label>
+            <input type="text" class="form-control" id="lastName" name="lastName" autocomplete="LastName" value="<%= data.lastName %>" required min="4" pattern="[a-zA-Z]+">
+          </div>
+
           <div class="form-group col-md-5">
             <label for="inputPassword4">First Name</label>
-            <input type="text" id="firstName" value="<%= data.firstName %>"required>
+            <input type="text" class="form-control" id="firstName" name="firstName" autocomplete="firstName" value="<%= data.firstName %>" required min="4" pattern="[a-zA-Z]+">
           </div>
+
           <div class="form-group col-md-5">
             <label for="inputPassword4">Middle Name</label>
-            <input type="text" id="middleName" value="<%= data.middleName %>"required>
-          </div>
-
-          <div class="form-group col-md-4">
-            <label for="gender"  name="gender" id="gender">Gender</label>
-            <select id="gender" name="gender" class="form-control">
-            <option value="male" <% if (data.gender === 'male') { %>selected<% } %>>Male</option>
-            <option value="female" <% if (data.gender === 'female') { %>selected<% } %>>Female</option>
-            <option value="other" <% if (data.gender === 'other') { %>selected<% } %>>Other</option>
-            </select>
+            <input type="text" class="form-control" id="middleName" name="middleName" autocomplete="middleName" value="<%= data.middleName %>" required min="4" pattern="[a-zA-Z]+">
           </div>
 
           <div class="form-group col-md-5">
-            <label for="inputPassword4">Birthdate</label>
-            <input type="date" id="birthdate" name="birthdate" value="<%= data.birthdate %>" required>
-          </div>
-
-
-        </div>
-        <div class="form-group">
-          <label for="inputAddress">Address</label>
-          <input type="text" id="address" name="address"  value="<%= data.address %>"required>
-        </div>
-        
-  
-         
-          <div class="form-group col-md-2">
-            <label for="inputZip">Zip</label>
-            <input type="text" id="zip" name="zip" pattern="\d+" required minlength="" maxlength="4"  value="<%= data.zip %>">
+            <label for="inputPassword4">QLFR</label>
+            <input type="text" class="form-control" id="QLFR" name="QLFR" autocomplete="QLFR" value="<%= data.QLFR %>" required min="4" pattern="[a-zA-Z]+">
           </div>
 
           <div class="form-group col-md-2">
             <label for="inputZip">Rank</label>
-            <input type="text" id="rank" name="rank"  value="<%= data.rank %>"required>
+            <input type="text" class="form-control" id="rank" name="rank" value="<%= data.rank %>">
           </div>
         </div>
 

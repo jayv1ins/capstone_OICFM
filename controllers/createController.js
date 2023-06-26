@@ -8,7 +8,7 @@ exports.getCreate = (req, res) => {
 
 
 exports.postCreate = async (req, res) => {
-  const { lastName, firstName, middleName, gender, birthdate, address, zip, rank,} = req.body;
+  const { Gtype, Gname, caliber, serialN, acquisition, checkIn, checkOut, cost, station, rank, lastName, firstName, middleName, QLFR} = req.body;
 
   //validation
   if (
@@ -30,14 +30,20 @@ exports.postCreate = async (req, res) => {
   try {
     const result = await prisma.data.create({
       data: {
+        Gtype,
+        Gname,
+        caliber,
+        serialN,
+        acquisition,
+        checkIn,
+        checkOut,
+        cost,
+        station,
+        rank,
         lastName,
         firstName,
         middleName,
-        gender,
-        birthdate,
-        address,
-        zip,
-        rank,
+        QLFR,
       },
     });
 
