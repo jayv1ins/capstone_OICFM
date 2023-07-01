@@ -235,47 +235,47 @@
           
           <div class="form-group col-md-5">
             <label for="inputEmail4">Gun Type</label>
-            <input type="text" class="form-control" name="Gtype" autocomplete="Gtype" value="<%= data.Gtype %>" required min="4" pattern="^[A-Z][a-zA-Z]*$">
+            <input type="text" class="form-control" id="Gtype" name="Gtype" autocomplete="Gtype" value="<%= data.Gtype %>" required min="4" pattern="^[A-Z][a-zA-Z]*$">
           </div>
 
           <div class="form-group col-md-5">
             <label for="inputEmail4">Gun Name</label>
-            <input type="text" class="form-control" name="Gname" autocomplete="Gname" value="<%= data.Gname %>" required min="4" pattern="^[A-Z][a-zA-Z]*$">
+            <input type="text" class="form-control"  id="Gname" name="Gname" autocomplete="Gname" value="<%= data.Gname %>" required min="4" pattern="^[A-Z][a-zA-Z]*$">
           </div>
 
           <div class="form-group col-md-5">
             <label for="inputEmail4">Caliber</label>
-            <input type="text" class="form-control" name="caliber" autocomplete="caliber" value="<%= data.caliber %>" required>
+            <input type="text" class="form-control" id="caliber" name="caliber" autocomplete="caliber" value="<%= data.caliber %>" required>
           </div>
 
           <div class="form-group col-md-5">
             <label for="inputEmail4">Serial Number</label>
-            <input type="text" class="form-control" name="serialN" autocomplete="serialN" value="<%= data.serialN %>" required min="4">
+            <input type="text" class="form-control" id="serialN" name="serialN" autocomplete="serialN" value="<%= data.serialN %>" required min="4">
           </div>
 
           <div class="form-group col-md-5">
             <label for="inputEmail4">Cost</label>
-            <input type="text" class="form-control" name="cost" autocomplete="cost" value="<%= data.cost %>" required min="4">
+            <input type="text" class="form-control" id="cost" name="cost" autocomplete="cost" value="<%= data.cost %>" required min="4">
           </div>
 
           <div class="form-group col-md-5">
             <label for="inputEmail4">Acquisition date</label>
-            <input type="date" class="form-control" name="acquisition" value="<%= data.acquisition %>" required>
+            <input type="date" class="form-control" id="acquisition" name="acquisition" value="<%= data.acquisition %>" required>
           </div>
 
           <div class="form-group col-md-5">
             <label for="inputEmail4">Check-in</label>
-            <input type="date" class="form-control" name="checkIn" autocomplete="checkIn" value="<%= data.checkIn %>" required min="4">
+            <input type="date" class="form-control" id="checkIn" name="checkIn" autocomplete="checkIn" value="<%= data.checkIn %>" required min="4">
           </div>
 
           <div class="form-group col-md-5">
             <label for="inputEmail4">Check-out</label>
-            <input type="date" class="form-control" name="checkOut" autocomplete="checkOut" value="<%= data.checkOut %>" required min="4">
+            <input type="date" class="form-control" id="checkOut" name="checkOut" autocomplete="checkOut" value="<%= data.checkOut %>" required min="4">
           </div>
 
           <div class="form-group col-md-5">
             <label for="inputEmail4">Station</label>
-            <input type="text" class="form-control" name="station" autocomplete="station" value="<%= data.station %>" required min="4" pattern="^[A-Z][a-zA-Z]*$">
+            <input type="text" class="form-control" id="station" name="station" autocomplete="station" value="<%= data.station %>" required min="4" pattern="^[A-Z][a-zA-Z]*$">
           </div>
 
           <div class="form-group col-md-5">
@@ -324,68 +324,80 @@
 
       <script>
   
-  let btn = document.querySelector(".button");
-  let qr_code_element = document.querySelector(".qr-code");
-  var size = 350;
-  var w = window.innerWidth;
-  const mediaQuery = "(max-width: 600px)";
+let btn = document.querySelector(".button");
+let qr_code_element = document.querySelector(".qr-code");
+var size = 350;
+var w = window.innerWidth;
+const mediaQuery = "(max-width: 600px)";
+
+btn.addEventListener("click", () => {
+  let Gtype = document.querySelector("#Gtype").value;
+  let Gname = document.querySelector("#Gname").value;
+  let caliber = document.querySelector("#caliber").value;
+  let serialN = document.querySelector("#serialN").value;
+  let cost = document.querySelector("#cost").value;
+  let acquisition = document.querySelector("#acquisition").value;
+  let station = document.querySelector("#station").value;
+  let firstName = document.querySelector("#firstName").value;
+  let lastName = document.querySelector("#lastName").value;
+  let middleName = document.querySelector("#middleName").value;
+  let QLFR = document.querySelector("#QLFR").value;
+  let rank = document.querySelector("#rank").value;
   
-  
-  btn.addEventListener("click", () => {
-    let user_input = document.querySelector("#firstName, #lastName");
-    if (user_input.value != "") {
-      if (qr_code_element.childElementCount == 0) {
-        generate(use_rinput);
-      } else {
-        qr_code_element.innerHTML = "";
-        generate(user_input);
-      }
+
+  if (Gtype !== "" && Gname !== ""  && caliber !== "" && serialN !=="" && cost !== ""  && acquisition !== "" && station !== "" && firstName !== "" && lastName !== "" && middleName !== "" && QLFR !== "" && rank !== "") {
+    let userDetails = `${Gtype} ${Gname} ${caliber} ${serialN} ${cost} ${acquisition} ${station} ${firstName} ${lastName} ${middleName} ${QLFR} ${rank}`;
+    if (qr_code_element.childElementCount == 0) {
+      generate(userDetails);
     } else {
-      console.log("not valid input");
-      qr_code_element.style = "display: none";
+      qr_code_element.innerHTML = "";
+      generate(userDetails);
     }
-  });
-  
-  function generate(user_input) {
-    qr_code_element.style = "";
-    size = 220
-  
-    var qrcode = new QRCode(qr_code_element, {
-      text: `${user_input.value}`,
-      width: size,
-      height: size,
-      colorDark: "#3BA676",
-      colorLight: "#222",
-      correctLevel: QRCode.CorrectLevel.H
-    });
-  
-    let download = document.createElement("button");
-    qr_code_element.appendChild(download);
-  
-    let download_link = document.createElement("a");
-    download_link.setAttribute("download", "qr_code.png");
-    download_link.innerHTML = `Download   <i class="fa-solid fa-download"></i>`;
-  
-    download.appendChild(download_link);
-  
-    let qr_code_img = document.querySelector(".qr-code img");
-    let qr_code_canvas = document.querySelector("canvas");
-  
-    if (qr_code_img.getAttribute("src") == null) {
-      setTimeout(() => {
-        download_link.setAttribute("href", `${qr_code_canvas.toDataURL()}`);
-      }, 300);
-    } else {
-      setTimeout(() => {
-        download_link.setAttribute("href", `${qr_code_img.getAttribute("src")}`);
-      }, 300);
-    }
+  } else {
+    console.log("Invalid input");
+    qr_code_element.style.display = "none";
   }
-  
-  generate({
-    value: "https://github.com/rayanramazan"
+});
+
+function generate(userDetails) {
+  qr_code_element.style.display = "";
+  size = 220;
+
+  var qrcode = new QRCode(qr_code_element, {
+    text: userDetails,
+    width: size,
+    height: size,
+    colorDark: "#3BA676",
+    colorLight: "#222",
+    correctLevel: QRCode.CorrectLevel.H,
   });
-  
+
+  let download = document.createElement("button");
+  qr_code_element.appendChild(download);
+
+  let download_link = document.createElement("a");
+  download_link.setAttribute("download", "qr_code.png");
+  download_link.innerHTML = `Download   <i class="fa-solid fa-download"></i>`;
+
+  download.appendChild(download_link);
+
+  let qr_code_img = document.querySelector(".qr-code img");
+  let qr_code_canvas = document.querySelector("canvas");
+
+  if (qr_code_img.getAttribute("src") == null) {
+    setTimeout(() => {
+      download_link.setAttribute("href", `${qr_code_canvas.toDataURL()}`);
+    }, 300);
+  } else {
+    setTimeout(() => {
+      download_link.setAttribute("href", `${qr_code_img.getAttribute("src")}`);
+    }, 300);
+  }
+}
+generate({
+  value: "https://github.com/rayanramazan"
+});
+
       </script>
   
 

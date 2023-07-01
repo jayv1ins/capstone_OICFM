@@ -31,7 +31,7 @@ model Data {
   acquisition String
   checkIn     String
   checkOut    String
-  cost        String
+  cost        Int
   station     String
   rank        String
   lastName    String

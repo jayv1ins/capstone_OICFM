@@ -37,7 +37,7 @@ exports.postCreate = async (req, res) => {
         acquisition,
         checkIn,
         checkOut,
-        cost,
+        cost: parseInt(cost),
         station,
         rank,
         lastName,

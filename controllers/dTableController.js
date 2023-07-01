@@ -2,7 +2,7 @@ const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
 
-exports.getHome = async function(req, res) {
+exports.getDTable = async function(req, res) {
     const data = await prisma.data.findMany();
     const datas = data.map((row) => {
       const {id,Gtype, Gname, caliber, serialN, acquisition, checkIn, checkOut, cost, station, rank, lastName, firstName, middleName, QLFR } = row;
@@ -25,7 +25,7 @@ exports.getHome = async function(req, res) {
         QLFR,
       };
     });
-    res.render('home', { datas: datas, user: req.user  });
+    res.render('dTable', { datas: datas, user: req.user  });
 };
   
 

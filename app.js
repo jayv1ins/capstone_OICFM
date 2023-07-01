@@ -21,14 +21,12 @@ app.use(session({
 
 //Details
 const createRoutes = require('./routes/create');
-const indexRoutes = require('./routes/index');
 const editRoutes = require('./routes/edit');
 const selectRoutes = require('./routes/select');
 
 app.use('/', createRoutes);
 app.use('/', editRoutes);
 app.use('/', selectRoutes);
-app.use('/', indexRoutes);
 
 //Account
 const loginRoutes = require('./routes/login');
@@ -40,10 +38,15 @@ app.use('/', registerRoutes);
 app.use('/', logoutRoutes);
 
 //etc
-const homeRoutes = require('./routes/home');
+const dTableRoutes = require('./routes/dTable');
+// const dashRoutes = require('./routes/data/dash');
+const dashboardRoutes = require('./routes/dashboard');
+const indexRoutes = require('./routes/index');
 
-app.use('/', homeRoutes);
-
+app.use('/', dTableRoutes);
+// app.use('/', dashRoutes);
+app.use('/', dashboardRoutes);
+app.use('/', indexRoutes);
 //---------------------------------------------------------------------------------
 
 
