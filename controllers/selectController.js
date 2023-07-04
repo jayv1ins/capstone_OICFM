@@ -23,20 +23,23 @@ exports.getSelect = async function (req, res) {
         firstName: true,
         middleName: true,
         QLFR: true,
+        qrCode: true,
       },
     });
 
     if (!data) {
       res.status(404).send("Data not found");
     } else {
-      const { Gtype, Gname, caliber, serialN, acquisition, checkIn, checkOut, cost, station, rank, lastName, firstName, middleName, QLFR} = data;
+      const { Gtype, Gname, caliber, serialN, acquisition, checkIn, checkOut, cost, station, rank, lastName, firstName, middleName, QLFR, qrCode} = data;
 
-      res.render("select", { title: "Edit Data", data: { id, Gtype, Gname, caliber, serialN, acquisition, checkIn, checkOut, cost, station, rank, lastName, firstName, middleName, QLFR} });
+      res.render("select", { title: "Edit Data", data: { id, Gtype, Gname, caliber, serialN, acquisition, checkIn, checkOut, cost, station, rank, lastName, firstName, middleName, QLFR, qrCode} });
     }
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
   }
+
+  
 };
 
 

@@ -39,14 +39,20 @@ app.use('/', logoutRoutes);
 
 //etc
 const dTableRoutes = require('./routes/dTable');
-// const dashRoutes = require('./routes/data/dash');
+const dashRoutes = require('./routes/data/dash');
 const dashboardRoutes = require('./routes/dashboard');
 const indexRoutes = require('./routes/index');
 
 app.use('/', dTableRoutes);
-// app.use('/', dashRoutes);
+app.use('/', dashRoutes);
 app.use('/', dashboardRoutes);
 app.use('/', indexRoutes);
+
+
+//test
+const testRoutes = require('./routes/test');
+
+app.use('/', testRoutes);
 //---------------------------------------------------------------------------------
 
 

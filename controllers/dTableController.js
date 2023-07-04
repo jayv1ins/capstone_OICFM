@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 exports.getDTable = async function(req, res) {
     const data = await prisma.data.findMany();
     const datas = data.map((row) => {
-      const {id,Gtype, Gname, caliber, serialN, acquisition, checkIn, checkOut, cost, station, rank, lastName, firstName, middleName, QLFR } = row;
+      const {id,Gtype, Gname, caliber, serialN, acquisition, checkIn, checkOut, cost, station, rank, lastName, firstName, middleName, QLFR, qrCode } = row;
       
       return {
         id,
@@ -23,6 +23,8 @@ exports.getDTable = async function(req, res) {
         firstName,
         middleName,
         QLFR,
+        qrCode,
+         hasQRCode: qrCode !== null && qrCode !== "", 
       };
     });
     res.render('dTable', { datas: datas, user: req.user  });

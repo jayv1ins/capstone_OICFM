@@ -1,6 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
-
 const prisma = new PrismaClient();
+const qrcode = require('qrcode');
 
 exports.getCreate = (req, res) => {
   res.render('create');
@@ -9,6 +9,7 @@ exports.getCreate = (req, res) => {
 
 exports.postCreate = async (req, res) => {
   const { Gtype, Gname, caliber, serialN, acquisition, checkIn, checkOut, cost, station, rank, lastName, firstName, middleName, QLFR} = req.body;
+  const qrCodeData = await generateQRCode(`${Gtype} ${Gname} ${caliber} ${serialN} ${acquisition} ${checkIn} ${checkOut} ${cost} ${station} ${rank} ${lastName} ${firstName} ${middleName} ${QLFR}`);
 
   //validation
   if (
@@ -16,7 +17,7 @@ exports.postCreate = async (req, res) => {
     firstName.length < 3 ||
     middleName.length < 3 
   ) {
-    return res.render('register', { ErrorMessage: 'Names should be more than 3 characters long' });
+    return res.render('create', { ErrorMessage: 'Names should be more than 3 characters long' });
   }
 
   if (
@@ -24,7 +25,7 @@ exports.postCreate = async (req, res) => {
     !firstName.match(/^[A-Za-z\u4E00-\u9FFF]+$/) ||
     !middleName.match(/^[A-Za-z\u4E00-\u9FFF]+$/)
   ) {
-    return res.render('register', { ErrorMessage: 'Only alphabetic or logographic characters' });
+    return res.render('create', { ErrorMessage: 'Only alphabetic or logographic characters' });
   }
 
   try {
@@ -44,12 +45,23 @@ exports.postCreate = async (req, res) => {
         firstName,
         middleName,
         QLFR,
+        qrCode: qrCodeData,
       },
     });
+    return res.redirect(`/select/${result.id}`);
 
-    return res.render('create', { SuccessMessage: 'Data created succesfully' });
+    
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "An error occurred while creating the data." });
   }
 };
+
+async function generateQRCode(userDetails) {
+  try {
+    const qrCode = await qrcode.toBuffer(userDetails);
+    return qrCode;
+  } catch (error) {
+    throw error;
+  }
+}
