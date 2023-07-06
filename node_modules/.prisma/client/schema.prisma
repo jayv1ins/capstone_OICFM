@@ -38,5 +38,15 @@ model Data {
   firstName   String
   middleName  String
   QLFR        String
+  qrCode  Bytes?
 }
+
+
+model Test {
+  id      String    @id @default(auto()) @map("_id") @db.ObjectId
+  Gtype   String
+  Gname   String
+  qrCode  Bytes?
+}
+
 

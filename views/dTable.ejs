@@ -35,7 +35,18 @@
               <td><%= data.caliber %></td>
               <td><%= data.cost %></td>
               <td><%= data.station %></td>
-              <td>working progress</td>
+              <td>
+              <% if (data.hasQRCode) { %>
+                <div class="qr-code-container">
+                  <!-- Display the QR code here -->
+                  <img src="<%= `data:image/png;base64,${data.qrCode.toString('base64')}` %>" alt="QR Code" />
+                </div>
+              <% } else { %>
+                <p>No QR Code available</p>
+              <% } %>
+              </td>
+
+
               <td>
                 <a href="/select/<%= data.id %>">select</a>
                 <a href="/edit/<%= data.id %>">Edit</a>
@@ -52,7 +63,34 @@
         
       </tbody>
     </table>
-    <div class="text-center">
-      <a class="btn btn-primary" href="/create" role="button">Create New Details</a>
+
+    <div class="flex justify-between items-center mt-5">
+    <div>
+      <span class="text-sm text-gray-700">Showing 1-10 of 100</span>
     </div>
+    <div>
+      <nav class="inline-flex rounded-md shadow">
+        <a href="#" class="px-3 py-1 rounded-l-md bg-blue-500 text-white">
+          Previous
+        </a>
+        <a href="#" class="px-3 py-1 bg-white text-blue-500 hover:bg-blue-500 hover:text-white">
+          1
+        </a>
+        <a href="#" class="px-3 py-1 bg-white text-blue-500 hover:bg-blue-500 hover:text-white">
+          2
+        </a>
+        <a href="#" class="px-3 py-1 bg-white text-blue-500 hover:bg-blue-500 hover:text-white">
+          3
+        </a>
+        <a href="#" class="px-3 py-1 bg-white text-blue-500 hover:bg-blue-500 hover:text-white">
+          Next
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="text-center mt-5">
+    <a class="btn btn-primary" href="/create" role="button">Create New Details</a>
+  </div>
+</div>
 </div>
