@@ -22,14 +22,13 @@
   <!--Custom Css-->
   <link rel="stylesheet" href="./style.css">
   <!--End Custom Css-->
+  
 </head>
 
 <body>
 
-
-  <!--Header Start-->
-  <header>
-    <section id="topbar" style="background-color: #0a15ab ;"
+  
+  <section id="topbar" style="background-color: #0a15ab ;"
       class="mb-2 mb-lg-0 mb-sm-0 d-none d-lg-flex align-items-center pt-2 pb-2 text-white topbar-transparent">
       <div class="container">
         <div class="row">
@@ -60,44 +59,8 @@
         </div>
       </div>
     </section>
-    <!--Navbar Start-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container">
-        <a class="navbar-brand" href="">
-          <h2 class="fw-bold  mb-2 mb-lg-0 mb-sm-0">PNP</h2>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="bi bi-list"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav m-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="../index">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../dashboard">Dashboard</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../dTable">Data Table</a>
-            </li>
 
-            <li class="nav-item">
-              <a class="nav-link" href="../create">Create</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Scanner</a>
-            </li>
-          </ul>
-          
-        </div>
-      </div>
-    </nav>
-    <!--Navbar End-->
-  </header>
-  <!--Header End-->
-
-
+    <%- include('./header') %>
   <div id="carouselExampleCaptions" class="carousel slide mb-3" data-bs-ride="carousel">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
