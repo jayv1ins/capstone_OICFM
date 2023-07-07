@@ -1,95 +1,123 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Creating</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <title>QR Code Scanner</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.4/html5-qrcode.min.js" integrity="sha512-k/KAe4Yff9EUdYI5/IAHlwUswqeipP+Cp5qnrsUjTPCgl51La2/JhyyjNciztD7mWNKLSXci48m7cctATKfLlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <style>
-    /* Your CSS styles here */
-  </style>
+    .result {
+      background-color: green;
+      color: #fff;
+      padding: 20px;
+    }
+    .row {
+      display: flex;
+    }
+    .result-group {
+      display: none;
+    }
+    .result-group.show {
+      display: block;
+    }
+    </style>
 </head>
 <body>
-  <div class="container mt-5">
-    <div class="row d-flex justify-content-center align-items-center">
-      <div class="col-md-8 border border-white p-4 rounded bg-white">
-        <form id="myForm" method="POST" action="/test">
-          <div class="form-row">
-            <% if (typeof ErrorMessage !== 'undefined') { %>
-              <p style="color: red;"><%= ErrorMessage %></p>
-            <% } else if (typeof SuccessMessage !== 'undefined') { %>
-              <p style="color: green;"><%= SuccessMessage %></p>
-            <% } %>
-            <div class="form-group col-md-5">
-              <label for="inputEmail4">Gun Type</label>
-              <input type="text" class="form-control" placeholder="Gun Type" name="Gtype" autocomplete="Gtype" required min="4" pattern="^[A-Z][a-zA-Z]*$">
-            </div>
-            <div class="form-group col-md-5">
-              <label for="inputEmail4">Gun Name</label>
-              <input type="text" class="form-control" placeholder="Gun Name" name="Gname" autocomplete="Gname" required min="4" pattern="^[A-Z][a-zA-Z]*$">
-            </div>
-          </div>
-
-          
-          <div class="form-group">
-            <div class="form-check">
-            </div>
-            <button type="button" id="generateBtn" class="button btn btn-primary">Generate QR Code</button>
-          </div>
-
-        </form>
-
-        <div class="qr-code-container"></div>
-        <button type="button" id="confirmBtn" class="button btn btn-success" style="display: none;">Confirm</button>
-      </div>
-
+  <div class="row">
+    <div class="col">
+      <div style="width: 500px;" id="reader"></div>
+    </div>
+    <div class="col" style="padding: 30px;">
+      <h4>SCAN RESULT</h4>
+      <form id="result-form" class="result-group" >
+        <div>
+          <label for="field1">Field 1:</label>
+          <input type="text" id="field1" name="field1">
+        </div>
+        <div>
+          <label for="field2">Field 2:</label>
+          <input type="text" id="field2" name="field2">
+        </div>
+        <div>
+          <label for="field3">Field 3:</label>
+          <input type="text" id="field3" name="field3">
+        </div>
+        <div>
+          <label for="field4">Field 4:</label>
+          <input type="text" id="field4" name="field4">
+        </div>
+        <div>
+          <label for="field5">Field 5:</label>
+          <input type="text" id="field5" name="field5">
+        </div>
+        <div>
+          <label for="field5">Field 6:</label>
+          <input type="text" id="field6" name="field6">
+        </div>
+        <div>
+          <label for="field5">Field 7:</label>
+          <input type="text" id="field7" name="field7">
+        </div>
+        <div>
+          <label for="field5">Field 8:</label>
+          <input type="text" id="field8" name="field8">
+        </div>
+        <div>
+          <label for="field5">Field 9:</label>
+          <input type="text" id="field9" name="field9">
+        </div>
+        <div>
+          <label for="field5">Field 10:</label>
+          <input type="text" id="field10" name="field10">
+        </div>
+        <div>
+          <label for="field5">Field 11:</label>
+          <input type="text" id="field11" name="field11">
+        </div>
+        <div>
+          <label for="field5">Field 12:</label>
+          <input type="text" id="field12" name="field12">
+        </div>
+        <div>
+          <label for="field5">Field 13:</label>
+          <input type="text" id="field13" name="field13">
+        </div>
+        <div>
+          <label for="field5">Field 14:</label>
+          <input type="text" id="field14" name="field14">
+        </div>
+        <!-- Add more form fields as needed -->
+      </form>
     </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      let generateBtn = document.getElementById("generateBtn");
-      let confirmBtn = document.getElementById("confirmBtn");
-      let qrCodeContainer = document.querySelector(".qr-code-container");
+  <script type="text/javascript">
+    function onScanSuccess(qrCodeMessage) {
+      var splitMessage = qrCodeMessage.split(' ');
+      document.getElementById('field1').value = splitMessage[0];
+      document.getElementById('field2').value = splitMessage[1];
+      document.getElementById('field3').value = splitMessage[2];
+      document.getElementById('field4').value = splitMessage[3];
+      document.getElementById('field5').value = splitMessage[4];
+      document.getElementById('field6').value = splitMessage[5];
+      document.getElementById('field7').value = splitMessage[6];
+      document.getElementById('field8').value = splitMessage[7];
+      document.getElementById('field9').value = splitMessage[8];
+      document.getElementById('field10').value = splitMessage[9];
+      document.getElementById('field11').value = splitMessage[10];
+      document.getElementById('field12').value = splitMessage[11];
+      document.getElementById('field13').value = splitMessage[12];
+      document.getElementById('field14').value = splitMessage[13];
+      
 
-      generateBtn.addEventListener("click", async (event) => {
-        event.preventDefault();
+      // Submit the form automatically
+      document.getElementById('result-form').classList.add('show');
+    }
 
-        let Gtype = document.querySelector("input[name='Gtype']").value;
-        let Gname = document.querySelector("input[name='Gname']").value;
+    function onScanError(errorMessage) {
+      console.error(errorMessage);
+    }
 
-        if (Gtype !== "" && Gname !== "") {
-          let userDetails = `${Gtype} ${Gname}`;
-
-          generateQRCode(userDetails);
-
-          generateBtn.style.display = "none";
-          confirmBtn.style.display = "block";
-        } else {
-          console.log("Invalid input");
-          qrCodeContainer.style.display = "none";
-        }
-      });
-
-      confirmBtn.addEventListener("click", function(event) {
-        event.preventDefault();
-        document.getElementById("myForm").submit();
-      });
-
-      async function generateQRCode(userDetails) {
-        qrCodeContainer.style.display = "";
-        var size = 220;
-
-        var qrcode = new QRCode(qrCodeContainer, {
-          text: userDetails,
-          width: size,
-          height: size,
-          colorDark: "#3BA676",
-          colorLight: "#222",
-          correctLevel: QRCode.CorrectLevel.H,
-        });
-      }
-    });
+    var html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
+    html5QrcodeScanner.render(onScanSuccess, onScanError);
   </script>
 </body>
 </html>
