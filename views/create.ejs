@@ -13,17 +13,21 @@
       </script>
   <title>Creating</title>
 
-
+<style>
+  body{
+    background-color: #0d6efd;
+  }
+</style>
   
 <body>
-<%- include('./components/sidebar') %>
+<%- include('./components/navbar') %>
 
   
 <div class="container mt-5  ">
   <div class="row d-flex justify-content-center align-items-center">
       <div class="col-md-8  border border-white p-4 rounded bg-white" >
         <form method="POST" action="/create">
-          <div class="form-row">
+          <div class="form-row" >
             
             <% if (typeof ErrorMessage !== 'undefined') { %>
               <p style="color: red;"><%= ErrorMessage %></p>
@@ -144,9 +148,9 @@
 
 
       if (Gtype !== "" && Gname !== "" && caliber !== "" && serialN !== "" && cost !== "" && acquisition !== "" && checkIn !== "" && checkOut !== "" && station !== "" && lastName !== "" && firstName !== "" && middleName !== "" && QLFR !== "" && rank !== "") {
-        let userDetails = `${Gtype} ${Gname} ${caliber} ${serialN} ${cost} ${acquisition} ${checkIn} ${checkOut} ${station} ${lastName} ${firstName} ${middleName} ${QLFR} ${rank}`;
+        let newDetails = `${Gtype} ${Gname} ${caliber} ${serialN} ${cost} ${acquisition} ${checkIn} ${checkOut} ${station} ${lastName} ${firstName} ${middleName} ${QLFR} ${rank}`;
 
-        generateQRCode(userDetails);
+        generateQRCode(newDetails);
 
         generateBtn.style.display = "none";
         confirmBtn.style.display = "block";
@@ -161,12 +165,12 @@
       document.getElementById("myForm").submit();
     });
 
-    async function generateQRCode(userDetails) {
+    async function generateQRCode(newDetails) {
       qrCodeContainer.style.display = "";
       var size = 220;
 
       var qrcode = new QRCode(qrCodeContainer, {
-        text: userDetails,
+        text: newDetails,
         width: size,
         height: size,
         colorDark: "#3BA676",

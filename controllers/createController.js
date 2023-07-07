@@ -57,9 +57,9 @@ exports.postCreate = async (req, res) => {
   }
 };
 
-async function generateQRCode(userDetails) {
+async function generateQRCode(newDetails) {
   try {
-    const qrCode = await qrcode.toBuffer(userDetails);
+    const qrCode = await qrcode.toBuffer(newDetails);
     return qrCode;
   } catch (error) {
     throw error;
