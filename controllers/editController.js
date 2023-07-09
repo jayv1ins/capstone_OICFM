@@ -15,8 +15,8 @@ exports.getEdit = async function (req, res) {
         caliber: true,
         serialN: true,
         acquisition: true,
-        checkIn: true,
-        checkOut: true,
+        turnOver: true,
+        returned: true,
         cost: true,
         station: true,
         rank: true,
@@ -33,9 +33,9 @@ exports.getEdit = async function (req, res) {
       return res.status(404).send("Data not found");
     }
 
-    const { Gtype, Gname, caliber, serialN, acquisition, checkIn, checkOut, cost, station, rank, lastName, firstName, middleName, QLFR} = data;
+    const { Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR} = data;
 
-    return res.render("edit", { title: "Edit Data", data: { id, Gtype, Gname, caliber, serialN, acquisition, checkIn, checkOut, cost, station, rank, lastName, firstName, middleName, QLFR} });
+    return res.render("edit", { title: "Edit Data", data: { id, Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR} });
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
@@ -44,7 +44,7 @@ exports.getEdit = async function (req, res) {
 
 exports.updatedData = async function (req, res) {
   const id = String(req.params.id);
-  const {Gtype, Gname, caliber, serialN, acquisition, checkIn, checkOut, cost, station, rank, lastName, firstName, middleName, QLFR} = req.body;
+  const {Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR} = req.body;
 
   try {
     const updatedData = await prisma.data.update({
@@ -55,8 +55,8 @@ exports.updatedData = async function (req, res) {
         caliber,
         serialN,
         acquisition,
-        checkIn,
-        checkOut,
+        turnOver,
+        returned,
         cost,
         station,
         rank,
@@ -72,8 +72,8 @@ exports.updatedData = async function (req, res) {
         caliber: true,
         serialN: true,
         acquisition: true,
-        checkIn: true,
-        checkOut: true,
+        turnOver: true,
+        returned: true,
         cost: true,
         station: true,
         rank: true,

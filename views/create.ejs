@@ -67,12 +67,12 @@
 
             <div class="form-group col-md-5">
               <label for="inputEmail4">Check-in</label>
-              <input type="date" class="form-control"  placeholder="Check-in" name="checkIn" autocomplete="checkIn" required min="4">
+              <input type="date" class="form-control"  placeholder="Check-in" name="turnOver" autocomplete="turnOver" required min="4">
             </div>
 
             <div class="form-group col-md-5">
               <label for="inputEmail4">Check-out</label>
-              <input type="date" class="form-control"  placeholder="Check-out" name="checkOut" autocomplete="checkOut" required min="4">
+              <input type="date" class="form-control"  placeholder="Check-out" name="returned" autocomplete="returned" required min="4">
             </div>
 
             <div class="form-group col-md-5">
@@ -137,8 +137,8 @@
       let serialN = document.querySelector("input[name='serialN']").value;
       let cost = document.querySelector("input[name='cost']").value;
       let acquisition = document.querySelector("input[name='acquisition']").value;
-      let checkIn = document.querySelector("input[name='checkIn']").value;
-      let checkOut = document.querySelector("input[name='checkOut']").value;
+      let turnOver = document.querySelector("input[name='turnOver']").value;
+      let returned = document.querySelector("input[name='returned']").value;
       let station = document.querySelector("input[name='station']").value;
       let lastName = document.querySelector("input[name='lastName']").value;
       let firstName = document.querySelector("input[name='firstName']").value;
@@ -147,8 +147,8 @@
       let rank = document.querySelector("input[name='rank']").value;
 
 
-      if (Gtype !== "" && Gname !== "" && caliber !== "" && serialN !== "" && cost !== "" && acquisition !== "" && checkIn !== "" && checkOut !== "" && station !== "" && lastName !== "" && firstName !== "" && middleName !== "" && QLFR !== "" && rank !== "") {
-        let newDetails = `${Gtype} ${Gname} ${caliber} ${serialN} ${cost} ${acquisition} ${checkIn} ${checkOut} ${station} ${lastName} ${firstName} ${middleName} ${QLFR} ${rank}`;
+      if (Gtype !== "" && Gname !== "" && caliber !== "" && serialN !== "" && cost !== "" && acquisition !== "" && turnOver !== "" && returned !== "" && station !== "" && lastName !== "" && firstName !== "" && middleName !== "" && QLFR !== "" && rank !== "") {
+        let newDetails = `${Gtype} ${Gname} ${caliber} ${serialN} ${cost} ${acquisition} ${turnOver} ${returned} ${station} ${lastName} ${firstName} ${middleName} ${QLFR} ${rank}`;
 
         generateQRCode(newDetails);
 

@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 exports.getDTable = async function(req, res) {
     const data = await prisma.data.findMany();
     const datas = data.map((row) => {
-      const {id,Gtype, Gname, caliber, serialN, acquisition, checkIn, checkOut, cost, station, rank, lastName, firstName, middleName, QLFR, qrCode } = row;
+      const {id,Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR, qrCode } = row;
       
       return {
         id,
@@ -14,8 +14,8 @@ exports.getDTable = async function(req, res) {
         caliber,
         serialN,
         acquisition,
-        checkIn,
-        checkOut,
+        turnOver,
+        returned,
         cost,
         station,
         rank,
@@ -48,7 +48,7 @@ exports.deleteData = async function(req, res) {
         where: { id: id },
       });
 
-      res.redirect("/home"); // Redirect to the home page or any desired location
+      res.redirect("/DataTable"); // Redirect to the home page or any desired location
     }
  
 };

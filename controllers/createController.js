@@ -8,8 +8,8 @@ exports.getCreate = (req, res) => {
 
 
 exports.postCreate = async (req, res) => {
-  const { Gtype, Gname, caliber, serialN, acquisition, checkIn, checkOut, cost, station, rank, lastName, firstName, middleName, QLFR} = req.body;
-  const qrCodeData = await generateQRCode(`${Gtype} ${Gname} ${caliber} ${serialN} ${acquisition} ${checkIn} ${checkOut} ${cost} ${station} ${rank} ${lastName} ${firstName} ${middleName} ${QLFR}`);
+  const { Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR} = req.body;
+  const qrCodeData = await generateQRCode(`${Gtype} ${Gname} ${caliber} ${serialN} ${acquisition} ${turnOver} ${returned} ${cost} ${station} ${rank} ${lastName} ${firstName} ${middleName} ${QLFR}`);
 
   //validation
   if (
@@ -36,8 +36,8 @@ exports.postCreate = async (req, res) => {
         caliber,
         serialN,
         acquisition,
-        checkIn,
-        checkOut,
+        turnOver,
+        returned,
         cost: parseInt(cost),
         station,
         rank,

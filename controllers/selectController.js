@@ -14,8 +14,8 @@ exports.getSelect = async function (req, res) {
         caliber: true,
         serialN: true,
         acquisition: true,
-        checkIn: true,
-        checkOut: true,
+        turnOver: true,
+        returned: true,
         cost: true,
         station: true,
         rank: true,
@@ -30,9 +30,9 @@ exports.getSelect = async function (req, res) {
     if (!data) {
       res.status(404).send("Data not found");
     } else {
-      const { Gtype, Gname, caliber, serialN, acquisition, checkIn, checkOut, cost, station, rank, lastName, firstName, middleName, QLFR, qrCode} = data;
+      const { Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR, qrCode} = data;
 
-      res.render("select", { title: "Edit Data", data: { id, Gtype, Gname, caliber, serialN, acquisition, checkIn, checkOut, cost, station, rank, lastName, firstName, middleName, QLFR, qrCode} });
+      res.render("select", { title: "Edit Data", data: { id, Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR, qrCode} });
     }
   } catch (error) {
     console.error(error);
