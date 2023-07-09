@@ -5,182 +5,202 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Create</title>
 
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
-      </script>
-  <title>Creating</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+    crossorigin="anonymous"></script>
+  </script>
 
-<style>
-  body{
-    background-color: #0d6efd;
-  }
-</style>
-  
-<body>
-<%- include('./components/navbar') %>
 
-  
-<div class="container mt-5  ">
-  <div class="row d-flex justify-content-center align-items-center">
-      <div class="col-md-8  border border-white p-4 rounded bg-white" >
-        <form method="POST" action="/create">
-          <div class="form-row" >
-            
-            <% if (typeof ErrorMessage !== 'undefined') { %>
-              <p style="color: red;"><%= ErrorMessage %></p>
-            <% } else if (typeof SuccessMessage !== 'undefined') { %>
-              <p style="color: green;"><%= SuccessMessage %></p>
-            <% } %>
-            
-            <div class="form-group col-md-5">
-              <label for="inputEmail4">Gun Type</label>
-              <input type="text" class="form-control"  placeholder="Gun Type"  name="Gtype" autocomplete="Gtype" required min="4" pattern="^[A-Z][a-zA-Z]*$">
-            </div>
+<body >
 
-            <div class="form-group col-md-5">
-              <label for="inputEmail4">Gun Name</label>
-              <input type="text" class="form-control"  placeholder="Gun Name" name="Gname" autocomplete="Gname" required min="4" pattern="^[A-Z][a-zA-Z]*$">
-            </div>
+  <%- include('./components/header') %>
 
-            <div class="form-group col-md-5">
-              <label for="inputEmail4">Caliber</label>
-              <input type="text" class="form-control"  placeholder="Caliber" name="caliber" autocomplete="caliber" required min="4">
-            </div>
+    <div class="container">
 
-            <div class="form-group col-md-5">
-              <label for="inputEmail4">Serial Number</label>
-              <input type="text" class="form-control"  placeholder="Serial Number" name="serialN" autocomplete="serialN" required min="4">
-            </div>
+      <form method="POST" action="/create">
 
-            <div class="form-group col-md-5">
-              <label for="inputEmail4">Cost</label>
-              <input type="text" class="form-control"  placeholder="Cost" name="cost" autocomplete="cost" required min="4">
-            </div>
+        <h2 class="text-center mb-4 mt-5" >Gun Registration</h2>
+        <div class="row jumbotron shadow-lg p-3 mb-5 bg-body-tertiary rounded border">
 
-            <div class="form-group col-md-5">
-              <label for="inputEmail4">Acquisition date</label>
-              <input type="date" class="form-control"  name="acquisition" >
-            </div>
+          <% if (typeof ErrorMessage !=='undefined' ) { %>
+            <p style="color: red;">
+              <%= ErrorMessage %>
+            </p>
+            <% } else if (typeof SuccessMessage !=='undefined' ) { %>
+              <p style="color: green;">
+                <%= SuccessMessage %>
+              </p>
+              <% } %>
 
-            <div class="form-group col-md-5">
-              <label for="inputEmail4">Check-in</label>
-              <input type="date" class="form-control"  placeholder="Check-in" name="turnOver" autocomplete="turnOver" required min="4">
-            </div>
+                <div class="col-sm-4 form-group">
+                  <label for="inputEmail4">Last Name</label>
+                  <input type="text" class="form-control" placeholder="Enter your last name." id="lastName"
+                    name="lastName" autocomplete="LastName" required min="4" pattern="[a-zA-Z]+">
+                </div>
 
-            <div class="form-group col-md-5">
-              <label for="inputEmail4">Check-out</label>
-              <input type="date" class="form-control"  placeholder="Check-out" name="returned" autocomplete="returned" required min="4">
-            </div>
+                <div class="col-sm-4 form-group">
+                  <label for="inputPassword4">First Name</label>
+                  <input type="text" class="form-control" placeholder="Enter your first name." id="firstName"
+                    name="firstName" autocomplete="firstName" required min="4" pattern="[a-zA-Z]+">
+                </div>
 
-            <div class="form-group col-md-5">
-              <label for="inputEmail4">Station</label>
-              <input type="text" class="form-control"  placeholder="Station"  name="station" autocomplete="station" required min="4" pattern="^[A-Z][a-zA-Z]*$">
-            </div>
+                <div class="col-sm-4 form-group">
+                  <label for="inputPassword4">Middle Name</label>
+                  <input type="text" class="form-control" placeholder="Enter your middle name." id="middleName"
+                    name="middleName" autocomplete="middleName" required min="4" pattern="[a-zA-Z]+">
+                </div>
 
-            <div class="form-group col-md-5">
-              <label for="inputEmail4">Last Name</label>
-              <input type="text" class="form-control"  placeholder="Last Name" id="lastName" name="lastName" autocomplete="LastName" required min="4" pattern="[a-zA-Z]+">
-            </div>
+                <div class="col-sm-4 form-group">
+                  <label for="inputEmail4">Gun Type</label>
+                  <input type="text" class="form-control" placeholder="Enter gun type." name="Gtype" autocomplete="Gtype"
+                    required min="4" pattern="^[A-Z][a-zA-Z]*$">
+                </div>
 
-            <div class="form-group col-md-5">
-              <label for="inputPassword4">First Name</label>
-              <input type="text" class="form-control" placeholder="First Name" id="firstName" name="firstName" autocomplete="firstName" required min="4" pattern="[a-zA-Z]+">
-            </div>
-            
-            <div class="form-group col-md-5">
-              <label for="inputPassword4">Middle Name</label>
-              <input type="text" class="form-control" placeholder="Middle Name" id="middleName" name="middleName" autocomplete="middleName" required min="4" pattern="[a-zA-Z]+">
-            </div>
+                <div class="col-sm-4 form-group">
+                  <label for="inputEmail4">Gun Name</label>
+                  <input type="text" class="form-control" placeholder="Enter gun name." name="Gname" autocomplete="Gname"
+                    required min="4" pattern="^[A-Z][a-zA-Z]*$">
+                </div>
 
-            <div class="form-group col-md-5">
-              <label for="inputPassword4">QLFR</label>
-              <input type="text" class="form-control" placeholder="QLFR" id="QLFR" name="QLFR" autocomplete="QLFR" >
-            </div>
+                <div class="col-sm-4 form-group">
+                  <label for="inputEmail4">Serial Number</label>
+                  <input type="text" class="form-control" placeholder="Enter serial number" name="serialN"
+                    autocomplete="serialN" required min="4">
+                </div>
 
-            <div class="form-group col-md-2">
-              <label for="inputZip">Rank</label>
-              <input type="text" class="form-control" id="rank" name="rank">
-            </div>
-          </div>
+                <div class="col-sm-4 form-group">
+                  <label for="inputEmail4">Caliber</label>
+                  <input type="text" class="form-control" placeholder="Enter caliber" name="caliber" autocomplete="caliber"
+                    required min="4">
+                </div>
 
+                <div class="col-sm-4 form-group">
+                  <label for="inputEmail4">Station</label>
+                  <input type="text" class="form-control" placeholder="District/City" name="station" autocomplete="station"
+                    required min="4" pattern="^[A-Z][a-zA-Z]*$">
+                </div>
+
+
+                <div class="col-sm-4 form-group">
+                  <label for="inputEmail4">Cost</label>
+                  <input type="text" class="form-control" placeholder="Enter cost" name="cost" autocomplete="cost" required
+                    min="4">
+                </div>
+
+
+
+                <div class="col-sm-4 form-group">
+                  <label for="inputEmail4">Acquisition date</label>
+                  <input type="date" class="form-control" name="acquisition">
+                </div>
+
+                <div class="col-sm-4 form-group">
+                  <label for="inputEmail4">Check-in</label>
+                  <input type="date" class="form-control" placeholder="Check-in" name="checkIn" autocomplete="checkIn"
+                    required min="4">
+                </div>
+
+                <div class="col-sm-4 form-group">
+                  <label for="inputEmail4">Check-out</label>
+                  <input type="date" class="form-control" placeholder="Check-out" name="checkOut"
+                    autocomplete="checkOut" required min="4">
+                </div>
+
+
+
+
+                <div class="col-sm-4 form-group">
+                  <label for="inputPassword4">QLFR</label>
+                  <input type="text" class="form-control" placeholder="Enter QLFR" id="QLFR" name="QLFR" autocomplete="QLFR">
+                </div>
+
+                <div class="col-sm-4 form-group">
+                  <label for="inputZip">Rank</label>
+                  <input type="text" class="form-control" id="rank" name="rank" placeholder="Enter rank">
+                </div>
+        </div>
+
+
+
+        <div class="col-sm-12 form-group mb-0 text-center">
+          <button type="submit" id="submitBtn" class="btn btn-primary ">Submit</button>
+          <button type="reset" class="btn btn-danger ">Reset</button>
+
+        </div>
         
 
-          <div class="form-group">
-            <div class="form-check">
-              
-          </div>
-          <button type="submit" id="submitBtn" class="button btn btn-primary">Submit</button>
+      </form>
 
-        </form>
-      </div>
-  </div>
-</div>
+
+    </div>
 
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    let generateBtn = document.getElementById("generateBtn");
-    let confirmBtn = document.getElementById("confirmBtn");
-    let qrCodeContainer = document.querySelector(".qr-code-container");
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        let generateBtn = document.getElementById("generateBtn");
+        let confirmBtn = document.getElementById("confirmBtn");
+        let qrCodeContainer = document.querySelector(".qr-code-container");
 
-    generateBtn.addEventListener("click", async (event) => {
-      event.preventDefault();
+        generateBtn.addEventListener("click", async (event) => {
+          event.preventDefault();
 
-      let Gtype = document.querySelector("input[name='Gtype']").value;
-      let Gname = document.querySelector("input[name='Gname']").value;
-      let caliber = document.querySelector("input[name='caliber']").value;
-      let serialN = document.querySelector("input[name='serialN']").value;
-      let cost = document.querySelector("input[name='cost']").value;
-      let acquisition = document.querySelector("input[name='acquisition']").value;
-      let turnOver = document.querySelector("input[name='turnOver']").value;
-      let returned = document.querySelector("input[name='returned']").value;
-      let station = document.querySelector("input[name='station']").value;
-      let lastName = document.querySelector("input[name='lastName']").value;
-      let firstName = document.querySelector("input[name='firstName']").value;
-      let middleName = document.querySelector("input[name='middleName']").value;
-      let QLFR = document.querySelector("input[name='QLFR']").value;
-      let rank = document.querySelector("input[name='rank']").value;
+          let Gtype = document.querySelector("input[name='Gtype']").value;
+          let Gname = document.querySelector("input[name='Gname']").value;
+          let caliber = document.querySelector("input[name='caliber']").value;
+          let serialN = document.querySelector("input[name='serialN']").value;
+          let cost = document.querySelector("input[name='cost']").value;
+          let acquisition = document.querySelector("input[name='acquisition']").value;
+          let checkIn = document.querySelector("input[name='checkIn']").value;
+          let checkOut = document.querySelector("input[name='checkOut']").value;
+          let station = document.querySelector("input[name='station']").value;
+          let lastName = document.querySelector("input[name='lastName']").value;
+          let firstName = document.querySelector("input[name='firstName']").value;
+          let middleName = document.querySelector("input[name='middleName']").value;
+          let QLFR = document.querySelector("input[name='QLFR']").value;
+          let rank = document.querySelector("input[name='rank']").value;
 
 
-      if (Gtype !== "" && Gname !== "" && caliber !== "" && serialN !== "" && cost !== "" && acquisition !== "" && turnOver !== "" && returned !== "" && station !== "" && lastName !== "" && firstName !== "" && middleName !== "" && QLFR !== "" && rank !== "") {
-        let newDetails = `${Gtype} ${Gname} ${caliber} ${serialN} ${cost} ${acquisition} ${turnOver} ${returned} ${station} ${lastName} ${firstName} ${middleName} ${QLFR} ${rank}`;
+          if (Gtype !== "" && Gname !== "" && caliber !== "" && serialN !== "" && cost !== "" && acquisition !== "" && checkIn !== "" && checkOut !== "" && station !== "" && lastName !== "" && firstName !== "" && middleName !== "" && QLFR !== "" && rank !== "") {
+            let userDetails = `${Gtype} ${Gname} ${caliber} ${serialN} ${cost} ${acquisition} ${checkIn} ${checkOut} ${station} ${lastName} ${firstName} ${middleName} ${QLFR} ${rank}`;
 
-        generateQRCode(newDetails);
+            generateQRCode(userDetails);
 
-        generateBtn.style.display = "none";
-        confirmBtn.style.display = "block";
-      } else {
-        console.log("Invalid input");
-        qrCodeContainer.style.display = "none";
-      }
-    });
+            generateBtn.style.display = "none";
+            confirmBtn.style.display = "block";
+          } else {
+            console.log("Invalid input");
+            qrCodeContainer.style.display = "none";
+          }
+        });
 
-    confirmBtn.addEventListener("click", function(event) {
-      event.preventDefault();
-      document.getElementById("myForm").submit();
-    });
+        confirmBtn.addEventListener("click", function (event) {
+          event.preventDefault();
+          document.getElementById("myForm").submit();
+        });
 
-    async function generateQRCode(newDetails) {
-      qrCodeContainer.style.display = "";
-      var size = 220;
+        async function generateQRCode(userDetails) {
+          qrCodeContainer.style.display = "";
+          var size = 220;
 
-      var qrcode = new QRCode(qrCodeContainer, {
-        text: newDetails,
-        width: size,
-        height: size,
-        colorDark: "#3BA676",
-        colorLight: "#222",
-        correctLevel: QRCode.CorrectLevel.H,
+          var qrcode = new QRCode(qrCodeContainer, {
+            text: userDetails,
+            width: size,
+            height: size,
+            colorDark: "#3BA676",
+            colorLight: "#222",
+            correctLevel: QRCode.CorrectLevel.H,
+          });
+        }
       });
-    }
-  });
-</script>
-  
+    </script>
+
 
 </body>
 
