@@ -3,10 +3,20 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 exports.getDTable = async function(req, res) {
-    const data = await prisma.data.findMany();
-    const datas = data.map((row) => {
-      const {id,Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR, qrCode } = row;
-      
+  try {
+    const newData = await prisma.data.findMany({
+      orderBy: { id: 'desc' },
+      take: 1,
+    });
+
+    const oldData = await prisma.data.findMany({
+      orderBy: { id: 'asc' },
+      skip: 1,
+    });
+
+    const datas = [...newData, ...oldData].map((row) => {
+      const { id, Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR, qrCode } = row;
+
       return {
         id,
         Gtype,
@@ -24,11 +34,17 @@ exports.getDTable = async function(req, res) {
         middleName,
         QLFR,
         qrCode,
-         hasQRCode: qrCode !== null && qrCode !== "", 
+        hasQRCode: qrCode !== null && qrCode !== "",
       };
     });
-    res.render('dTable', { datas: datas, user: req.user  });
+
+    res.render('dTable', { datas, user: req.user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred while retrieving the data." });
+  }
 };
+
   
 
 
