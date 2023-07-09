@@ -1,8 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <%- include('./components/navbar') %>
   <title>Login</title>
+
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+  <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              darkb: '#287094 ',
+              darkerb: '#023246 ',
+              pnp: '#6587b0',
+            }
+          }
+        }
+      }
+    </script>
 </head>
 <body class="bg-pnp">
   <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block"></div>
@@ -26,9 +42,7 @@
                     <button type="submit" class="bg-darkb text-white uppercase font-semibold text-xs py-2 px-10 rounded-2xl hover:bg-darkerb"
                             > Login
                     </button>
-                    <a type="button" href="/register" class="bg-darkb text-white uppercase font-semibold text-xs py-2 ml-20 px-10 rounded-2xl hover:bg-darkerb"
-                    > Register
-                  </a>
+                  
                 </div>
               
             </form>

@@ -37,7 +37,7 @@ exports.login = async (req, res) => {
         if (cryptedPassword === encryptedPassword) {
           req.session.user = user;
           console.log(req.session.user);
-          res.redirect("/home"); // Redirect to the home page or any desired location);
+          res.redirect("/index"); // Redirect to the home page or any desired location);
         } else {
           res.render('login', { errorMessage: 'Incorrect Password!' });
         }
