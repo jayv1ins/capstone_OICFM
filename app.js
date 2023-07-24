@@ -20,10 +20,12 @@ app.use(session({
 }));
 
 //Details
+const dTableRoutes = require('./routes/dTable');
 const createRoutes = require('./routes/create');
 const editRoutes = require('./routes/edit');
 const selectRoutes = require('./routes/select');
 
+app.use('/', dTableRoutes);
 app.use('/', createRoutes);
 app.use('/', editRoutes);
 app.use('/', selectRoutes);
@@ -38,21 +40,19 @@ app.use('/', registerRoutes);
 app.use('/', logoutRoutes);
 
 //etc
-const dTableRoutes = require('./routes/dTable');
-const dashRoutes = require('./routes/data/dash');
-const dashboardRoutes = require('./routes/dashboard');
+const dashboardRoutes = require('./routes/analysis/dashboard');
 const indexRoutes = require('./routes/index');
 
-app.use('/', dTableRoutes);
-app.use('/', dashRoutes);
 app.use('/', dashboardRoutes);
 app.use('/', indexRoutes);
 
 
 //test
-const testRoutes = require('./routes/test');
+const testRoutes = require('./routes/analysis/test');
 
 app.use('/', testRoutes);
+
+
 //---------------------------------------------------------------------------------
 
 

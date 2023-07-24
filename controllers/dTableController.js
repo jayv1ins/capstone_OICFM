@@ -64,7 +64,7 @@ exports.deleteData = async function(req, res) {
         where: { id: id },
       });
 
-      res.redirect("/DataTable"); // Redirect to the home page or any desired location
+      res.redirect("/DataTable"); 
     }
  
 };

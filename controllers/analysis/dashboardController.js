@@ -31,7 +31,7 @@ exports.getDashboard = async function(req, res) {
 
     const firearms = await prisma.data.count();
 
-    res.render('dashboard', { countTurnedOver, countNotTurnedOver, firearms, daysLeft, hoursLeft, minutesLeft, secondsLeft });
+    res.render('analysis/dashboard', { countTurnedOver, countNotTurnedOver, firearms, daysLeft, hoursLeft, minutesLeft, secondsLeft });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "An error occurred while retrieving the data." });

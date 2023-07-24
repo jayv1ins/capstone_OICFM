@@ -14,7 +14,7 @@ exports.ViewTest = async (req, res) => {
 };
 
 exports.getTest = (req, res) => {
-  res.render('test');
+  res.render('analysis/test');
 };
 
 exports.postTest = async (req, res) => {
