@@ -3,7 +3,7 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 exports.index = (req, res) => {
-  res.render('login');
+  res.render('accounts/login');
 };
 
 exports.login = async (req, res) => {
@@ -39,10 +39,10 @@ exports.login = async (req, res) => {
           console.log(req.session.user);
           res.redirect("/index"); // Redirect to the home page or any desired location);
         } else {
-          res.render('login', { errorMessage: 'Incorrect Password!' });
+          res.render('accounts/login', { errorMessage: 'Incorrect Password!' });
         }
       } else {
-        res.render('login', { errorMessage: 'Email does not exist!' });
+        res.render('accounts/login', { errorMessage: 'Email does not exist!' });
       }
    
   }

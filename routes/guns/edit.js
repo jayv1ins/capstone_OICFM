@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const editController = require('../controllers/editController');
-const { isAuth } = require('../middlewares/isAuth');
-const { isAdmin } = require('../middlewares/isAdmin');
+const editController = require('../../controllers/guns/editController');
+const { isAuth } = require('../../middlewares/isAuth');
+const { isAdmin } = require('../../middlewares/isAdmin');
 
 router.get('/edit/:id',  editController.getEdit);
 router.post('/edit/:id', editController.updatedData);

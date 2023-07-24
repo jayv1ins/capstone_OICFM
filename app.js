@@ -19,11 +19,11 @@ app.use(session({
   saveUninitialized: true
 }));
 
-//Details
-const dTableRoutes = require('./routes/dTable');
-const createRoutes = require('./routes/create');
-const editRoutes = require('./routes/edit');
-const selectRoutes = require('./routes/select');
+//Guns
+const dTableRoutes = require('./routes/guns/dTable');
+const createRoutes = require('./routes/guns/create');
+const editRoutes = require('./routes/guns/edit');
+const selectRoutes = require('./routes/guns/select');
 
 app.use('/', dTableRoutes);
 app.use('/', createRoutes);
@@ -31,9 +31,9 @@ app.use('/', editRoutes);
 app.use('/', selectRoutes);
 
 //Account
-const loginRoutes = require('./routes/login');
-const registerRoutes = require('./routes/register');
-const logoutRoutes = require('./routes/logout');
+const loginRoutes = require('./routes/accounts/login');
+const registerRoutes = require('./routes/accounts/register');
+const logoutRoutes = require('./routes/accounts/logout');
 
 app.use('/', loginRoutes);
 app.use('/', registerRoutes);

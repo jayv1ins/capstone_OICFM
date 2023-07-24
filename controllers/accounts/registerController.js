@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 
 exports.index = (req, res) => {
-  res.render('register', { message: null });
+  res.render('accounts/register', { message: null });
 };
 
 exports.register = async (req, res) => {
@@ -28,7 +28,7 @@ exports.register = async (req, res) => {
   });
   if (existingUser) {
     const message = existingUser.email === email ? 'Email already taken' : 'Username already taken';
-    return res.render('register', { message });
+    return res.render('accounts/register', { message });
   }
 
   const shift = Math.floor(Math.random() * 25) + 1;
@@ -59,5 +59,5 @@ exports.register = async (req, res) => {
   req.session.user = user;
   console.log(req.session.user);
   // res.render('/home', { message: 'User successfully registered' });
-  res.redirect("/home");
+  res.redirect("/index");
 };
