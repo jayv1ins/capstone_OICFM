@@ -1,8 +1,8 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const DataModel = prisma.data;
 
 exports.getDashboard = async function(req, res) {
+  
   try {
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
@@ -15,6 +15,8 @@ exports.getDashboard = async function(req, res) {
     const minutesLeft = Math.floor((timeLeft % (1000 * 3600)) / (1000 * 60));
     const secondsLeft = Math.floor((timeLeft % (1000 * 60)) / 1000);
     
+
+
     const countTurnedOver = await prisma.data.count({
       where: {
         turnOver: '2023-6-30',

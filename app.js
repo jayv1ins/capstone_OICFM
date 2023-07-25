@@ -34,10 +34,18 @@ app.use('/', selectRoutes);
 const loginRoutes = require('./routes/accounts/login');
 const registerRoutes = require('./routes/accounts/register');
 const logoutRoutes = require('./routes/accounts/logout');
+//Admin
+const aCreateRoutes = require('./routes/accounts/admin/create');
+const aTableRoutes = require('./routes/accounts/admin/Table');
+const aEditRoutes = require('./routes/accounts/admin/edit');
 
 app.use('/', loginRoutes);
 app.use('/', registerRoutes);
 app.use('/', logoutRoutes);
+//Admin
+app.use('/', aCreateRoutes);
+app.use('/', aTableRoutes);
+app.use('/', aEditRoutes);
 
 //etc
 const dashboardRoutes = require('./routes/analysis/dashboard');

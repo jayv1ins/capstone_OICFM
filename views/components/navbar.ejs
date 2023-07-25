@@ -37,16 +37,26 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav m-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" id="home-link" aria-current="page" href="../index">Home</a>
+            <a class="nav-link" id="home-link" aria-current="page" href="/index">Home</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" id="admin-table-link" href="/admin/table">User Table</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" id="admin-create-link" href="/admin/create">Create New Manager</a>
+          </li>
+
+
+          <li class="nav-item">
+            <a class="nav-link" id="dashboard-link" href="/dashboard">Dashboard</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="dashboard-link" href="../dashboard">Dashboard</a>
+            <a class="nav-link" id="datatable-link" href="/DataTable">Data Table</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="datatable-link" href="../DataTable">Data Table</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="create-link" href="../create">Create</a>
+            <a class="nav-link" id="create-link" href="/create">Create</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" id="scanner-link" href="#">Scanner</a>
@@ -67,8 +77,13 @@
     // Add "active" class to the corresponding navigation item based on the current page
     if (currentPage.includes("index")) {
       document.getElementById("home-link").classList.add("active");
+
     } else if (currentPage.includes("dashboard")) {
       document.getElementById("dashboard-link").classList.add("active");
+    } else if (currentPage.includes("admin/create")) {
+      document.getElementById("admin-create-link").classList.add("active");
+    } else if (currentPage.includes("admin/table")) {
+      document.getElementById("admin-table-link").classList.add("active");
     } else if (currentPage.includes("DataTable")) {
       document.getElementById("datatable-link").classList.add("active");
     } else if (currentPage.includes("create")) {

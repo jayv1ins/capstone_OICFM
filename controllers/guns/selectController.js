@@ -32,7 +32,7 @@ exports.getSelect = async function (req, res) {
     } else {
       const { Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR, qrCode} = data;
 
-      res.render("select", { title: "Edit Data", data: { id, Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR, qrCode} });
+      res.render("guns/select", { title: "Edit Data", data: { id, Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR, qrCode} });
     }
   } catch (error) {
     console.error(error);

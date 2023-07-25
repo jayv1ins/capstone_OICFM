@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+    crossorigin="anonymous"></script>
+  </script>
+  <style>
+    .input-group {
+      position: relative;
+    }
+  
+    .input-group-text {
+      cursor: pointer;
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  </style>
+  
+</head>
+<body >
+
+  <%- include('./../../components/navbar') %>
+
+
+    <div class="container">
+
+      <form method="POST" action="/admin/create">
+
+        <h2 class="text-center mb-4 mt-5" >Gun Registration</h2>
+        <div class="row jumbotron shadow-lg p-3 mb-5 bg-body-tertiary rounded border">
+
+          <% if (typeof ErrorMessage !=='undefined' ) { %>
+            <p style="color: red;">
+              <%= ErrorMessage %>
+            </p>
+            <% } else if (typeof SuccessMessage !=='undefined' ) { %>
+              <p style="color: green;">
+                <%= SuccessMessage %>
+              </p>
+              <% } %>
+
+                <div class="col-sm-4 form-group">
+                  <label for="inputEmail4">Last Name</label>
+                  <input type="text" class="form-control" placeholder="Enter your last name." id="lastName"
+                    name="lastName" autocomplete="LastName" required min="4" pattern="[a-zA-Z]+">
+                </div>
+
+                <div class="col-sm-4 form-group">
+                  <label for="inputPassword4">First Name</label>
+                  <input type="text" class="form-control" placeholder="Enter your first name." id="firstName"
+                    name="firstName" autocomplete="firstName" required min="4" pattern="[a-zA-Z]+">
+                </div>
+
+                <div class="col-sm-4 form-group">
+                  <label for="inputPassword4">Middle Name</label>
+                  <input type="text" class="form-control" placeholder="Enter your middle name." id="middleName"
+                    name="middleName" autocomplete="middleName" required min="4" pattern="[a-zA-Z]+">
+                </div>
+
+                <div class="col-sm-4 form-group">
+                  <label for="inputPassword4">QLFR</label>
+                  <input type="text" class="form-control" placeholder="Enter QLFR" id="QLFR" name="QLFR" autocomplete="QLFR">
+                </div>
+
+
+                <div class="col-sm-4 form-group">
+                  <label for="inputEmail4">Police ID Number</label>
+                  <input type="text" class="form-control" placeholder="Enter Police ID Number" name="policeId"
+                    autocomplete="serialN" required min="4">
+                </div>
+
+          
+                <div class="col-sm-4 form-group">
+                  <label for="inputEmail4">Station</label>
+                  <input type="text" class="form-control" placeholder="District/City" name="station" autocomplete="station"
+                    required min="4" pattern="^[A-Z][a-zA-Z]*$">
+                </div>
+
+               
+                <div class="col-sm-4 form-group">
+                  <label for="inputZip">Rank</label>
+                  <input type="text" class="form-control" id="rank" name="rank" placeholder="Enter rank">
+                </div>
+
+                <div class="col-sm-4 form-group">
+                  <label for="inputZip">Password</label>
+                  <div class="input-group">
+                    <input type="password" class="form-control" id="password" name="password">
+                    <div class="input-group-append">
+                      <span class="input-group-text">
+                        <i class="fas fa-eye" id="togglePassword" onclick="togglePasswordVisibility()"></i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-4 form-group">
+                  <label for="inputZip">User Type</label>
+                  <input type="text" class="form-control" id="usertype" name="usertype" placeholder="Enter usertype">
+                </div>
+        </div>
+
+
+        <div class="col-sm-12 form-group mb-0 text-center">
+          <button type="submit" id="submitBtn" class="btn btn-primary ">Submit</button>
+          <button type="reset" class="btn btn-danger ">Reset</button>
+
+        </div>
+        
+
+      </form>
+
+
+    </div>
+
+
+    <script>
+      function togglePasswordVisibility() {
+        var passwordInput = document.getElementById("password");
+        var togglePasswordIcon = document.getElementById("togglePassword");
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          togglePasswordIcon.classList.remove("fa-eye");
+          togglePasswordIcon.classList.add("fa-eye-slash");
+        } else {
+          passwordInput.type = "password";
+          togglePasswordIcon.classList.remove("fa-eye-slash");
+          togglePasswordIcon.classList.add("fa-eye");
+        }
+      }
+    </script>
+    
+    
+   
+
+</body>
+
+</html>

@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 const qrcode = require('qrcode');
 
 exports.getCreate = (req, res) => {
-  res.render('create');
+  res.render('guns/create');
 };
 
 
@@ -17,7 +17,7 @@ exports.postCreate = async (req, res) => {
     firstName.length < 3 ||
     middleName.length < 3 
   ) {
-    return res.render('create', { ErrorMessage: 'Names should be more than 3 characters long' });
+    return res.render('guns/create', { ErrorMessage: 'Names should be more than 3 characters long' });
   }
 
   if (
@@ -25,7 +25,7 @@ exports.postCreate = async (req, res) => {
     !firstName.match(/^[A-Za-z\u4E00-\u9FFF]+$/) ||
     !middleName.match(/^[A-Za-z\u4E00-\u9FFF]+$/)
   ) {
-    return res.render('create', { ErrorMessage: 'Only alphabetic or logographic characters' });
+    return res.render('guns/create', { ErrorMessage: 'Only alphabetic or logographic characters' });
   }
 
   try {
