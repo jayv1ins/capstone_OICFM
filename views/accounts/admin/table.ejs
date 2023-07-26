@@ -3,7 +3,20 @@
   <%- include('../../components/navbar') %>
 
 </header>
-
+<center>
+  
+  <form action="/admin/table" method="GET" onsubmit="handleFilterSubmit(event)">
+    <label for="searchQuery">Search:</label>
+    <input type="text" id="searchQuery" name="search" list="searchSuggestions" placeholder="Enter name" <% if (searchQuery) { %>value="<%- searchQuery %>"<% } %>>
+    <datalist id="searchSuggestions">
+      <% suggestions.forEach(function(suggestion) { %>
+        <option value="<%- suggestion %>">
+      <% }); %>
+    </datalist>
+  </form>
+  
+  
+</center>
 
 <body>
   <div class="container table-responsive py-5"> 
@@ -20,7 +33,7 @@
       </thead>  
       <tbody>
         <% if (datas.length > 0) { %>
-          <% let counter = (page - 1) * itemsPerPage + 1; %>
+          <% let counter = (page - 1) * limit + 1; %>
           <% datas.forEach(function(data) { %>
             <tr>
               <td><%= counter %></td>
@@ -49,7 +62,7 @@
     <div class="flex justify-between items-center mt-5">
       <div>
         <span class="text-sm text-gray-700">
-          Showing <%= (page - 1) * itemsPerPage + 1 %>-<%= Math.min(page * itemsPerPage, totalRecords) %> of <%= totalRecords %>
+          Showing <%= (page - 1) * limit + 1 %>-<%= Math.min(page * limit, totalRecords) %> of <%= totalRecords %>
         </span>
       </div>
       <div>

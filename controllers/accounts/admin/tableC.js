@@ -4,20 +4,54 @@ const prisma = new PrismaClient();
 
 exports.getDTable = async function(req, res) {
   try {
+    // the request query options
+    const searchQuery = req.query.search || '';
+
     //pagination
     const page = parseInt(req.query.page) || 1;
-    const itemsPerPage = 10;
-    const offset = (page - 1) * itemsPerPage;
+    const limit = 10;
+    const offset = (page - 1) * limit;
 
-    const newData = await prisma.userTest.findMany({
+    const queryOptions = {
+      where: {},
       orderBy: { id: 'desc' },
       skip: offset,
-      take: itemsPerPage,
-      
-    });
+      take: limit,
+    };
 
+     // The search filtering query 
+     if (searchQuery) {
+      queryOptions.where.OR = [
+        { firstName: { contains: searchQuery, mode: 'insensitive' } },
+        { lastName: { contains: searchQuery, mode: 'insensitive' } },
+        { middleName: { contains: searchQuery, mode: 'insensitive' } },
+      ];
+    }
+
+    // Retrieve data and suggestions from the database with/without queryOptions
+    const [newData, suggestionsData] = await Promise.all([
+      prisma.userTest.findMany(queryOptions),
+      prisma.userTest.findMany({
+        where: queryOptions.where,
+        select: {
+          firstName: true,
+          lastName: true,
+          middleName: true,
+        },
+        distinct: ['firstName', 'lastName', 'middleName'], // Ensure unique suggestions
+      }),
+    ]);
+
+    // Extract the suggestion strings from the query result
+    const suggestionStrings = suggestionsData.flatMap((suggestion) => [
+      `${suggestion.lastName}, ${suggestion.firstName} ${suggestion.middleName}`,
+    ]);
+    const suggestions = [...new Set(suggestionStrings)];
+    
+
+    // Implement the pagination
     const totalRecords = await prisma.userTest.count();
-    const totalPages = Math.ceil(totalRecords / itemsPerPage);
+    const totalPages = Math.ceil(totalRecords / limit);
 
     const datas = newData.map((row) => {
       const { id, rank, lastName, firstName, middleName, QLFR, policeId, station } = row;
@@ -34,7 +68,7 @@ exports.getDTable = async function(req, res) {
       };
     });
 
-    res.render('accounts/admin/table', { datas, totalPages, page, itemsPerPage, totalRecords, user: req.user });
+    res.render('accounts/admin/table', { datas, totalPages, page, limit, totalRecords, user: req.user, searchQuery, suggestions });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "An error occurred while retrieving the data." });
