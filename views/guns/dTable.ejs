@@ -26,7 +26,26 @@
     </datalist>
   </form>
   
-  
+  <h1>Gun Type</h1>
+  <form action="/DataTable" method="GET" onsubmit="handleFilterSubmit(event)">
+    <div>
+      <% checkbGunTypes.forEach(function(gunType) { %>
+        <input type="checkbox" id="<%- gunType %>" name="Gtype" value="<%- gunType %>" <% if (gunTypes.includes(gunType)) { %>checked<% } %>>
+        <label for="<%- gunType %>"><%- gunType %></label><br>
+      <% }); %>
+    </div>
+
+  <h1>Gun Name</h1>
+  <div>
+    <% checkbGunNames.forEach(function(gunName) { %>
+      <input type="checkbox" id="<%- gunName %>" name="Gname" value="<%- gunName %>" <% if (gunNames.includes(gunName)) { %>checked<% } %>>
+      <label for="<% gunName %>"> <%- gunName %> </label><br>
+    <% }); %>
+  </div>
+  <button type="submit">Filter</button>
+  <button type="reset">Reset</button>
+</form>
+
 </center>
 <body>
   <div class="container table-responsive py-5"> 
