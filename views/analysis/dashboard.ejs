@@ -1,59 +1,14 @@
-<!DOCTYPE html>
 <html>
-
-<head>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <%- include('../components/navbar') %>
-    <title>Data Analytics</title>
-</head>
-
-<style>
-  * {
-    box-sizing: border-box;
-  }
-
-  .row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  
-  }
-
-  .column {
-    flex: 50%;
-    padding: 10px;
-    max-width: 100%;
-   
-  }
-
-  iframe {
-    width: 100%;
-    height: 440px;
-    max-width: 840px;
-   
-  }
-
-  .myChart {
-    width: 100%;
-    height: 50%;
-    max-height: 500px;
-    max-width: 840px;
-   background-color: white;
-  }
-
-
-</style>
-
-
-<body class="bg-pnp">
-
-  <div class="main">
-    <div class="title"
-      style="background-color: #0a15ab; color: white; font-size: 32px; text-align: left; padding: 20px;">
-      <h1>Data Analytics</h1>
-    </div>
+  <script src="https://unpkg.com/@mongodb-js/charts-embed-dom"></script>
+  <style>
+    .chart-container {
+      max-width: 600px;
+      max-height: 600px;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+  <body>
     <h1>Select Date Range for Acquisition</h1>
     <form onsubmit="handleFilterSubmit(event)">
       <label for="startDate">Start Date:</label>
@@ -61,162 +16,77 @@
     
       <label for="endDate">End Date:</label>
       <input type="date" id="endDate" name="endDate" required>
-    
+  
       <button type="submit">Submit</button>
+      <button type="reset">Reset</button>
     </form>
-    
-    <div class="chart-container" style="background: #0a15ab; padding: 20px;">
-      <div class="row">
-        <div class="column">
-          <h2 class="chart-title" style="color: white;">Total Number of Firearms</h2>
-          <iframe
-            style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);"
-            src="https://charts.mongodb.com/charts-project-0-omorz/embed/charts?id=6492abe4-74f2-4905-805e-f685c6754286&maxDataAge=3600&theme=light&autoRefresh=true&acquisition=^2018-"></iframe>
-        </div>
-
-        <div class="column">
-          <h2 class="chart-title" style="color: white;">Total Cost of Firearms</h2>
-          <iframe
-            style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);"
-            src="https://charts.mongodb.com/charts-project-0-omorz/embed/charts?id=64994e7e-6f89-4b9b-8926-e4595ee18be1&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
-        </div>
-      </div>
-
-
-      <div class="row">
-        <div class="column">
-          <h2 class="chart-title" style="color: white;">Rank Analysis Firearm Acquisition</h2>
-          <iframe
-            style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);"
-            src="https://charts.mongodb.com/charts-project-0-omorz/embed/charts?id=6492afa8-e63f-4b36-8007-0f06bc0fceb5&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
-        </div>
-
-        <div class="column">
-          <h2 class="chart-title" style="color: white;">Station Analysis</h2>
-          <iframe
-            style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);"
-            src="https://charts.mongodb.com/charts-project-0-omorz/embed/charts?id=6492af4a-7081-435a-88d2-cbf173aa2add&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
-        </div>
-
-        Expand All
-        @@ -73,24 +74,64 @@
-
-        <div class="row">
-          <div class="column">
-            <h2 class="chart-title" style="color: white;">Gun Type Analysis</h2>
-            <iframe
-              style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);"
-              src="https://charts.mongodb.com/charts-project-0-omorz/embed/charts?id=64a4e114-bfd6-4c5c-82e1-aed10e4d8504&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
-          </div>
-
-          <div class="column">
-            <h2 class="chart-title" style="color: white;">Firearm Acquisition by Caliber</h2>
-            <iframe
-              style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);"
-              src="https://charts.mongodb.com/charts-project-0-omorz/embed/charts?id=6499393e-5d6e-4d4b-80e6-5c0004764687&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
-          </div>
-
-        </div>
-
-
-        <div class="row">
-          <div class="column">
-            <h2 class="chart-title" style="color: white;">QR Code Status</h2>
-            <iframe
-              style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);"
-              
-              src="https://charts.mongodb.com/charts-project-0-omorz/embed/charts?id=64a75be6-7fe0-4990-8c22-994ad4f608cf&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
-          </div>
-
-          <div class="column">
-            <h2 class="chart-title" style="color: white;">Date Issuance Monitoring</h2>
-            <iframe
-              style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);"
-              src="https://charts.mongodb.com/charts-project-0-omorz/embed/charts?id=64a7c276-7fe0-4399-846c-994ad42930fa&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
-          </div>
-
-        </div>
-
-
-        <div class="row">
-          <div class="column">
-            <h2 class="chart-title" style="color: white;">Rank and Gun Type Analysis</h2>
-            <iframe
-              style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);"
-              src="https://charts.mongodb.com/charts-project-0-omorz/embed/charts?id=64aa7bf4-2925-478c-8eff-15cc0ae2b5da&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
-          </div>
-
-          <div class="column">
-            <h2 class="chart-title" style="color: white;">Gun Type by Rank</h2>
-            <iframe
-              style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);"
-              src="https://charts.mongodb.com/charts-project-0-omorz/embed/charts?id=64aa808f-904b-4bad-810f-87a9d4d94c75&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
-          </div>
-
-        </div>
-
-
-        <div class="row">
-          <div class="column">
-            <h2 class="chart-title" style="color: white;">Rank and Gun Type Analysis</h2>
-            <iframe
-              style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);"
-              src="https://charts.mongodb.com/charts-project-0-omorz/embed/charts?id=64aa77c2-c709-44ca-809a-73a5bd6426e9&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
-          </div>
-
-          <div class="column">
-            <h2 class="chart-title" style="color: white;">Gun Type by Rank</h2>
-            <iframe
-              style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);"
-              src="https://charts.mongodb.com/charts-project-0-omorz/embed/charts?id=64a7c613-c709-43c3-8b0f-73a5bdd4f530&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
-          </div>
-
-        </div>
-
-
-        <div class="row">
-          <div class="column">
-            <h2 class="chart-title" style="color: white;">Rank and Gun Type Analysis</h2>
-            <iframe style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" src="https://charts.mongodb.com/charts-project-0-omorz/embed/charts?id=649937ab-6ccc-47e8-8431-13e80f87ab31&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
-          </div>
-
-          <div class="column">
-            <h2 class="chart-title" style="color: white;">Gun Type by Rank</h2>
-            <iframe style="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" src="https://charts.mongodb.com/charts-project-0-omorz/embed/charts?id=64aa6838-5bfe-4e8d-82ec-be414ef2ae74&maxDataAge=3600&theme=light&autoRefresh=true"></iframe>
-          </div>
-
-        </div>
-        
-        
-
+    <div class="chart-container">
+      <div id="chart1" class="chart"></div>
+      <div id="chart2" class="chart"></div>
+      <div id="chart3"></div>
+      <div id="chart4"></div>
+      <div id="chart5"></div>
+      <div id="chart6"></div>
+      <div id="chart7"></div>
+      <div id="chart8"></div>
+      <div id="chart9"></div>
+      <div id="chart10"></div>
+      <div id="chart11"></div>
+      <div id="chart12"></div>
+      <div id="chart13"></div>
+      <div id="chart14"></div>
     </div>
-    <h1 class="white"></h1>
+   
+  </body>
 
+  <script>
+    const ChartsEmbedSDK = window.ChartsEmbedSDK;
 
-    <script>
-      function handleFilterSubmit(event) {
-        event.preventDefault(); // Prevent form submission (default behavior)
-    
-        const startDate = document.getElementById("startDate").value;
-        const endDate = document.getElementById("endDate").value;
-    
-        // Make AJAX request to your API endpoint
-        const url = `/api/filterData?startDate=${startDate}&endDate=${endDate}`;
-        fetch(url)
-          .then(response => response.json())
-          .then(data => {
-            // Handle the retrieved data here and update your charts with the filtered data
-            console.log(data); // You can log the data to see what you receive from the API
-            // Update your charts based on the filtered data
-          })
-          .catch(error => {
-            console.error("Error fetching data:", error);
+    const sdk = new ChartsEmbedSDK({
+      baseUrl: "https://charts.mongodb.com/charts-project-0-omorz",
+    });
+
+    const chartIds = [
+    "6492abe4-74f2-4905-805e-f685c6754286",
+      "64994e7e-6f89-4b9b-8926-e4595ee18be1",
+      "6492afa8-e63f-4b36-8007-0f06bc0fceb5",
+      "6492af4a-7081-435a-88d2-cbf173aa2add",
+      "64a4e114-bfd6-4c5c-82e1-aed10e4d8504",
+      "6499393e-5d6e-4d4b-80e6-5c0004764687",
+      "649937ab-6ccc-47e8-8431-13e80f87ab31",
+      "64a7c613-c709-43c3-8b0f-73a5bdd4f530",
+      "64a75be6-7fe0-4990-8c22-994ad4f608cf",
+      "64a7c276-7fe0-4399-846c-994ad42930fa",
+      "64aa6838-5bfe-4e8d-82ec-be414ef2ae74",
+      "64aa77c2-c709-44ca-809a-73a5bd6426e9",
+      "64aa7bf4-2925-478c-8eff-15cc0ae2b5da",
+      "64aa808f-904b-4bad-810f-87a9d4d94c75",
+    ];
+
+    const charts = chartIds.map(chartId => sdk.createChart({ chartId }));
+
+    charts.forEach((chart, index) => {
+      chart.render(document.getElementById(`chart${index + 1}`));
+    });
+
+    function handleFilterSubmit(event) {
+      event.preventDefault();
+      const startDate = document.getElementById("startDate").value;
+      const endDate = document.getElementById("endDate").value;
+      
+      if (startDate && endDate) {
+        charts.forEach(chart => {
+          chart.setFilter({ 
+            $and: [
+              { acquisition: { $gte: startDate } },
+              { acquisition: { $lte: endDate } }
+            ]
           });
+        });
+      } else {
+        // If either start date or end date is not selected, remove the filter
+        charts.forEach(chart => chart.setFilter({}));
       }
-    </script>
-    
-    
-
-</body>
-
+    }
+  </script>
 </html>
