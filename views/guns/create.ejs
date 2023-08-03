@@ -56,6 +56,22 @@
                 </div>
 
                 <div class="col-sm-4 form-group">
+                  <label for="inputPassword4">QLFR</label>
+                  <input type="text" class="form-control" placeholder="Enter QLFR" id="QLFR" name="QLFR" autocomplete="QLFR">
+                </div>
+
+                <div class="col-sm-4 form-group">
+                  <label for="inputZip">Rank</label>
+                  <input type="text" class="form-control" id="rank" name="rank" placeholder="Enter rank">
+                </div>
+
+                <div class="col-sm-4 form-group">
+                  <label for="inputEmail4">Station</label>
+                  <input type="text" class="form-control" placeholder="District/City" name="station" autocomplete="station"
+                    required min="4" pattern="^[A-Z][a-zA-Z]*$">
+                </div>
+
+                <div class="col-sm-4 form-group">
                   <label for="inputEmail4">Gun Type</label>
                   <input type="text" class="form-control" placeholder="Enter gun type." name="Gtype" autocomplete="Gtype"
                     required min="4" pattern="^[A-Z][a-zA-Z]*$">
@@ -68,22 +84,18 @@
                 </div>
 
                 <div class="col-sm-4 form-group">
-                  <label for="inputEmail4">Serial Number</label>
-                  <input type="text" class="form-control" placeholder="Enter serial number" name="serialN"
-                    autocomplete="serialN" required min="4">
-                </div>
-
-                <div class="col-sm-4 form-group">
                   <label for="inputEmail4">Caliber</label>
                   <input type="text" class="form-control" placeholder="Enter caliber" name="caliber" autocomplete="caliber"
                     required min="4">
                 </div>
 
                 <div class="col-sm-4 form-group">
-                  <label for="inputEmail4">Station</label>
-                  <input type="text" class="form-control" placeholder="District/City" name="station" autocomplete="station"
-                    required min="4" pattern="^[A-Z][a-zA-Z]*$">
+                  <label for="inputEmail4">Serial Number</label>
+                  <input type="text" class="form-control" placeholder="Enter serial number" name="serialN"
+                    autocomplete="serialN" required min="4">
                 </div>
+
+               
 
 
                 <div class="col-sm-4 form-group">
@@ -114,15 +126,7 @@
 
 
 
-                <div class="col-sm-4 form-group">
-                  <label for="inputPassword4">QLFR</label>
-                  <input type="text" class="form-control" placeholder="Enter QLFR" id="QLFR" name="QLFR" autocomplete="QLFR">
-                </div>
-
-                <div class="col-sm-4 form-group">
-                  <label for="inputZip">Rank</label>
-                  <input type="text" class="form-control" id="rank" name="rank" placeholder="Enter rank">
-                </div>
+               
         </div>
 
 
@@ -150,25 +154,25 @@
 
         generateBtn.addEventListener("click", async (event) => {
           event.preventDefault();
-
+          let lastName = document.querySelector("input[name='lastName']").value;
+          let firstName = document.querySelector("input[name='firstName']").value;
+          let middleName = document.querySelector("input[name='middleName']").value;
+          let QLFR = document.querySelector("input[name='QLFR']").value;
+          let rank = document.querySelector("input[name='rank']").value;
+          let station = document.querySelector("input[name='station']").value;
           let Gtype = document.querySelector("input[name='Gtype']").value;
           let Gname = document.querySelector("input[name='Gname']").value;
           let caliber = document.querySelector("input[name='caliber']").value;
           let serialN = document.querySelector("input[name='serialN']").value;
           let cost = document.querySelector("input[name='cost']").value;
           let acquisition = document.querySelector("input[name='acquisition']").value;
-          let checkIn = document.querySelector("input[name='checkIn']").value;
-          let checkOut = document.querySelector("input[name='checkOut']").value;
-          let station = document.querySelector("input[name='station']").value;
-          let lastName = document.querySelector("input[name='lastName']").value;
-          let firstName = document.querySelector("input[name='firstName']").value;
-          let middleName = document.querySelector("input[name='middleName']").value;
-          let QLFR = document.querySelector("input[name='QLFR']").value;
-          let rank = document.querySelector("input[name='rank']").value;
+          let turnOver = document.querySelector("input[name='turnOver']").value;
+          let returned = document.querySelector("input[name='returned']").value;
+      
 
 
-          if (Gtype !== "" && Gname !== "" && caliber !== "" && serialN !== "" && cost !== "" && acquisition !== "" && checkIn !== "" && checkOut !== "" && station !== "" && lastName !== "" && firstName !== "" && middleName !== "" && QLFR !== "" && rank !== "") {
-            let userDetails = `${Gtype} ${Gname} ${caliber} ${serialN} ${cost} ${acquisition} ${checkIn} ${checkOut} ${station} ${lastName} ${firstName} ${middleName} ${QLFR} ${rank}`;
+          if (lastName !== "" && firstName !== "" && middleName !== "" && QLFR !== "" && rank !== "" && station !== "" && Gtype !== "" && Gname !== "" && caliber !== "" && serialN !== "" && cost !== "" && acquisition !== "" && turnOver !== "" && returned !== "") {
+            let userDetails = ` ${lastName} ${firstName} ${middleName} ${QLFR} ${rank} ${station} ${Gtype} ${Gname} ${caliber} ${serialN} ${cost} ${acquisition} ${turnOver} ${returned}`;
 
             generateQRCode(userDetails);
 

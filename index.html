@@ -1,52 +1,138 @@
+<!DOCTYPE html>
 <html>
-  <script src="https://unpkg.com/@mongodb-js/charts-embed-dom"></script>
+<head>
+  <title>QR Code Scanner</title>
+  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.4/html5-qrcode.min.js" integrity="sha512-k/KAe4Yff9EUdYI5/IAHlwUswqeipP+Cp5qnrsUjTPCgl51La2/JhyyjNciztD7mWNKLSXci48m7cctATKfLlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <style>
-  
-  </style>
-  <body>
-    <h1>Select Date Range for Acquisition</h1>
-    <form onsubmit="handleFilterSubmit(event)">
-      <label for="startDate">Start Date:</label>
-      <input type="date" id="startDate" name="startDate" required>
-    
-      <label for="endDate">End Date:</label>
-      <input type="date" id="endDate" name="endDate" required>
-  
-      <button type="submit">Submit</button>
-      <button type="reset">Reset</button>
-    </form>
-    <div id="dashboard-container"></div>
-  </body>
-
-  <script>
-    const ChartsEmbedSDK = window.ChartsEmbedSDK;
-
-    const sdk = new ChartsEmbedSDK({
-      baseUrl: "https://charts.mongodb.com/charts-project-0-omorz",
-    });
-
-    const dashboard = sdk.createDashboard({
-      dashboardId: "9e31c7ce-8d96-442f-bec2-cf8cf2a517e6"
-    });
-
-    dashboard.render(document.getElementById("dashboard-container"));
-
-    function handleFilterSubmit(event) {
-      event.preventDefault();
-      const startDate = document.getElementById("startDate").value;
-      const endDate = document.getElementById("endDate").value;
-      
-      if (startDate && endDate) {
-        dashboard.setFilter({ 
-          $and: [
-            { acquisition: { $gte: startDate } },
-            { acquisition: { $lte: endDate } }
-          ]
-        });
-      } else {
-        // If either start date or end date is not selected, remove the filter
-        dashboard.setFilter({});
-      }
+    .result {
+      background-color: green;
+      color: #fff;
+      padding: 20px;
     }
+    .row {
+      display: flex;
+    }
+    .result-group {
+      display: none;
+    }
+    .result-group.show {
+      display: block;
+    }
+    </style>
+</head>
+<body>
+  <div class="row">
+    <div class="col">
+      <div style="width: 600px;" id="reader"></div>
+    </div>
+    <div class="col" style="padding: 30px;">
+      <h4>SCAN RESULT</h4>
+      <form id="result-form" class="result-group" >
+        <div>
+          <label for="field1">Field 1:</label>
+          <input type="text" id="field1" name="field1">
+        </div>
+        <div>
+          <label for="field2">Field 2:</label>
+          <input type="text" id="field2" name="field2">
+        </div>
+        <div>
+          <label for="field3">Field 3:</label>
+          <input type="text" id="field3" name="field3">
+        </div>
+        <div>
+          <label for="field4">Field 4:</label>
+          <input type="text" id="field4" name="field4">
+        </div>
+        <div>
+          <label for="field5">Field 5:</label>
+          <input type="text" id="field5" name="field5">
+        </div>
+        <div>
+          <label for="field5">Field 6:</label>
+          <input type="text" id="field6" name="field6">
+        </div>
+        <div>
+          <label for="field5">Field 7:</label>
+          <input type="text" id="field7" name="field7">
+        </div>
+        <div>
+          <label for="field5">Field 8:</label>
+          <input type="text" id="field8" name="field8">
+        </div>
+        <div>
+          <label for="field5">Field 9:</label>
+          <input type="text" id="field9" name="field9">
+        </div>
+        <div>
+          <label for="field5">Field 10:</label>
+          <input type="text" id="field10" name="field10">
+        </div>
+        <div>
+          <label for="field5">Field 11:</label>
+          <input type="text" id="field11" name="field11">
+        </div>
+        <div>
+          <label for="field5">Field 12:</label>
+          <input type="text" id="field12" name="field12">
+        </div>
+        <div>
+          <label for="field5">Field 13:</label>
+          <input type="text" id="field13" name="field13">
+        </div>
+        <div>
+          <label for="field5">Field 14:</label>
+          <input type="text" id="field14" name="field14">
+        </div>
+        <!-- Add more form fields as needed -->
+      </form>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    function onScanSuccess(qrCodeMessage) {
+      var splitMessage = qrCodeMessage.split(' ');
+      document.getElementById('field1').value = splitMessage[0];
+      document.getElementById('field2').value = splitMessage[1];
+      document.getElementById('field3').value = splitMessage[2];
+      document.getElementById('field4').value = splitMessage[3];
+      document.getElementById('field5').value = splitMessage[4];
+      document.getElementById('field6').value = splitMessage[5];
+      document.getElementById('field7').value = splitMessage[6];
+      document.getElementById('field8').value = splitMessage[7];
+      document.getElementById('field9').value = splitMessage[8];
+      document.getElementById('field10').value = splitMessage[9];
+      document.getElementById('field11').value = splitMessage[10];
+      document.getElementById('field12').value = splitMessage[11];
+      document.getElementById('field13').value = splitMessage[12];
+      document.getElementById('field14').value = splitMessage[13];
+      
+      // Submit the form automatically
+      document.getElementById('result-form').classList.add('show');
+    }
+    function onScanError(errorMessage) {
+      console.error(errorMessage);
+    }
+    var html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
+    html5QrcodeScanner.render(onScanSuccess, onScanError);
+
+    const html5QrCode = new Html5Qrcode(/* element id */ "reader");
+html5QrCode.start(
+  cameraId, 
+  {
+    fps: 10,    // Optional, frame per seconds for qr code scanning
+    qrbox: { width: 250, height: 250 }  // Optional, if you want bounded box UI
+  },
+  (decodedText, decodedResult) => {
+    // do something when code is read
+  },
+  (errorMessage) => {
+    // parse error, ignore it.
+  })
+.catch((err) => {
+  // Start failed, handle it.
+});
   </script>
+</body>
 </html>

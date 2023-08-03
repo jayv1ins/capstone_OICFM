@@ -102,6 +102,7 @@
       const datas = newData.map((row) => {
         const { id, Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR, qrCode } = row;
 
+        console.log(Gname.startsWith(Gtype)); 
         return {
           id,
           Gtype,
@@ -122,7 +123,6 @@
           hasQRCode: qrCode !== null && qrCode !== "",
         };
       });
-
       res.render('guns/dTable', { datas, totalPages, page, limit, totalRecords, user: req.user, searchQuery, suggestions, gunTypes, checkbGunTypes, gunNames,checkbGunNames });
     } catch (error) {
       console.error(error);

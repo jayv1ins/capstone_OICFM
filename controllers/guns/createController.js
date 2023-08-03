@@ -9,7 +9,7 @@ exports.getCreate = (req, res) => {
 
 exports.postCreate = async (req, res) => {
   const { Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR} = req.body;
-  const qrCodeData = await generateQRCode(`${Gtype} ${Gname} ${caliber} ${serialN} ${acquisition} ${turnOver} ${returned} ${cost} ${station} ${rank} ${lastName} ${firstName} ${middleName} ${QLFR}`);
+  const qrCodeData = await generateQRCode(`${lastName} ${firstName} ${middleName} ${QLFR} ${rank} ${station} ${Gtype} ${Gname} ${caliber} ${serialN} ${cost} ${acquisition} ${turnOver} ${returned} ${cost} `);
 
   //validation
   if (
@@ -24,7 +24,7 @@ exports.postCreate = async (req, res) => {
     !lastName.match(/^[A-Za-z\u4E00-\u9FFF]+$/) ||
     !firstName.match(/^[A-Za-z\u4E00-\u9FFF]+$/) ||
     !middleName.match(/^[A-Za-z\u4E00-\u9FFF]+$/)
-  ) {
+  ) { 
     return res.render('guns/create', { ErrorMessage: 'Only alphabetic or logographic characters' });
   }
 

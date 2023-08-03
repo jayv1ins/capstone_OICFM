@@ -24,11 +24,13 @@ const dTableRoutes = require('./routes/guns/dTable');
 const createRoutes = require('./routes/guns/create');
 const editRoutes = require('./routes/guns/edit');
 const selectRoutes = require('./routes/guns/select');
+const scannerRoutes = require('./routes/guns/scanner');
 
 app.use('/', dTableRoutes);
 app.use('/', createRoutes);
 app.use('/', editRoutes);
 app.use('/', selectRoutes);
+app.use('/', scannerRoutes);
 
 //Account
 const loginRoutes = require('./routes/accounts/login');
