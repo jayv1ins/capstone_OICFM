@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 const qrcode = require('qrcode');
 
 exports.getCreate = (req, res) => {
-  res.render('guns/create');
+  res.render('guns/create', { user: req.user });
 };
 
 

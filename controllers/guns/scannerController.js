@@ -2,7 +2,7 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 exports.scanner = (req, res) => {
-  res.render('guns/scanner');
+  res.render('guns/scanner', { user: req.user });
 };
 exports.scanUpdate = async (req, res) => {
   console.log('Received data from client:', req.body);

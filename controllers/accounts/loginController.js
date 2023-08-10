@@ -36,6 +36,7 @@ exports.login = async (req, res) => {
         console.log('Stored password:', encryptedPassword);
         if (cryptedPassword === encryptedPassword) {
           req.session.user = user;
+          console.log('Email is:', user.email);
           console.log(req.session.user);
           res.redirect("/index"); // Redirect to the home page or any desired location);
         } else {

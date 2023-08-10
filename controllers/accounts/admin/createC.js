@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 
 exports.index = (req, res) => {
-  res.render('accounts/admin/create', { message: null });
+  res.render('accounts/admin/create', { message: null, user: req.user });
 };
 
 exports.postCreate = async (req, res) => {

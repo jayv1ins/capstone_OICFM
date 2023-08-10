@@ -36,6 +36,7 @@ app.use('/', scannerRoutes);
 const loginRoutes = require('./routes/accounts/login');
 const registerRoutes = require('./routes/accounts/register');
 const logoutRoutes = require('./routes/accounts/logout');
+const editManagerRoutes = require('./routes/accounts/editManager');
 //Admin
 const aCreateRoutes = require('./routes/accounts/admin/create');
 const aTableRoutes = require('./routes/accounts/admin/Table');
@@ -44,6 +45,7 @@ const aEditRoutes = require('./routes/accounts/admin/edit');
 app.use('/', loginRoutes);
 app.use('/', registerRoutes);
 app.use('/', logoutRoutes);
+app.use('/', editManagerRoutes);
 //Admin
 app.use('/', aCreateRoutes);
 app.use('/', aTableRoutes);

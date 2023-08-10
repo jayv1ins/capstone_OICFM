@@ -5,6 +5,6 @@ const { isAuth } = require('../middlewares/isAuth');
 
 
 
-router.get('/index',indexController.getIndex);
+router.get('/index' ,isAuth,indexController.getIndex);
 
 module.exports = router;

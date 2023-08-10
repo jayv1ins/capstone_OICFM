@@ -35,7 +35,7 @@ exports.getEdit = async function (req, res) {
 
     const { Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR} = data;
 
-    return res.render("guns/edit", { title: "Edit Data", data: { id, Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR} });
+    return res.render("guns/edit", { title: "Edit Data", user: req.user, data: { id, Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR} });
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
