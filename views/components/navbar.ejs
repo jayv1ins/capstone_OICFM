@@ -36,7 +36,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav m-auto mb-2 mb-lg-0">
-          <% if (user.usertype === 'admin') { %>
+          <% if (user.usertype === 'Admin') { %>
             <li class="nav-item">
               <a class="nav-link" id="admin-table-link" href="/admin/table">User Table</a>
             </li>
@@ -80,7 +80,7 @@
             </li>
           <% } %>
         </ul>
-        <% if (user.usertype === 'admin') { %>
+        <% if (user.usertype === 'Admin') { %>
             <label>Welcome <%= user.username %>!</label>
             <a class="nav-link ml-auto" id="logout-link" href="/logout">Logout</a>
         <% } else { %>

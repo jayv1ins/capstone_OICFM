@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+const { sendManagerCredentials } = require('../../../public/javascript/mail'); // Import the email function
 
 const prisma = new PrismaClient();
 
@@ -8,7 +9,7 @@ exports.index = (req, res) => {
 };
 
 exports.postCreate = async (req, res) => {
-  const { station, rank, lastName, firstName, middleName, QLFR, password, usertype, policeId} = req.body;
+  const { email,station, rank, lastName, firstName, middleName, QLFR, password, usertype, policeId} = req.body;
 
   if (firstName.length < 3) {
     return res.render('register', { message: 'Username should be more than 4 characters long' });
@@ -47,6 +48,7 @@ exports.postCreate = async (req, res) => {
 
   const user = await prisma.UserTest.create({
     data: {
+      email,
       lastName,
       firstName,
       middleName,
@@ -57,11 +59,13 @@ exports.postCreate = async (req, res) => {
       usertype,
       password: encryptedPassword,
       shift
-    }
+    },
   });
+  sendManagerCredentials(email, policeId, password); // Adjust arguments as needed
+  console.log("email sent successfully",sendManagerCredentials);
   console.log(`Created user with police id number: ${user.policeId}`);
   req.session.user = user;
   console.log(req.session.user);
   // res.render('/home', { message: 'User successfully registered' });
-  res.redirect("/index");
+  res.redirect("/admin/table");
 };
