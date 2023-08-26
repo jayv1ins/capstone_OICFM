@@ -67,7 +67,6 @@ exports.getDTable = async function(req, res) {
         policeId
       };
     });
-
     res.render('accounts/admin/table', { datas, totalPages, page, limit, totalRecords, user: req.user, searchQuery, suggestions });
   } catch (error) {
     console.error(error);
@@ -78,7 +77,7 @@ exports.getDTable = async function(req, res) {
   
 
 
-exports.deleteData = async function(req, res) {
+exports.deleteManager = async function(req, res) {
   const id = String(req.params.id);
 
     // Retrieve the existing data
@@ -94,7 +93,9 @@ exports.deleteData = async function(req, res) {
         where: { id: id },
       });
 
-      res.redirect("/accounts/admin/table"); 
+      res.redirect("/admin/table");
     }
  
 };
+
+

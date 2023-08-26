@@ -11,7 +11,7 @@ const oauth2Client = new OAuth2(
 
 // Set credentials to get an access token
 oauth2Client.setCredentials({
-  refresh_token: "1//04rGzmLxb9NsJCgYIARAAGAQSNwF-L9IrWAAk9BkE5zvlNq6En2bKYmUTPmL2OSMLjb40DYIfbdHAGnWPrV9jPRi4sckpJl4vOyw",
+  refresh_token: "1//04zAdigV-XolxCgYIARAAGAQSNwF-L9Ir1fx1ZBe1kXl5HXHDxZGcD0xDC8Zg9SErHnhY_iMZg6OD9xw78HHnVIQl2m9aEPzUYPY",
 });
 
 
@@ -24,7 +24,7 @@ const transporter = nodemailer.createTransport({
     user: "1447testerst@gmail.com",
     clientId: "999580329973-dk05g7t17ocp02u065mt20j7ioocb63e.apps.googleusercontent.com",
     clientSecret: "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",
-    refreshToken: "1//04rGzmLxb9NsJCgYIARAAGAQSNwF-L9IrWAAk9BkE5zvlNq6En2bKYmUTPmL2OSMLjb40DYIfbdHAGnWPrV9jPRi4sckpJl4vOyw",
+    refreshToken: "1//04zAdigV-XolxCgYIARAAGAQSNwF-L9Ir1fx1ZBe1kXl5HXHDxZGcD0xDC8Zg9SErHnhY_iMZg6OD9xw78HHnVIQl2m9aEPzUYPY",
     accessToken: accessToken,
   },
 });

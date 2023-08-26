@@ -14,6 +14,8 @@
     integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
     crossorigin="anonymous"></script>
   </script>
+
+
   <style>
     .input-group {
       position: relative;
@@ -40,15 +42,15 @@
         <h2 class="text-center mb-4 mt-5" >Manager Edit Information</h2>
         <div class="row jumbotron shadow-lg p-3 mb-5 bg-body-tertiary rounded border">
 
-          <% if (typeof ErrorMessage !=='undefined' ) { %>
+          <% if (typeof ErrorMessage !== 'undefined') { %>
             <p style="color: red;">
               <%= ErrorMessage %>
             </p>
-            <% } else if (typeof SuccessMessage !=='undefined' ) { %>
-              <p style="color: green;">
-                <%= SuccessMessage %>
-              </p>
-              <% } %>
+          <% } else if (typeof SuccessMessage  !== 'undefined') { %>
+            <p style="color: green;">
+              <%= SuccessMessage %>
+            </p>
+          <% } %>
 
               <div class="col-sm-4 form-group">
                 <label for="inputEmail4">Email</label>
@@ -133,22 +135,21 @@
 
     </div>
 
-
-  
+      
     <script>
       function togglePasswordVisibility() {
-        var passwordInput = document.getElementById("password");
-        var togglePasswordIcon = document.getElementById("togglePassword");
-        if (passwordInput.type === "password") {
-          passwordInput.type = "text";
-          togglePasswordIcon.classList.remove("fa-eye");
-          togglePasswordIcon.classList.add("fa-eye-slash");
-        } else {
-          passwordInput.type = "password";
-          togglePasswordIcon.classList.remove("fa-eye-slash");
-          togglePasswordIcon.classList.add("fa-eye");
-        }
+      var passwordInput = document.getElementById("password");
+      var togglePasswordIcon = document.getElementById("togglePassword");
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        togglePasswordIcon.classList.remove("fa-eye");
+        togglePasswordIcon.classList.add("fa-eye-slash");
+      } else {
+        passwordInput.type = "password";
+        togglePasswordIcon.classList.remove("fa-eye-slash");
+        togglePasswordIcon.classList.add("fa-eye");
       }
+    }
     </script>
     
     

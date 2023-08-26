@@ -29,6 +29,7 @@ exports.getEdit = async function (req, res) {
       where: { id },
       select: {
         id: true,
+        email: true,
         lastName: true,
         firstName: true,
         middleName: true,
@@ -46,7 +47,7 @@ exports.getEdit = async function (req, res) {
       return res.status(404).send("Data not found");
     }
 
-    const { station, rank, lastName, firstName, middleName, QLFR, usertype, policeId, password, shift } = data;
+    const { station, rank, email, lastName, firstName, middleName, QLFR, usertype, policeId, password, shift } = data;
 
     // Decrypt the password using the shift value from the database
     const decryptedPassword = decryptCaesar(password, shift);
@@ -54,9 +55,11 @@ exports.getEdit = async function (req, res) {
     console.log("this the user",req.user);
     console.log("----------------------");
     console.log("this the data",data);
+
     return res.render("accounts/admin/edit", {
         user: req.user,data: {
         id,
+        email,
         station,
         rank,
         lastName,
@@ -95,13 +98,14 @@ function encryptCaesar(text, shift) {
 
 exports.updatedData = async function (req, res) {
   const id = String(req.params.id);
-  const { station, rank, lastName, firstName, middleName, QLFR, usertype, policeId, password } = req.body;
+  const { email,station, rank, lastName, firstName, middleName, QLFR, usertype, policeId, password } = req.body;
 
   try {
     const data = await prisma.userTest.findUnique({
       where: { id },
       select: {
         id: true,
+        email: true,
         lastName: true,
         firstName: true,
         middleName: true,
@@ -116,7 +120,7 @@ exports.updatedData = async function (req, res) {
     });
 
     if (!data) {
-      return res.status(404).send("Data not found");
+      res.render(`accounts/admin/edit/${id}`, {  user: req.user, ErrorMessage: "Error", data: updatedData });
     }
 
     // Retrieve the current shift value from the database
@@ -131,6 +135,7 @@ exports.updatedData = async function (req, res) {
     const updatedData = await prisma.userTest.update({
       where: { id },
       data: {
+        email,
         lastName,
         firstName,
         middleName,
@@ -144,6 +149,7 @@ exports.updatedData = async function (req, res) {
       },
       select: {
         id: true,
+        email: true,
         lastName: true,
         firstName: true,
         middleName: true,
@@ -155,7 +161,7 @@ exports.updatedData = async function (req, res) {
       },
     });
 
-    res.redirect(`/admin/edit/${id}`);
+    res.render("accounts/admin/edit", { title: "Edit Data", user: req.user,  data: {id, email, lastName, firstName, middleName, QLFR, policeId, rank, station, usertype }, SuccessMessage: "Data updated successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");

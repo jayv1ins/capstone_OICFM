@@ -57,7 +57,7 @@ exports.updatedData = async function (req, res) {
         acquisition,
         turnOver,
         returned,
-        cost,
+        cost: parseInt(cost),
         station,
         rank,
         lastName,
@@ -84,7 +84,7 @@ exports.updatedData = async function (req, res) {
       },
     });
 
-    res.redirect(`/guns/edit/${id}`);
+    res.render("guns/edit", { title: "Edit Data", user: req.user, data: { id, Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR}, SuccessMessage: "Data updated successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");

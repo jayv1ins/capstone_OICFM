@@ -5,15 +5,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create</title>
+  <title>Create New Gun</title>
 
-
+<!-- Ikaw ba nag lagay nito? -alvin -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
     crossorigin="anonymous"></script>
   </script>
+
+<!-- For generating Qrcode function  -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="../../public/javascript/qrcode.js"></script>
+
 
 
 <body >
@@ -40,19 +45,19 @@
                 <div class="col-sm-4 form-group">
                   <label for="inputEmail4">Last Name</label>
                   <input type="text" class="form-control" placeholder="Enter your last name." id="lastName"
-                    name="lastName" autocomplete="LastName" required min="4" pattern="[a-zA-Z]+">
+                    name="lastName" autocomplete="LastName" required min="4" pattern="[a-zA-Z ]+">
                 </div>
 
                 <div class="col-sm-4 form-group">
                   <label for="inputPassword4">First Name</label>
                   <input type="text" class="form-control" placeholder="Enter your first name." id="firstName"
-                    name="firstName" autocomplete="firstName" required min="4" pattern="[a-zA-Z]+">
+                    name="firstName" autocomplete="firstName" required min="4" pattern="[a-zA-Z ]+">
                 </div>
 
                 <div class="col-sm-4 form-group">
                   <label for="inputPassword4">Middle Name</label>
                   <input type="text" class="form-control" placeholder="Enter your middle name." id="middleName"
-                    name="middleName" autocomplete="middleName" required min="4" pattern="[a-zA-Z]+">
+                    name="middleName" autocomplete="middleName" required min="4" pattern="[a-zA-Z ]+">
                 </div>
 
                 <div class="col-sm-4 form-group">
@@ -145,65 +150,7 @@
 
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        let generateBtn = document.getElementById("generateBtn");
-        let confirmBtn = document.getElementById("confirmBtn");
-        let qrCodeContainer = document.querySelector(".qr-code-container");
-
-        generateBtn.addEventListener("click", async (event) => {
-          event.preventDefault();
-          let lastName = document.querySelector("input[name='lastName']").value;
-          let firstName = document.querySelector("input[name='firstName']").value;
-          let middleName = document.querySelector("input[name='middleName']").value;
-          let QLFR = document.querySelector("input[name='QLFR']").value;
-          let rank = document.querySelector("input[name='rank']").value;
-          let station = document.querySelector("input[name='station']").value;
-          let Gtype = document.querySelector("input[name='Gtype']").value;
-          let Gname = document.querySelector("input[name='Gname']").value;
-          let caliber = document.querySelector("input[name='caliber']").value;
-          let serialN = document.querySelector("input[name='serialN']").value;
-          let cost = document.querySelector("input[name='cost']").value;
-          let acquisition = document.querySelector("input[name='acquisition']").value;
-          let turnOver = document.querySelector("input[name='turnOver']").value;
-          let returned = document.querySelector("input[name='returned']").value;
-      
-
-
-          if (lastName !== "" && firstName !== "" && middleName !== "" && QLFR !== "" && rank !== "" && station !== "" && Gtype !== "" && Gname !== "" && caliber !== "" && serialN !== "" && cost !== "" && acquisition !== "" && turnOver !== "" && returned !== "") {
-            let userDetails = ` ${lastName} ${firstName} ${middleName} ${QLFR} ${rank} ${station} ${Gtype} ${Gname} ${caliber} ${serialN} ${cost} ${acquisition} ${turnOver} ${returned}`;
-
-            generateQRCode(userDetails);
-
-            generateBtn.style.display = "none";
-            confirmBtn.style.display = "block";
-          } else {
-            console.log("Invalid input");
-            qrCodeContainer.style.display = "none";
-          }
-        });
-
-        confirmBtn.addEventListener("click", function (event) {
-          event.preventDefault();
-          document.getElementById("myForm").submit();
-        });
-
-        async function generateQRCode(userDetails) {
-          qrCodeContainer.style.display = "";
-          var size = 220;
-
-          var qrcode = new QRCode(qrCodeContainer, {
-            text: userDetails,
-            width: size,
-            height: size,
-            colorDark: "#3BA676",
-            colorLight: "#222",
-            correctLevel: QRCode.CorrectLevel.H,
-          });
-        }
-      });
-    </script>
+    
 
 
 </body>

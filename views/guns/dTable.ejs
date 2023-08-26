@@ -48,6 +48,15 @@
 
 </center>
 <body>
+  <% if (typeof ErrorMessage !=='undefined' ) { %>
+    <p style="color: red;">
+      <%= ErrorMessage %>
+    </p>
+    <% } else if (typeof SuccessMessage !=='undefined' ) { %>
+      <p style="color: green;">
+        <%= SuccessMessage %>
+      </p>
+      <% } %>
   <div class="container table-responsive py-5"> 
     <table class="table table-bordered table-hover">
       <thead class="thead-dark">

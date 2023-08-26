@@ -4,6 +4,6 @@ const { isAuth } = require('../../../middlewares/isAuth');
 const { isAdmin } = require('../../../middlewares/isAdmin');
 
 router.get('/admin/table',  isAuth ,tableC.getDTable);
-router.post("/admin/table/delete/:id",  isAuth, tableC.deleteData);
+router.post("/admin/delete/:id",  isAuth, tableC.deleteManager);
 
 module.exports = router;
