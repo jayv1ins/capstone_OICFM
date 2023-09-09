@@ -25,7 +25,7 @@ exports.getEdit = async function (req, res) {
   const id = String(req.params.id);
 
   try {
-    const data = await prisma.userTest.findUnique({
+    const data = await prisma.User.findUnique({
       where: { id },
       select: {
         id: true,
@@ -101,7 +101,7 @@ exports.updatedData = async function (req, res) {
   const { email,station, rank, lastName, firstName, middleName, QLFR, usertype, policeId, password } = req.body;
 
   try {
-    const data = await prisma.userTest.findUnique({
+    const data = await prisma.User.findUnique({
       where: { id },
       select: {
         id: true,
@@ -132,7 +132,7 @@ exports.updatedData = async function (req, res) {
     // Encrypt the new password get from the encryption formula above and new shift value then pass it to the database
     const encryptedPassword = encryptCaesar(password, newShift);
 
-    const updatedData = await prisma.userTest.update({
+    const updatedData = await prisma.User.update({
       where: { id },
       data: {
         email,

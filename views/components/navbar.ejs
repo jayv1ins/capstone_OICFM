@@ -81,11 +81,11 @@
           <% } %>
         </ul>
         <% if (user.usertype === 'Admin') { %>
-            <label>Welcome <%= user.username %>!</label>
+            <label>Welcome <%= user.lastName%>, <%= user.firstName%> !</label>
             <a class="nav-link ml-auto" id="logout-link" href="/logout">Logout</a>
         <% } else { %>
             <a class="nav-link ml-auto" id="profile-link" href="/profile/<%= user.id %>">Profile</a>
-            <label>Welcome <%= user.username %>!</label>
+            <label>Welcome <%= user.lastName %>!</label>
             <a class="nav-link ml-auto" id="logout-link" href="/logout">Logout</a>
         <% } %>
       </div>

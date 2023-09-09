@@ -19,7 +19,7 @@ exports.postCreate = async (req, res) => {
     return res.render('register', { ErrorMessage: 'Password must contain at least one uppercase letter' });
   }
 
-  const existingUser = await prisma.UserTest.findFirst({
+  const existingUser = await prisma.User.findFirst({
     where: {
       OR: [
         { policeId: policeId }
@@ -46,7 +46,7 @@ exports.postCreate = async (req, res) => {
   });
   const encryptedPassword = encryptedChars.join('');
 
-  const user = await prisma.UserTest.create({
+  const user = await prisma.User.create({
     data: {
       email,
       lastName,
@@ -61,9 +61,10 @@ exports.postCreate = async (req, res) => {
       shift
     },
   });
+  return res.redirect(`/admin/edit/${user.id}`);
   sendManagerCredentials(email, policeId, password); // Adjust arguments as needed
   console.log("email sent successfully",sendManagerCredentials);
   console.log(`Created user with police id number: ${user.policeId}`);
   // res.render('/home', { message: 'User successfully registered' });
-  res.render("accounts/admin/table", { SuccessMessage: 'User successfully registered', user: req.user});
+ 
 };

@@ -14,6 +14,9 @@
     integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
     crossorigin="anonymous"></script>
   </script>
+    <!-- For password meter   -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+
   <style>
     .input-group {
       position: relative;
@@ -26,6 +29,31 @@
       top: 50%;
       transform: translateY(-50%);
     }
+
+    .password-strength {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
+  .very-weak {
+    color: red;
+  }
+
+  .weak {
+    color: orange;
+  }
+
+  .moderate {
+    color: #FEDD00  ;
+  }
+
+  .strong {
+    color: green;
+  }
+
+  .very-strong {
+    color: darkgreen;
+  }
   </style>
    <%- include('../../components/navbar') %>
 </head>
@@ -37,7 +65,7 @@
 
       <form method="POST" action="/admin/create">
 
-        <h2 class="text-center mb-4 mt-5" >Gun Registration</h2>
+        <h2 class="text-center mb-4 mt-5" >Manager Registration</h2>
         <div class="row jumbotron shadow-lg p-3 mb-5 bg-body-tertiary rounded border">
 
           <% if (typeof ErrorMessage !=='undefined' ) { %>
@@ -100,7 +128,7 @@
                 </div>
 
                 <div class="col-sm-4 form-group">
-                  <label for="inputZip">Password</label>
+                  <label for="inputZip">Password <span id="password-strength"></span></label>
                   <div class="input-group">
                     <input type="password" class="form-control" id="password" name="password">
                     <div class="input-group-append">
@@ -113,7 +141,19 @@
 
                 <div class="col-sm-4 form-group">
                   <label for="inputZip">User Type</label>
-                  <input type="text" class="form-control" id="usertype" name="usertype" placeholder="Enter usertype">
+                  <input type="text" class="form-control " id="usertype" name="usertype" placeholder="Enter usertype">
+                </div>
+
+                <!-- for spacing -->
+                <div class="col-sm-4 form-group">
+                
+                </div>
+
+                <div class="col-sm-4 form-group">
+                  <label>Password Requirements</label>
+                  <label>
+                      <span class="fas fa-eye"></span> Password must be at least 4 characters long and contain both uppercase and lowercase letters.
+                  </label>
                 </div>
         </div>
 
@@ -132,6 +172,7 @@
 
 
     <script>
+    // Function to show password when the eye icon is clicked
       function togglePasswordVisibility() {
         var passwordInput = document.getElementById("password");
         var togglePasswordIcon = document.getElementById("togglePassword");
@@ -145,6 +186,32 @@
           togglePasswordIcon.classList.add("fa-eye");
         }
       }
+    // Function to show password strength meter 
+    function updatePasswordStrengthMeter() {
+        const passwordInput = document.getElementById("password");
+        const passwordStrength = document.getElementById("password-strength");
+
+        if (passwordInput.value.trim() === '') {
+          passwordStrength.innerHTML = '';
+          passwordStrength.className = 'password-strength';
+          return;
+        }
+
+        const result = zxcvbn(passwordInput.value);
+        const score = result.score; 
+
+        // Define strength levels and corresponding CSS classes
+        const strengthLevels = ['Very Weak', 'Weak', 'Moderate', 'Strong', 'Very Strong'];
+        const strengthClasses = ['very-weak', 'weak', 'moderate', 'strong', 'very-strong'];
+
+        // Update UI
+        passwordStrength.innerHTML = ` Strength: ${strengthLevels[score]}`;
+        passwordStrength.className = `-strength ${strengthClasses[score]}`;
+      }
+
+      // Attach event listener to password input for real-time updates
+      const passwordInput = document.getElementById("password");
+      passwordInput.addEventListener("input", updatePasswordStrengthMeter);
     </script>
     
     

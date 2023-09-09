@@ -30,8 +30,8 @@ exports.getDTable = async function(req, res) {
 
     // Retrieve data and suggestions from the database with/without queryOptions
     const [newData, suggestionsData] = await Promise.all([
-      prisma.userTest.findMany(queryOptions),
-      prisma.userTest.findMany({
+      prisma.User.findMany(queryOptions),
+      prisma.User.findMany({
         where: queryOptions.where,
         select: {
           firstName: true,
@@ -50,7 +50,7 @@ exports.getDTable = async function(req, res) {
     
 
     // Implement the pagination
-    const totalRecords = await prisma.userTest.count();
+    const totalRecords = await prisma.User.count();
     const totalPages = Math.ceil(totalRecords / limit);
 
     const datas = newData.map((row) => {
@@ -81,7 +81,7 @@ exports.deleteManager = async function(req, res) {
   const id = String(req.params.id);
 
     // Retrieve the existing data
-    const existingData = await prisma.userTest.findUnique({
+    const existingData = await prisma.User.findUnique({
       where: { id: id },
     });
 
@@ -89,7 +89,7 @@ exports.deleteManager = async function(req, res) {
       res.status(404).send("Data not found");
     } else {
       // Delete the data
-      await prisma.userTest.delete({
+      await prisma.User.delete({
         where: { id: id },
       });
 
