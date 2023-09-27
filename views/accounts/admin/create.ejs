@@ -59,160 +59,193 @@
 </head>
 <body >
 
+  <div class="container">
 
+    <form method="POST" action="/admin/create">
 
-    <div class="container">
+      <h2 class="text-center mb-4 mt-5" >Manager Registration</h2>
+      <div class="row jumbotron shadow-lg p-3 mb-5 bg-body-tertiary rounded border">
 
-      <form method="POST" action="/admin/create">
-
-        <h2 class="text-center mb-4 mt-5" >Manager Registration</h2>
-        <div class="row jumbotron shadow-lg p-3 mb-5 bg-body-tertiary rounded border">
-
-          <% if (typeof ErrorMessage !=='undefined' ) { %>
-            <p style="color: red;">
-              <%= ErrorMessage %>
+        <% if (typeof ErrorMessage !=='undefined' ) { %>
+          <p style="color: red;">
+            <%= ErrorMessage %>
+          </p>
+          <% } else if (typeof SuccessMessage !=='undefined' ) { %>
+            <p style="color: green;">
+              <%= SuccessMessage %>
             </p>
-            <% } else if (typeof SuccessMessage !=='undefined' ) { %>
-              <p style="color: green;">
-                <%= SuccessMessage %>
-              </p>
-              <% } %>
+            <% } %>
+
+            <div class="col-sm-4 form-group">
+              <label for="inputEmail4">Email</label>
+              <input type="mail" class="form-control" placeholder="Enter the Email." id="email"
+                name="email" autocomplete="email" required >
+            </div>
 
               <div class="col-sm-4 form-group">
-                <label for="inputEmail4">Email</label>
-                <input type="mail" class="form-control" placeholder="Enter the Email." id="email"
-                  name="email" autocomplete="email" required >
+                <label for="inputEmail4">Last Name</label>
+                <input type="text" class="form-control" placeholder="Enter your last name." id="lastName"
+                  name="lastName" autocomplete="LastName" required min="4" pattern="[a-zA-Z]+">
               </div>
 
-                <div class="col-sm-4 form-group">
-                  <label for="inputEmail4">Last Name</label>
-                  <input type="text" class="form-control" placeholder="Enter your last name." id="lastName"
-                    name="lastName" autocomplete="LastName" required min="4" pattern="[a-zA-Z]+">
-                </div>
+              <div class="col-sm-4 form-group">
+                <label for="inputPassword4">First Name</label>
+                <input type="text" class="form-control" placeholder="Enter your first name." id="firstName"
+                  name="firstName" autocomplete="firstName" required min="4" pattern="[a-zA-Z]+">
+              </div>
 
-                <div class="col-sm-4 form-group">
-                  <label for="inputPassword4">First Name</label>
-                  <input type="text" class="form-control" placeholder="Enter your first name." id="firstName"
-                    name="firstName" autocomplete="firstName" required min="4" pattern="[a-zA-Z]+">
-                </div>
+              <div class="col-sm-4 form-group">
+                <label for="inputPassword4">Middle Name</label>
+                <input type="text" class="form-control" placeholder="Enter your middle name." id="middleName"
+                  name="middleName" autocomplete="middleName" required min="4" pattern="[a-zA-Z]+">
+              </div>
 
-                <div class="col-sm-4 form-group">
-                  <label for="inputPassword4">Middle Name</label>
-                  <input type="text" class="form-control" placeholder="Enter your middle name." id="middleName"
-                    name="middleName" autocomplete="middleName" required min="4" pattern="[a-zA-Z]+">
-                </div>
-
-                <div class="col-sm-4 form-group">
-                  <label for="inputPassword4">QLFR</label>
-                  <input type="text" class="form-control" placeholder="Enter QLFR" id="QLFR" name="QLFR" autocomplete="QLFR">
-                </div>
+              <div class="col-sm-4 form-group">
+                <label for="inputPassword4">QLFR</label>
+                <input type="text" class="form-control" placeholder="Enter QLFR" id="QLFR" name="QLFR" autocomplete="QLFR">
+              </div>
 
 
-                <div class="col-sm-4 form-group">
-                  <label for="inputEmail4">Police ID Number</label>
-                  <input type="text" class="form-control" placeholder="Enter Police ID Number" name="policeId"
-                    autocomplete="serialN" required min="4">
-                </div>
+              <div class="col-sm-4 form-group">
+                <label for="inputEmail4">Police ID Number</label>
+                <input type="text" class="form-control" placeholder="Enter Police ID Number" name="policeId"
+                  autocomplete="serialN" required min="4">
+              </div>
 
-          
-                <div class="col-sm-4 form-group">
-                  <label for="inputEmail4">Station</label>
-                  <input type="text" class="form-control" placeholder="District/City" name="station" autocomplete="station"
-                    required min="4" pattern="^[A-Z][a-zA-Z]*$">
-                </div>
+        
+              <div class="col-sm-4 form-group">
+                <label for="inputEmail4">Station</label>
+                <input type="text" class="form-control" placeholder="District/City" name="station" autocomplete="station"
+                  required min="4" pattern="^[A-Z][a-zA-Z]*$">
+              </div>
 
-               
-                <div class="col-sm-4 form-group">
-                  <label for="inputZip">Rank</label>
-                  <input type="text" class="form-control" id="rank" name="rank" placeholder="Enter rank">
-                </div>
+              
+              <div class="col-sm-4 form-group">
+                <label for="inputZip">Rank</label>
+                <input type="text" class="form-control" id="rank" name="rank" value="generatedPin">
+              </div>
 
-                <div class="col-sm-4 form-group">
-                  <label for="inputZip">Password <span id="password-strength"></span></label>
-                  <div class="input-group">
-                    <input type="password" class="form-control" id="password" name="password">
-                    <div class="input-group-append">
-                      <span class="input-group-text">
-                        <i class="fas fa-eye" id="togglePassword" onclick="togglePasswordVisibility()"></i>
-                      </span>
-                    </div>
+              <div class="col-sm-4 form-group">
+                <label for="inputZip">Password <span id="password-strength"></span></label>
+                <div class="input-group">
+                  <input type="password" class="form-control" id="password" name="password">
+                  <div class="input-group-append">
+                    <span class="input-group-text">
+                      <i class="fas fa-eye" id="togglePassword" onclick="togglePasswordVisibility()"></i>
+                    </span>
                   </div>
                 </div>
+              </div>
 
-                <div class="col-sm-4 form-group">
-                  <label for="inputZip">User Type</label>
-                  <input type="text" class="form-control " id="usertype" name="usertype" placeholder="Enter usertype">
-                </div>
+              <div class="col-sm-4 form-group">
+                <label for="inputZip">User Type</label>
+                <select id="usertype" name="usertype" class="form-control " >
+                  <option value="Choose from this list">.....</option>
+                  <option value="Admin">Admin</option>
+                  <option value="Manager">Manager</option>
+                  </select>
+              </div>
 
-                <!-- for spacing -->
-                <div class="col-sm-4 form-group">
-                
-                </div>
+              <div class="col-sm-4 form-group">
+                <label for="inputZip">Pin code</label>
+                <input type="text" class="form-control " id="pin" name="pin" placeholder="Pin code" readonly>
+              </div>
 
-                <div class="col-sm-4 form-group">
-                  <label>Password Requirements</label>
-                  <label>
-                      <span class="fas fa-eye"></span> Password must be at least 4 characters long and contain both uppercase and lowercase letters.
-                  </label>
-                </div>
-        </div>
+              <div class="col-sm-4 form-group">
+                <label>Password Requirements</label>
+                <label>
+                    <span class="fas fa-eye"></span> Password must be at least 4 characters long and contain both uppercase and lowercase letters.
+                </label>
+              </div>
+
+              <!-- for spacing -->
+              <div class="col-sm-4 form-group">
+              </div>
+              
+              <div class="col-sm-4 form-group">
+                <center>
+                  <button type="button" id="generatePinNoButton" class="btn btn-primary ">Generate Pin</button>
+                </center>
+              </div>
+
+              <div class="col-sm-4 form-group">
+              </div>
+      </div>
 
 
-        <div class="col-sm-12 form-group mb-0 text-center">
-          <button type="submit" id="submitBtn" class="btn btn-primary ">Submit</button>
-          <button type="reset" class="btn btn-danger ">Reset</button>
+      <div class="col-sm-12 form-group mb-0 text-center">
+        <button type="submit" id="submitBtn" class="btn btn-primary ">Submit</button>
+        <button type="reset" class="btn btn-danger ">Reset</button>
 
-        </div>
-        
+      </div>
+      
 
-      </form>
+    </form>
+
+  </div>
 
 
-    </div>
-
-
-    <script>
-    // Function to show password when the eye icon is clicked
-      function togglePasswordVisibility() {
-        var passwordInput = document.getElementById("password");
-        var togglePasswordIcon = document.getElementById("togglePassword");
-        if (passwordInput.type === "password") {
-          passwordInput.type = "text";
-          togglePasswordIcon.classList.remove("fa-eye");
-          togglePasswordIcon.classList.add("fa-eye-slash");
-        } else {
-          passwordInput.type = "password";
-          togglePasswordIcon.classList.remove("fa-eye-slash");
-          togglePasswordIcon.classList.add("fa-eye");
-        }
+  <script>
+  // Function to show password when the eye icon is clicked
+    function togglePasswordVisibility() {
+      var passwordInput = document.getElementById("password");
+      var togglePasswordIcon = document.getElementById("togglePassword");
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        togglePasswordIcon.classList.remove("fa-eye");
+        togglePasswordIcon.classList.add("fa-eye-slash");
+      } else {
+        passwordInput.type = "password";
+        togglePasswordIcon.classList.remove("fa-eye-slash");
+        togglePasswordIcon.classList.add("fa-eye");
       }
-    // Function to show password strength meter 
-    function updatePasswordStrengthMeter() {
-        const passwordInput = document.getElementById("password");
-        const passwordStrength = document.getElementById("password-strength");
+    }
+  // Function to show password strength meter 
+  function updatePasswordStrengthMeter() {
+    const passwordInput = document.getElementById("password");
+    const passwordStrength = document.getElementById("password-strength");
 
-        if (passwordInput.value.trim() === '') {
-          passwordStrength.innerHTML = '';
-          passwordStrength.className = 'password-strength';
-          return;
-        }
+    if (passwordInput.value.trim() === '') {
+      passwordStrength.innerHTML = '';
+      passwordStrength.className = 'password-strength';
+      return;
+    }
 
-        const result = zxcvbn(passwordInput.value);
-        const score = result.score; 
+    const result = zxcvbn(passwordInput.value);
+    const score = result.score; 
 
-        // Define strength levels and corresponding CSS classes
-        const strengthLevels = ['Very Weak', 'Weak', 'Moderate', 'Strong', 'Very Strong'];
-        const strengthClasses = ['very-weak', 'weak', 'moderate', 'strong', 'very-strong'];
+    // Define strength levels and corresponding CSS classes
+    const strengthLevels = ['Very Weak', 'Weak', 'Moderate', 'Strong', 'Very Strong'];
+    const strengthClasses = ['very-weak', 'weak', 'moderate', 'strong', 'very-strong'];
 
-        // Update UI
-        passwordStrength.innerHTML = ` Strength: ${strengthLevels[score]}`;
-        passwordStrength.className = `-strength ${strengthClasses[score]}`;
-      }
+    // Update UI
+    passwordStrength.innerHTML = ` Strength: ${strengthLevels[score]}`;
+    passwordStrength.className = `-strength ${strengthClasses[score]}`;
+  }
 
-      // Attach event listener to password input for real-time updates
-      const passwordInput = document.getElementById("password");
-      passwordInput.addEventListener("input", updatePasswordStrengthMeter);
-    </script>
+    // Attach event listener to password input for real-time updates
+    const passwordInput = document.getElementById("password");
+    passwordInput.addEventListener("input", updatePasswordStrengthMeter);
+
+
+  // Function to generate a random 9-digit number
+  function generatePinNo() {
+      const min = 100000000; // Smallest 9-digit number
+      const max = 999999999; // Largest 9-digit number
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    
+    // When the generatePinNoButton is clicked, generate a random 9-digit number
+    function ButtonClick() {
+      const generatedPin = generatePinNo();
+      const pin = document.getElementById('pin');
+      pin.value = generatedPin;
+    }
+    
+    // Attach click event listener to the button
+    const generatePinNoButton = document.getElementById('generatePinNoButton');
+    generatePinNoButton.addEventListener('click', ButtonClick);
+  </script>
     
     
    

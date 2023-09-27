@@ -21,6 +21,7 @@
     "prisma": "^4.14.0",
     "puppeteer": "^20.9.0",
     "qrcode": "^1.5.3",
+    "tesseract.js": "^4.1.2",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {

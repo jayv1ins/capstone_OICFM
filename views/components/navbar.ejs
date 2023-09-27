@@ -70,7 +70,7 @@
               <a class="nav-link" id="dashboard-link" href="/dashboard">Dashboard</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="datatable-link" href="/DataTable">Data Table</a>
+              <a class="nav-link" id="datatable-link" href="/DataTable">Record</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" id="create-link" href="/create">Create</a>
@@ -81,11 +81,11 @@
           <% } %>
         </ul>
         <% if (user.usertype === 'Admin') { %>
-            <label>Welcome <%= user.lastName%>, <%= user.firstName%> !</label>
+            <label>Welcome Admin <%= user.firstName%> !</label>
             <a class="nav-link ml-auto" id="logout-link" href="/logout">Logout</a>
         <% } else { %>
             <a class="nav-link ml-auto" id="profile-link" href="/profile/<%= user.id %>">Profile</a>
-            <label>Welcome <%= user.lastName %>!</label>
+            <label>Welcome Manager <%= user.firstName %>!</label>
             <a class="nav-link ml-auto" id="logout-link" href="/logout">Logout</a>
         <% } %>
       </div>

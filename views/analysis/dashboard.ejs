@@ -24,6 +24,8 @@
     </form>
     <div class="chart-container">
       <div id="chart1" class="chart"></div>
+      <p>is this one</p>
+      <p>Total Data Count: <span id="totalDataCount">0</span></p>
       <div id="chart2" class="chart"></div>
       <div id="chart3"></div>
       <div id="chart4"></div>
@@ -49,7 +51,7 @@
     });
 
     const chartIds = [
-    "6492abe4-74f2-4905-805e-f685c6754286",
+      "6492abe4-74f2-4905-805e-f685c6754286",
       "64994e7e-6f89-4b9b-8926-e4595ee18be1",
       "6492afa8-e63f-4b36-8007-0f06bc0fceb5",
       "6492af4a-7081-435a-88d2-cbf173aa2add",
@@ -73,6 +75,9 @@
 
     function handleFilterSubmit(event) {
       event.preventDefault();
+      const today = new Date();
+      const month = today.getMonth() + 1; // Month is 0-based
+
       const startDate = document.getElementById("startDate").value;
       const endDate = document.getElementById("endDate").value;
       
