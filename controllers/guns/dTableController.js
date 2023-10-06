@@ -108,10 +108,11 @@
           { Gtype: { contains: searchQuery, mode: 'insensitive'} },
           { rank: { contains: searchQuery, mode: 'insensitive' } },
           { station: { contains: searchQuery, mode: 'insensitive'} },
+          { serialN: { contains: searchQuery, mode: 'insensitive'} },
         ];
       }
 
-      // Add Gun Type filtering if gunTypes are provided in checkboxes
+      // Filter by checkbox
       if (gunTypes.length > 0) {
         queryOptions.where.Gtype = {
           in: gunTypes,

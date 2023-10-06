@@ -1,183 +1,254 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>QR Code Scanner</title>
-  <!-- The library for using html5-qrcode  -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.4/html5-qrcode.min.js" integrity="sha512-k/KAe4Yff9EUdYI5/IAHlwUswqeipP+Cp5qnrsUjTPCgl51La2/JhyyjNciztD7mWNKLSXci48m7cctATKfLlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <style>
-    .result {
-      background-color: green;
-      color: #fff;
-      padding: 20px;
-    }
-    .row {
-      display: flex;
-    }
-    .result-group {
-      display: none;
-    }
-    .result-group.show {
-      display: block;
-    }
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Optical character recognition from image</title>
+    <!-- for demo only -->
+    <script src="../../../assets/js/script.demo.v0.06.js" defer></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GCFCN7G09K"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-GCFCN7G09K');
+    </script>
+      <style>
+        body{
+            padding: 0px 100px;
+            font-family: sans-serif;
+        }
+        .container{
+            margin-top: 50px;
+        }
+        .upper div{
+            display: inline;
+            margin-left: 100px;
+            white-space: pre;
+        }
+        .bottom{
+            margin-top: 30px;
+            display: flex;
+        }
+        .bottom div{
+            flex: 1;
+            border: 1px solid rgb(118, 118, 118);
+            height: 400px;
+            margin: 10px;
+        }
+        .bottom div img{
+            max-width: calc(100% - 20px);
+            max-height: calc(100% - 20px);
+            margin: 10px;
+        }
+        .bottom div textarea{
+            resize: none;
+            width: calc(100% - 21px);
+            height: calc(100% - 21px);
+            padding: 10px;
+            font-size: 20px;
+            outline: none;
+            border: none;
+            padding: 250px;
+        }
+        .bottom div:first-child{
+            margin-left: 0px;
+            -webkit-box-align: center;
+            -webkit-box-pack: center;
+            display: -webkit-box;
+        }
+        .bottom div:last-child{
+            margin-right: 0px;
+        }
+        .camera-start {
+            cursor: pointer;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .camera-take {
+            cursor: pointer;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            display: none;
+        }
+        .camera-stop {
+            cursor: pointer;
+            padding: 5px 10px;
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            display: none;
+        }
+        .camera-feed-container {
+            position: relative;
+        }
+        .camera-feed {
+            max-width: 100%;
+            max-height: 100%;
+        }
+       
     </style>
 </head>
-<%- include('../components/navbar') %>
 <body>
-  <div class="row">
-    <div class="col">
-      <div style="width: 600px;" id="reader"></div>
+    <div class="container">
+        <div class="upper">
+            <input type="file" id="fileSelector">
+            <button class="camera-start" id="startCameraButton">Start Camera</button>
+            <button class="camera-take" id="takePictureButton">Take Picture</button>
+            <button class="camera-stop" id="stopCameraButton">Stop</button>
+            <div class="progress"></div>
+        </div>
+        <div class="bottom">
+            <div class="camera-feed-container">
+                <video id="cameraFeed" class="camera-feed" autoplay></video>
+                <img src="" class="camera-image">
+            </div>
+            <div style="border: white;">
+                <textarea id="resultTextarea" placeholder="Result" readonly></textarea>
+            </div>
+        </div>
     </div>
-    <div class="col" style="padding: 30px;">
-      <h4>SCAN RESULT</h4>
-      <div id="success-message" style="display: none; color: green; margin-top: 10px;">
-        QR code scanned and Turn Over Date updated successfully! please wait 5 second to redirect in view page.
-      </div>
-      
-      <form id="result-form" class="result-group" >
-        <div>
-        </div>
+<script src="https://unpkg.com/tesseract.js@v2.0.0-alpha.13/dist/tesseract.min.js"></script>
+<script>
+const fileSelector = document.querySelector('#fileSelector');
+const img = document.querySelector('.camera-image');
+const cameraFeed = document.querySelector('#cameraFeed');
+const progress = document.querySelector('.progress');
+const textarea = document.querySelector('textarea');
+const startCameraButton = document.querySelector('#startCameraButton');
+const takePictureButton = document.querySelector('#takePictureButton');
+const stopCameraButton = document.querySelector('#stopCameraButton');
 
-        <div>
-          <label for="field1">ID Number:</label>
-          <input type="text" id="field1" name="field1">
-        </div>
+let cameraStream;
 
-        <div>
-          <label for="field2">Last Name:</label>
-          <input type="text" id="field2" name="field2">
-        </div>
+// For File Selector
+fileSelector.onchange = () => {
+    const selectedFile = fileSelector.files[0];
+    if (selectedFile) {
+        const imgUrl = window.URL.createObjectURL(selectedFile);
+        img.src = imgUrl;
 
-        <div>
-          <label for="field3">First Name:</label>
-          <input type="text" id="field3" name="field3">
-        </div>
+        // Start text recognition
+        recognizeText(selectedFile);
+    }
+};
 
-        <div>
-          <label for="field4">Middle Name:</label>
-          <input type="text" id="field4" name="field4">
-        </div>
+// For Camera Selector/Button
+startCameraButton.addEventListener('click', () => {
+    startCamera();
+});
+takePictureButton.addEventListener('click', () => {
+    takePicture();
+});
+stopCameraButton.addEventListener('click', () => {
+    stopCamera();
+});
 
-        <div>
-          <label for="field5">Qualifiers:</label>
-          <input type="text" id="field5" name="field5">
-        </div>
-
-        <div>
-          <!-- Label only or may input ikaw na bahala hahaha -->
-          <label for="field6">Rank: <span id="field6"> </span></label>
-        </div>
-
-        <div>
-          <label for="field7">Station:</label>
-          <input type="text" id="field7" name="field7">
-        </div>
-
-        <div>
-          <label for="field8">Gun Type:</label>
-          <input type="text" id="field8" name="field8">
-        </div>
-
-        <div>
-          <label for="field9">Gun Name:</label>
-          <input type="text" id="field9" name="field9">
-        </div>
-
-        <div>
-          <label for="field10">Caliber:</label>
-          <input type="text" id="field10" name="field10">
-        </div>
-
-        <div>
-          <label for="field11">Serial Number:</label>
-          <input type="text" id="field11" name="field11">
-        </div>
-
-        <div>
-          <label for="field12">Cost:</label>
-          <input type="text" id="field12" name="field12">
-        </div>
-
-        <div>
-          <label for="field13">Acquisition Date:</label>
-          <input type="text" id="field13" name="field13">
-        </div>
-
-        <div>
-          <label for="field14">Turn Over Date:</label>
-          <input type="text" id="field14" name="field14">
-        </div>
-
-        <div>
-          <label for="field15">Returned Date:</label>
-          <input type="text" id="field15" name="field15">
-        </div>
-
-      </form>
-    </div>
-  </div>
-
-  <!-- To call the library and then  render the scanner -->
-  <script>
-    var html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250 });
-    html5QrcodeScanner.render(onScanSuccess, onScanError);
-
-    
-function onScanSuccess(qrCodeMessage) {
-  // Show the scan result with split data and put it in the form
-  var splitMessage = qrCodeMessage.split(' ');
-  document.getElementById('field1').value = splitMessage[0];
-  document.getElementById('field2').value = splitMessage[1];
-  document.getElementById('field3').value = splitMessage[2];
-  document.getElementById('field4').value = splitMessage[3];
-  document.getElementById('field5').value = splitMessage[4];
-  document.getElementById('field6').textContent = splitMessage[5];
-  document.getElementById('field7').value = splitMessage[6];
-  document.getElementById('field8').value = splitMessage[7];
-  document.getElementById('field9').value = splitMessage[8];
-  document.getElementById('field10').value = splitMessage[9];
-  document.getElementById('field11').value = splitMessage[10];
-  document.getElementById('field12').value = splitMessage[11];
-  document.getElementById('field13').value = splitMessage[12];
-
-  // Set the Turn Over Date to the current date (today)
-  var today = new Date().toISOString().split('T')[0];
-  document.getElementById('field14').value = today;
-
-  // The splitMessage will go to the form automatically
-  document.getElementById('result-form').classList.add('show');
-  document.getElementById('success-message').style.display = 'block';
-
-  // Send an HTTP POST request to your API endpoint to update the data
-  const apiUrl = '/scan'; // This should be the correct API endpoint
-  const dataToUpdate = { qrCodeMessage: qrCodeMessage, turnOver: today };
-
-  fetch(apiUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(dataToUpdate)
-  })
-  .then(response => response.json())
-  .then(data => {
-    // Handle the API response if needed
-    console.log('Data updated successfully:', data);
-     
-    // to redirect in select page after 5 seconds
-    // setTimeout(() => {
-    //  window.location.href = `/select/${data.data.id}`;
-    // }, 5000); //
-  })
-  .catch(error => {
-    console.error('Error updating data:', error);
-  });
+function startCamera() {
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function (stream) {
+            cameraStream = stream;
+            cameraFeed.style.display = 'block';
+            cameraFeed.srcObject = stream;
+            startCameraButton.style.display = 'none';
+            takePictureButton.style.display = 'inline-block';
+            stopCameraButton.style.display = 'inline-block';
+        })
+        .catch(function (error) {
+            console.error('Error accessing camera:', error);
+        });
 }
 
-function onScanError(errorMessage) {
-  console.error(errorMessage);
+function takePicture() {
+    const canvas = document.createElement('canvas');
+    canvas.width = cameraFeed.videoWidth;
+    canvas.height = cameraFeed.videoHeight;
+    canvas.getContext('2d').drawImage(cameraFeed, 0, 0, canvas.width, canvas.height);
+    const imgDataUri = canvas.toDataURL('image/jpeg');
+
+    // Picture
+    img.src = imgDataUri;
+
+    // To recognize text
+    recognizeText(dataURItoBlob(imgDataUri));
 }
-  </script>
-  
-  
+
+function stopCamera() {
+    if (cameraStream) {
+        cameraStream.getTracks().forEach(track => track.stop());
+    }
+    cameraFeed.style.display = 'none';
+    startCameraButton.style.display = 'inline-block';
+    takePictureButton.style.display = 'none';
+    stopCameraButton.style.display = 'none';
+}
+
+function dataURItoBlob(dataURI) {
+    const byteString = atob(dataURI.split(',')[1]);
+    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ab], { type: mimeString });
+}
+
+function recognizeText(file) {
+  textarea.innerHTML = '';
+  const rec = new Tesseract.TesseractWorker();
+  rec.recognize(file)
+    .progress(function (response) {
+      if (response.status == 'recognizing text') {
+        progress.innerHTML = response.status + '   ' + response.progress;
+      } else {
+        progress.innerHTML = response.status;
+      }
+    })
+    .then(function (data) {
+    //to get the serial number
+      textarea.innerHTML = data.text;
+      progress.innerHTML = 'Done';
+      console.log('ito na',data);
+    //the data.text as SerialNumber for function
+      const serialNumber = (data.text); 
+      console.log('Serial number:', serialNumber || 'Not found');
+
+      if (serialNumber) {
+        sendSerialNumberToController(serialNumber);
+      }
+    });
+}
+//Function to send the serial number to the controller
+function sendSerialNumberToController(serialNumber) {
+  const xhr = new XMLHttpRequest();
+  const route = '/scan'; 
+
+  xhr.open('POST', route, true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+        console.log('Serial number sent successfully');
+      } else {
+        console.error('Failed to send serial number');
+      }
+    }
+  };
+
+  const data = JSON.stringify({ serialNumber });
+  xhr.send(data);
+}
+
+</script>
 </body>
 </html>

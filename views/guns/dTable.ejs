@@ -36,14 +36,27 @@
         }
 
         .card {
-          border: 2px solid black;
+          border: 1px solid black;
           width: 250px;
-          height: 150px;
+          height: 200px;
+          display: inline-block;
+          margin: 25px  10px;
+          /* for shadowing */
+          box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+          transition: 0.3s;
+        }
+
+        .card:hover {
+          box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+
+        .card h3 {
+          text-align: center;
         }
 
         .card img {
-          width: 50%;
-          height: 25%;
+          width: 30%;
+          height: 50%;
         }
     </style>
 </style>
@@ -127,11 +140,21 @@
     <button type="reset" class="btn btn-warning">Reset</button>
 </form>
 <button class="btn btn-success" id="downloadExcelBtn">Download Excel</button>
-  <!--  to show total data cout -->
+<br>
+  <!--  count card -->
   <div class="card">
     <h3>Total Number of User</h3>
-    <img src="user.png"> 
-    <h1><%= TotalGun._count.id+1 %></h1>
+    <h1><%= TotalGun._count.id+1 %> <img src="user.png"> </h1>
+  </div>
+
+  <div class="card">
+    <h3>Total Gain of this Month</h3>
+    <h1>3 <img src="user.png"> </h1>
+  </div>
+
+  <div class="card">
+    <h3>Total Loses of this Month</h3>
+    <h1>1 <img src="user.png"> </h1>
   </div>
 </center>
 <body>

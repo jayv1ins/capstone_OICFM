@@ -14,7 +14,7 @@
         gtag('js', new Date());
         gtag('config', 'G-GCFCN7G09K');
     </script>
-    <style>
+      <style>
         body{
             padding: 0px 100px;
             font-family: sans-serif;
@@ -50,6 +50,7 @@
             font-size: 20px;
             outline: none;
             border: none;
+            padding: 250px;
         }
         .bottom div:first-child{
             margin-left: 0px;
@@ -110,8 +111,8 @@
                 <video id="cameraFeed" class="camera-feed" autoplay></video>
                 <img src="" class="camera-image">
             </div>
-            <div>
-                <textarea placeholder="text"></textarea>
+            <div style="border: white;">
+                <textarea id="resultTextarea" placeholder="Result" readonly></textarea>
             </div>
         </div>
     </div>
@@ -219,6 +220,7 @@ function recognizeText(file) {
         .then(function (data) {
             textarea.innerHTML = data.text;
             progress.innerHTML = 'Done';
+            console.log('ito na',data);
         });
 }
 </script>

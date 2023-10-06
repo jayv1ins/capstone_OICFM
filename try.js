@@ -1,26 +1,14 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-exports.scanner = (req, res) => {
-  res.render('guns/scanner', { user: req.user });
-};
-
-exports.scanUpdate = async (req, res) => {
-  console.log('Received data from client:', req.body);
-  let { serialNumber } = req.body; 
-  
-  // Remove newline character (\n) from the serial number
-  serialNumber = serialNumber.replace(/\n/g, '');
-
-  console.log('serialNumber:', serialNumber);
-
+async function fetchData() {
   try {
     const existingData = await prisma.data.findFirst({
-      where: { serialN: serialNumber },
+      where: { serialN: 'PNP05012' },
+      //"7843a696-43f8-4747-adf8-5aa57481603f"
     });
 
     if (existingData) {
-      console.log('the existing data is :', existingData);
       // Get the current date
       const currentDate = new Date();
 
@@ -42,22 +30,23 @@ exports.scanUpdate = async (req, res) => {
       const updatedData = await prisma.data.update({
         where: { id: existingData.id },
         data: {
-          turnOver: formattedDate,
-          returned: formattedDateNextDay,
+          
         },
       });
 
       console.log(updatedData);
       console.log('the date today', formattedDate, 'the date tomorrow', formattedDateNextDay);
     } else {
-      console.log('No data found for serialN:', serialNumber);
+      console.log('No data found for serialN: 1234');
     }
   } catch (error) {
     console.error('Error fetching data:', error);
   } finally {
     await prisma.$disconnect();
   }
-};
+}
+
+fetchData();
 
 
 
