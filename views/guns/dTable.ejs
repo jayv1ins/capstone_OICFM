@@ -1,0 +1,315 @@
+<header>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- For Xlsx Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <%- include('../components/navbar') %>
+
+<style>
+    <style>
+        /* Add CSS for the blue background and dropdown-style checkboxes */
+        .checkbox-dropdown {
+            display: inline-block;
+            position: relative;
+        }
+
+        .checkbox-dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: blue; /* Blue background color */
+            min-width: 200px;
+            border: 1px solid #ddd;
+            z-index: 1;
+        }
+
+        .checkbox-dropdown:hover .checkbox-dropdown-content {
+            display: block;
+        }
+
+        /* Add some spacing between checkboxes and labels */
+        .checkbox-dropdown-content label {
+            display: block;
+            padding: 5px;
+        }
+
+        .card {
+          border: 1px solid black;
+          width: 250px;
+          height: 200px;
+          display: inline-block;
+          margin: 25px  10px;
+          /* for shadowing */
+          box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+          transition: 0.3s;
+        }
+
+        .card:hover {
+          box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+
+        .card h3 {
+          text-align: center;
+        }
+
+        .card img {
+          width: 30%;
+          height: 50%;
+        }
+    </style>
+</style>
+
+</header>
+<center>
+  <h1>Select Date Range for Acquisition</h1>
+  <form action="/DataTable" method="GET" onsubmit="handleFilterSubmit(event)">
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate" name="startDate" required>
+  
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate" name="endDate" required>
+
+    <button type="submit">Submit</button>
+    <button type="reset">Reset</button>
+  </form>
+  
+  <form action="/DataTable" method="GET" onsubmit="handleFilterSubmit(event)">
+    <label for="searchQuery">Search:</label>
+    <input type="text" id="searchQuery" name="search" list="searchSuggestions" placeholder="Enter name or gun name" <% if (searchQuery) { %>value="<%- searchQuery %>"<% } %>>
+    <datalist id="searchSuggestions">
+      <% suggestions.forEach(function(suggestion) { %>
+        <option value="<%- suggestion %>">
+      <% }); %>
+    </datalist>
+  </form>
+
+
+<form action="/DataTable" method="GET" onsubmit="handleFilterSubmit(event)">
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        Gun Type
+      </button>
+      <ul class="dropdown-menu">
+        <% checkbGunTypes.forEach(function(gunType) { %>
+          <input type="checkbox" id="<%- gunType %>" name="Gtype" value="<%- gunType %>" <% if (gunTypes.includes(gunType)) { %>checked<% } %>>
+          <label for="<%- gunType %>"><%- gunType %></label><br>
+      <% }); %>
+      </ul>
+    </div>
+<!-- ----------------------------------------------------------------------------------------------------- -->
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        Gun Name
+      </button>
+      <ul class="dropdown-menu">
+        <% checkbGunNames.forEach(function(gunName) { %>
+          <input type="checkbox" id="<%- gunName %>" name="Gname" value="<%- gunName %>" <% if (gunNames.includes(gunName)) { %>checked<% } %>>
+          <label for="<% gunName %>"> <%- gunName %> </label><br>
+      <% }); %>
+      </ul>
+    </div>
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        Rank
+      </button>
+      <ul class="dropdown-menu">
+        <% checkbRanks.forEach(function(CBrank) { %>
+          <input type="checkbox" id="<%- CBrank %>" name="rank" value="<%- CBrank %>" <% if (CBranks.includes(CBrank)) { %>checked<% } %>>
+          <label for="<% CBrank %>"> <%- CBrank %> </label><br>
+      <% }); %>
+      </ul>
+    </div>
+
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        Station
+      </button>
+      <ul class="dropdown-menu">
+        <% checkbStations.forEach(function(CBstation) { %>
+          <input type="checkbox" id="<%- CBstation %>" name="station" value="<%- CBstation %>" <% if (CBstations.includes(CBstation)) { %>checked<% } %>>
+          <label for="<% CBstation %>"> <%- CBstation %> </label><br>
+      <% }); %>
+      </ul>
+    </div>
+    
+
+    <button type="submit" class="btn btn-success">Filter</button>
+    <button type="reset" class="btn btn-warning">Reset</button>
+</form>
+<button class="btn btn-success" id="downloadExcelBtn">Download Excel</button>
+<br>
+  <!--  count card -->
+  <div class="card">
+    <h3>Total Number of User</h3>
+    <h1><%= TotalGun._count.id+1 %> <img src="user.png"> </h1>
+  </div>
+
+  <div class="card">
+    <h3>Total Gain of this Month</h3>
+    <h1>3 <img src="user.png"> </h1>
+  </div>
+
+  <div class="card">
+    <h3>Total Loses of this Month</h3>
+    <h1>1 <img src="user.png"> </h1>
+  </div>
+</center>
+<body>
+  <% if (typeof ErrorMessage !=='undefined' ) { %>
+    <p style="color: red;">
+      <%= ErrorMessage %>
+    </p>
+    <% } else if (typeof SuccessMessage !=='undefined' ) { %>
+      <p style="color: green;">
+        <%= SuccessMessage %>
+      </p>
+      <% } %>
+    
+  
+  <div class="container table-responsive py-5"> 
+    <table class="table table-bordered table-hover">
+      <thead class="thead-dark">
+        
+
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Full Name</th>
+          <th scope="col">Rank</th>
+          <th scope="col">Gun Type</th>
+          <th scope="col">Gun Name</th>
+          <th scope="col">Serial ID</th>
+          <th scope="col">Caliber</th>
+          <th scope="col">Cost</th>
+          <th scope="col">Station</th>
+          <!-- <th scope="col">Check in</th>
+          <th scope="col">Check Out</th> -->
+          <th scope="col">Qr</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>  
+      <tbody>
+        <% if (datas.length > 0) { %>
+          <% let counter = (page - 1) * limit + 1; %>
+          <% datas.forEach(function(data) { %>
+            <tr>
+              <td><%= counter %></td>
+              <td><%= data.lastName %>, <%= data.firstName %> . <%= data.middleName %></td>
+              <td><%= data.rank %></td>
+              <td><%= data.Gtype %></td>
+              <td><%= data.Gname %></td>
+              <td><%= data.serialN %></td>
+              <td><%= data.caliber %></td>
+              <td><%= data.cost %></td>
+              <td><%= data.station %></td>
+              <td>
+                <% if (data.hasQRCode) { %>
+                  <div class="qr-code-container">
+                    <!-- Display the QR code here -->
+                    <img src="<%= `data:image/png;base64,${data.qrCode.toString('base64')}` %>" alt="QR Code" />
+                  </div>
+                <% } else { %>
+                  <p>No QR Code available</p>
+                <% } %>
+              </td>
+              <td>
+                <a href="/select/<%= data.id %>">select</a>
+                <a href="/edit/<%= data.id %>">Edit</a>
+                <form action="/delete/<%= data.id %>" method="POST">
+                  <button type="submit">Delete</button>
+                </form>
+              </td>
+            </tr>
+            <% counter++; %>
+          <% }); %>
+        <% } else { %>
+          <tr>
+            <td colspan="10" class="text-center">No data found.</td>
+          </tr>
+        <% } %>
+      </tbody>
+      
+      
+    </table>
+
+    <div class="flex justify-between items-center mt-5">
+      <div>
+        <span class="text-sm text-gray-700">
+          Showing <%= (page - 1) * limit + 1 %>-<%= Math.min(page * limit, totalRecords) %> of <%= totalRecords %>
+        </span>
+      </div>
+      <div>
+        <nav class="inline-flex rounded-md shadow">
+          <% if (page > 1) { %>
+            <a href="/DataTable?page=<%= page - 1 %>" class="px-3 py-1 rounded-l-md bg-blue-500 text-white">
+              Previous
+            </a>
+          <% } %>
+    
+          <% for (let i = 1; i <= totalPages; i++) { %>
+            <% if (page === i) { %>
+              <span class="px-3 py-1 bg-white text-blue-500 hover:bg-blue-500 hover:text-white"><%= i %></span>
+            <% } else { %>
+              <a href="/DataTable?page=<%= i %>" class="px-3 py-1 bg-white text-blue-500 hover:bg-blue-500 hover:text-white"><%= i %></a>
+            <% } %>
+          <% } %>
+    
+          <% if (page < totalPages) { %>
+            <a href="/DataTable?page=<%= page + 1 %>" class="px-3 py-1 bg-white text-blue-500 hover:bg-blue-500 hover:text-white">
+              Next
+            </a>
+          <% } %>
+        </nav>
+      </div>
+    </div>
+
+  <div class="text-center mt-5">
+    <a class="btn btn-primary" href="/create" role="button">Create New Details</a>
+  </div>
+</div>
+</div>
+<script>
+// Function to send a request to the server for Excel export
+function exportExcel() {
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  const month = monthNames[currentDate.getMonth()];
+  const day = currentDate.getDate().toString().padStart(2, '0');
+
+
+  // Construct the file name with the current date
+  const fileName = `table_data_${month}_${year}.xlsx`;
+  fetch('/DataTable/ToExcel') // Replace with the actual server route
+    .then((response) => {
+      if (response.ok) {
+        return response.blob();
+      } else {
+        throw new Error('Export failed.');
+      }
+    })
+    .then((blob) => {
+      // Create a URL for the blob and trigger the download
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      a.click();
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+// Attach the exportExcel function to the button click event
+document.getElementById('downloadExcelBtn').addEventListener('click', exportExcel);
+
+</script>
+
+</body>
+

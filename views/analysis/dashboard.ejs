@@ -1,0 +1,383 @@
+<head>
+
+  <!-- Montserrat Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+</head>
+
+<html>
+<script src="https://unpkg.com/@mongodb-js/charts-embed-dom"></script>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #e6e8ed;
+    color: #666666;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  .material-icons-outlined {
+    vertical-align: middle;
+    line-height: 1px;
+  }
+
+  .text-primary {
+    color: #666666;
+  }
+
+
+
+  .select_date, form{
+    background-color: #0a15ab;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px;
+  }
+
+
+  /* ---------- MAIN ---------- */
+
+  .main-container {
+    grid-area: main;
+    overflow-y: auto;
+    padding: 20px 20px;
+    background-color: #e6e8ed;
+  }
+
+  .main-title {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .main-title>p {
+    font-size: 20px;
+  }
+
+  .main-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 20px;
+    margin: 20px 0;
+
+
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 25px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    border: 1px solid #d2d2d3;
+    border-radius: 5px;
+    box-shadow: 0 6px 7px -4px rgba(0, 0, 0, 0.2);
+
+  }
+
+  .card:first-child {
+    border-left: 7px solid #246dec;
+  }
+
+  .card:nth-child(2) {
+    border-left: 7px solid #f5b74f;
+  }
+
+  .card:nth-child(3) {
+    border-left: 7px solid #367952;
+  }
+
+  .card:nth-child(4) {
+    border-left: 7px solid #cc3c43;
+  }
+
+  .card>.chartdb {
+    font-size: 20px;
+    font-weight: 600;
+    height: 150px;
+  }
+
+  .card-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+
+
+  }
+
+  .card-inner>p {
+    font-size: 18px;
+  }
+
+  .card-inner>span {
+    font-size: 35px;
+  }
+
+  .card-inner>img {
+    height: 45px;
+    width: 45px;
+  }
+
+  .charts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+
+  }
+
+  .charts2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+
+  }
+
+
+  .charts-card,
+  .charts-card-2 {
+    background-color: #ffffff;
+    margin-bottom: 20px;
+    padding: 25px 25px 75px 25px;
+
+    box-sizing: border-box;
+    -webkit-column-break-inside: avoid;
+    border: 1px solid #d2d2d3;
+    border-radius: 5px;
+    box-shadow: 0 6px 7px -4px rgba(0, 0, 0, 0.2);
+    height: 400px;
+
+  }
+
+  .chart-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  .font-weight-bold {
+    font-weight: 600;
+  }
+
+
+
+  @media screen and (max-width: 992px) {
+    .grid-container {
+      grid-template-columns: 1fr;
+      grid-template-rows: 0.2fr 3fr;
+      grid-template-areas:
+        "main";
+    }
+
+  }
+
+  @media screen and (max-width: 768px) {
+    .main-cards {
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 0;
+    }
+
+    .charts {
+      grid-template-columns: 1fr;
+      margin-top: 30px;
+    }
+  }
+</style>
+
+<body>
+
+
+  
+    <div class="select_date">
+      <h1>Select Date Range for Acquisition</h1>
+      <form onsubmit="handleFilterSubmit(event)">
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" required>
+
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" required>
+
+        <button type="submit">Submit</button>
+        <button type="reset">Reset</button>
+      </form>
+    </div>
+
+    
+    <!-- Main -->
+    <main class="main-container">
+      <div class="main-title">
+        <p class="font-weight-bold">DASHBOARD</p>
+      </div>
+
+      <div class="main-cards">
+
+        <div class="card">
+
+          <div class="card-inner">
+
+            <p class="text-primary">TOTAL GUN</p>
+
+
+            <img src="gun.png" alt="">
+
+          </div>
+          <div class="chartdb" id="chart1"></div>
+
+        </div>
+
+        <div class="card">
+          <div class="card-inner">
+            <p class="text-primary">TOTAL COST</p>
+            <span class="material-icons-outlined text-orange">paid</span>
+          </div>
+          <div class="chartdb" id="chart2"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-inner">
+            <p class="text-primary">TURNOVER RATE</p>
+            <span class="material-icons-outlined text-green">percent</span>
+          </div>
+          <div class="chartdb" id="chart13"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-inner">
+            <p class="text-primary">USERS</p>
+            <span class="material-icons-outlined text-red">account_circle</span>
+          </div>
+          <div class="chartdb" id="chart15"></div>
+        </div>
+
+      </div>
+
+      <div class="charts">
+
+        <div class="charts-card">
+          <p class="chart-title">Number of Officers per Rank</p>
+          <div id="chart3"></div>
+        </div>
+
+        <div class="charts-card">
+          <p class="chart-title">Number of Guns per Station</p>
+          <div id="chart4"></div>
+        </div>
+
+        <div class="charts-card">
+          <p class="chart-title">Number of Guns per Gun Type</p>
+          <div id="chart5"></div>
+        </div>
+
+        <div class="charts-card">
+          <p class="chart-title">Number of Guns per Calibre</p>
+          <div id="chart6"></div>
+        </div>
+
+        <div class="charts-card">
+          <p class="chart-title">Number of Guns per Gun Name </p>
+          <div id="chart7"></div>
+        </div>
+
+        <div class="charts-card">
+          <p class="chart-title">Total Cost per Gun Type</p>
+          <div id="chart8"></div>
+        </div>
+
+        <div class="charts-card">
+          <p class="chart-title">Scanned QR Code to Gun Numbers</p>
+          <div id="chart9"></div>
+        </div>
+
+        <div class="charts-card">
+          <p class="chart-title">Number of Gun Acquisitions per Date</p>
+          <div id="chart10"></div>
+        </div>
+
+        <div class="charts-card">
+          <p class="chart-title">Total Cost per Acquisition </p>
+          <div id="chart11"></div>
+        </div>
+
+        <div class="charts-card">
+          <p class="chart-title">Accumulated Costs over Time </p>
+          <div id="chart12"></div>
+        </div>
+
+      </div>
+
+      <div class="charts2">
+        <div class="charts-card-2">
+          <p class="chart-title">Gun Type by Rank</p>
+          <div id="chart14"></div>
+        </div>
+      </div>
+    </main>
+
+</body>
+
+<script>
+  const ChartsEmbedSDK = window.ChartsEmbedSDK;
+
+  const sdk = new ChartsEmbedSDK({
+    baseUrl: "https://charts.mongodb.com/charts-project-0-omorz",
+  });
+
+  const chartIds = [
+    "6492abe4-74f2-4905-805e-f685c6754286",
+    "64994e7e-6f89-4b9b-8926-e4595ee18be1",
+    "6492afa8-e63f-4b36-8007-0f06bc0fceb5",
+    "6492af4a-7081-435a-88d2-cbf173aa2add",
+    "64a4e114-bfd6-4c5c-82e1-aed10e4d8504",
+    "6499393e-5d6e-4d4b-80e6-5c0004764687",
+    "649937ab-6ccc-47e8-8431-13e80f87ab31",
+    "64a7c613-c709-43c3-8b0f-73a5bdd4f530",
+    "64a75be6-7fe0-4990-8c22-994ad4f608cf",
+    "64a7c276-7fe0-4399-846c-994ad42930fa",
+    "64aa6838-5bfe-4e8d-82ec-be414ef2ae74",
+    "64aa77c2-c709-44ca-809a-73a5bd6426e9",
+    "64aa7bf4-2925-478c-8eff-15cc0ae2b5da",
+    "64aa808f-904b-4bad-810f-87a9d4d94c75",
+    "6522ad57-8f60-4161-89ce-00d9b33e9a97",
+  ];
+
+  const charts = chartIds.map(chartId => sdk.createChart({ chartId }));
+
+  charts.forEach((chart, index) => {
+    chart.render(document.getElementById(`chart${index + 1}`));
+  });
+
+  function handleFilterSubmit(event) {
+    event.preventDefault();
+    const today = new Date();
+    const month = today.getMonth() + 1; // Month is 0-based
+
+    const startDate = document.getElementById("startDate").value;
+    const endDate = document.getElementById("endDate").value;
+
+    if (startDate && endDate) {
+      charts.forEach(chart => {
+        chart.setFilter({
+          $and: [
+            { acquisition: { $gte: startDate } },
+            { acquisition: { $lte: endDate } }
+          ]
+        });
+      });
+    } else {
+      // If either start date or end date is not selected, remove the filter
+      charts.forEach(chart => chart.setFilter({}));
+    }
+  }
+
+
+
+</script>
+
+</html>

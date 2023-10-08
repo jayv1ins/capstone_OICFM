@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <link rel="Website Icon" type="png" href="logo_pnp.png">
+
+  <title>Login</title>
+
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            darkb: '#287094 ',
+            darkerb: '#023246 ',
+            pnp: '#6587b0',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<style>
+  html,
+  body {
+    min-height: 100%;
+    font-family: Oxygen;
+    font-weight: 300;
+    font-size: 1em;
+    color: #fff;
+  }
+
+  body {
+    background: #2e3441;
+    background-image: -webkit-radial-gradient(top, circle cover, #4e7a89, #2e3441 80%);
+    background-image: -moz-radial-gradient(top, circle cover, #4e7a89, #2e3441 80%);
+    background-image: -o-radial-gradient(top, circle cover, #4e7a89, #2e3441 80%);
+    background-image: radial-gradient(top, circle cover, #4e7a89, #2e3441 80%);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .signin {
+    display: block;
+    position: relative;
+    width: 450px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.1);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-box-shadow: inset 1px 1px 0 0 rgba(255, 255, 255, 0.2), inset -1px -1px 0 0 rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: inset 1px 1px 0 0 rgba(255, 255, 255, 0.2), inset -1px -1px 0 0 rgba(0, 0, 0, 0.2);
+    box-shadow: inset 1px 1px 0 0 rgba(255, 255, 255, 0.2), inset -1px -1px 0 0 rgba(0, 0, 0, 0.2);
+  }
+
+
+
+  .signin .inputrow {
+    position: relative;
+  }
+
+  .signin .inputrow label {
+    position: absolute;
+    top: 12px;
+    left: 10px;
+  }
+
+  .signin .inputrow label:before {
+    color: #538a9a;
+    opacity: 0.4;
+    -webkit-transition: opacity 300ms 0 ease;
+    -moz-transition: opacity 300ms 0 ease;
+    transition: opacity 300ms 0 ease;
+  }
+
+  .signin input[type="email"],
+  .signin input[type="password"] {
+    padding: 10px 12px 10px 32px;
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    background-color: #fff;
+    color: #333;
+    font-size: 1em;
+    font-weight: 300;
+    outline: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-transition: border-color 300ms 0 ease;
+    -moz-transition: border-color 300ms 0 ease;
+    transition: border-color 300ms 0 ease;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  .signin input[type="email"]:focus+label:before,
+  .signin input[type="password"]:focus+label:before {
+    opacity: 1;
+  }
+
+  .signin button[type="submit"] {
+
+    height: 40px;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    background-color: #538a9a;
+    text-transform: uppercase;
+    color: #fff;
+    border: 0px;
+    float: right;
+    margin: 0;
+    outline: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }
+
+  .signin button[type="submit"]:hover {
+    background-color: #5e98a8;
+  }
+
+  .signin button[type="submit"]:active {
+    background-color: #4a7b89;
+  }
+
+  .cf:before,
+  .cf:after {
+    content: " ";
+    display: table;
+  }
+
+  .cf:after {
+    clear: both;
+  }
+
+  .cf {
+    zoom: 1;
+  }
+
+
+  .logo {
+    display: flex;
+    justify-content: center;
+    width: 100px;
+    height: 140px;
+    margin: 10px auto;
+
+  }
+
+  .title {
+    text-align: center;
+    font-weight: 500;
+    margin: 10px 0px;
+
+  }
+
+
+</style>
+
+<body class="dark-bg">
+
+
+  <link href="https://fonts.googleapis.com/css?family=Oxygen:400,300,700" rel="stylesheet" type="text/css" />
+  <link href="https://code.ionicframework.com/ionicons/1.4.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+  <div class="signin cf">
+
+
+    <img class="logo" src="logo_pnp.png" alt="image">
+
+    <h3 class="title">Philippine National Police</h3>
+    <h2 style="text-align: center; font-size: 13px; margin-bottom: 10px;">OICFM</h2>
+
+    <% if (typeof errorMessage !=='undefined' ) { %>
+      <p style="color: red;">
+        <%= errorMessage %>
+      </p>
+      <% } %>
+
+        <% if (typeof message !=='undefined' ) { %>
+          <p style="color: green;">
+            <%= message %>
+          </p>
+          <% } %>
+            <form method="post" action="/login">
+              <div class="inputrow">
+                <input name="email" type="email" placeholder="Email" required autocomplete="email" />
+                <label class="ion-person" for="email"></label>
+              </div>
+              <div class="inputrow">
+                <input name="password" type="password" placeholder="Password" required
+                  autocomplete="current-password" />
+                <label class="ion-locked" for="pass"></label>
+              </div>
+
+
+              <button type="submit">Login</button>
+              
+            </form>
+            <hr>
+            <small>
+              <small>Authorize Personnel can only logged to this site.</small>
+            </small>
+  </div>
+
+
+
+</body>
+
+</html>

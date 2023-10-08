@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  policeId    String      @unique
+  email       String?     @unique
+  lastName    String
+  firstName   String
+  middleName  String
+  QLFR        String?
+  station     String
+  rank        String
+  usertype    String
+  password    String
+  shift       Int
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Data {
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  Gtype       String
+  Gname       String
+  caliber     String
+  serialN     String
+  acquisition String
+  turnOver    String
+  returned    String
+  cost        Int
+  station     String
+  rank        String
+  lastName    String
+  firstName   String
+  middleName  String
+  QLFR        String
+  qrCode  Bytes?
+  //createdAt   DateTime    @default(now())
+  //updatedAt   DateTime    @updatedAt
+  //deletedAt DateTime?
+}
+
+model Gun_Details {
+   id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  Gtype       String
+  Gname       String
+  caliber     String
+  serialN     String
+  acquisition String
+  turnOver    String
+  returned    String
+  cost        Int
+  station     String
+  rank        String
+  lastName    String
+  firstName   String
+  middleName  String
+  QLFR        String
+  qrCode  Bytes?
+}
+

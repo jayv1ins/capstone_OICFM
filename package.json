@@ -1,0 +1,30 @@
+{
+  "name": "inv-app",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "@mongodb-js/charts-embed-dom": "^3.1.0",
+    "@prisma/client": "^4.14.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "faker": "^6.6.6",
+    "googleapis": "^124.0.0",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "nodemailer": "^6.9.4",
+    "prisma": "^4.14.0",
+    "puppeteer": "^20.9.0",
+    "qrcode": "^1.5.3",
+    "tesseract.js": "^4.1.2",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "html5-qrcode": "^2.3.8"
+  }
+}
