@@ -1,315 +1,746 @@
-<header>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <!-- For Xlsx Library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+<html>
+<%- include('../components/navbar') %>
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <%- include('../components/navbar') %>
+  <head>
 
-<style>
+    <!-- For Xlsx Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Montserrat Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet">
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+
+    <title>Data Table</title>
+
+
     <style>
-        /* Add CSS for the blue background and dropdown-style checkboxes */
-        .checkbox-dropdown {
-            display: inline-block;
-            position: relative;
-        }
+      body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background-color: #e6e8ed;
 
-        .checkbox-dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: blue; /* Blue background color */
-            min-width: 200px;
-            border: 1px solid #ddd;
-            z-index: 1;
-        }
-
-        .checkbox-dropdown:hover .checkbox-dropdown-content {
-            display: block;
-        }
-
-        /* Add some spacing between checkboxes and labels */
-        .checkbox-dropdown-content label {
-            display: block;
-            padding: 5px;
-        }
-
-        .card {
-          border: 1px solid black;
-          width: 250px;
-          height: 200px;
-          display: inline-block;
-          margin: 25px  10px;
-          /* for shadowing */
-          box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-          transition: 0.3s;
-        }
-
-        .card:hover {
-          box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-        }
-
-        .card h3 {
-          text-align: center;
-        }
-
-        .card img {
-          width: 30%;
-          height: 50%;
-        }
-    </style>
-</style>
-
-</header>
-<center>
-  <h1>Select Date Range for Acquisition</h1>
-  <form action="/DataTable" method="GET" onsubmit="handleFilterSubmit(event)">
-    <label for="startDate">Start Date:</label>
-    <input type="date" id="startDate" name="startDate" required>
-  
-    <label for="endDate">End Date:</label>
-    <input type="date" id="endDate" name="endDate" required>
-
-    <button type="submit">Submit</button>
-    <button type="reset">Reset</button>
-  </form>
-  
-  <form action="/DataTable" method="GET" onsubmit="handleFilterSubmit(event)">
-    <label for="searchQuery">Search:</label>
-    <input type="text" id="searchQuery" name="search" list="searchSuggestions" placeholder="Enter name or gun name" <% if (searchQuery) { %>value="<%- searchQuery %>"<% } %>>
-    <datalist id="searchSuggestions">
-      <% suggestions.forEach(function(suggestion) { %>
-        <option value="<%- suggestion %>">
-      <% }); %>
-    </datalist>
-  </form>
-
-
-<form action="/DataTable" method="GET" onsubmit="handleFilterSubmit(event)">
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        Gun Type
-      </button>
-      <ul class="dropdown-menu">
-        <% checkbGunTypes.forEach(function(gunType) { %>
-          <input type="checkbox" id="<%- gunType %>" name="Gtype" value="<%- gunType %>" <% if (gunTypes.includes(gunType)) { %>checked<% } %>>
-          <label for="<%- gunType %>"><%- gunType %></label><br>
-      <% }); %>
-      </ul>
-    </div>
-<!-- ----------------------------------------------------------------------------------------------------- -->
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        Gun Name
-      </button>
-      <ul class="dropdown-menu">
-        <% checkbGunNames.forEach(function(gunName) { %>
-          <input type="checkbox" id="<%- gunName %>" name="Gname" value="<%- gunName %>" <% if (gunNames.includes(gunName)) { %>checked<% } %>>
-          <label for="<% gunName %>"> <%- gunName %> </label><br>
-      <% }); %>
-      </ul>
-    </div>
-
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        Rank
-      </button>
-      <ul class="dropdown-menu">
-        <% checkbRanks.forEach(function(CBrank) { %>
-          <input type="checkbox" id="<%- CBrank %>" name="rank" value="<%- CBrank %>" <% if (CBranks.includes(CBrank)) { %>checked<% } %>>
-          <label for="<% CBrank %>"> <%- CBrank %> </label><br>
-      <% }); %>
-      </ul>
-    </div>
-
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        Station
-      </button>
-      <ul class="dropdown-menu">
-        <% checkbStations.forEach(function(CBstation) { %>
-          <input type="checkbox" id="<%- CBstation %>" name="station" value="<%- CBstation %>" <% if (CBstations.includes(CBstation)) { %>checked<% } %>>
-          <label for="<% CBstation %>"> <%- CBstation %> </label><br>
-      <% }); %>
-      </ul>
-    </div>
-    
-
-    <button type="submit" class="btn btn-success">Filter</button>
-    <button type="reset" class="btn btn-warning">Reset</button>
-</form>
-<button class="btn btn-success" id="downloadExcelBtn">Download Excel</button>
-<br>
-  <!--  count card -->
-  <div class="card">
-    <h3>Total Number of User</h3>
-    <h1><%= TotalGun._count.id+1 %> <img src="user.png"> </h1>
-  </div>
-
-  <div class="card">
-    <h3>Total Gain of this Month</h3>
-    <h1>3 <img src="user.png"> </h1>
-  </div>
-
-  <div class="card">
-    <h3>Total Loses of this Month</h3>
-    <h1>1 <img src="user.png"> </h1>
-  </div>
-</center>
-<body>
-  <% if (typeof ErrorMessage !=='undefined' ) { %>
-    <p style="color: red;">
-      <%= ErrorMessage %>
-    </p>
-    <% } else if (typeof SuccessMessage !=='undefined' ) { %>
-      <p style="color: green;">
-        <%= SuccessMessage %>
-      </p>
-      <% } %>
-    
-  
-  <div class="container table-responsive py-5"> 
-    <table class="table table-bordered table-hover">
-      <thead class="thead-dark">
-        
-
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Full Name</th>
-          <th scope="col">Rank</th>
-          <th scope="col">Gun Type</th>
-          <th scope="col">Gun Name</th>
-          <th scope="col">Serial ID</th>
-          <th scope="col">Caliber</th>
-          <th scope="col">Cost</th>
-          <th scope="col">Station</th>
-          <!-- <th scope="col">Check in</th>
-          <th scope="col">Check Out</th> -->
-          <th scope="col">Qr</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>  
-      <tbody>
-        <% if (datas.length > 0) { %>
-          <% let counter = (page - 1) * limit + 1; %>
-          <% datas.forEach(function(data) { %>
-            <tr>
-              <td><%= counter %></td>
-              <td><%= data.lastName %>, <%= data.firstName %> . <%= data.middleName %></td>
-              <td><%= data.rank %></td>
-              <td><%= data.Gtype %></td>
-              <td><%= data.Gname %></td>
-              <td><%= data.serialN %></td>
-              <td><%= data.caliber %></td>
-              <td><%= data.cost %></td>
-              <td><%= data.station %></td>
-              <td>
-                <% if (data.hasQRCode) { %>
-                  <div class="qr-code-container">
-                    <!-- Display the QR code here -->
-                    <img src="<%= `data:image/png;base64,${data.qrCode.toString('base64')}` %>" alt="QR Code" />
-                  </div>
-                <% } else { %>
-                  <p>No QR Code available</p>
-                <% } %>
-              </td>
-              <td>
-                <a href="/select/<%= data.id %>">select</a>
-                <a href="/edit/<%= data.id %>">Edit</a>
-                <form action="/delete/<%= data.id %>" method="POST">
-                  <button type="submit">Delete</button>
-                </form>
-              </td>
-            </tr>
-            <% counter++; %>
-          <% }); %>
-        <% } else { %>
-          <tr>
-            <td colspan="10" class="text-center">No data found.</td>
-          </tr>
-        <% } %>
-      </tbody>
-      
-      
-    </table>
-
-    <div class="flex justify-between items-center mt-5">
-      <div>
-        <span class="text-sm text-gray-700">
-          Showing <%= (page - 1) * limit + 1 %>-<%= Math.min(page * limit, totalRecords) %> of <%= totalRecords %>
-        </span>
-      </div>
-      <div>
-        <nav class="inline-flex rounded-md shadow">
-          <% if (page > 1) { %>
-            <a href="/DataTable?page=<%= page - 1 %>" class="px-3 py-1 rounded-l-md bg-blue-500 text-white">
-              Previous
-            </a>
-          <% } %>
-    
-          <% for (let i = 1; i <= totalPages; i++) { %>
-            <% if (page === i) { %>
-              <span class="px-3 py-1 bg-white text-blue-500 hover:bg-blue-500 hover:text-white"><%= i %></span>
-            <% } else { %>
-              <a href="/DataTable?page=<%= i %>" class="px-3 py-1 bg-white text-blue-500 hover:bg-blue-500 hover:text-white"><%= i %></a>
-            <% } %>
-          <% } %>
-    
-          <% if (page < totalPages) { %>
-            <a href="/DataTable?page=<%= page + 1 %>" class="px-3 py-1 bg-white text-blue-500 hover:bg-blue-500 hover:text-white">
-              Next
-            </a>
-          <% } %>
-        </nav>
-      </div>
-    </div>
-
-  <div class="text-center mt-5">
-    <a class="btn btn-primary" href="/create" role="button">Create New Details</a>
-  </div>
-</div>
-</div>
-<script>
-// Function to send a request to the server for Excel export
-function exportExcel() {
-  const currentDate = new Date();
-  const year = currentDate.getFullYear();
-  const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
-  const month = monthNames[currentDate.getMonth()];
-  const day = currentDate.getDate().toString().padStart(2, '0');
-
-
-  // Construct the file name with the current date
-  const fileName = `table_data_${month}_${year}.xlsx`;
-  fetch('/DataTable/ToExcel') // Replace with the actual server route
-    .then((response) => {
-      if (response.ok) {
-        return response.blob();
-      } else {
-        throw new Error('Export failed.');
       }
-    })
-    .then((blob) => {
-      // Create a URL for the blob and trigger the download
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = fileName;
-      a.click();
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}
 
-// Attach the exportExcel function to the button click event
-document.getElementById('downloadExcelBtn').addEventListener('click', exportExcel);
+      .main-container {
+        grid-area: main;
+        overflow-y: auto;
+        padding: 20px 20px;
+        background-color: #e6e8ed;
+      }
 
-</script>
+      .main-title {
+        display: flex;
+        justify-content: space-between;
+      }
 
-</body>
+      .main-title>p {
+        font-size: 15px;
 
+      }
+
+      .main-cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 20px;
+        margin: 20px 0;
+
+        width: fit-content;
+
+
+      }
+
+      .card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        padding: 25px;
+        background-color: #ffffff;
+        box-sizing: border-box;
+        border: 1px solid #d2d2d3;
+        border-radius: 5px;
+        box-shadow: 0 6px 7px -4px rgba(0, 0, 0, 0.2);
+
+      }
+
+      .card:first-child {
+        border-left: 7px solid #246dec;
+      }
+
+      .card:nth-child(2) {
+        border-left: 7px solid #f5b74f;
+      }
+
+      .card:nth-child(3) {
+        border-left: 7px solid #367952;
+      }
+
+      .card:nth-child(4) {
+        border-left: 7px solid #cc3c43;
+      }
+
+      .card>.h1 {
+        font-size: 20px;
+        font-weight: 600;
+        height: 150px;
+      }
+
+      .card-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+
+
+
+      }
+
+      .card-inner>p {
+        font-size: 18px;
+        
+      }
+
+      .card-inner>span {
+        font-size: 35px;
+      }
+
+
+
+      
+      .text-primary {
+      color: black!important;
+    }
+
+
+
+      .checkbox-dropdown {
+        display: inline-block;
+        position: relative;
+      }
+
+      .checkbox-dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: blue;
+        /* Blue background color */
+        min-width: 200px;
+        border: 1px solid #ddd;
+        z-index: 1;
+      }
+
+      .checkbox-dropdown:hover .checkbox-dropdown-content {
+        display: block;
+      }
+
+      /* Add some spacing between checkboxes and labels */
+      .checkbox-dropdown-content label {
+        display: block;
+        padding: 5px;
+      }
+
+
+      table tr td {
+        vertical-align: middle;
+
+      }
+
+      a,
+      td button {
+        margin: 5px;
+
+      }
+
+      td button i {
+        font-size: 20px;
+      }
+
+      .modal-header {
+        background: #0d6efd;
+        color: #fff;
+      }
+
+
+      .scrollable-menu {
+        max-height: 200px;
+        overflow-y: auto;
+      }
+
+
+      .heading {
+        margin-top: 30px;
+      }
+    </style>
+
+
+
+
+  </head>
+
+
+
+
+
+
+
+  <body>
+
+    <center>
+      <h1 class="heading">Select Date Range for Acquisition</h1>
+      <form action="/DataTable" method="GET" onsubmit="handleFilterSubmit(event)">
+
+        <div class="form-group row text-center justify-content-center mt-4">
+          <label for="startDate" class="col-sm-1 col-form-label">Start Date:</label>
+  
+          <div class="col-sm-2">
+            <input type="date" id="startDate" name="startDate" class="form-control" required>
+          </div>
+  
+          <label for="endDate" class="col-sm-1 col-form-label">End Date:</label>
+  
+          <div class="col-sm-2">
+            <input type="date" id="endDate" name="endDate" class="form-control" required>
+            
+          </div>
+  
+          <div class="col-md-2">
+            <button type="submit" class="btn btn-primary" style="margin-right: 10px;">Submit</button>
+            <button type="reset" class="btn btn-secondary">Reset</button>
+          </div>
+        </div>
+      </form>
+
+      <form action="/DataTable" method="GET" onsubmit="handleFilterSubmit(event)">
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            Gun Type
+          </button>
+          <ul class="dropdown-menu scrollable-menu">
+            <% checkbGunTypes.forEach(function(gunType) { %>
+              <li class="dropdown-item">
+                <div class="form-check">
+                  <input type="checkbox" id="<%- gunType %>" class="form-check-input" name="Gtype"
+                    value="<%- gunType %>" <% if (gunTypes.includes(gunType)) { %>checked<% } %>>
+                    <label class="form-check-label" for="<%- gunType %>"><%- gunType %></label>
+                </div>
+              </li>
+              <% }); %>
+          </ul>
+        </div>
+
+        <!-- ----------------------------------------------------------------------------------------------------- -->
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            Gun Name
+          </button>
+          <ul class="dropdown-menu scrollable-menu">
+            <% checkbGunNames.forEach(function(gunName) { %>
+              <li class="dropdown-item">
+                <div class="form-check">
+                  <input type="checkbox" id="<%- gunName %>" class="form-check-input" name="Gname"
+                    value="<%- gunName %>" <% if (gunNames.includes(gunName)) { %>checked<% } %>>
+                    <label class="form-check-label" for="<%- gunName %>"><%- gunName %></label>
+                </div>
+              </li>
+              <% }); %>
+          </ul>
+        </div>
+
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            Rank
+          </button>
+          <ul class="dropdown-menu scrollable-menu">
+            <% checkbRanks.forEach(function(CBrank) { %>
+              <li class="dropdown-item">
+                <div class="form-check">
+                  <input type="checkbox" id="<%- CBrank %>" class="form-check-input" name="rank" value="<%- CBrank %>"
+                    <% if (CBranks.includes(CBrank)) { %>checked<% } %>>
+                    <label class="form-check-label" for="<%- CBrank %>"><%- CBrank %></label>
+                </div>
+              </li>
+              <% }); %>
+          </ul>
+        </div>
+
+
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            Station
+          </button>
+          <ul class="dropdown-menu scrollable-menu">
+
+            <% checkbStations.forEach(function(CBstation) { %>
+              <li class="dropdown-item">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="<%- CBstation %>" name="station"
+                    value="<%- CBstation %>" <% if (CBstations.includes(CBstation)) { %>checked<% } %>>
+                    <label class="form-check-label" for="<%- CBstation %>"> <%- CBstation %> </label>
+                </div>
+              </li>
+              <% }); %>
+          </ul>
+        </div>
+
+
+
+
+        <button type="submit" class="btn btn-success">Filter</button>
+        <button type="reset" class="btn btn-warning">Reset</button>
+      </form>
+      <button class="btn btn-success" id="downloadExcelBtn">Download Excel</button>
+      <br>
+      <!--  count card -->
+
+      <div class="main-container">
+
+
+        <div class="main-cards">
+
+
+          <div class="card">
+            <div class="card-inner">
+              <p class="text-primary">TOTAL NUMBER OF USER</p>
+              <span class="material-icons-outlined text-orange">account_circle</span>
+            </div>
+            <h1>
+              <%= TotalGun._count.id+1 %>
+            </h1>
+          </div>
+
+          <div class="card">
+            <div class="card-inner">
+              <p class="text-primary">TOTAL GAIN OF THIS MONTH</p>
+              <span class="material-icons-outlined text-green">account_circle</span>
+            </div>
+
+            <h1>3 </h1>
+          </div>
+
+          <div class="card">
+            <div class="card-inner">
+              <p class="text-primary">TOTAL LOSES OF THIS MONTH</p>
+              <span class="material-icons-outlined text-red">account_circle</span>
+            </div>
+
+            <h1>1 </h1>
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+    </center>
+
+
+
+
+
+
+    <% if (typeof ErrorMessage !=='undefined' ) { %>
+      <p style="color: red;">
+        <%= ErrorMessage %>
+      </p>
+      <% } else if (typeof SuccessMessage !=='undefined' ) { %>
+        <p style="color: green;">
+          <%= SuccessMessage %>
+        </p>
+        <% } %>
+
+
+
+
+
+
+          <section class="p-3">
+
+            <div class="row">
+
+              <div class="col-3">
+                <button class="btn btn-primary newUser" data-bs-toggle="modal" data-bs-target="#userForm">New User <i
+                    class="bi bi-people"></i></button>
+              </div>
+
+
+              <div class="col-9 d-flex justify-content-end">
+                <form action="/DataTable" method="GET" onsubmit="handleFilterSubmit(event)" class="row g-3">
+
+                  <div class="col-9">
+                    <input type="text" class="form-control" id="searchQuery" name="search" list="searchSuggestions"
+                      placeholder="Enter name or gun name" <% if (searchQuery) { %>value="<%- searchQuery %>"<% } %>>
+                        <datalist id="searchSuggestions">
+                          <% suggestions.forEach(function(suggestion) { %>
+                            <option value="<%- suggestion %>">
+                              <% }); %>
+                        </datalist>
+                  </div>
+                  <div class="col-3 d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+
+
+
+
+            <div class="row">
+              <div class="col-12">
+                <table class="table table-striped mt-3 text-center table-bordered table-hover">
+
+                  <thead class="table-dark">
+                    <tr>
+                      <th>S.No</th>
+                      <th>Full Name</th>
+                      <th>Rank</th>
+                      <th>Gun Type</th>
+                      <th>Gun Name</th>
+                      <th>Serial ID</th>
+                      <th>Caliber</th>
+                      <th>Cost</th>
+                      <th>Station</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <% if (datas.length> 0) { %>
+                      <% let counter=(page - 1) * limit + 1; %>
+                        <% datas.forEach(function(data) { %>
+                          <tr>
+                            <td>
+                              <%= counter %>
+                            </td>
+                            <td>
+                              <%= data.lastName %>, <%= data.firstName %> . <%= data.middleName %>
+                            </td>
+                            <td>
+                              <%= data.rank %>
+                            </td>
+                            <td>
+                              <%= data.Gtype %>
+                            </td>
+                            <td>
+                              <%= data.Gname %>
+                            </td>
+                            <td>
+                              <%= data.serialN %>
+                            </td>
+                            <td>
+                              <%= data.caliber %>
+                            </td>
+                            <td>
+                              <%= data.cost %>
+                            </td>
+                            <td>
+                              <%= data.station %>
+                            </td>
+
+                            <td>
+
+
+                              <a href="/select/<%= data.id %>"><button class="btn btn-success"><i
+                                    class="bi bi-eye"></i></button></a>
+
+
+                              <a href="/edit/<%= data.id %>"><button class="btn btn-primary"><i
+                                    class="bi bi-pencil-square"></i></button></a>
+
+                              <button class="btn btn-danger" onclick="confirmDelete('<%= data.id %>')"><i
+                                  class="bi bi-trash"></i></button>
+
+
+
+                            </td>
+
+                          </tr>
+                          <% counter++; %>
+                            <% }); %>
+                              <% } else { %>
+                                <tr>
+                                  <td colspan="10" class="text-center">No data found.</td>
+                                </tr>
+                                <% } %>
+                  </tbody>
+
+                </table>
+
+                <div class="d-flex justify-content-between align-items-center mt-5">
+                  <div>
+                    <span class="text-sm text-gray-700">
+                      Showing <%= (page - 1) * limit + 1 %>-<%= Math.min(page * limit, totalRecords) %> of <%=
+                            totalRecords %>
+                    </span>
+                  </div>
+                  <div>
+                    <nav class="d-inline-flex">
+                      <% if (page> 1) { %>
+                        <a href="/DataTable?page=<%= page - 1 %>" class="btn btn-primary">
+                          Previous
+                        </a>
+                        <% } %>
+                          <% for (let i=1; i <=totalPages; i++) { %>
+                            <% if (page===i) { %>
+                              <span class="btn btn-secondary">
+                                <%= i %>
+                              </span>
+                              <% } else { %>
+                                <a href="/DataTable?page=<%= i %>" class="btn btn-primary">
+                                  <%= i %>
+                                </a>
+                                <% } %>
+                                  <% } %>
+                                    <% if (page < totalPages) { %>
+                                      <a href="/DataTable?page=<%= page + 1 %>" class="btn btn-primary">
+                                        Next
+                                      </a>
+                                      <% } %>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </section>
+
+          <!--Modal Form-->
+ <div class="modal fade" id="userForm">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Fill the Form</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <form method="POST" action="/create" id="myForm">
+
+
+
+          <div class="row p-3 mb-5">
+
+            <% if (typeof ErrorMessage !=='undefined' ) { %>
+              <p style="color: red;">
+                <%= ErrorMessage %>
+              </p>
+              <% } else if (typeof SuccessMessage !=='undefined' ) { %>
+                <p style="color: green;">
+                  <%= SuccessMessage %>
+                </p>
+                <% } %>
+
+                  <div class="col-sm-4 form-group">
+                    <label for="name">Last Name:</label>
+
+                    <input type="text" class="form-control" placeholder="Enter your last name." id="lastName"
+                      name="lastName" autocomplete="LastName" required min="4" pattern="[a-zA-Z ]+">
+                  </div>
+
+
+                  <div class="col-sm-4 form-group">
+                    <label for="inputPassword4">First Name</label>
+                    <input type="text" class="form-control" placeholder="Enter your first name." id="firstName"
+                      name="firstName" autocomplete="firstName" required min="4" pattern="[a-zA-Z ]+">
+                  </div>
+
+                  <div class="col-sm-4 form-group">
+                    <label for="inputPassword4">Middle Name</label>
+                    <input type="text" class="form-control" placeholder="Enter your middle name."
+                      id="middleName" name="middleName" autocomplete="middleName" required min="4"
+                      pattern="[a-zA-Z ]+">
+                  </div>
+
+
+                  <div class="col-sm-4 form-group">
+                    <label for="inputPassword4">QLFR</label>
+                    <input type="text" class="form-control" placeholder="Enter QLFR" id="QLFR" name="QLFR"
+                      autocomplete="QLFR" id="qlfr">
+                  </div>
+
+                  <div class="col-sm-4 form-group">
+                    <label for="inputZip">Rank</label>
+                    <input type="text" class="form-control" id="rank" name="rank" placeholder="Enter rank">
+                  </div>
+
+                  <div class="col-sm-4 form-group">
+                    <label for="inputEmail4">Station</label>
+                    <input type="text" class="form-control" id="station" placeholder="District/City"
+                      name="station" autocomplete="station" required min="4" pattern="^[A-Z][a-zA-Z]*$">
+                  </div>
+
+                  <div class="col-sm-4 form-group">
+                    <label for="inputEmail4">Gun Type</label>
+                    <input type="text" class="form-control" id="gtype" placeholder="Enter gun type."
+                      name="Gtype" autocomplete="Gtype" required min="4" pattern="^[A-Z][a-zA-Z]*$">
+                  </div>
+
+                  <div class="col-sm-4 form-group">
+                    <label for="inputEmail4">Gun Name</label>
+                    <input type="text" class="form-control" id="gname" placeholder="Enter gun name."
+                      name="Gname" autocomplete="Gname" required min="4" pattern="^[A-Z][a-zA-Z]*$">
+                  </div>
+
+                  <div class="col-sm-4 form-group">
+                    <label for="inputEmail4">Caliber</label>
+                    <input type="text" class="form-control" id="caliber" placeholder="Enter caliber"
+                      name="caliber" autocomplete="caliber" required min="4">
+                  </div>
+
+                  <div class="col-sm-4 form-group">
+                    <label for="inputEmail4">Serial Number</label>
+                    <input type="text" class="form-control" id="serialN" placeholder="Enter serial number"
+                      name="serialN" autocomplete="serialN" required min="4">
+                  </div>
+
+
+
+
+                  <div class="col-sm-4 form-group">
+                    <label for="inputEmail4">Cost</label>
+                    <input type="text" class="form-control" id="cost" placeholder="Enter cost" name="cost"
+                      autocomplete="cost" required min="4">
+                  </div>
+
+
+
+                  <div class="col-sm-4 form-group">
+                    <label for="inputEmail4">Acquisition date</label>
+                    <input type="date" class="form-control" id="acquisition" name="acquisition">
+                  </div>
+
+                  <div class="col-sm-4 form-group">
+                    <label for="inputEmail4">Turn Over</label>
+                    <input type="date" class="form-control" id="turnOver" placeholder="Turn Over"
+                      name="turnOver" autocomplete="turnOver" required min="4">
+                  </div>
+
+                  <div class="col-sm-4 form-group">
+                    <label for="inputEmail4">returned</label>
+                    <input type="date" class="form-control" id="returned" placeholder="Returned gun"
+                      name="returned" autocomplete="returned" required min="4">
+                  </div>
+
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" form="myForm" class="btn btn-primary submit">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+            <script>
+
+              var form = document.getElementById("myForm"),
+                lastName = document.getElementById("lastName"),
+                firstName = document.getElementById("firstName"),
+                middleName = document.getElementById("middleName"),
+                qlfr = document.getElementById("qlfr"),
+                rank = document.getElementById("rank"),
+                station = document.getElementById("station"),
+                gtype = document.getElementById("gtype"),
+                gname = document.getElementById("gname"),
+                caliber = document.getElementById("caliber"),
+                serialN = document.getElementById("serialN"),
+                cost = document.getElementById("cost"),
+                acquisition = document.getElementById("acquisition"),
+                turnOver = document.getElementById("turnOver"),
+                returned = document.getElementById("returned"),
+                submitBtn = document.querySelector(".submit"),
+                userInfo = document.getElementById("data"),
+                modal = document.getElementById("userForm"),
+                modalTitle = document.querySelector("#userForm .modal-title"),
+                newUserBtn = document.querySelector(".newUser")
+
+
+              let getData = localStorage.getItem('userProfile') ? JSON.parse(localStorage.getItem('userProfile')) : []
+
+              let isEdit = false, editId
+              showInfo()
+
+              newUserBtn.addEventListener('click', () => {
+                submitBtn.innerText = 'Submit',
+                  modalTitle.innerText = "Fill the Form"
+                isEdit = false
+                form.reset()
+              })
+
+
+
+              function confirmDelete(id) {
+                if (confirm("Are you sure you want to delete this data?")) {
+                  // If the user confirms, submit the form for deletion
+                  const form = document.createElement('form');
+                  form.action = '/delete/' + id;
+                  form.method = 'POST';
+                  document.body.appendChild(form);
+                  form.submit();
+                }
+              }
+
+
+            </script>
+
+            <script>
+              // Function to send a request to the server for Excel export
+              function exportExcel() {
+                const currentDate = new Date();
+                const year = currentDate.getFullYear();
+                const monthNames = [
+                  "January", "February", "March", "April", "May", "June",
+                  "July", "August", "September", "October", "November", "December"
+                ];
+                const month = monthNames[currentDate.getMonth()];
+                const day = currentDate.getDate().toString().padStart(2, '0');
+
+
+                // Construct the file name with the current date
+                const fileName = `table_data_${month}_${year}.xlsx`;
+                fetch('/DataTable/ToExcel') // Replace with the actual server route
+                  .then((response) => {
+                    if (response.ok) {
+                      return response.blob();
+                    } else {
+                      throw new Error('Export failed.');
+                    }
+                  })
+                  .then((blob) => {
+                    // Create a URL for the blob and trigger the download
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = fileName;
+                    a.click();
+                  })
+                  .catch((error) => {
+                    console.error(error);
+                  });
+              }
+
+              // Attach the exportExcel function to the button click event
+              document.getElementById('downloadExcelBtn').addEventListener('click', exportExcel);
+
+            </script>
+
+
+
+
+  </body>
+
+</html>
