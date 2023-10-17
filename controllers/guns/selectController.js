@@ -5,7 +5,7 @@ exports.getSelect = async function (req, res) {
   const id = String(req.params.id);
 
   try {
-    const data = await prisma.data.findUnique({
+    const data = await prisma.record.findUnique({
       where: { id },
       select: {
         id: true,
@@ -23,7 +23,6 @@ exports.getSelect = async function (req, res) {
         firstName: true,
         middleName: true,
         QLFR: true,
-        qrCode: true,
       },
     });
 
@@ -32,7 +31,9 @@ exports.getSelect = async function (req, res) {
     } else {
       const { Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR, qrCode} = data;
 
-      res.render("guns/select", { title: "Edit Data", user:req.user, data: { id, Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR, qrCode} });
+      res.render("guns/select", { user:req.user, 
+        data: { id, Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR} 
+       });
     }
   } catch (error) {
     console.error(error);

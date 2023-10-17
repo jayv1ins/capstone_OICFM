@@ -1,12 +1,11 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const DataModel = prisma.data;
 
 exports.getEdit = async function (req, res) {
   const id = String(req.params.id);
 
   try {
-    const data = await DataModel.findUnique({
+    const data = await prisma.record.findUnique({
       where: { id },
       select: {
         id: true,
@@ -26,6 +25,7 @@ exports.getEdit = async function (req, res) {
         QLFR: true,
       },
     });
+    
 
 
 
@@ -35,7 +35,9 @@ exports.getEdit = async function (req, res) {
 
     const { Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR} = data;
 
-    return res.render("guns/edit", { title: "Edit Data", user: req.user, data: { id, Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR} });
+    return res.render("guns/edit", { user: req.user,
+      data: { id, Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR} 
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");
@@ -84,7 +86,9 @@ exports.updatedData = async function (req, res) {
       },
     });
 
-    res.render("guns/edit", { title: "Edit Data", user: req.user, data: { id, Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR}, SuccessMessage: "Data updated successfully" });
+    res.render("guns/edit", { user: req.user, datas,
+      SuccessMessage: "Data updated successfully" 
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");

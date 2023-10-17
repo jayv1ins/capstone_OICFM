@@ -1,4 +1,6 @@
 <header>
+  <link rel="Website Icon" type="png" href="logo_pnp.png">
+  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <!-- For Xlsx Library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
@@ -9,60 +11,59 @@
   <%- include('../components/navbar') %>
 
 <style>
-    <style>
-        /* Add CSS for the blue background and dropdown-style checkboxes */
-        .checkbox-dropdown {
-            display: inline-block;
-            position: relative;
-        }
+  /* Add CSS for the blue background and dropdown-style checkboxes */
+  .checkbox-dropdown {
+      display: inline-block;
+      position: relative;
+  }
 
-        .checkbox-dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: blue; /* Blue background color */
-            min-width: 200px;
-            border: 1px solid #ddd;
-            z-index: 1;
-        }
+  .checkbox-dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: blue; /* Blue background color */
+      min-width: 200px;
+      border: 1px solid #ddd;
+      z-index: 1;
+  }
 
-        .checkbox-dropdown:hover .checkbox-dropdown-content {
-            display: block;
-        }
+  .checkbox-dropdown:hover .checkbox-dropdown-content {
+      display: block;
+  }
 
-        /* Add some spacing between checkboxes and labels */
-        .checkbox-dropdown-content label {
-            display: block;
-            padding: 5px;
-        }
+  /* Add some spacing between checkboxes and labels */
+  .checkbox-dropdown-content label {
+      display: block;
+      padding: 5px;
+  }
 
-        .card {
-          border: 1px solid black;
-          width: 250px;
-          height: 200px;
-          display: inline-block;
-          margin: 25px  10px;
-          /* for shadowing */
-          box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-          transition: 0.3s;
-        }
+  .card {
+    border: 1px solid black;
+    width: 250px;
+    height: 200px;
+    display: inline-block;
+    margin: 25px  10px;
+    /* for shadowing */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+  }
 
-        .card:hover {
-          box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-        }
+  .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
 
-        .card h3 {
-          text-align: center;
-        }
+  .card h3 {
+    text-align: center;
+  }
 
-        .card img {
-          width: 30%;
-          height: 50%;
-        }
-    </style>
+  .card img {
+    width: 30%;
+    height: 50%;
+  }
 </style>
 
 </header>
 <center>
+  
   <h1>Select Date Range for Acquisition</h1>
   <form action="/DataTable" method="GET" onsubmit="handleFilterSubmit(event)">
     <label for="startDate">Start Date:</label>
@@ -92,21 +93,20 @@
         Gun Type
       </button>
       <ul class="dropdown-menu">
-        <% checkbGunTypes.forEach(function(gunType) { %>
-          <input type="checkbox" id="<%- gunType %>" name="Gtype" value="<%- gunType %>" <% if (gunTypes.includes(gunType)) { %>checked<% } %>>
-          <label for="<%- gunType %>"><%- gunType %></label><br>
+        <% checkbGunTypes.forEach(function(CBgunType) { %>
+          <input type="checkbox" id="<%- CBgunType %>" name="Gtype" value="<%- CBgunType %>" <% if (CBgunTypes.includes(CBgunType)) { %>checked<% } %>>
+          <label for="<%- CBgunType %>"><%- CBgunType %></label><br>
       <% }); %>
       </ul>
     </div>
-<!-- ----------------------------------------------------------------------------------------------------- -->
     <div class="btn-group">
       <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
         Gun Name
       </button>
       <ul class="dropdown-menu">
-        <% checkbGunNames.forEach(function(gunName) { %>
-          <input type="checkbox" id="<%- gunName %>" name="Gname" value="<%- gunName %>" <% if (gunNames.includes(gunName)) { %>checked<% } %>>
-          <label for="<% gunName %>"> <%- gunName %> </label><br>
+        <% checkbGunNames.forEach(function(CBgunName) { %>
+          <input type="checkbox" id="<%- CBgunName %>" name="Gname" value="<%- CBgunName %>" <% if (CBgunNames.includes(CBgunName)) { %>checked<% } %>>
+          <label for="<% CBgunName %>"> <%- CBgunName %> </label><br>
       <% }); %>
       </ul>
     </div>
@@ -136,6 +136,19 @@
     </div>
     
 
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        Caliber
+      </button>
+      <ul class="dropdown-menu">
+        <% checkbCalibers.forEach(function(CBcaliber) { %>
+          <input type="checkbox" id="<%- CBcaliber %>" name="caliber" value="<%- CBcaliber %>" <% if (CBcalibers.includes(CBcaliber)) { %>checked<% } %>>
+          <label for="<% CBcaliber %>"> <%- CBcaliber %> </label><br>
+      <% }); %>
+      </ul>
+    </div>
+    
+
     <button type="submit" class="btn btn-success">Filter</button>
     <button type="reset" class="btn btn-warning">Reset</button>
 </form>
@@ -144,17 +157,17 @@
   <!--  count card -->
   <div class="card">
     <h3>Total Number of User</h3>
-    <h1><%= TotalGun._count.id+1 %> <img src="user.png"> </h1>
+    <h1><%= TotalGun._count.id %> <img src="user.png"> </h1>
   </div>
 
   <div class="card">
     <h3>Total Gain of this Month</h3>
-    <h1>3 <img src="user.png"> </h1>
+    <h1><%= createdThisMonthCount._count.id %> <img src="user.png"> </h1>
   </div>
 
   <div class="card">
-    <h3>Total Loses of this Month</h3>
-    <h1>1 <img src="user.png"> </h1>
+    <h3>Total Losses of this Month</h3>
+    <h1><%= archivedThisMonthCount._count.id %> <img src="user.png"> </h1>
   </div>
 </center>
 <body>
@@ -186,7 +199,6 @@
           <th scope="col">Station</th>
           <!-- <th scope="col">Check in</th>
           <th scope="col">Check Out</th> -->
-          <th scope="col">Qr</th>
           <th scope="col">Actions</th>
         </tr>
       </thead>  
@@ -204,16 +216,7 @@
               <td><%= data.caliber %></td>
               <td><%= data.cost %></td>
               <td><%= data.station %></td>
-              <td>
-                <% if (data.hasQRCode) { %>
-                  <div class="qr-code-container">
-                    <!-- Display the QR code here -->
-                    <img src="<%= `data:image/png;base64,${data.qrCode.toString('base64')}` %>" alt="QR Code" />
-                  </div>
-                <% } else { %>
-                  <p>No QR Code available</p>
-                <% } %>
-              </td>
+            
               <td>
                 <a href="/select/<%= data.id %>">select</a>
                 <a href="/edit/<%= data.id %>">Edit</a>

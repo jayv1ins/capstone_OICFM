@@ -8,66 +8,74 @@
       const startDate = req.query.startDate;
       const endDate = req.query.endDate;
       const searchQuery = req.query.search || '';
-      const gunTypes = req.query.Gtype || [];
-      const gunNames = req.query.Gname || [];
+      const CBgunTypes = req.query.Gtype || [];
+      const CBgunNames = req.query.Gname || [];
       const CBranks = req.query.rank || [];
       const CBstations = req.query.station || [];
+      const CBcalibers = req.query.caliber || [];
 
        // Calculate the count of last names
-    const TotalGun = await prisma.data.aggregate({
+    const TotalGun = await prisma.record.aggregate({
       _count: { id: true },
     });
 
+    // Calculate the count of created this month
+    const currentMonth = new Date().getMonth() + 1; // Get the current month
+    const currentYear = new Date().getFullYear(); // Get the current year
+    const createdThisMonthCount = await prisma.record.aggregate({
+      _count: { id: true },
+      where: {
+        createdAt: {
+          gte: new Date(`${currentYear}-${currentMonth}-01`),
+          lt: new Date(`${currentYear}-${currentMonth + 1}-01`),
+        },
+      },
+    });
 
-    // Calculate the count of last names created this month
-    // const currentMonth = new Date().getMonth() + 1; // Get the current month
-    // const currentYear = new Date().getFullYear(); // Get the current year
-    // const createdThisMonthCount = await prisma.data.aggregate({
-    //   _count: { id: true },
-    //   where: {
-    //     createdAt: {
-    //       gte: new Date(`${currentYear}-${currentMonth}-01`),
-    //       lt: new Date(`${currentYear}-${currentMonth + 1}-01`),
-    //     },
-    //   },
-    // });
+    const archivedThisMonthCount = await prisma.record.aggregate({
+      _count: { id: true },
+      where: {
+        archived: true, // Filter for archived records
+        updatedAt: {
+          gte: new Date(`${currentYear}-${currentMonth}-01`),
+          lt: new Date(`${currentYear}-${currentMonth + 1}-01`),
+        },
+      },
+    });
 
-    // Calculate the count of last names deleted this month
-    // const deletedThisMonthCount = await prisma.data.aggregate({
-    //   _count: { id: true },
-    //   where: {
-    //     deletedAt: {
-    //       gte: new Date(`${currentYear}-${currentMonth}-01`),
-    //       lt: new Date(`${currentYear}-${currentMonth + 1}-01`),
-    //     },
-    //   },
-    // });
       //Checkbox
-      const distinctGunTypes = await prisma.data.findMany({
+      const distinctGunTypes = await prisma.record.findMany({
         distinct: ['Gtype'],
         select: {
           Gtype: true,
         },
       });
 
-      const distinctGunNames = await prisma.data.findMany({
+      const distinctGunNames = await prisma.record.findMany({
         distinct: ['Gname'],
         select: {
           Gname: true,
         },
       });
 
-      const distinctRank = await prisma.data.findMany({
+      const distinctRank = await prisma.record.findMany({
         distinct: ['rank'],
         select: {
           rank: true,
         },
       });
 
-      const distinctStation = await prisma.data.findMany({
+      const distinctStation = await prisma.record.findMany({
         distinct: ['station'],
         select: {
           station: true,
+        },
+      });
+
+      const distinctCaliber = await prisma.record.findMany({
+        distinct: ['caliber'],
+        select: {
+          caliber: true,
         },
       });
 
@@ -75,6 +83,7 @@
       const checkbGunNames = distinctGunNames.map((item) => item.Gname);
       const checkbRanks = distinctRank.map((item) => item.rank);
       const checkbStations = distinctStation.map((item) => item.station);
+      const checkbCalibers = distinctCaliber.map((item) => item.caliber);
 
       
       // Pagination
@@ -84,7 +93,7 @@
 
       // Build the Prisma query with optional date and search filtering
       const queryOptions = {
-        where: {},
+        where: { archived: false },
         orderBy: { id: 'desc' },
         skip: offset,
         take: limit,
@@ -109,19 +118,20 @@
           { rank: { contains: searchQuery, mode: 'insensitive' } },
           { station: { contains: searchQuery, mode: 'insensitive'} },
           { serialN: { contains: searchQuery, mode: 'insensitive'} },
+          { caliber: { contains: searchQuery, mode: 'insensitive'} },
         ];
       }
 
       // Filter by checkbox
-      if (gunTypes.length > 0) {
+      if (CBgunTypes.length > 0) {
         queryOptions.where.Gtype = {
-          in: gunTypes,
+          in: CBgunTypes,
         };
       }
 
-      if (gunNames.length > 0) {
+      if (CBgunNames.length > 0) {
         queryOptions.where.Gname = {
-          in: gunNames,
+          in: CBgunNames,
         };
       }
 
@@ -137,10 +147,16 @@
         };
       }
 
+      if (CBcalibers.length > 0) {
+        queryOptions.where.caliber = {
+          in: CBcalibers,
+        };
+      }
+
       // Retrieve data and suggestions from the database with/without queryOptions
       const [newData, suggestionsData] = await Promise.all([
-        prisma.data.findMany(queryOptions),
-        prisma.data.findMany({
+        prisma.record.findMany(queryOptions),
+        prisma.record.findMany({
           where: queryOptions.where,
           select: {
             firstName: true,
@@ -150,8 +166,9 @@
             Gtype: true,
             rank: true,
             station: true,
+            caliber: true,
           },
-          distinct: ['firstName', 'lastName', 'middleName', 'Gname', 'Gtype', 'rank', 'station'], // Ensure unique suggestions
+          distinct: ['firstName', 'lastName', 'middleName', 'Gname', 'Gtype', 'rank', 'station', 'caliber'], // Ensure unique suggestions
         }),
       ]);
 
@@ -162,11 +179,11 @@
       const suggestions = [...new Set(suggestionStrings)];
       
 
-      const totalRecords = await prisma.data.count();
+      const totalRecords = await prisma.record.count();
       const totalPages = Math.ceil(totalRecords / limit);
 
       const datas = newData.map((row) => {
-        const { id, Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR, qrCode } = row;
+        const { id, Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR } = row;
 
         return {
           id,
@@ -184,11 +201,16 @@
           firstName,
           middleName,
           QLFR,
-          qrCode,
-          hasQRCode: qrCode !== null && qrCode !== "",
+        
         };
       });
-      res.render('guns/dTable', { datas, totalPages, page, limit, totalRecords, user: req.user, searchQuery, suggestions, gunTypes, checkbGunTypes, gunNames,checkbGunNames, CBranks, checkbRanks, CBstations, checkbStations, TotalGun, });
+      res.render('guns/dTable', { datas, 
+        totalPages, page, limit, totalRecords, //Pagination
+        user: req.user, 
+        searchQuery, suggestions, //Search
+        CBgunTypes, checkbGunTypes, CBgunNames,checkbGunNames, CBranks, checkbRanks, CBstations, checkbStations, checkbCalibers, CBcalibers, //Checkbox
+        TotalGun, createdThisMonthCount, archivedThisMonthCount, //Stats
+      });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "An error occurred while retrieving the data." });
@@ -199,7 +221,7 @@
     const id = String(req.params.id);
 
     // Retrieve the existing data
-    const existingData = await prisma.data.findUnique({
+    const existingData = await prisma.record.findUnique({
       where: { id: id },
     });
 
@@ -207,8 +229,9 @@
       res.status(404).send("Data not found");
     } else {
       // Delete the data
-      await prisma.data.delete({
+      await prisma.record.update({
         where: { id: id },
+        data: { archived: true },
       });
 
       res.redirect("/DataTable");

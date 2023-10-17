@@ -1,5 +1,5 @@
 <head>
-
+  <link rel="Website Icon" type="png" href="logo_pnp.png">
   <!-- Montserrat Font -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap"
     rel="stylesheet">
@@ -78,6 +78,9 @@
     box-shadow: 0 6px 7px -4px rgba(0, 0, 0, 0.2);
 
   }
+  .card:hover {
+          box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
 
   .card:first-child {
     border-left: 7px solid #246dec;
@@ -105,9 +108,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-
-
   }
 
   .card-inner>p {
@@ -193,7 +193,6 @@
 
 <body>
 
-
   
     <div class="select_date">
       <h1>Select Date Range for Acquisition</h1>
@@ -217,19 +216,12 @@
       </div>
 
       <div class="main-cards">
-
         <div class="card">
-
           <div class="card-inner">
-
             <p class="text-primary">TOTAL GUN</p>
-
-
             <img src="gun.png" alt="">
-
           </div>
           <div class="chartdb" id="chart1"></div>
-
         </div>
 
         <div class="card">
@@ -250,7 +242,7 @@
 
         <div class="card">
           <div class="card-inner">
-            <p class="text-primary">USERS</p>
+            <p class="text-primary">AUTHORIZED USERS</p>
             <span class="material-icons-outlined text-red">account_circle</span>
           </div>
           <div class="chartdb" id="chart15"></div>

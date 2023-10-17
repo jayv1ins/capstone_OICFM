@@ -1,5 +1,4 @@
 const { PrismaClient } = require('@prisma/client');
-const qrcode = require('qrcode');
 const prisma = new PrismaClient();
 
 async function createDataEntries() {
@@ -924,14 +923,9 @@ async function createDataEntries() {
       },
     ];
 
-    // Generate and insert QR codes for each entry
-    for (const entry of dataEntries) {
-      const qrCodeBuffer  = await qrcode.toBuffer(
-        `${entry.Gtype} ${entry.Gname} ${entry.caliber} ${entry.serialN} ${entry.acquisition} ${entry.turnOver} ${entry.returned} ${entry.cost} ${entry.station} ${entry.rank} ${entry.lastName} ${entry.firstName} ${entry.middleName} ${entry.QLFR}`
-      );
-
+  
       // Insert data entry with QR code into the database
-      await prisma.data.create({
+      await prisma.record.create({
         data: {
           Gtype: entry.Gtype,
           Gname: entry.Gname,
@@ -947,7 +941,6 @@ async function createDataEntries() {
           firstName: entry.firstName,
           middleName: entry.middleName,
           QLFR: entry.QLFR,
-          qrCode: qrCodeBuffer ,
         },
       });
     }

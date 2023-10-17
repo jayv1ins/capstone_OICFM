@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="Website Icon" type="png" href="logo_pnp.png">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Optical character recognition from image</title>
@@ -34,7 +35,7 @@
         .bottom div{
             flex: 1;
             border: 1px solid rgb(118, 118, 118);
-            height: 400px;
+            height: 350px;
             margin: 10px;
         }
         .bottom div img{
@@ -97,14 +98,22 @@
        
     </style>
 </head>
+
 <body>
+    
     <div class="container">
         <div class="upper">
             <input type="file" id="fileSelector">
             <button class="camera-start" id="startCameraButton">Start Camera</button>
             <button class="camera-take" id="takePictureButton">Take Picture</button>
             <button class="camera-stop" id="stopCameraButton">Stop</button>
-            <div class="progress"></div>
+         
+               <!-- Notifaction Message -->
+              <div class="progress"></div>
+               <div id="successMessage" style="display: none; color: green; margin-top: 10px; text-align: center;">
+                </div>
+                <div id="errorMessage" style="display: none; color: green; margin-top: 10px; text-align: center;">
+                </div>
         </div>
         <div class="bottom">
             <div class="camera-feed-container">
@@ -112,7 +121,7 @@
                 <img src="" class="camera-image">
             </div>
             <div style="border: white;">
-                <textarea id="resultTextarea" placeholder="Result" readonly></textarea>
+                <textarea id="resultTextarea" placeholder="Result" readonly></textarea>               
             </div>
         </div>
     </div>
@@ -222,9 +231,32 @@ function recognizeText(file) {
       const serialNumber = (data.text); 
       console.log('Serial number:', serialNumber || 'Not found');
 
-      if (serialNumber) {
-        sendSerialNumberToController(serialNumber);
-      }
+      // After you recognize the text and have the serialNumber
+    if (serialNumber) {
+    // The first name, middle name, and last name are available here
+    const { firstName, middleName, lastName } = data;
+
+        // Display the names along with the serial number in the 'successMessage' element
+        const successMessage = document.getElementById('successMessage');
+        successMessage.style.display = 'block';
+        successMessage.innerHTML = `The data has been updated successfully for Serial Number: ${serialNumber} for <br>First Name: ${firstName}, Middle Name: ${middleName}, Last Name: ${lastName}`;
+
+        // Hide the 'errorMessage' element
+        const errorMessage = document.getElementById('errorMessage');
+        errorMessage.style.display = 'none';
+
+    // Send the serial number to the controller
+    sendSerialNumberToController(serialNumber);
+    } else {
+        // Display an error message
+        const errorMessage = document.getElementById('errorMessage');
+        errorMessage.style.display = 'block';
+        errorMessage.innerHTML = `No data found for Serial Number: '${serialNumber}'. Please try again with a clearer picture.`;
+
+        // Hide the 'successMessage' element
+        const successMessage = document.getElementById('successMessage');
+        successMessage.style.display = 'none';
+        }
     });
 }
 //Function to send the serial number to the controller
