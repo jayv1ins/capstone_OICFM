@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+
+<html>
 
 <head>
   <link rel="Website Icon" type="png" href="logo_pnp.png">
@@ -24,8 +24,8 @@
 
       <form method="POST" action="/create">
 
-        <h2 class="text-center mb-4 mt-5" >Gun Registration</h2>
-        <div class="row jumbotron shadow-lg p-3 mb-5 bg-body-tertiary rounded border">
+        <h2 class="text-center mb-4 mt-4" >Gun Registration</h2>
+        <div class="row jumbotron shadow-lg p-3 mb-4 bg-body-tertiary rounded border">
 
           <% if (typeof ErrorMessage !=='undefined' ) { %>
             <p style="color: red;">
@@ -123,15 +123,12 @@
                     autocomplete="returned" required min="4">
                 </div>
 
-
-
-
                
         </div>
 
 
 
-        <div class="col-sm-12 form-group mb-0 text-center">
+        <div class="col-sm-12 form-group mb-4 text-center">
           <button type="submit" id="submitBtn" class="btn btn-primary ">Submit</button>
           <button type="reset" class="btn btn-danger ">Reset</button>
 

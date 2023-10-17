@@ -1,5 +1,3 @@
-
-
 <head>
   <!-- Required meta tags -->
   <meta charset="UTF-8">
@@ -16,12 +14,57 @@
     href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
     rel="stylesheet">
 
-  
+
+
+  <style>
+
+  </style>
+
 </head>
 
 <body>
+
+
+
+  <!--Header Start-->
+  <header>
+    <section id="topbar" style="background-color: #0a15ab;"
+      class="mb-2 mb-lg-0 mb-sm-0 d-none d-lg-flex align-items-center pt-2 pb-2 text-white topbar-transparent">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6   text-start">
+            <span class="px-3"><i class="bi bi-phone "></i> +639 123 456 </span>
+            <i class="bi bi-clock"></i> Mon-Sat: 11:00 AM - 23:00 PM
+          </div>
+          <div class="col-md-6 text-end">
+            <a href="" class="me-4 text-reset">
+              <i class="bi bi-facebook"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+              <i class="bi bi-twitter"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+              <i class="bi bi-google"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+              <i class="bi bi-instagram"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+              <i class="bi bi-linkedin"></i>
+            </a>
+            <a href="" class="me-4 text-reset">
+              <i class="bi bi-github"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </header>
+  <!--Header End-->
+
+
   <!--Navbar Start-->
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
     <div class="container">
       <a class="navbar-brand" href="">
 
@@ -34,13 +77,13 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav m-auto mb-2 mb-lg-0">
-          <% if (user.usertype === 'Admin') { %>
-            
-            
+          <% if (user.usertype==='Admin' ) { %>
+
+
             <li class="nav-item">
               <a class="nav-link" id="home-link" aria-current="page" href="/index">Home</a>
             </li>
-            
+
             <li class="nav-item">
               <a class="nav-link" id="dashboard-link" href="/dashboard">Dashboard</a>
             </li>
@@ -57,28 +100,33 @@
             <li class="nav-item">
               <a class="nav-link" id="admin-table-link" href="/admin/table">Managerlist</a>
             </li>
-  
+
             <li class="nav-item">
               <a class="nav-link" id="admin-create-link" href="/admin/create">Manager Registration</a>
             </li>
-          <% } else { %>
-            <li class="nav-item">
-              <a class="nav-link" id="home-link" aria-current="page" href="/index">Home</a>
-            </li>
-            
-            <li class="nav-item">
-              <a class="nav-link" id="dashboard-link" href="/dashboard">Dashboard</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="datatable-link" href="/DataTable">Record</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="create-link" href="/create">Create</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="scanner-link" href="/scanner">Scanner</a>
-            </li>
-          <% } %>
+            <li><span></span></li>
+            <% } else { %>
+              <li class="nav-item">
+                <a class="nav-link" id="home-link" aria-current="page" href="/index">Home</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" id="dashboard-link" href="/dashboard">Dashboard</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="datatable-link" href="/DataTable">Record</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="create-link" href="/create">Create</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="scanner-link" href="/scanner">Scanner</a>
+              </li>
+
+
+              <% } %>
+
+
         </ul>
         <% if (user.usertype === 'Admin') { %>
             <label>Welcome Admin <%= user.firstName%>!</label>
@@ -87,7 +135,7 @@
             <a class="nav-link ml-auto" id="profile-link" href="/profile/<%= user.id %>">Profile</a>
             <label>Welcome Manager <%= user.firstName %>!</label>
             <a class="nav-link ml-auto" id="logout-link" href="/logout">Logout</a>
-        <% } %>
+            <% } %>
       </div>
     </div>
   </nav>
@@ -141,9 +189,51 @@
   transform: scale(1, 1);
 }
 
-.img_logo{
+  .navbar-light .navbar-nav .nav-link.active,
+  .navbar-light .navbar-nav .show>.nav-link {
+    color: yellow;
+  }
+
+
+  .navbar-light .navbar-nav .nav-link {
+    color: white;
+
+  }
+
+  .navbar .container li a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+  }
+
+  .navbar .container li a::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 4px;
+    background: #0a15ab;
+    transform: scale(0, 1);
+    transition: transform 200ms ease-in;
+  }
+
+  .navbar .container li a:hover::after {
+    transform: scale(1, 1);
+
+  }
+
+
+
+
+  .img_logo {
     height: 100px;
     width: 80px;
   }
-  
+
+  .navbar-expand-lg .navbar-collapse {
+    display: flex !important;
+    flex-basis: auto;
+    align-items: baseline;
+  }
 </style>
