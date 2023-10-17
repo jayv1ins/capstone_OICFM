@@ -44,10 +44,15 @@ exports.scanUpdate = async (req, res) => {
         },
       });
 
+      return res.status(200).json({
+        updatedData, successMessage: 'Data updated successfully.',
+      });
 
     } else {
       console.log('No data found for serialN:', serialNumber);
-    
+      return res.status(200).json({
+        updatedData, errorMessage: 'Data not updated successfully.',
+      });
 
     }
   } catch (error) {

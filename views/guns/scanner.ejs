@@ -1,24 +1,12 @@
+<!DOCTYPE html>
 <html>
-
-
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Scanner</title>
-    <!-- for demo only -->
-    <script src="../../../assets/js/script.demo.v0.06.js" defer></script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GCFCN7G09K"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-GCFCN7G09K');
-    </script>
+    <%- include('../components/navbar') %>
     <style>
         body {
             background: #2e3441;
@@ -81,7 +69,7 @@
             margin-right: 0px;
         }
 
-        .camera-start{
+        .camera-start {
             cursor: pointer;
             padding: 5px 10px;
             background-color: #007bff;
@@ -120,197 +108,166 @@
             max-width: 100%;
             max-height: 100%;
         }
-
-        
     </style>
 </head>
 
 <body>
-    <%- include('../components/navbar') %>
+    <!-- Navigation bar can be included here if needed -->
 
-
-
-        <div class="container" style="margin-top: 50px;">
-
-
-            <div class="upper">
-                <input type="file" id="fileSelector" class="form-control col-sm-4 d-inline">
-                <button class="camera-start" id="startCameraButton">Start Camera</button>
-                <button class="camera-take" id="takePictureButton">Take Picture</button>
-                <button class="camera-stop" id="stopCameraButton">Stop</button>
-                <!-- Notifaction Message -->
-                <div class="progress"></div>
-                <div id="successMessage" style="display: none; color: green; margin-top: 10px; text-align: center;">
-                </div>
-                <div id="errorMessage" style="display: none; color: red; margin-top: 10px; text-align: center;">
-                </div>
+    <div class="container" style="margin-top: 50px;">
+        <div class="upper">
+            <input type="file" id="fileSelector" class="form-control col-sm-4 d-inline">
+            <button class="camera-start" id="startCameraButton">Start Camera</button>
+            <button class="camera-take" id="takePictureButton">Take Picture</button>
+            <button class="camera-stop" id="stopCameraButton">Stop</button>
+            <!-- Notification Message -->
+            <div class="progress"></div>
+            <div id="successMessage" style="display: none; color: green; margin-top: 10px; text-align: center;">
+                <p style="color: green;" id="successMessageText"></p>
             </div>
-            
-
-            <div class="bottom">
-                <div class="camera-feed-container">
-                    <video id="cameraFeed" class="camera-feed" autoplay></video>
-                    <img src="" class="camera-image">
-                </div>
-                <div style="border: white;">
-                    <textarea id="resultTextarea" placeholder="Result" readonly class="text-center"></textarea>
-                </div>
-            </div>n
+            <div id="errorMessage" style="display: none; color: red; margin-top: 10px; text-align: center;">
+                <p style="color: red;" id="errorMessageText"></p>
+            </div>
         </div>
+        <div class="bottom">
+            <div class="camera-feed-container">
+                <video id="cameraFeed" class="camera-feed" autoplay></video>
+                <img src="" class="camera-image">
+            </div>
+            <div style="border: white;">
+                <textarea id="resultTextarea" placeholder="Result" readonly class="text-center"></textarea>
+            </div>
+        </div>
+    </div>
 
-        <script src="https://unpkg.com/tesseract.js@v2.0.0-alpha.13/dist/tesseract.min.js"></script>
-        <script>
-            const fileSelector = document.querySelector('#fileSelector');
-            const img = document.querySelector('.camera-image');
-            const cameraFeed = document.querySelector('#cameraFeed');
-            const progress = document.querySelector('.progress');
-            const textarea = document.querySelector('textarea');
-            const startCameraButton = document.querySelector('#startCameraButton');
-            const takePictureButton = document.querySelector('#takePictureButton');
-            const stopCameraButton = document.querySelector('#stopCameraButton');
+    <script src="https://unpkg.com/tesseract.js@v2.0.0-alpha.13/dist/tesseract.min.js"></script>
+    <script>
+        const fileSelector = document.querySelector('#fileSelector');
+        const img = document.querySelector('.camera-image');
+        const cameraFeed = document.querySelector('#cameraFeed');
+        const progress = document.querySelector('.progress');
+        const textarea = document.querySelector('textarea');
+        const startCameraButton = document.querySelector('#startCameraButton');
+        const takePictureButton = document.querySelector('#takePictureButton');
+        const stopCameraButton = document.querySelector('#stopCameraButton');
+        const successMessage = document.getElementById('successMessage');
+        const successMessageText = document.getElementById('successMessageText');
+        const errorMessage = document.getElementById('errorMessage');
+        const errorMessageText = document.getElementById('errorMessageText');
 
-            let cameraStream;
+        let cameraStream;
 
-            // For File Selector
-            fileSelector.onchange = () => {
-                const selectedFile = fileSelector.files[0];
-                if (selectedFile) {
-                    const imgUrl = window.URL.createObjectURL(selectedFile);
-                    img.src = imgUrl;
-
-                    // Start text recognition
-                    recognizeText(selectedFile);
-                }
-            };
-
-            // For Camera Selector/Button
-            startCameraButton.addEventListener('click', () => {
-                startCamera();
-            });
-            takePictureButton.addEventListener('click', () => {
-                takePicture();
-            });
-            stopCameraButton.addEventListener('click', () => {
-                stopCamera();
-            });
-
-            function startCamera() {
-                navigator.mediaDevices.getUserMedia({ video: true })
-                    .then(function (stream) {
-                        cameraStream = stream;
-                        cameraFeed.style.display = 'block';
-                        cameraFeed.srcObject = stream;
-                        startCameraButton.style.display = 'none';
-                        takePictureButton.style.display = 'inline-block';
-                        stopCameraButton.style.display = 'inline-block';
-                    })
-                    .catch(function (error) {
-                        console.error('Error accessing camera:', error);
-                    });
+        fileSelector.onchange = () => {
+            const selectedFile = fileSelector.files[0];
+            if (selectedFile) {
+                const imgUrl = window.URL.createObjectURL(selectedFile);
+                img.src = imgUrl;
+                recognizeText(selectedFile);
             }
+        };
 
-            function takePicture() {
-                const canvas = document.createElement('canvas');
-                canvas.width = cameraFeed.videoWidth;
-                canvas.height = cameraFeed.videoHeight;
-                canvas.getContext('2d').drawImage(cameraFeed, 0, 0, canvas.width, canvas.height);
-                const imgDataUri = canvas.toDataURL('image/jpeg');
+        startCameraButton.addEventListener('click', () => {
+            startCamera();
+        });
+        takePictureButton.addEventListener('click', () => {
+            takePicture();
+        });
+        stopCameraButton.addEventListener('click', () => {
+            stopCamera();
+        });
 
-                // Picture
-                img.src = imgDataUri;
+        function startCamera() {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (stream) {
+                    cameraStream = stream;
+                    cameraFeed.style.display = 'block';
+                    cameraFeed.srcObject = stream;
+                    startCameraButton.style.display = 'none';
+                    takePictureButton.style.display = 'inline-block';
+                    stopCameraButton.style.display = 'inline-block';
+                })
+                .catch(function (error) {
+                    console.error('Error accessing camera:', error);
+                });
+        }
 
-                // To recognize text
-                recognizeText(dataURItoBlob(imgDataUri));
+        function takePicture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = cameraFeed.videoWidth;
+            canvas.height = cameraFeed.videoHeight;
+            canvas.getContext('2d').drawImage(cameraFeed, 0, 0, canvas.width, canvas.height);
+            const imgDataUri = canvas.toDataURL('image/jpeg');
+            img.src = imgDataUri;
+            recognizeText(dataURItoBlob(imgDataUri));
+        }
+
+        function stopCamera() {
+            if (cameraStream) {
+                cameraStream.getTracks().forEach(track => track.stop());
             }
+            cameraFeed.style.display = 'none';
+            startCameraButton.style.display = 'inline-block';
+            takePictureButton.style.display = 'none';
+            stopCameraButton.style.display = 'none';
+        }
 
-            function stopCamera() {
-                if (cameraStream) {
-                    cameraStream.getTracks().forEach(track => track.stop());
-                }
-                cameraFeed.style.display = 'none';
-                startCameraButton.style.display = 'inline-block';
-                takePictureButton.style.display = 'none';
-                stopCameraButton.style.display = 'none';
+        function dataURItoBlob(dataURI) {
+            const byteString = atob(dataURI.split(',')[1]);
+            const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+            const ab = new ArrayBuffer(byteString.length);
+            const ia = new Uint8Array(ab);
+            for (let i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
             }
+            return new Blob([ab], { type: mimeString });
+        }
 
-            function dataURItoBlob(dataURI) {
-                const byteString = atob(dataURI.split(',')[1]);
-                const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-                const ab = new ArrayBuffer(byteString.length);
-                const ia = new Uint8Array(ab);
-                for (let i = 0; i < byteString.length; i++) {
-                    ia[i] = byteString.charCodeAt(i);
-                }
-                return new Blob([ab], { type: mimeString });
-            }
+        function recognizeText(file) {
+            textarea.innerHTML = '';
+            const rec = new Tesseract.TesseractWorker();
+            rec.recognize(file)
+                .progress(function (response) {
+                    if (response.status == 'recognizing text') {
+                        progress.innerHTML = response.status + '   ' + response.progress;
+                    } else {
+                        progress.innerHTML = response.status;
+                    }
+                })
+                .then(function (data) {
+                    textarea.innerHTML = data.text;
+                    progress.innerHTML = 'Done!';
+                    console.log('ito na', data);
+                    const serialNumber = data.text.replace(/\n/g, '');
 
-            function recognizeText(file) {
-                textarea.innerHTML = '';
-                const rec = new Tesseract.TesseractWorker();
-                rec.recognize(file)
-                    .progress(function (response) {
-                        if (response.status == 'recognizing text') {
-                            progress.innerHTML = response.status + '   ' + response.progress;
-                        } else {
-                            progress.innerHTML = response.status;
-                        }
-                    })
-                    .then(function (data) {
-                        //to get the serial number
-                        textarea.innerHTML = data.text;
-                        progress.innerHTML = 'Done!';
-                        console.log('ito na', data);
-                        //the data.text as SerialNumber for function
-                        const serialNumber = (data.text);
-                        console.log('Serial number:', serialNumber || 'Not found');
-
-                        if (serialNumber) {
-                            // Display a success and error message
-                            const successMessage = document.getElementById('successMessage');
-                            successMessage.style.display = 'block';
-                            successMessage.innerHTML = `The data has been updated successfully for Serial Number: ${serialNumber} `;
-
-                            // Hide the 'errorMessage' element
-                            const errorMessage = document.getElementById('errorMessage');
-                            errorMessage.style.display = 'none';
-
-                        // Send the serial number to the controller
-                        sendSerialNumberToController(serialNumber);
-                        } else {
-                            // Display an error message
-                            const errorMessage = document.getElementById('errorMessage');
-                            errorMessage.style.display = 'block';
-                            errorMessage.innerHTML = `No data found for Serial Number: '${serialNumber}'. Please try again with a clearer picture.`;
-
-                            // Hide the 'successMessage' element
-                            const successMessage = document.getElementById('successMessage');
-                            successMessage.style.display = 'none';
+                    if (serialNumber) {
+                        const xhr = new XMLHttpRequest();
+                        const route = '/scan';
+                        xhr.open('POST', route, true);
+                        xhr.setRequestHeader('Content-Type', 'application/json');
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState === XMLHttpRequest.DONE) {
+                                if (xhr.status === 200) {
+                                    console.log('Serial number sent successfully');
+                                    const response = JSON.parse(xhr.responseText);
+                                    if (response.message) {
+                                        successMessage.style.display = 'block';
+                                        successMessageText.innerText = response.message;
+                                    }
+                                } else {
+                                    console.error('Failed to send serial number');
+                                    errorMessage.style.display = 'block';
+                                    successMessageText.innerText = 'Failed to send serial number. Please try again.';
+                                }
                             }
-                        });
+                        };
+                        const data = JSON.stringify({ serialNumber });
+                        xhr.send(data);
+                    } else {
+                        errorMessage.style.display = 'block';
+                        errorMessage.innerText = 'No serial number found in the image. Please try again with a clearer picture.';
                     }
-            //Function to send the serial number to the controller
-            function sendSerialNumberToController(serialNumber) {
-                const xhr = new XMLHttpRequest();
-                const route = '/scan';
-
-                xhr.open('POST', route, true);
-                xhr.setRequestHeader('Content-Type', 'application/json');
-
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === XMLHttpRequest.DONE) {
-                        if (xhr.status === 200) {
-                            console.log('Serial number sent successfully');
-                        } else {
-                            console.error('Failed to send serial number');
-                        }
-                    }
-                };
-
-                const data = JSON.stringify({ serialNumber });
-                xhr.send(data);
-            }
-
-        </script>
+                });
+        }
+    </script>
 </body>
-
 </html>
