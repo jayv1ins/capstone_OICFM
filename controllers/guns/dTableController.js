@@ -320,9 +320,7 @@ exports.getSelect = async function (req, res) {
     } else {
       const { Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR, qrCode} = data;
 
-      res.render("guns/dTable", { user:req.user, 
-        data: { id, Gtype, Gname, caliber, serialN, acquisition, turnOver, returned, cost, station, rank, lastName, firstName, middleName, QLFR} 
-       });
+      
     }
   } catch (error) {
     console.error(error);
