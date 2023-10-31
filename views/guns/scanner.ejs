@@ -126,7 +126,7 @@
                 <p style="color: green;" id="successMessageText"></p>
             </div>
             <div id="errorMessage" style="display: none; color: red; margin-top: 10px; text-align: center;">
-                <p style="color: red;" id="errorMessageText"></p>
+                <p style="color: yellow;" id="errorMessageText"></p>
             </div>
         </div>
         <div class="bottom">
@@ -236,36 +236,30 @@
                 .then(function (data) {
                     textarea.innerHTML = data.text;
                     progress.innerHTML = 'Done!';
-                    console.log('ito na', data);
                     const serialNumber = data.text.replace(/\n/g, '');
 
                     if (serialNumber) {
-                        const xhr = new XMLHttpRequest();
-                        const route = '/scan';
-                        xhr.open('POST', route, true);
-                        xhr.setRequestHeader('Content-Type', 'application/json');
-                        xhr.onreadystatechange = function () {
-                            if (xhr.readyState === XMLHttpRequest.DONE) {
-                                if (xhr.status === 200) {
-                                    console.log('Serial number sent successfully');
-                                    const response = JSON.parse(xhr.responseText);
-                                    if (response.message) {
-                                        successMessage.style.display = 'block';
-                                        successMessageText.innerText = response.message;
-                                    }
-                                } else {
-                                    console.error('Failed to send serial number');
-                                    errorMessage.style.display = 'block';
-                                    errorMessage.innerText = 'Failed to send serial number. Please try again.';
-                                }
-                            }
-                        };
-                        const data = JSON.stringify({ serialNumber });
-                        xhr.send(data);
-                    } else {
-                        errorMessage.style.display = 'block';
-                        errorMessage.innerText = 'No serial number found in the image. Please try again with a clearer picture.';
-                    }
+    const xhr = new XMLHttpRequest();
+    const route = '/scan';
+    xhr.open('POST', route, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                console.log('Serial number sent successfully');
+                successMessage.style.display = 'block';
+                successMessageText.innerText = `The data has been updated successfully for Serial Number: ${serialNumber}`;
+                errorMessage.style.display = 'none'; // Hide error message if shown
+            } 
+        }
+    };
+    const data = JSON.stringify({ serialNumber });
+    xhr.send(data);
+} else {
+    errorMessage.style.display = 'block';
+    errorMessageText.innerText = 'No serial number found in the image. Please try again with a clearer picture.';
+    successMessage.style.display = 'none'; // Hide success message if shown
+}
                 });
         }
     </script>

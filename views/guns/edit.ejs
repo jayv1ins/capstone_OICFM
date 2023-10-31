@@ -25,7 +25,7 @@
 
   
     <div class="container">
-      <form id="registration-form" action="/edit/<%= data.id %>" method="POST"></form>
+      <form id="registration-form" action="/edit/<%= data.id %>" method="POST">
       <h2 class="text-center mb-4 mt-4">Edit Information</h2>
       <div class="row jumbotron shadow-lg p-3 mb-5 bg-body-tertiary rounded border">
         
@@ -43,13 +43,13 @@
                     <div class="col-sm-4 form-group">
                       <label for="inputEmail4">Last Name</label>
                       <input type="text" class="form-control" id="lastName" name="lastName" autocomplete="LastName"
-                        value="<%= data.lastName %>" required min="4" pattern="[a-zA-Z]+">
+                        value="<%= data.lastName %>" required min="4" pattern="[a-zA-Z ]+">
                     </div>
 
                     <div class="col-sm-4 form-group">
                       <label for="inputPassword4">First Name</label>
                       <input type="text" class="form-control" id="firstName" name="firstName" autocomplete="firstName"
-                        value="<%= data.firstName %>" required min="4" pattern="[a-zA-Z]+">
+                        value="<%= data.firstName %>" required min="4" pattern="[a-zA-Z ]+">
                     </div>
 
                     <div class="col-sm-4 form-group">
@@ -72,31 +72,31 @@
                     <div class="col-sm-4 form-group">
                       <label for="inputEmail4">Station</label>
                       <input type="text" class="form-control" name="station" autocomplete="station"
-                        value="<%= data.station %>" required min="4" pattern="^[A-Z][a-zA-Z]*$">
+                        value="<%= data.station %>" required min="4" pattern="^[A-Z][a-zA-Z -]*$">
                     </div>
 
                     <div class="col-sm-4 form-group">
                       <label for="inputEmail4">Gun Type</label>
                       <input type="text" class="form-control" name="Gtype" autocomplete="Gtype"
-                        value="<%= data.Gtype %>" required min="4" pattern="^[A-Z][a-zA-Z]*$">
+                        value="<%= data.Gtype %>" required min="4" pattern="^[A-Z][a-zA-Z ]*$">
                     </div>
 
                     <div class="col-sm-4 form-group">
                       <label for="inputEmail4">Gun Name</label>
                       <input type="text" class="form-control" name="Gname" autocomplete="Gname"
-                        value="<%= data.Gname %>" required min="4" pattern="^[A-Z][a-zA-Z]*$">
+                        value="<%= data.Gname %>" required min="4" pattern="^[A-Z0-9][A-Za-z0-9 -]*$">
                     </div>
 
                     <div class="col-sm-4 form-group">
                       <label for="inputEmail4">Caliber</label>
                       <input type="text" class="form-control" name="caliber" autocomplete="caliber"
-                        value="<%= data.caliber %>" required>
+                        value="<%= data.caliber %>" required pattern="^[A-Z0-9][A-Za-z0-9 -]*$">
                     </div>
 
                     <div class="col-sm-4 form-group">
-                      <label for="inputEmail4">Serial Number</label>
+                      <label for="Serial">Serial Number</label>
                       <input type="text" class="form-control" name="serialN" autocomplete="serialN"
-                        value="<%= data.serialN %>" required min="4">
+                        value="<%= data.serialN %>" required maxlength="13">
                     </div>
 
                     <div class="col-sm-4 form-group">
