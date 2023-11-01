@@ -1,5 +1,5 @@
 const { sendManagerCredentials } = require("../../../public/javascript/mail"); // Import the email function
-const { MongoClient } = require("mongodb");
+const { MongoClient, ObjectId } = require("mongodb");
 const DATABASE_URL =
   "mongodb+srv://majnnakpil:nakpilers@nakpilcluster.ervgh0t.mongodb.net/PNP_management";
 const client = new MongoClient(DATABASE_URL);
@@ -82,7 +82,7 @@ exports.postCreate = async (req, res) => {
     updatedAt: updatedAt,
     archived: false,
   });
-  return res.redirect(`/admin/edit/${user.insertOneId}`);
+  return res.redirect(`/admin/edit/${user.insertedId}`);
   sendManagerCredentials(email, policeId, password); // Adjust arguments as needed
   console.log("email sent successfully", sendManagerCredentials);
   console.log(`Created user with police id number: ${user.policeId}`);
