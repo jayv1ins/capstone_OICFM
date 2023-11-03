@@ -1,419 +1,293 @@
-<html>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 
 <head>
+  <meta charset="UTF-8">
   <link rel="Website Icon" type="png" href="logo_pnp.png">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <title>OCIFM</title>
+  <title> Dashboard</title>
+  <link rel="stylesheet" href="/stylesheets/index_style.css">
+  <!-- Boxicons CDN Link -->
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <script src="https://unpkg.com/@mongodb-js/charts-embed-dom"></script>
+
 </head>
 
-<body class="bg-pnp">
+<body>
+  <div class="sidebar">
+    <div class="logo-details">
+      <img src="pnp-male.jpg" alt="" class="circle-image">
+      <span class="logo_name">Admin</span>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="/index" id="home-link" class="active">
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a id="datatable-link" href="/DataTable">
+          <i class='bx bx-table'></i>
+          <span class="links_name">Records</span>
+        </a>
+      </li>
+      <li>
+        <a id="scanner-link" href="/scanner">
+          <i class='bx bx-scan'></i>
+          <span class="links_name">Scanner</span>
+        </a>
+      </li>
+      <li>
+        <a id="admin-table-link" href="/admin/table">
+          <i class='bx bx-user'></i>
+          <span class="links_name">Manager</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-book'></i>
+          <span class="links_name">Help</span>
+        </a>
+      </li>
 
-  <body>
-
-
-
-    <%- include('./components/navbar') %>
-
-
-
-      <div id="carouselExampleCaptions" class="carousel slide mb-3" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
-            aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
-            aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
-            aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img class="img-fluid"
-              src="https://images.pexels.com/photos/5202438/pexels-photo-5202438.jpeg?auto=compress&cs=tinysrgb&w=600"
-              alt="..." style="width: 100%; height: 500px; object-fit: cover;">
-            <div class="carousel-caption d-block">
-              <h5>HAHAHAHAHAHA</h5>
-              <p>OMCCCCCCCCCCCCMMMM.</p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img class="img-fluid"
-              src="https://images.pexels.com/photos/5202444/pexels-photo-5202444.jpeg?auto=compress&cs=tinysrgb&w=600"
-              alt="..." style="width: 100%; height: 500px; object-fit: cover;">
-            <div class="carousel-caption d-block">
-              <h5>HAHAHAHAHAHA</h5>
-              <p>OMCCCCCCCCCCCCMMMM.</p>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img class="img-fluid"
-              src="https://images.pexels.com/photos/886454/pexels-photo-886454.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              alt="..." style="width: 100%; height: 500px; object-fit: cover;">
-            <div class="carousel-caption d-block">
-              <h5>HAHAHAHAHAHA</h5>
-              <p>OMCCCCCCCCCCCCMMMM.</p>
-            </div>
-          </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-          data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-          data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
+      <li class="log_out">
+        <a id="logout-link" href="/logout">
+          <i class='bx bx-log-out'></i>
+          <span class="links_name">Log out</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <section class="home-section">
+    <nav>
+      <div class="sidebar-button">
+        <i class='bx bx-menu sidebarBtn'></i>
+        <span class="dashboard">Dashboard</span>
       </div>
 
+    </nav>
 
 
-
-      <main id="main">
-
-        <!-- ======= About Section ======= -->
-        <section id="about" class="about mt-5">
-          <div class="container-fluid">
-            <h2 class="h1-responsive font-weight-bold text-center my-2">About</h2>
-            <!--Section description-->
-            <p class="text-center w-responsive mx-auto mb-1">Do you have any questions? Please do not hesitate to
-              contact us directly. Our team will come back to you within
-              a matter of hours to help you.</p>
-            <div class="row  pt-5 pb-5">
-
-              <div class="col-lg-5 align-items-stretch video-box">
-                <iframe width="100%" height="415" src="https://www.youtube.com/embed/MnJ7D3HkAIE" frameborder="0"
-                  allowfullscreen></iframe>
-              </div>
-
-
-              <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch">
-
-                <div class="content">
-                  <h3>Eum ipsam laborum deleniti <strong>velit pariatur architecto aut nihil</strong></h3>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
-                  </p>
-                  <p class="font-italic">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore
-                    magna aliqua.
-                  </p>
-                  <ul>
-                    <li><i class="bx bx-check-double"></i> Ullamco laboris nisi ut aliquip ex ea commodo
-                      consequat.</li>
-                    <li><i class="bx bx-check-double"></i> Duis aute irure dolor in reprehenderit in
-                      voluptate velit.</li>
-                    <li><i class="bx bx-check-double"></i> Ullamco laboris nisi ut aliquip ex ea commodo
-                      consequat. Duis aute irure dolor in reprehenderit in voluptate trideta
-                      storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>
-                  </ul>
-                  <p>
-                    Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                    reprehenderit in voluptate
-                    velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                    proident, sunt in
-                    culpa qui officia deserunt mollit anim id est laborum
-                  </p>
-                </div>
-
-              </div>
-
-            </div>
-
+    <div class="home-content">
+      <form onsubmit="handleFilterSubmit(event)" class="custom-form">
+        <h1 class="form-title">Select Date Range for Acquisition</h1>
+        <div class="form-row">
+          <div class="form-group col">
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" name="startDate" class="custom-input" required>
           </div>
-        </section><!-- End About Section -->
-
-        <section>
-          <div class="container course pb-5 pt-5">
-            <h2 class="h1-responsive font-weight-bold text-center my-4">Police</h2>
-            <!--Section description-->
-            <p class="text-center w-responsive mx-auto mb-5">Do you have any questions? Please do not hesitate to
-              contact us directly. Our team will come back to you within
-              a matter of hours to help you.</p>
-            <div class="row">
-              <div class="col-md-4">
-                <div class="card box">
-                  <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                    <img src="https://acg.pnp.gov.ph/main/images/ACORDA_WEBSITE.jpg" class="img-fluid" />
-                    <a href="#!">
-                      <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                    </a>
-                  </div>
-                  <div class="card-body">
-
-                    <a href="#!" class="btn btn-primary">Read More</a>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-4">
-                <div class="card box">
-                  <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                    <img src="https://acg.pnp.gov.ph/main/images/HERNIA_WEBSITE.jpg" class="img-fluid" />
-                    <a href="#!">
-                      <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <a href="#!" class="btn btn-primary">Read More</a>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-4">
-                <div class="card box">
-                  <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                    <img src="https://acg.pnp.gov.ph/main/images/HERNIA_WEBSITE.jpg" class="img-fluid" />
-                    <a href="#!">
-                      <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                    </a>
-                  </div>
-                  <div class="card-body">
-                    <a href="#!" class="btn btn-primary">Read More</a>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="form-group col">
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" name="endDate" class="custom-input" required>
           </div>
-        </section>
-
-        <section>
-          <div class="container">
-            <h2 class="h1-responsive font-weight-bold text-center my-4">Gallery</h2>
-            <!--Section description-->
-            <p class="text-center w-responsive mx-auto mb-5">Do you have any questions? Please do not hesitate to
-              contact us directly. Our team will come back to you within
-              a matter of hours to help you.</p>
-            <!-- Gallery -->
-            <div class="row">
-              <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-                <img src="https://acg.pnp.gov.ph/main/images/Slideshow/EACCESSnew.jpg"
-                  class="w-100 shadow-1-strong rounded mb-4" alt="Boat on Calm Water" />
-
-                <img src="https://acg.pnp.gov.ph/main/images/Slideshow/flagday1.jpg"
-                  class="w-100 shadow-1-strong rounded mb-4" alt="Wintry Mountain Landscape" />
-              </div>
-
-              <div class="col-lg-4 mb-4 mb-lg-0">
-                <img src="https://acg.pnp.gov.ph/main/images/Slideshow/oath.jpg"
-                  class="w-100 shadow-1-strong rounded mb-4" alt="Mountains in the Clouds" />
-
-                <img src="https://acg.pnp.gov.ph/main/images/Slideshow/viber_image_2022-06-22_12-11-05-778.jpg"
-                  class="w-100 shadow-1-strong rounded mb-4" alt="Boat on Calm Water" />
-              </div>
-
-              <div class="col-lg-4 mb-4 mb-lg-0">
-                <img
-                  src="https://acg.pnp.gov.ph/main/images/0-02-06-1d91feed4aa968e012e8cc7e8049c311e957989fc98cc8fdd03d0f40a4b645e7_35e86a53bf16675.jpg"
-                  class="w-100 shadow-1-strong rounded mb-4" alt="Waves at Sea" />
-
-                <img src="https://acg.pnp.gov.ph/main/images/1_front.jpg" class="w-100 shadow-1-strong rounded mb-4"
-                  alt="Yosemite National Park" />
-              </div>
-            </div>
-            <!-- Gallery -->
+          <div class="form-group col">
+            <button type="submit" class="custom-button primary">Submit</button>
+            <button type="reset" class="custom-button secondary">Reset</button>
           </div>
-        </section>
+        </div>
+      </form>
 
-
-        <section>
-          <div class="container mb-5">
-            <!--Section: Contact v.2-->
-            <section class="mb-4">
-
-              <!--Section heading-->
-              <h2 class="h1-responsive font-weight-bold text-center my-4">Contact us</h2>
-              <!--Section description-->
-              <p class="text-center w-responsive mx-auto mb-5">Do you have any questions? Please do not hesitate
-                to contact us directly. Our team will come back to you within
-                a matter of hours to help you.</p>
-
-              <div class="row">
-
-                <!--Grid column-->
-                <div class="col-md-6 mb-md-0 mb-5">
-                  <form id="contact-form" name="contact-form" action="mail.php" method="POST">
-
-                    <!--Grid row-->
-                    <div class="row">
-
-                      <!--Grid column-->
-                      <div class="col-md-6">
-                        <div class="md-form mb-0">
-                          <input type="text" id="name" name="name" class="form-control">
-                          <label for="name" class="">Your name</label>
-                        </div>
-                      </div>
-                      <!--Grid column-->
-
-                      <!--Grid column-->
-                      <div class="col-md-6">
-                        <div class="md-form mb-0">
-                          <input type="text" id="email" name="email" class="form-control">
-                          <label for="email" class="">Your email</label>
-                        </div>
-                      </div>
-                      <!--Grid column-->
-
-                    </div>
-                    <!--Grid row-->
-
-                    <!--Grid row-->
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="md-form mb-0">
-                          <input type="text" id="subject" name="subject" class="form-control">
-                          <label for="subject" class="">Subject</label>
-                        </div>
-                      </div>
-                    </div>
-                    <!--Grid row-->
-
-                    <!--Grid row-->
-                    <div class="row">
-
-                      <!--Grid column-->
-                      <div class="col-md-12">
-
-                        <div class="md-form">
-                          <textarea type="text" id="message" name="message" rows="2"
-                            class="form-control md-textarea"></textarea>
-                          <label for="message">Your message</label>
-                        </div>
-
-                      </div>
-                    </div>
-                    <!--Grid row-->
-
-                  </form>
-
-                  <div class="text-center text-md-left">
-                    <a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">Send</a>
-                  </div>
-                  <div class="status"></div>
-                </div>
-                <!--Grid column-->
-
-                <!--Grid column-->
-                <div class="col-md-6 text-center">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3860.2791481163895!2d120.96688870991443!3d14.640089176051196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397b5c691bbae33%3A0x9be63ec69cfffed7!2sCaloocan%20City%20Police%20Station!5e0!3m2!1sen!2sph!4v1688460956060!5m2!1sen!2sph"
-                    width="600" height="300px" style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
-                </div>
-                <!--Grid column-->
-
-              </div>
-
-            </section>
-            <!--Section: Contact v.2-->
+      <div class="overview-boxes">
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">Total Gun</div>
+            <div class="chart-top" id="chart1"></div>
           </div>
-        </section>
-
-
-        <!-- Footer -->
-        <footer class="text-center text-lg-start py-3 text-white" style="background-color: #0a15ab;">
-
-          <!-- Section: Social media -->
-
-          <!-- Section: Links  -->
-          <section class="">
-            <div class="container text-center text-md-start mt-5">
-              <!-- Grid row -->
-              <div class="row mt-3">
-                <!-- Grid column -->
-                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                  <!-- Content -->
-                  <h6 class="text-uppercase fw-bold mb-4">
-                    <i class="bi bi-gem me-3"></i>OCIFM
-                  </h6>
-                  <p>
-                    Here you can use rows and columns to organize your footer content. Lorem ipsum
-                    dolor sit amet, consectetur adipisicing elit.
-                  </p>
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                  <!-- Links -->
-                  <h6 class="text-uppercase fw-bold mb-4">
-                    Products
-                  </h6>
-                  <p>
-                    <a href="#!" class="text-reset">Vandal</a>
-                  </p>
-                  <p>
-                    <a href="#!" class="text-reset">Phantom</a>
-                  </p>
-                  <p>
-                    <a href="#!" class="text-reset">Sheriff</a>
-                  </p>
-                  <p>
-                    <a href="#!" class="text-reset">Operator</a>
-                  </p>
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                  <!-- Links -->
-                  <h6 class="text-uppercase fw-bold mb-4">
-                    Useful links
-                  </h6>
-                  <p>
-                    <a href="#!" class="text-reset">Vandal</a>
-                  </p>
-                  <p>
-                    <a href="#!" class="text-reset">Phantom</a>
-                  </p>
-                  <p>
-                    <a href="#!" class="text-reset">Sheriff</a>
-                  </p>
-                  <p>
-                    <a href="#!" class="text-reset">Operator</a>
-                  </p>
-                </div>
-                <!-- Grid column -->
-
-                <!-- Grid column -->
-                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                  <!-- Links -->
-                  <h6 class="text-uppercase fw-bold mb-4">
-                    Contact
-                  </h6>
-                  <p><i class="bi bi-location me-3"></i> Philippines, Caloocan</p>
-                  <p>
-                    <i class="bi bi-envelope me-3"></i>
-                    info@example.com
-                  </p>
-                  <p><i class="bi bi-phone me-3"></i> + 631 234 567 88</p>
-                  <p><i class="bi bi-print me-3"></i> + 631 234 567 89</p>
-                </div>
-                <!-- Grid column -->
-              </div>
-              <!-- Grid row -->
-            </div>
-          </section>
-          <!-- Section: Links  -->
-
-          <!-- Copyright -->
-          <div class="text-center py-4" style="background-color: rgba(0, 0, 0, 0.20);">
-            © 2023 Copyright
-
+          <i class='bx bx-crosshair cart one'></i>
+        </div>
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">Total Cost</div>
+            <div class="chart-top" id="chart2"></div>
           </div>
-          <!-- Copyright -->
-        </footer>
-        <!-- Footer -->
-        <!-- Option 1: Bootstrap Bundle with Popper -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-          crossorigin="anonymous"></script>
+          <i class='bx bx-dollar-circle cart two'></i>
+        </div>
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">Turnover Rate</div>
+            <div class="chart-top" id="chart13"></div>
+          </div>
+          <i class='bx bx-line-chart cart three'></i>
+        </div>
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">Authorized Users</div>
+            <div class="chart-top" id="chart15"></div>
+          </div>
+          <i class='bx bx-user cart four'></i>
+        </div>
+      </div>
 
-  </body>
+      <div class="main-boxes">
+        <div class="right-boxes box">
+          <div class="title">Number of Officers per Rank</div>
+          <div class="box-details">
+            <div class="chart-left" id="chart3"></div>
+          </div>
+
+        </div>
+        <div class="left-boxes box">
+          <div class="title">Guns per Gun Type</div>
+          <ul class="top-box-details">
+            <div class="chart-right" id="chart5"></div>
+          </ul>
+        </div>
+      </div>
+
+      <div class="main-boxes">
+        <div class="right-boxes box">
+          <div class="title">Number of Guns per Station</div>
+          <div class="box-details">
+            <div class="chart-left" id="chart4"></div>
+          </div>
+
+        </div>
+        <div class="left-boxes box">
+          <div class="title">Guns per Calibre</div>
+          <ul class="top-box-details">
+            <div class="chart-right" id="chart6"></div>
+          </ul>
+        </div>
+      </div>
+
+      <div class="main-boxes">
+        <div class="right-boxes box">
+          <div class="title">Number of Guns per Gun Name</div>
+          <div class="box-details">
+            <div class="chart-left" id="chart7"></div>
+          </div>
+
+        </div>
+        <div class="left-boxes box">
+          <div class="title">Total Cost per Gun Type</div>
+          <ul class="top-box-details">
+            <div class="chart-right" id="chart8"></div>
+          </ul>
+        </div>
+      </div>
+
+      <div class="main-boxes">
+        <div class="right-boxes box">
+          <div class="title">Scanned QR Code to Gun Numbers</div>
+          <div class="box-details">
+            <div class="chart-left" id="chart9"></div>
+          </div>
+
+        </div>
+        <div class="left-boxes box">
+          <div class="title">Gun Acquisitions per Date</div>
+          <ul class="top-box-details">
+            <div class="chart-right" id="chart10"></div>
+          </ul>
+        </div>
+      </div>
+
+      <div class="main-boxes">
+        <div class="right-boxes box">
+          <div class="title">Total Cost per Acquisition</div>
+          <div class="box-details">
+            <div class="chart-left" id="chart11"></div>
+          </div>
+
+        </div>
+        <div class="left-boxes box">
+          <div class="title">Accumulated Costs</div>
+          <ul class="top-box-details">
+            <div class="chart-right" id="chart12"></div>
+          </ul>
+        </div>
+      </div>
+
+      <div class="main-boxes">
+        <div class="right-boxes2 box">
+          <div class="title2">Gun Type by Rank</div>
+          <div class="box-details">
+            <div class="chart-left" id="chart14"></div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+  </section>
+
+  <script>
+    let sidebar = document.querySelector(".sidebar");
+    let sidebarBtn = document.querySelector(".sidebarBtn");
+    sidebarBtn.onclick = function () {
+      sidebar.classList.toggle("active");
+      if (sidebar.classList.contains("active")) {
+        sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+      } else
+        sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+    }
+  </script>
+
+
+  <script>
+    const ChartsEmbedSDK = window.ChartsEmbedSDK;
+
+    const sdk = new ChartsEmbedSDK({
+      baseUrl: "https://charts.mongodb.com/charts-project-0-omorz",
+    });
+
+    const chartIds = [
+      "6492abe4-74f2-4905-805e-f685c6754286",
+      "64994e7e-6f89-4b9b-8926-e4595ee18be1",
+      "6492afa8-e63f-4b36-8007-0f06bc0fceb5",
+      "6492af4a-7081-435a-88d2-cbf173aa2add",
+      "64a4e114-bfd6-4c5c-82e1-aed10e4d8504",
+      "6499393e-5d6e-4d4b-80e6-5c0004764687",
+      "649937ab-6ccc-47e8-8431-13e80f87ab31",
+      "64a7c613-c709-43c3-8b0f-73a5bdd4f530",
+      "64a75be6-7fe0-4990-8c22-994ad4f608cf",
+      "64a7c276-7fe0-4399-846c-994ad42930fa",
+      "64aa6838-5bfe-4e8d-82ec-be414ef2ae74",
+      "64aa77c2-c709-44ca-809a-73a5bd6426e9",
+      "64aa7bf4-2925-478c-8eff-15cc0ae2b5da",
+      "64aa808f-904b-4bad-810f-87a9d4d94c75",
+      "6522ad57-8f60-4161-89ce-00d9b33e9a97",
+    ];
+
+    const charts = chartIds.map(chartId => sdk.createChart({ chartId }));
+
+    charts.forEach((chart, index) => {
+      chart.render(document.getElementById(`chart${index + 1}`));
+    });
+
+    function handleFilterSubmit(event) {
+      event.preventDefault();
+      const today = new Date();
+      const month = today.getMonth() + 1; // Month is 0-based
+
+      const startDate = document.getElementById("startDate").value;
+      const endDate = document.getElementById("endDate").value;
+
+      if (startDate && endDate) {
+        charts.forEach(chart => {
+          chart.setFilter({
+            $and: [
+              { acquisition: { $gte: startDate } },
+              { acquisition: { $lte: endDate } }
+            ]
+          });
+        });
+      } else {
+        // If either start date or end date is not selected, remove the filter
+        charts.forEach(chart => chart.setFilter({}));
+      }
+    }
+
+
+
+  </script>
+
 </body>
 
 </html>
