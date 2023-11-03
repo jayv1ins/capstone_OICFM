@@ -57,15 +57,9 @@ app.use("/", aTableRoutes);
 app.use("/", aEditRoutes);
 
 //etc
-const dashboardRoutes = require("./routes/analysis/dashboard");
 const indexRoutes = require("./routes/index");
 
-app.use("/", dashboardRoutes);
 app.use("/", indexRoutes);
-
-//test
-const testRoutes = require("./routes/analysis/test");
-app.use("/", testRoutes);
 
 //---------------------------------------------------------------------------------
 

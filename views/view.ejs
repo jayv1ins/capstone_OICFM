@@ -1,7 +1,0 @@
-<% for (const test of tests) { %>
-  <div>
-    <h2>GType: <%= test.Gtype %></h2>
-    <h2>GName: <%= test.Gname %></h2>
-    <img src="<%= `data:image/png;base64,${test.qrCode.toString('base64')}` %>" alt="QR Code">
-  </div>
-<% } %>
