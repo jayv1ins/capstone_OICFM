@@ -12,6 +12,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
+
   </head>
   <body>
   <div class="sidebar">
@@ -195,8 +196,11 @@
     </div>
     <button type="submit" class="custom-button primary">Search<i class='bx bx-search-alt-2'></i></button>
   </div>
-  <button class="downloadBtn" id="downloadExcelBtn">Download Excel<i class='bx bx-spreadsheet'></i></button>
 </form>
+<div class="custom-form-row">
+  <div class="custom-form-group col">
+<button class="downloadBtn" id="downloadExcelBtn">Download Excel<i class='bx bx-spreadsheet'></i></button>
+  </div></div>
     
   <table class="custom-table">
     <thead class="custom-table-header">
@@ -249,21 +253,53 @@
 
               <td>
 
-
                 <div class="custom-button-group">
-                  <button class="custom-button2" data-id="<%= data.id %>" id="myBtn">
-                    <i class='bx bx-low-vision'></i>
-                  </button>
+                  <button class="custom-button2 selectedData"
+                  data-bs-toggle="modal"
+                  data-bs-target="#selectedData"
+                  data-id="<%= data.id %>"
+                  data-lastname="<%= data.lastName %>"
+                  data-firstname="<%= data.firstName %>"
+                  data-middlename="<%= data.middleName %>"
+                  data-qualifier="<%= data.QLFR %>"
+                  data-rank="<%= data.rank %>"
+                  data-guntype="<%= data.Gtype %>"
+                  data-gunname="<%= data.Gname %>"
+                  data-caliber="<%= data.caliber %>"
+                  data-serialnumber="<%= data.serialN %>"
+                  data-cost="<%= data.cost %>"
+                  data-acquisitiondate="<%= data.acquisition %>"
+                  data-turnover="<%= data.turnOver %>"
+                  data-returned="<%= data.returned %>">
+                  <i class="bx bx-low-vision"></i>
+                </button>
 
 
-                  <button class="custom-button2" id="myBtn2">
-                    <i class='bx bx-edit'></i>
-                  </button>
+                <button class="custom-button2 editData" 
+                        data-bs-toggle="modal"
+                        data-bs-target="#editData"
+                        data-id="<%= data.id %>"
+                        data-lastname="<%= data.lastName %>"
+                        data-firstname="<%= data.firstName %>"
+                        data-middlename="<%= data.middleName %>"
+                        data-qualifier="<%= data.QLFR %>"
+                        data-rank="<%= data.rank %>"
+                        data-guntype="<%= data.Gtype %>"
+                        data-gunname="<%= data.Gname %>"
+                        data-caliber="<%= data.caliber %>"
+                        data-serialnumber="<%= data.serialN %>"
+                        data-cost="<%= data.cost %>"
+                        data-acquisitiondate="<%= data.acquisition %>"
+                        data-turnover="<%= data.turnOver %>"
+                        data-returned="<%= data.returned %>">
+                        <i class='bx bx-edit'></i>
+                </button>
 
 
                   <button class="custom-button2 custom-button-danger" onclick="confirmDelete('<%= data.id %>')">
                     <i class='bx bx-trash'></i>
                   </button>
+
                 </div>
               </td>
 
@@ -308,201 +344,175 @@
       </div>
     </div>
   
-   <!-- The Modal -->
-   <div id="myModal" class="modal">
-
-    <!-- Modal content -->
+    <!-- Modal -->
+<div class="modal fade" id="selectedData">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+  <!-- Modal content -->
     <div class="modal-content">
-      <span class="close">&times;</span>
-      <h1 class="text-center">View Record</h1>
+      <div class="modal-header">
+        <h4 class="modal-title">Select</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
 
-      <table class="table table-hover">
-        <tbody>
-          <tr>
-            <td><strong>Last Name</strong></td>
-            <td>
+      <div class="modal-body">
+        <table class="table table-hover">
+          <tbody>
+            <tr>
+              <td><strong>Last Name</strong></td>
+              <td id="modalLastName"> bat wala</td>
+            </tr>
+            <tr>
+              <td><strong>First Name</strong></td>
+              <td id="modalFirstName"></td>
+            </tr>
+            <tr>
+              <td><strong>Middle Name</strong></td>
+              <td id="modalMiddleName"></td>
+            </tr>
+            <tr>
+              <td><strong>Qualifier</strong></td>
+              <td id="modalQualifier"></td>
+            </tr>
+            <tr>
+              <td><strong>Rank</strong></td>
+              <td id="modalRank"></td>
+            </tr>
+            <tr>
+              <td><strong>Gun Type</strong></td>
+              <td id="modalGunType"></td>
+            </tr>
+            <tr>
+              <td><strong>Gun Name</strong></td>
+              <td id="modalGunName"></td>
+            </tr>
+            <tr>
+              <td><strong>Caliber</strong></td>
+              <td id="modalCaliber"></td>
+            </tr>
+            <tr>
+              <td><strong>Serial Number</strong></td>
+              <td id="modalSerialNumber"></td>
+            </tr>
+            <tr>
+              <td><strong>Cost</strong></td>
+              <td id="modalCost"></td>
+            </tr>
+            <tr>
+              <td><strong>Acquisition Date</strong></td>
+              <td id="modalAcquisitionDate"></td>
+            </tr>
+            <tr>
+              <td><strong>Turn Over</strong></td>
+              <td id="modalTurnOver"></td>
+            </tr>
+            <tr>
+              <td><strong>Returned</strong></td>
+              <td id="modalReturned"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-            </td>
-          </tr>
-          <tr>
-            <td><strong>First Name</strong></td>
-            <td>
-
-            </td>
-          </tr>
-          <tr>
-            <td><strong>Middle Name</strong></td>
-            <td>
-
-            </td>
-          </tr>
-          <tr>
-            <td><strong>Qualifier</strong></td>
-            <td>
-
-            </td>
-          </tr>
-          <tr>
-            <td><strong>Rank</strong></td>
-            <td>
-
-            </td>
-          </tr>
-          <tr>
-            <td><strong>Station</strong></td>
-            <td>
-
-            </td>
-          </tr>
-          <tr>
-            <td><strong>Gun Type</strong></td>
-            <td>
-
-            </td>
-          </tr>
-          <tr>
-            <td><strong>Gun Name</strong></td>
-            <td>
-
-            </td>
-          </tr>
-          <tr>
-            <td><strong>Caliber</strong></td>
-            <td>
-
-            </td>
-          </tr>
-          <tr>
-            <td><strong>Serial Number</strong></td>
-            <td>
-
-            </td>
-          </tr>
-          <tr>
-            <td><strong>Cost</strong></td>
-            <td>
-
-            </td>
-          </tr>
-          <tr>
-            <td><strong>Acquisition Date</strong></td>
-            <td>
-
-            </td>
-          </tr>
-          <tr>
-            <td><strong>Turn Over</strong></td>
-            <td>
-
-            </td>
-          </tr>
-          <tr>
-            <td><strong>Returned</strong></td>
-            <td>
-
-            </td>
-          </tr>
-        </tbody>
-      </table>
     </div>
   </div>
+</div>
+
 <!-- My Modal 2 -->
 
-<div id="myModal2" class="modal">
-
+<div class="modal fade" id="editData">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
   <!-- Modal content -->
-  <div class="modal-content">
-    <span class="close2">&times;</span>
-    <h1 class="text-center">Edit Record</h1>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
 
-    <table class="table table-hover">
-      <tbody>
-        <tr>
-          <td><strong>Last Name</strong></td>
-          <td>
+      <div class="modal-body">
+        <form action="/edit"  method="POST">
+        <table class="table table-hover">
+         <tbody>
+<tr>
+                  <td><strong>Id </strong></td>
+                  <td><input type="text" class="form-control" id="editDataId" name="id"></td>
+                </tr>
 
-          </td>
-        </tr>
-        <tr>
-          <td><strong>First Name</strong></td>
-          <td>
+                <tr>
+                  <td><strong>Last Name</strong></td>
+                  <td><input type="text" class="form-control" id="editDataLastName" name="lastName" autocomplete="LastName"
+                      required minlength="4" pattern="[a-zA-Z ]+"></td>
+                </tr>
+                <tr>
+                  <td><strong>First Name</strong></td>
+                  <td><input type="text" class="form-control" id="editDataFirstName" name="firstName" autocomplete="FirstName"
+                      required minlength="4" pattern="[a-zA-Z ]+"></td>
+                </tr>
+                <tr>
+                  <td><strong>Middle Name</strong></td>
+                  <td><input type="text" class="form-control" id="editDataMiddleName" name="middleName"
+                      autocomplete="MiddleName" required minlength="4" pattern="[a-zA-Z ]+"></td>
+                </tr>
+                <tr>
+                  <td><strong>Qualifier</strong></td>
+                  <td><input type="text" class="form-control" id="editDataQualifier" name="qualifier"
+                      autocomplete="Qualifier" required minlength="4" pattern="[a-zA-Z ]+"></td>
+                </tr>
+                <tr>
+                  <td><strong>Rank</strong></td>
+                  <td><input type="text" class="form-control" id="editDataRank" name="rank" autocomplete="Rank"
+                      required minlength="4" pattern="[a-zA-Z ]+"></td>
+                </tr>
+                <tr>
+                  <td><strong>Gun Type</strong></td>
+                  <td><input type="text" class="form-control" id="editDataGunType" name="gunType" autocomplete="GunType"
+                      required minlength="4" pattern="[a-zA-Z ]+"></td>
+                </tr>
+                <tr>
+                  <td><strong>Gun Name</strong></td>
+                  <td><input type="text" class="form-control" id="editDataGunName" name="gunName" autocomplete="GunName"
+                      required minlength="4" pattern="[a-zA-Z ]+"></td>
+                </tr>
+                <tr>
+                  <td><strong>Caliber</strong></td>
+                  <td><input type="text" class="form-control" id="editDataCaliber" name="caliber" autocomplete="Caliber"
+                      required minlength="4" pattern="[a-zA-Z ]+"></td>
+                </tr>
+                <tr>
+                  <td><strong>Serial Number</strong></td>
+                  <td><input type="text" class="form-control" id="editDataSerialNumber" name="serialNumber"
+                      autocomplete="SerialNumber" required minlength="4" pattern="[a-zA-Z ]+"></td>
+                </tr>
+                <tr>
+                  <td><strong>Cost</strong></td>
+                  <td><input type="text" class="form-control" id="editDataCost" name="cost" autocomplete="Cost"
+                      required minlength="4" pattern="[a-zA-Z ]+"></td>
+                </tr>
+                <tr>
+                  <td><strong>Acquisition Date</strong></td>
+                  <td><input type="text" class="form-control" id="editDataAcquisitionDate" name="acquisitionDate"
+                      required minlength="4" pattern="[a-zA-Z ]+"></td>
+                </tr>
+                <tr>
+                  <td><strong>Turn Over</strong></td>
+                  <td><input type="text" class="form-control" id="editDataTurnOver" name="turnOver" autocomplete="TurnOver"
+                      required minlength="4" pattern="[a-zA-Z ]+"></td>
+                </tr>
+                <tr>
+                  <td><strong>Returned</strong></td>
+                  <td><input type="text" class="form-control" id="editDataReturned" name="returned" autocomplete="Returned"
+                      required minlength="4" pattern="[a-zA-Z ]+"></td>
+                </tr>
+              </tbody>
+        </table>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="saveChangesButton">Save Changes</button>
+        </div>
+      </form>
+      
+      </div>
 
-          </td>
-        </tr>
-        <tr>
-          <td><strong>Middle Name</strong></td>
-          <td>
-
-          </td>
-        </tr>
-        <tr>
-          <td><strong>Qualifier</strong></td>
-          <td>
-
-          </td>
-        </tr>
-        <tr>
-          <td><strong>Rank</strong></td>
-          <td>
-
-          </td>
-        </tr>
-        <tr>
-          <td><strong>Station</strong></td>
-          <td>
-
-          </td>
-        </tr>
-        <tr>
-          <td><strong>Gun Type</strong></td>
-          <td>
-
-          </td>
-        </tr>
-        <tr>
-          <td><strong>Gun Name</strong></td>
-          <td>
-
-          </td>
-        </tr>
-        <tr>
-          <td><strong>Caliber</strong></td>
-          <td>
-
-          </td>
-        </tr>
-        <tr>
-          <td><strong>Serial Number</strong></td>
-          <td>
-
-          </td>
-        </tr>
-        <tr>
-          <td><strong>Cost</strong></td>
-          <td>
-
-          </td>
-        </tr>
-        <tr>
-          <td><strong>Acquisition Date</strong></td>
-          <td>
-
-          </td>
-        </tr>
-        <tr>
-          <td><strong>Turn Over</strong></td>
-          <td>
-
-          </td>
-        </tr>
-        <tr>
-          <td><strong>Returned</strong></td>
-          <td>
-
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    </div>
   </div>
 </div>
 
@@ -516,7 +526,7 @@
 </section>
 
 
-      
+      <!-- Side bar -->
 <script>
   let sidebar = document.querySelector(".sidebar");
   let sidebarBtn = document.querySelector(".sidebarBtn");
@@ -529,7 +539,7 @@
   }
 </script>
 
-
+<!-- Dropdown menu -->
 <script>
   document.addEventListener("click", function (event) {
     closeDropdowns(event.target);
@@ -567,101 +577,128 @@
 </script>
 
 
-
+<!-- Modal -->
 <script>
-  // Get the modals
-  var modal = document.getElementById("myModal");
-  var modal2 = document.getElementById("myModal2");
+  var selectedDataModal = document.getElementById("selectedData");
+  var selectedDataTitle = document.querySelector("#selectedData .modal-title");
+  var selectedDataLastName = document.getElementById("modalLastName");
+  var selectedDataFirstName = document.getElementById("modalFirstName");
+  var selectedDataMiddleName = document.getElementById("modalMiddleName");
+  var selectedDataQualifier = document.getElementById("modalQualifier");
+  var selectedDataRank = document.getElementById("modalRank");
+  var selectedDataGunType = document.getElementById("modalGunType");
+  var selectedDataGunName = document.getElementById("modalGunName");
+  var selectedDataCaliber = document.getElementById("modalCaliber");
+  var selectedDataSerialNumber = document.getElementById("modalSerialNumber");
+  var selectedDataCost = document.getElementById("modalCost");
+  var selectedDataAcquisitionDate = document.getElementById("modalAcquisitionDate");
+  var selectedDataTurnOver = document.getElementById("modalTurnOver");
+  var selectedDataReturned = document.getElementById("modalReturned");
+  var selectedDataBtns = document.querySelectorAll(".selectedData");
 
-  // Get the buttons that open the modals
-  var btn = document.getElementById("myBtn");
-  var btn2 = document.getElementById("myBtn2");
+  selectedDataBtns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      // Get the data attributes from the button
+      var id = this.getAttribute("data-id");
+      var lastName = this.getAttribute("data-lastname");
+      var firstName = this.getAttribute("data-firstname");
+      var middleName = this.getAttribute("data-middlename");
+      var qualifier = this.getAttribute("data-qualifier");
+      var rank = this.getAttribute("data-rank");
+      var gunType = this.getAttribute("data-guntype");
+      var gunName = this.getAttribute("data-gunname");
+      var caliber = this.getAttribute("data-caliber");
+      var serialNumber = this.getAttribute("data-serialnumber");
+      var cost = this.getAttribute("data-cost");
+      var acquisitionDate = this.getAttribute("data-acquisitiondate");
+      var turnOver = this.getAttribute("data-turnover");
+      var returned = this.getAttribute("data-returned");
 
-  // Get the <span> elements that close the modals
-  var span = document.getElementsByClassName("close")[0];
-  var span2 = document.getElementsByClassName("close2")[0];
+      // Populate the selectedData modal with data
+      selectedDataTitle.innerText = "Selected Data";
+      selectedDataLastName.innerText = lastName;
+      selectedDataFirstName.innerText = firstName;
+      selectedDataMiddleName.innerText = middleName;
+      selectedDataQualifier.innerText = qualifier;
+      selectedDataRank.innerText = rank;
+      selectedDataGunType.innerText = gunType;
+      selectedDataGunName.innerText = gunName;
+      selectedDataCaliber.innerText = caliber;
+      selectedDataSerialNumber.innerText = serialNumber;
+      selectedDataCost.innerText = cost;
+      selectedDataAcquisitionDate.innerText = acquisitionDate;
+      selectedDataTurnOver.innerText = turnOver;
+      selectedDataReturned.innerText = returned;
+    });
+  });
 
-  // When the user clicks on the button, open the modal
-  btn.onclick = function () {
-    modal.style.display = "block";
-  };
+  // Function to clear the selectedData modal when it is hidden
+  selectedDataModal.addEventListener("hidden.bs.modal", function () {
+    selectedDataTitle.innerText = "";
+    selectedDataLastName.innerText = "";
+    selectedDataFirstName.innerText = "";
+    selectedDataMiddleName.innerText = "";
+    selectedDataQualifier.innerText = "";
+    selectedDataRank.innerText = "";
+    selectedDataGunType.innerText = "";
+    selectedDataGunName.innerText = "";
+    selectedDataCaliber.innerText = "";
+    selectedDataSerialNumber.innerText = "";
+    selectedDataCost.innerText = "";
+    selectedDataAcquisitionDate.innerText = "";
+    selectedDataTurnOver.innerText = "";
+    selectedDataReturned.innerText = "";
+  });
 
-  btn2.onclick = function () {
-    modal2.style.display = "block";
-  };
+ // Function to populate the EditData modal with data
+ function populateEditDataModal(data) {
+  document.getElementById("editDataId").value = data.id || "";
+    document.getElementById("editDataLastName").value = data.lastname || "";
+    document.getElementById("editDataFirstName").value = data.firstname || "";
+    document.getElementById("editDataMiddleName").value = data.middlename || "";
+    document.getElementById("editDataQualifier").value = data.qualifier || "";
+    document.getElementById("editDataRank").value = data.rank || "";
+    document.getElementById("editDataGunType").value = data.guntype || "";
+    document.getElementById("editDataGunName").value = data.gunname || "";
+    document.getElementById("editDataCaliber").value = data.caliber || "";
+    document.getElementById("editDataSerialNumber").value = data.serialnumber || "";
+    document.getElementById("editDataCost").value = data.cost || "";
+    document.getElementById("editDataAcquisitionDate").value = data.acquisitiondate || "";
+    document.getElementById("editDataTurnOver").value = data.turnover || "";
+    document.getElementById("editDataReturned").value = data.returned || "";
+}
 
-  // When the user clicks on <span> (x), close the modal
-  span.onclick = function () {
-    modal.style.display = "none";
-  };
+  var editDataBtns = document.querySelectorAll(".editData");
+  editDataBtns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var dataId = this.dataset.id;
+          var data = {
+              id: this.dataset.id,
+              lastname: this.dataset.lastname,
+              firstname: this.dataset.firstname,
+              middlename: this.dataset.middlename,
+              qualifier: this.dataset.qualifier,
+              rank: this.dataset.rank,
+              guntype: this.dataset.guntype,
+              gunname: this.dataset.gunname,
+              caliber: this.dataset.caliber,
+              serialnumber: this.dataset.serialnumber,
+              cost: this.dataset.cost,
+              acquisitiondate: this.dataset.acquisitiondate,
+              turnover: this.dataset.turnover,
+              returned: this.dataset.returned,
+          };
+          populateEditDataModal(data);
+          console.log("ito ang populated data",data);
+          console.log("ito id",data.id)
+      });
+  });
 
-  span2.onclick = function () {
-    modal2.style.display = "none";
-  };
-
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function (event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    } else if (event.target == modal2) {
-      modal2.style.display = "none";
-    }
-  };
-
-
-  // Function to confirm the Delete
-  function confirmDelete(id) {
-    if (confirm("Are you sure you want to delete this data?")) {
-      // If the user confirms, submit the form for deletion
-      const form = document.createElement('form');
-      form.action = '/delete/' + id;
-      form.method = 'POST';
-      document.body.appendChild(form);
-      form.submit();
-    }
-  }
+  
 </script>
 
-<script>
-  // Function to send a request to the server for Excel export
-  function exportExcel() {
-    const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const monthNames = [
-      "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
-    ];
-    const month = monthNames[currentDate.getMonth()];
-    const day = currentDate.getDate().toString().padStart(2, '0');
 
 
-    // Construct the file name with the current date
-    const fileName = `table_data_${month}_${year}.xlsx`;
-    fetch('/DataTable/ToExcel') // Replace with the actual server route
-      .then((response) => {
-        if (response.ok) {
-          return response.blob();
-        } else {
-          throw new Error('Export failed.');
-        }
-      })
-      .then((blob) => {
-        // Create a URL for the blob and trigger the download
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = fileName;
-        a.click();
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
-  // Attach the exportExcel function to the button click event
-  document.getElementById('downloadExcelBtn').addEventListener('click', exportExcel);
-
-  </script>
 
   </body>
 </html>

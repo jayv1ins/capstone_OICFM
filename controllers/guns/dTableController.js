@@ -281,29 +281,34 @@ exports.deleteData = async function (req, res) {
 exports.exportToExcel = async function (req, res) {
   try {
     await client.connect();
-    // Fetch all data from your Prisma model
-    const data = await collection.findMany({
-      select: {
-        Gtype: true,
-        Gname: true,
-        caliber: true,
-        serialN: true,
-        acquisition: true,
-        turnOver: true,
-        returned: true,
-        cost: true,
-        station: true,
-        rank: true,
-        lastName: true,
-        firstName: true,
-        middleName: true,
-        QLFR: true,
-      },
-    });
+    const db = client.db("PNP_management");
+    const collection = db.collection("Record");
 
-    const TotalGun = await prisma.data.aggregate({
-      _count: { id: true },
-    });
+    // Fetch all data from your Prisma model
+    const projection = {
+      Gtype: true,
+      Gname: true,
+      caliber: true,
+      serialN: true,
+      acquisition: true,
+      turnOver: true,
+      returned: true,
+      cost: true,
+      station: true,
+      rank: true,
+      lastName: true,
+      firstName: true,
+      middleName: true,
+      QLFR: true,
+    };
+    const data = await collection
+      .find({ archived: false })
+      .sort({ acquisition: -1 })
+      .project(projection)
+      .toArray();
+
+    // Get the total count of records
+    const totalGunCount = await collection.countDocuments();
 
     // Create a new Excel workbook
     const wb = XLSX.utils.book_new();
@@ -314,7 +319,7 @@ exports.exportToExcel = async function (req, res) {
 
     // Create a new worksheet for additional data (e.g., total count)
     const extraDataWs = XLSX.utils.json_to_sheet(
-      [{ "Total Count": TotalGun._count.id }],
+      [{ "Total Count": totalGunCount }],
       { header: ["Total Count"] }
     );
 
@@ -336,10 +341,10 @@ exports.exportToExcel = async function (req, res) {
     res.send(excelBuffer);
   } catch (error) {
     console.error(error);
+    await client.close();
     res
       .status(500)
       .json({ error: "An error occurred while exporting data to Excel." });
-    await client.close();
   }
 };
 
@@ -348,51 +353,59 @@ exports.getSelect = async function (req, res) {
 
   try {
     await client.connect();
-    const data = await collection.findUnique({
-      where: { id },
-      select: {
-        id: true,
-        Gtype: true,
-        Gname: true,
-        caliber: true,
-        serialN: true,
-        acquisition: true,
-        turnOver: true,
-        returned: true,
-        cost: true,
-        station: true,
-        rank: true,
-        lastName: true,
-        firstName: true,
-        middleName: true,
-        QLFR: true,
+    const db = client.db("PNP_management");
+    const collection = db.collection("Record");
+
+    const data = await collection.findOne(
+      {
+        _id: new ObjectId(id),
       },
-    });
+      {
+        projection: {
+          id: true,
+          Gtype: true,
+          Gname: true,
+          caliber: true,
+          serialN: true,
+          acquisition: true,
+          turnOver: true,
+          returned: true,
+          cost: true,
+          station: true,
+          rank: true,
+          lastName: true,
+          firstName: true,
+          middleName: true,
+          QLFR: true,
+        },
+      }
+    );
 
     if (!data) {
-      res.status(404).send("Data not found");
-    } else {
-      const {
-        Gtype,
-        Gname,
-        caliber,
-        serialN,
-        acquisition,
-        turnOver,
-        returned,
-        cost,
-        station,
-        rank,
-        lastName,
-        firstName,
-        middleName,
-        QLFR,
-        qrCode,
-      } = data;
+      return res.status(404).send("Data not found");
     }
+
+    const {
+      Gtype,
+      Gname,
+      caliber,
+      serialN,
+      acquisition,
+      turnOver,
+      returned,
+      cost,
+      station,
+      rank,
+      lastName,
+      firstName,
+      middleName,
+      QLFR,
+    } = data;
+
+    // console.log("Data is:", data);
   } catch (error) {
     console.error(error);
-    res.status(500).send("Internal Server Error");
+    res.status(500).send(error);
     await client.close();
   }
 };

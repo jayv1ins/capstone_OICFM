@@ -58,7 +58,6 @@ app.use("/", aEditRoutes);
 
 //etc
 const indexRoutes = require("./routes/index");
-
 app.use("/", indexRoutes);
 
 //---------------------------------------------------------------------------------
