@@ -1,892 +1,588 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
-
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: 'Roboto', sans-serif;
-}
-
-.sidebar {
-	position: fixed;
-	height: 100%;
-	width: 240px;
-	background: #2f4050;
-	transition: all 0.5s ease;
-}
-
-.sidebar.active {
-	width: 60px;
-}
-
-.sidebar .logo-details {
-	height: 80px;
-	display: flex;
-	align-items: center;
-}
-
-.sidebar .logo-details i {
-	font-size: 28px;
-	font-weight: 500;
-	color: #fff;
-	min-width: 60px;
-	text-align: center
-}
-
-.sidebar .logo-details .logo_name {
-	color: #fff;
-	font-size: 24px;
-	font-weight: 500;
-}
-
-.sidebar .nav-links {
-	margin-top: 10px;
-}
-
-.sidebar .nav-links li {
-	position: relative;
-	list-style: none;
-	height: 50px;
-}
-
-.sidebar .nav-links li a {
-	height: 100%;
-	width: 100%;
-	display: flex;
-	align-items: center;
-	text-decoration: none;
-	transition: all 0.4s ease;
-}
-
-.sidebar .nav-links li a:hover {
-	background: #26353f;
-}
-
-.sidebar .nav-links li i {
-	min-width: 60px;
-	text-align: center;
-	font-size: 18px;
-	color: #fff;
-}
-
-.sidebar .nav-links li a .links_name {
-	color: #fff;
-	font-size: 15px;
-	font-weight: 400;
-	white-space: nowrap;
-}
-
-.sidebar .nav-links .log_out {
-	position: absolute;
-	bottom: 0;
-	width: 100%;
-}
-
-.home-section {
-	position: relative;
-	background: #f5f5f5;
-	min-height: 100vh;
-	width: calc(100% - 240px);
-	left: 240px;
-	transition: all 0.5s ease;
-}
-
-.sidebar.active~.home-section {
-	width: calc(100% - 60px);
-	left: 60px;
-}
-
-.home-section nav {
-	display: flex;
-	justify-content: space-between;
-	height: 80px;
-	background: #fff;
-	display: flex;
-	align-items: center;
-	position: fixed;
-	width: calc(100% - 240px);
-	left: 240px;
-	z-index: 100;
-	padding: 0 20px;
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-	transition: all 0.5s ease;
-}
-
-.sidebar.active~.home-section nav {
-	left: 60px;
-	width: calc(100% - 60px);
-}
-
-.home-section nav .sidebar-button {
-	display: flex;
-	align-items: center;
-	font-size: 24px;
-	font-weight: 500;
-}
-
-nav .sidebar-button i {
-	font-size: 35px;
-	margin-right: 10px;
-}
-
-
-.home-section .home-content {
-	position: relative;
-	padding-top: 104px;
-}
-
-.home-section .home-content2 {
-	position: relative;
-	padding-top: 104px;
-	background: #18242c;
-}
-
-.home-content .overview-boxes {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	flex-wrap: wrap;
-	padding: 0 20px;
-	margin-bottom: 26px;
-}
-
-.home-content2 .overview-boxes {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	flex-wrap: wrap;
-	padding: 0 20px;
-	margin-bottom: 26px;
-}
-
-.overview-boxes .box {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: calc(100% / 4 - 15px);
-	background: #fff;
-	padding: 15px 14px;
-	border-radius: 12px;
-	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-}
-
-.overview-boxes .box-topic {
-	font-size: 20px;
-	font-weight: 500;
-	text-align: center;
-}
-
-.home-content .box .cart {
-	display: inline-block;
-	font-size: 32px;
-	height: 50px;
-	width: 50px;
-	background: #cce5ff;
-	line-height: 50px;
-	text-align: center;
-	color: #66b0ff;
-	border-radius: 12px;
-	margin: 0 0 0 6px;
-}
-.home-content2 .box .cart {
-	display: inline-block;
-	font-size: 32px;
-	height: 50px;
-	width: 50px;
-	background: #cce5ff;
-	line-height: 50px;
-	text-align: center;
-	color: #66b0ff;
-	border-radius: 12px;
-	margin: 0 0 0 6px;
-}
-
-
-
-/* left box */
-.home-content .main-boxes .right-boxes {
-	width: 65%;
-	height: 400px;
-	background: #fff;
-	padding: 20px 30px;
-	margin: 0 20px;
-	border-radius: 12px;
-	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-}
-
-.home-content2 .main-boxes .right-boxes {
-	width: 65%;
-	height: 400px;
-	background: #fff;
-	padding: 20px 30px;
-	margin: 0 20px;
-	border-radius: 12px;
-	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-}
-
-.home-content .main-boxes .right-boxes2 {
-	width: 100%;
-	height: 400px;
-	background: #fff;
-	padding: 20px 30px;
-	margin: 0 20px;
-	border-radius: 12px;
-	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-}
-
-.home-content2 .main-boxes .right-boxes2 {
-	width: 100%;
-	height: 400px;
-	background: #fff;
-	padding: 20px 30px;
-	margin: 0 20px;
-	border-radius: 12px;
-	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-}
-
-.main-boxes .box .title {
-	font-size: 24px;
-	font-weight: 500;
-	/* margin-bottom: 10px; */
-}
-
-.main-boxes .box .title2 {
-	font-size: 24px;
-	font-weight: 500;
-	text-align: center;
-	/* margin-bottom: 10px; */
-}
-
-.main-boxes .box-details li.topic {
-	font-size: 20px;
-	font-weight: 500;
-}
-
-.main-boxes .box-details li {
-	list-style: none;
-	margin: 8px 0;
-}
-
-.main-boxes .box-details li a {
-	font-size: 18px;
-	color: #333;
-	font-size: 400;
-	text-decoration: none;
-}
-
-/* Right box */
-.home-content .main-boxes .left-boxes {
-	width: 35%;
-	height: 400px;
-	background: #fff;
-	padding: 20px 30px;
-	margin: 0 20px 20px 0;
-	border-radius: 12px;
-	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-}
-
-.home-content2 .main-boxes .left-boxes {
-	width: 35%;
-	height: 400px;
-	background: #fff;
-	padding: 20px 30px;
-	margin: 0 20px 20px 0;
-	border-radius: 12px;
-	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-}
-
-.main-boxes .left-boxes li {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	margin: 10px 0;
-}
-
-.main-boxes .left-boxes li a img {
-	height: 40px;
-	width: 40px;
-	object-fit: cover;
-	border-radius: 12px;
-	margin-right: 10px;
-	background: #333;
-}
-
-.main-boxes .left-boxes li a {
-	display: flex;
-	align-items: center;
-	text-decoration: none;
-}
-
-/* Responsive Media Query */
-@media (max-width: 1240px) {
-	.sidebar {
-		width: 60px;
-	}
-
-	.sidebar.active {
-		width: 220px;
-	}
-
-	.home-section {
-		width: calc(100% - 60px);
-		left: 60px;
-	}
-
-	.sidebar.active~.home-section {
-		/* width: calc(100% - 220px); */
-		overflow: hidden;
-		left: 220px;
-	}
-
-	.home-section nav {
-		width: calc(100% - 60px);
-		left: 60px;
-	}
-
-	.sidebar.active~.home-section nav {
-		width: calc(100% - 220px);
-		left: 220px;
-	}
-}
-
-@media (max-width: 1150px) {
-	.home-content .main-boxes {
-		flex-direction: column;
-	}
-
-	.home-content .main-boxes .box {
-		width: 100%;
-		overflow-x: scroll;
-		margin-bottom: 30px;
-	}
-
-	.home-content .main-boxes .left-boxes {
-		margin: 0;
-	}
-
-	.home-content2 .main-boxes {
-		flex-direction: column;
-	}
-
-	.home-content2 .main-boxes .box {
-		width: 100%;
-		overflow-x: scroll;
-		margin-bottom: 30px;
-	}
-
-	.home-content2 .main-boxes .left-boxes {
-		margin: 0;
-	}
-}
-
-@media (max-width: 1000px) {
-	.overview-boxes .box {
-		width: calc(100% / 2 - 15px);
-		margin-bottom: 15px;
-	}
-}
-
-@media (max-width: 700px) {
-	nav .sidebar-button .dashboard {
-		display: none;
-	}
-
-	.home-content .main-boxes .box-details {
-		width: 560px;
-	}
-
-	.home-content2 .main-boxes .box-details {
-		width: 560px;
-	}
-}
-
-@media (max-width: 550px) {
-	.overview-boxes .box {
-		width: 100%;
-		margin-bottom: 15px;
-	}
-
-}
-
-@media (max-width: 400px) {
-	.sidebar {
-		width: 0;
-	}
-
-	.sidebar.active {
-		width: 60px;
-	}
-
-	.home-section {
-		width: 100%;
-		left: 0;
-	}
-
-	.sidebar.active~.home-section {
-		left: 60px;
-		width: calc(100% - 60px);
-	}
-
-	.home-section nav {
-		width: 100%;
-		left: 0;
-	}
-
-	.sidebar.active~.home-section nav {
-		left: 60px;
-		width: calc(100% - 60px);
-	}
-}
-
-.circle-image {
-	width: 50px;
-	height: 50px;
-	border-radius: 50%;
-	object-fit: cover;
-	border: 2px solid #fff;
-	margin-left: 5px;
-	margin-right: 5px;
-}
-
-.chart-top {
-	height: 100px;
-	width: 100px;
-}
-
-.chart-left {
-	margin-top: 10px;
-	padding-bottom: 75px;
-	height: 400px;
-	width: 100%;
-
-}
-
-
-
-.chart-right {
-	margin-top: 10px;
-	padding-bottom: 75px;
-	height: 400px;
-	width: 100%;
-
-}
-
-.custom-form {
-	text-align: center;
-	padding: 20px;
-	margin-bottom: 20px;
-	font-size: 16px;
-	
-}
-
-.custom-form2 {
-	text-align: center;
-	padding: 20px 20px 0 20px;
-	
-	font-size: 16px;
-	color: #fff;
-}
-
-
-.custom-form-date {
-	text-align: center;
-	padding: 20px;
-
-}
-
-.form-title {
-	font-size: 24px;
-	margin-bottom: 20px;
-}
-
-.form-row {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.form-group {
-	flex: 1;
-	text-align: center;
-	margin: 10px;
-	
-}
-
-.custom-input {
-	width: 100%;
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 6px;
-}
-
-.custom-button {
-	padding: 10px 20px;
-	border: none;
-	border-radius: 25px;
-	cursor: pointer;
-	font-weight: 500;
-}
-
-.custom-button.primary {
-	background-color: #1C84C6;
-	color: white;
-	margin: 0;
-}
-
-.custom-button i, .downloadBtn i, .custom-dropdown i, .custom-button3 i {
-	vertical-align: middle;
-	padding-left: 5px;
-}
-
-.downloadBtn {
-	background-color: #1D6F42;
-	color: white;
-	margin: 0;
-	padding: 10px 20px;
-	border: none;
-	border-radius: 25px;
-	cursor: pointer;
-	font-weight: 500;
-	transition: background-color 0.3s, color 0.3s;
-}
-
-.downloadBtn:hover {
-	background-color: #2F9057;
-}
-
-.custom-button.secondary {
-	background-color: #ddd;
-	color: #333;
-}
-
-/* ############################################################## */
-
-.custom-dropdown {
-	position: relative;
-	display: inline-block;
-	margin-right: 10px;
-}
-
-.custom-dropdown-toggle {
-	padding: 10px 20px;
-	background: #2f4050;
-	color: #fff;
-	border: none;
-	cursor: pointer;
-	border-radius: 10px;
-}
-
-.custom-dropdown-toggle:focus {
-	outline: none;
-	box-shadow: 0 0 5px rgba(47, 64, 80, 0.5);
-}
-
-.custom-dropdown-item {
-	padding: 10px;
-	border-bottom: 1px solid #ccc;
-	white-space: nowrap;
-	color: #2f4050;
-	transition: background-color 0.3s;
-	cursor: pointer;
-}
-
-.custom-dropdown-item:hover {
-	background-color: #2f4050;
-	color: #fff;
-}
-
-.custom-dropdown-menu {
-	position: absolute;
-	display: none;
-	background: #fff;
-	border: 1px solid #ccc;
-	list-style: none;
-	padding: 0;
-	max-height: 200px;
-	overflow-y: auto;
-	border-radius: 4px;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	z-index: 1;
-}
-
-.custom-dropdown-menu li {
-	padding: 10px;
-	border-bottom: 1px solid #ccc;
-	color: #2f4050;
-}
-
-.custom-form-check {
-	display: flex;
-	align-items: center;
-}
-
-.custom-form-check-input {
-	margin-right: 10px;
-}
-
-/* ########################################################## */
-.custom-search-form {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-}
-
-.custom-form-group {
-	display: flex;
-	align-items: center;
-	margin-right: 10px;
-}
-
-.custom-form-row {
-	display: flex;
-	justify-content: center;
-}
-
-.custom-input {
-	width: 100%;
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 6px;
-}
-
-.search-input {
-	width: 100%;
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 6px;
-}
-
-/* ############################################################################ */
-
-.custom-button-group {
-	display: flex;
-	align-items: center;
-}
-
-.custom-button-group-manager {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.custom-table {
-	width: 100%;
-	border-collapse: collapse;
-	background-color: #fff;
-	border: 1px solid #ccc;
-	text-align: center;
-	margin-top: 10px;
-}
-
-.custom-table th,
-.custom-table td {
-	padding: 10px;
-	border: 1px solid #ccc;
-}
-
-.custom-table-header {
-	background-color: #2f4050;
-	color: #fff;
-}
-
-/* Custom button styles */
-.custom-button2 {
-	background-color: #1C84C6;
-	color: white;
-	border: none;
-	border-radius: 5px;
-	padding: 8px 16px;
-	cursor: pointer;
-	font-weight: 500;
-	text-align: center;
-	margin-right: 5px;
-}
-
-.custom-button2:hover {
-	background-color: #1A72B0;
-}
-
-.custom-button2.custom-button-danger {
-	background-color: #D9534F;
-	color: white;
-	border: none;
-	border-radius: 5px;
-	padding: 8px 16px;
-	cursor: pointer;
-	font-weight: 500;
-	text-align: center;
-	transition: background-color 0.3s;
-}
-
-.custom-button2.custom-button-danger:hover {
-	background-color: #C9302C;
-}
-
-.custom-pagination {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-top: 20px;
-}
-
-.custom-pagination-info {
-	font-size: 14px;
-	color: #333;
-}
-
-.custom-pagination-buttons {
-	display: flex;
-	align-items: center;
-}
-
-
-/* ########################################################################### */
-
-/* The Modal (background) */
-.modal {
-	display: none;
-	position: fixed;
-	z-index: 1;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	overflow: auto;
-	background-color: rgb(0, 0, 0);
-	background-color: rgba(0, 0, 0, 0.4);
-}
-
-/* Modal Content/Box */
-.modal-content {
-	background-color: #fefefe;
-	margin: 15% auto;
-	padding: 20px;
-	border: 1px solid #888;
-	width: 80%;
-}
-
-/* The Close Button */
-.close, .close2 {
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
-
-.close:hover, .close2:hover,
-.close:focus, .close2:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-}
-
-
-/* ############################################################# */
-
-.upper div {
-	display: inline;
-	margin-left: 100px;
-	white-space: pre;
-	text-align: center;
-	font-size: 25px;
-	font-weight: 500;
-	color: #32CD32;
-	background: none;
-}
-
-.bottom {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-}
-
-.bottom div {
-	flex: 1;
-	border: 1px solid rgb(118, 118, 118);
-	height: 400px;
-	margin: 10px;
-}
-
-.bottom div img {
-	max-width: calc(100% - 20px);
-	max-height: calc(100% - 20px);
-	margin: 10px 0 150px 10px;
-
-}
-
-.bottom div textarea {
-	resize: none;
-	width: calc(100% - 20px);
-	height: 400px;
-	padding: 10px;
-	font-size: 20px;
-	outline: none;
-	border: 1px solid rgb(118, 118, 118);
-	text-align: center;
-}
-
-.bottom div:first-child {
-	margin-left: 0px;
-	-webkit-box-align: center;
-	-webkit-box-pack: center;
-	display: -webkit-box;
-	align-items: center;
-}
-
-.bottom div:last-child {
-	margin-right: 0px;
-}
-
-
-.camera-feed-container {
-	position: relative;
-
-}
-
-.camera-feed {
-	max-width: 100%;
-	max-height: 100%;
-}
-
-.custom-button3 {
-	background-color: #1C84C6;
-	color: white;
-	border: none;
-	border-radius: 5px;
-	padding: 8px 16px;
-	cursor: pointer;
-	font-weight: 500;
-	text-align: center;
-	margin-right: 10px;
-	margin-top: 20px;
-}
-
-.custom-button3:hover {
-	background-color: #1A72B0;
-	color: white;
-	transition: background-color 0.3s;
-}
-
-.custom-button3.custom-button-danger {
-	background-color: #D9534F;
-	color: white;
-}
-
-.custom-button3.custom-button-danger:hover {
-	background-color: #C9302C;
-	color: white;
-}
-
-
-.custom-button3 i {
-	margin-left: 5px;
-	font-size: 18px;
-}
-
-.custom-input {
-	width: 200px;
-	padding: 5px;
-	margin-right: 10px;
-}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="Website Icon" type="png" href="logo_pnp.png">
+  <title> Dashboard</title>
+  <link rel="stylesheet" href="/stylesheets/index_style.css">
+  <!-- Boxicons CDN Link -->
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <script src="https://unpkg.com/@mongodb-js/charts-embed-dom"></script>
+
+</head>
+
+<body>
+  <div class="sidebar">
+    <div class="logo-details">
+      <img src="pnp-male.jpg" alt="" class="circle-image">
+      <% if (user.usertype==='Admin' ) { %>
+        <span class="logo_name">Admin</span>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="/index" id="home-link" class="active">
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a id="datatable-link" href="/DataTable">
+          <i class='bx bx-table'></i>
+          <span class="links_name">Records</span>
+        </a>
+      </li>
+      <li>
+        <a id="scanner-link" href="/scanner">
+          <i class='bx bx-scan'></i>
+          <span class="links_name">Scanner</span>
+        </a>
+      </li>
+      <li>
+        <a id="admin-table-link" href="/admin/table">
+          <i class='bx bx-user'></i>
+          <span class="links_name">Manager</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-book'></i>
+          <span class="links_name">Help</span>
+        </a>
+      </li>
+
+      <li class="log_out">
+        <a id="logout-link" href="/logout">
+          <i class='bx bx-log-out'></i>
+          <span class="links_name">Log out</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <% } else { %>
+
+    <span class="logo_name">Manager</span>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="/index" id="home-link" class="active">
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a id="datatable-link" href="/DataTable">
+          <i class='bx bx-table'></i>
+          <span class="links_name">Records</span>
+        </a>
+      </li>
+      <li>
+        <a id="scanner-link" href="/scanner">
+          <i class='bx bx-scan'></i>
+          <span class="links_name">Scanner</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-book'></i>
+          <span class="links_name">Help</span>
+        </a>
+      </li>
+
+      <li class="log_out">
+        <a id="logout-link" href="/logout">
+          <i class='bx bx-log-out'></i>
+          <span class="links_name">Log out</span>
+        </a>
+      </li>
+    </ul>
+    </div>
+    <% } %>
+      <!-- Current Active Link -->
+      <section class="home-section">
+        <nav>
+          <div class="sidebar-button">
+            <i class='bx bx-menu sidebarBtn'></i>
+            <span class="dashboard">Dashboard</span>
+          </div>
+
+        </nav>
+
+
+        <div class="home-content2">
+          <form onsubmit="handleFilterSubmit(event)" class="custom-form2">
+            <h1 class="form-title">Select Date Range for Acquisition</h1>
+            <div class="form-row">
+              <div class="form-group col">
+                <label for="startDate">Start Date:</label>
+                <input type="date" id="startDate" name="startDate" class="custom-input" required>
+              </div>
+              <div class="form-group col">
+                <label for="endDate">End Date:</label>
+                <input type="date" id="endDate" name="endDate" class="custom-input" required>
+              </div>
+              <div class="form-group col">
+                <button type="submit" class="custom-button primary">Submit</button>
+                <button type="reset" class="custom-button secondary">Reset</button>
+              </div>
+            </div>
+          </form>
+
+
+          <div class="dashboard_content">
+
+
+            <div class="content">
+              <!-- Main Content -->
+              <div class="main-content">
+                <div class="top-chart flex">
+                  <div class="top-chart-box bottom-chart-left">
+                    <h2 class="heading">Total Cost per Gun Type</h2>
+                    <div id="chart3"></div>
+                  </div>
+
+                  <div class="top-chart-box bottom-chart-right">
+                    <h2 class="heading">Total Gun</h2>
 
+                    <div id="chart1"></div>
+                  </div>
+                </div>
+
+
+                <div class="product-top-chart flex">
+                  <div class="product-bottom-chart-left top-chart-box">
+                    <h2 class="heading">Guns per Gun Type</h2>
+                    <div id="chart5"></div>
+                  </div>
+
+                  <div class="bottom-chart top-chart-box">
+                    <h2 class="heading">Total Cost per Acquisition</h2>
+                    <div id="chart11"></div>
+                  </div>
+                </div>
+
+                <div class="top-chart flex">
+                  <div class="top-chart-box bottom-chart-left">
+                    <h2 class="heading">Number of Guns per Gun Name</h2>
+                    <div id="chart7"></div>
+                  </div>
+
+                  <div class="top-chart-box bottom-chart-right">
+                    <h2 class="heading">Authorized Users</h2>
+
+                    <div id="chart15"></div>
+                  </div>
+                </div>
+
+
+                <div class="product-top-chart flex">
+                  <div class="product-bottom-chart-left top-chart-box">
+                    <h2 class="heading">Turnover Rate</h2>
+                    <div id="chart13"></div>
+                  </div>
+
+                  <div class="bottom-chart top-chart-box">
+                    <h2 class="heading">Gun Acquisitions per Date</h2>
+                    <div id="chart10"></div>
+                  </div>
+                </div>
+
+
+                <div class="top-chart flex">
+                  <div class="top-chart-box bottom-chart-left">
+                    <h2 class="heading">Total Cost per Gun Type</h2>
+                    <div id="chart8"></div>
+                  </div>
+
+                  <div class="top-chart-box bottom-chart-right">
+                    <h2 class="heading">Total Cost</h2>
+
+                    <div id="chart2"></div>
+                  </div>
+                </div>
+
+
+                <div class="product-top-chart flex">
+                  <div class="product-bottom-chart-left top-chart-box">
+                    <h2 class="heading">Scanned QR Code to Gun Numbers</h2>
+                    <div id="chart9"></div>
+                  </div>
+
+                  <div class="bottom-chart top-chart-box">
+                    <h2 class="heading">Gun Type by Rank</h2>
+                    <div id="chart14"></div>
+                  </div>
+                </div>
+
+
+                <div class="product-top-chart flex">
+
+
+                  <div class="bottom-chart top-chart-box">
+                    <h2 class="heading">Guns per Calibre</h2>
+                    <div id="chart6"></div>
+                  </div>
+
+                  <div class="product-bottom-chart-left top-chart-box">
+                    <h2 class="heading">Accumulated Costs</h2>
+                    <div id="chart12"></div>
+                  </div>
+                </div>
+
+
+                <div class="top-chart2 flex">
+                  <div class="top-chart-box bottom-chart-left">
+                    <h2 class="heading">Number of Guns per Station</h2>
+                    <div id="chart4"></div>
+                  </div>
+
+
+                </div>
+
+
+              </div>
+
+            </div>
+          </div>
+
+      </section>
+
+      <script>
+        let sidebar = document.querySelector(".sidebar");
+        let sidebarBtn = document.querySelector(".sidebarBtn");
+        sidebarBtn.onclick = function () {
+          sidebar.classList.toggle("active");
+          if (sidebar.classList.contains("active")) {
+            sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+          } else
+            sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+        }
+      </script>
+
+
+      <script>
+        const ChartsEmbedSDK = window.ChartsEmbedSDK;
+
+        // Configuration for the MongoDB Charts Embed SDK
+        const sdk = new ChartsEmbedSDK({
+          baseUrl: "https://charts.mongodb.com/charts-project-0-omorz",
+          theme: "dark",
+          height: 250,
+        });
+
+        const chartIds = [
+          "6492abe4-74f2-4905-805e-f685c6754286",
+          "64994e7e-6f89-4b9b-8926-e4595ee18be1",
+          "6492afa8-e63f-4b36-8007-0f06bc0fceb5",
+          "6492af4a-7081-435a-88d2-cbf173aa2add",
+          "64a4e114-bfd6-4c5c-82e1-aed10e4d8504",
+          "6499393e-5d6e-4d4b-80e6-5c0004764687",
+          "649937ab-6ccc-47e8-8431-13e80f87ab31",
+          "64a7c613-c709-43c3-8b0f-73a5bdd4f530",
+          "64a75be6-7fe0-4990-8c22-994ad4f608cf",
+          "64a7c276-7fe0-4399-846c-994ad42930fa",
+          "64aa6838-5bfe-4e8d-82ec-be414ef2ae74",
+          "64aa77c2-c709-44ca-809a-73a5bd6426e9",
+          "64aa7bf4-2925-478c-8eff-15cc0ae2b5da",
+          "64aa808f-904b-4bad-810f-87a9d4d94c75",
+          "6522ad57-8f60-4161-89ce-00d9b33e9a97",
+        ];
+
+        const charts = chartIds.map(chartId => sdk.createChart({ chartId }));
+
+        charts.forEach((chart, index) => {
+          chart.render(document.getElementById(`chart${index + 1}`));
+        });
+
+
+        function handleFilterSubmit(event) {
+          event.preventDefault();
+          const today = new Date();
+          const month = today.getMonth() + 1; // Month is 0-based
+
+          const startDate = document.getElementById("startDate").value;
+          const endDate = document.getElementById("endDate").value;
+
+          if (startDate && endDate) {
+            charts.forEach(chart => {
+              chart.setFilter({
+                $and: [
+                  { acquisition: { $gte: startDate } },
+                  { acquisition: { $lte: endDate } }
+                ]
+              });
+            });
+          } else {
+            // If either start date or end date is not selected, remove the filter
+            charts.forEach(chart => chart.setFilter({}));
+          }
+        }
+
+
+
+      </script>
+
+</body>
+
+<style>
+  html {
+    font-size: 62.5%;
+  }
+
+  .dashboard_content {
+    background: #18242c;
+    display: flex;
+    overflow-x: hidden;
+  }
+
+  .flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .flex-c {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .heading {
+    font-size: 1.8rem;
+    color: #fcfcfc;
+    font-weight: 500;
+    text-align: left;
+  }
+
+
+  .content {
+    flex: 1;
+    display: flex;
+  }
+
+  /* Main Content */
+  .main-content {
+
+    padding: 0 3rem 3rem 3rem;
+    width: 100%;
+  }
+
+  .head {
+    justify-content: space-between;
+  }
+
+  .head h1 {
+    flex: 1;
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: #fff;
+  }
+
+
+  .box .angle {
+    margin-left: 10px;
+  }
+
+  /* top-chart */
+  .top-chart {
+    background: #21313C;
+    margin-top: 4rem;
+    padding: 2rem 1rem;
+    font-size: 1.6rem;
+    justify-content: space-between;
+  }
+
+  .top-chart2 {
+    background: #21313C;
+    margin-top: 4rem;
+    font-size: 1.6rem;
+    align-items: center;
+    width: 100%;
+
+  }
+
+  #chart4 {
+    width: 100%;
+  }
+
+  .top-chart-box {
+    min-height: 30rem;
+    padding: 2rem 1rem;
+
+  }
+
+  .top-chart-box .heading {
+    margin-bottom: 2rem;
+  }
+
+  .bottom-chart-left {
+    flex: 0 0 60%;
+  }
+
+  .bottom-chart-right {
+    background: #334c5d;
+    width: 38%;
+  }
+
+  .bottom-chart-right-amount {
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+
+  /* Product bottom-chart-left */
+  .product-top-chart {
+    justify-content: space-between;
+    margin-top: 2rem;
+
+  }
+
+  .product-top-chart .top-chart-box {
+    background: #21313C;
+
+  }
+
+  .product-bottom-chart-left {
+    width: 38%;
+
+  }
+
+  .bottom-chart {
+    width: 60%;
+  }
+
+ 
+  .top-chart-box,
+  .product-top-chart .top-chart-box,
+  .bottom-chart-right {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .top-chart-box:hover,
+  .product-top-chart .top-chart-box:hover,
+  .bottom-chart-right:hover {
+    transform: scale(1.1);
+   
+  }
+
+
+  /* Responsive */
+  @media (max-width: 1200px) {
+    .dashboard_content {
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+    }
+  }
+
+  @media (max-width: 1180px) {
+    html {
+      font-size: 50%;
+    }
+  }
+
+  @media (max-width: 1050px) {
+    html {
+      font-size: 50%;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .content {
+      flex-direction: column;
+    }
+
+
+
+    .main-content {
+      width: 100%;
+    }
+
+    .title {
+      display: none;
+    }
+
+
+
+
+  }
+
+  @media (max-width: 850px) {
+
+
+    .navigation {
+      display: flex;
+    }
+
+
+
+    .content {
+      margin-top: 85px;
+    }
+  }
+
+  @media (max-width: 750px) {
+    .top-chart {
+      flex-direction: column;
+      background: none;
+    }
+
+    .bottom-chart-left,
+    .bottom-chart-right {
+      width: 100%;
+      margin: 20px 0;
+      background: #3f2532;
+    }
+
+
+  }
+
+  @media (max-width: 650px) {
+
+    .navigation,
+    .settings {
+      display: none;
+    }
+
+
+    .main-content {
+      padding: 1rem;
+    }
+
+    .product-top-chart {
+      flex-direction: column;
+    }
+
+    .product-bottom-chart-left,
+    .bottom-chart {
+      width: 95%;
+      padding: 2rem 4rem;
+      margin: 20px auto;
+    }
+
+    .product-bottom-chart-left {
+      width: 60%;
+    }
+  }
+
+  @media (max-width: 550px) {
+
+    .product-bottom-chart-left,
+    .bottom-chart {
+      width: 100%;
+    }
+
+  }
+
+  @media (max-width: 300px) {
+    html {
+      font-size: 35%;
+    }
+  }
+</style>
+
+</html>
