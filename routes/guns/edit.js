@@ -4,7 +4,7 @@ const { isAuth } = require("../../middlewares/isAuth");
 const { isAdmin } = require("../../middlewares/isAdmin");
 
 router.get("/edit/:id", isAuth, editController.getEdit);
-router.post("/edit/:id", isAuth, editController.updatedData);
+router.post("/update/:id", isAuth, editController.updatedData);
 
 module.exports = router;
 // isAuth, isAdmin,

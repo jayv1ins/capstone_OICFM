@@ -25,6 +25,7 @@ model User {
   shift       Int
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
+  archived    Boolean     @default(false)
 }
 
 model Data {
@@ -63,7 +64,6 @@ model Record {
   QLFR        String
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
-  deletedAt   DateTime?
   archived    Boolean     @default(false)
 }
 

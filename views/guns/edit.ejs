@@ -14,7 +14,6 @@
 
 
   <title>Edit</title>
-  <%- include('../components/navbar') %>
 
 
 </head>
@@ -25,7 +24,7 @@
 
   
     <div class="container">
-      <form id="registration-form" action="/edit/<%= data.id %>" method="POST">
+      <form id="registration-form" action="/update/<%= data.id %>" method="POST">
       <h2 class="text-center mb-4 mt-4">Edit Information</h2>
       <div class="row jumbotron shadow-lg p-3 mb-5 bg-body-tertiary rounded border">
         

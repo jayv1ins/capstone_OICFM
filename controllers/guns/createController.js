@@ -27,23 +27,6 @@ exports.postCreate = async (req, res) => {
     QLFR,
   } = req.body;
 
-  // Validation code
-  if (lastName.length < 3 || firstName.length < 3 || middleName.length < 3) {
-    return res.render("guns/create", {
-      ErrorMessage: "Names should be more than 3 characters long",
-    });
-  }
-
-  if (
-    !lastName.match(/^[A-Za-z\u4E00-\u9FFF]+$/) ||
-    !firstName.match(/^[A-Za-z\u4E00-\u9FFF]+$/) ||
-    !middleName.match(/^[A-Za-z\u4E00-\u9FFF]+$/)
-  ) {
-    return res.render("guns/create", {
-      ErrorMessage: "Only alphabetic or logographic characters",
-    });
-  }
-
   try {
     await client.connect();
     const createdAt = new Date();
@@ -68,7 +51,7 @@ exports.postCreate = async (req, res) => {
       archived: false,
     });
 
-    return res.redirect(`/select/${NewRegister.insertedId}`);
+    return res.redirect(`/DataTable`);
   } catch (error) {
     console.error(error);
     res

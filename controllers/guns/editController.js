@@ -131,27 +131,7 @@ exports.updatedData = async function (req, res) {
       }
     );
 
-    res.render("guns/edit", {
-      user: req.user,
-      data: {
-        id,
-        Gtype,
-        Gname,
-        caliber,
-        serialN,
-        acquisition,
-        turnOver,
-        returned,
-        cost,
-        station,
-        rank,
-        lastName,
-        firstName,
-        middleName,
-        QLFR,
-      },
-      SuccessMessage: "Data updated successfully",
-    });
+    res.redirect("/DataTable");
   } catch (error) {
     console.error(error);
     res.status(500).send("Internal Server Error");

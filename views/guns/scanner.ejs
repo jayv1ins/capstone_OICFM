@@ -1,264 +1,273 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+    <!DOCTYPE html>
+    <html lang="en" dir="ltr">
 
-<head>
-    <meta charset="UTF-8">
-    <link rel="Website Icon" type="png" href="logo_pnp.png">
-    <title> Scanner</title>
-    <link rel="stylesheet" href="/stylesheets/index_style.css">
-    <!-- Boxicons CDN Link -->
-    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="Website Icon" type="png" href="logo_pnp.png">
+        <title> Scanner</title>
+        <link rel="stylesheet" href="/stylesheets/index_style.css">
+        <!-- Boxicons CDN Link -->
+        <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script src="https://unpkg.com/@mongodb-js/charts-embed-dom"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
 
-</head>
+    </head>
 
-<body>
-    <div class="sidebar">
-        <div class="logo-details">
-            <img src="pnp-male.jpg" alt="" class="circle-image">
-            <span class="logo_name">Admin</span>
-        </div>
-        <ul class="nav-links">
-            <li>
-                <a href="/index" id="home-link" class="active">
-                    <i class='bx bx-grid-alt'></i>
-                    <span class="links_name">Dashboard</span>
-                </a>
-            </li>
-            <li>
-                <a id="datatable-link" href="/DataTable">
-                    <i class='bx bx-table'></i>
-                    <span class="links_name">Records</span>
-                </a>
-            </li>
-            <li>
-                <a id="scanner-link" href="/scanner">
-                    <i class='bx bx-scan'></i>
-                    <span class="links_name">Scanner</span>
-                </a>
-            </li>
-            <li>
-                <a id="admin-table-link" href="/admin/table">
-                    <i class='bx bx-user'></i>
-                    <span class="links_name">Manager</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-book'></i>
-                    <span class="links_name">Help</span>
-                </a>
-            </li>
-
-            <li class="log_out">
-                <a id="logout-link" href="/logout">
-                    <i class='bx bx-log-out'></i>
-                    <span class="links_name">Log out</span>
-                </a>
-            </li>
-        </ul>
-    </div>
-    <section class="home-section">
-        <nav>
-            <div class="sidebar-button">
-                <i class='bx bx-menu sidebarBtn'></i>
-                <span class="dashboard">Scanner</span>
+    <body>
+        <div class="sidebar">
+            <div class="logo-details">
+                <img src="pnp-male.jpg" alt="" class="circle-image">
+                <span class="logo_name">Admin</span>
             </div>
+            <ul class="nav-links">
+                <li>
+                    <a href="/index" id="home-link" class="active">
+                        <i class='bx bx-grid-alt'></i>
+                        <span class="links_name">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a id="datatable-link" href="/DataTable">
+                        <i class='bx bx-table'></i>
+                        <span class="links_name">Records</span>
+                    </a>
+                </li>
+                <li>
+                    <a id="scanner-link" href="/scanner">
+                        <i class='bx bx-scan'></i>
+                        <span class="links_name">Scanner</span>
+                    </a>
+                </li>
+                <li>
+                    <a id="admin-table-link" href="/admin/table">
+                        <i class='bx bx-user'></i>
+                        <span class="links_name">Manager</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-book'></i>
+                        <span class="links_name">Help</span>
+                    </a>
+                </li>
 
-        </nav>
-
-
-        <div class="home-content">
-
-            <div class="main-boxes">
-                <div class="right-boxes box" style="width: 100%; height: auto;">
-
-                    <div class="container" style="margin-top: 50px;">
-                        <div class="upper">
-                            <label for="fileSelector">Select a file:</label>
-                            <input type="file" id="fileSelector" class="custom-input">
-                            <button class="custom-button3" id="startCameraButton">Camera<i
-                                    class='bx bx-camera'></i></button>
-                            <button class="custom-button3" id="takePictureButton" style="display: none;">Picture<i
-                                    class='bx bx-camera'></i></button>
-                            <button class="custom-button3 custom-button-danger" id="stopCameraButton"
-                                style="display: none;">Stop<i class='bx bx-stop'></i></button>
-                            <!-- Notification Message -->
-                            <div class="progress"></div>
-                            <div id="successMessage"
-                                style="display: none; color: green; margin-top: 10px; text-align: center;">
-                                <p style="color: green;" id="successMessageText"></p>
-                            </div>
-                            <div id="errorMessage"
-                                style="display: none; color: red; margin-top: 10px; text-align: center;">
-                                <p style="color: red;" id="errorMessageText"></p>
-                            </div>
-                        </div>
-                        <div class="bottom">
-                            <div class="camera-feed-container">
-                                <video id="cameraFeed" class="camera-feed" autoplay></video>
-                                <img src="" class="camera-image">
-                            </div>
-                            <div style="border: white;">
-                                <textarea id="resultTextarea" placeholder="Result" readonly></textarea>
-                            </div>
-                        </div>
-                    </div>
-
+                <li class="log_out">
+                    <a id="logout-link" href="/logout">
+                        <i class='bx bx-log-out'></i>
+                        <span class="links_name">Log out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <section class="home-section">
+            <nav>
+                <div class="sidebar-button">
+                    <i class='bx bx-menu sidebarBtn'></i>
+                    <span class="dashboard">Scanner</span>
                 </div>
 
+            </nav>
+
+
+            <div class="home-content">
+                <div class="main-boxes">
+                    <div class="right-boxes box" style="width: 100%; height: auto;">
+                        <center>
+                            <!-- for file -->
+                            <form method="post" action="/scan" enctype="multipart/form-data">
+                              <input type="file" name="image" id="imageInput" class="custom-input" accept="image/*">
+                              <img id="selectedImage" src="" alt="Selected Image" style="max-width: 750px; max-height: 500px; display: none;">
+                              <button type="submit" id="extractTextButton" style="display: none;">Extract Text</button>
+                            </form> 
+
+                            <video id="live-camera-feed" autoplay></video>
+                            <img id="captured-image" style="display: none;">
+                            <button id="start-camera" class="custom-button3">Camera <i class='bx bx-camera'></i></button>
+                            <button id="capture-image" class="custom-button3" style="display: none;">Capture Image <i class='bx bx-camera'></i> </button>
+                            <button id="stop-camera" style="display: none;" class="custom-button3 custom-button-danger">Stop Camera <i class='bx bx-stop'></i></button>
+                            
+                            <!-- Crop the selected Image -->
+                            <label for="cropImage" id="cropLabel" style="display: none;">Crop Image</label>
+                            <input type="checkbox" id="cropImage" name="cropImage" style="display: none;">
+                            <input type="hidden" id="croppedImageData" name="croppedImageData">
+                            <button id="doneButton" style="display: none;">Done</button>
+                            <button id="resetButton" style="display: none;">Reset</button>
+                            <a id="downloadLink" style="display: none;" download="cropped_image.jpg">Download</a>
+                 
+
+                         <!-- Notification Message -->
+                         <notif>
+                          <% if (text) { %>
+                            <h2>Extracted Text:</h2>
+                            <pre><%= text %></pre>
+                          <% } %>
+
+
+                          <% if (successMessage) { %>
+                            <div style="color: green; margin-top: 10px; text-align: center;">
+                                <p style="color: green;"> <%= successMessage %> </p>
+                            </div>
+                          <% } else { %>
+                            <div style="color: red; margin-top: 10px; text-align: center;">
+                                <p style="color: red;"> <%= errorMessage %> </p>
+                            </div>
+                          <% } %>
+                        </notif>
+                      
+
+                    </center>
+                    </div>
+                </div>
+                
             </div>
+        </section>
 
-        </div>
-
-    </section>
-
-    <script>
-        let sidebar = document.querySelector(".sidebar");
-        let sidebarBtn = document.querySelector(".sidebarBtn");
-        sidebarBtn.onclick = function () {
-            sidebar.classList.toggle("active");
-            if (sidebar.classList.contains("active")) {
-                sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
-            } else
-                sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
-        }
-    </script>
-
-
-    <script src="https://unpkg.com/tesseract.js@v2.0.0-alpha.13/dist/tesseract.min.js"></script>
-    <script>
-        const fileSelector = document.querySelector('#fileSelector');
-        const img = document.querySelector('.camera-image');
-        const cameraFeed = document.querySelector('#cameraFeed');
-        const progress = document.querySelector('.progress');
-        const textarea = document.querySelector('textarea');
-        const startCameraButton = document.querySelector('#startCameraButton');
-        const takePictureButton = document.querySelector('#takePictureButton');
-        const stopCameraButton = document.querySelector('#stopCameraButton');
-        const successMessage = document.getElementById('successMessage');
-        const successMessageText = document.getElementById('successMessageText');
-        const errorMessage = document.getElementById('errorMessage');
-        const errorMessageText = document.getElementById('errorMessageText');
-
-        let cameraStream;
-
-        fileSelector.onchange = () => {
-            const selectedFile = fileSelector.files[0];
-            if (selectedFile) {
-                const imgUrl = window.URL.createObjectURL(selectedFile);
-                img.src = imgUrl;
-                recognizeText(selectedFile);
+        <script>
+            let sidebar = document.querySelector(".sidebar");
+            let sidebarBtn = document.querySelector(".sidebarBtn");
+            sidebarBtn.onclick = function () {
+                sidebar.classList.toggle("active");
+                if (sidebar.classList.contains("active")) {
+                    sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+                } else
+                    sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
             }
-        };
+        </script>
+ 
 
-        startCameraButton.addEventListener('click', () => {
-            startCamera();
+<script>
+  const liveCameraFeed = document.getElementById('live-camera-feed');
+const capturedImage = document.getElementById('captured-image');
+const startCameraButton = document.getElementById('start-camera');
+const captureImageButton = document.getElementById('capture-image');
+const stopCameraButton = document.getElementById('stop-camera');
+
+let videoStream;
+
+// Function to start the camera feed
+startCameraButton.addEventListener('click', async () => {
+    try {
+        videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
+        liveCameraFeed.srcObject = videoStream;
+        startCameraButton.style.display = 'none';
+        captureImageButton.style.display = 'inline-block';
+        stopCameraButton.style.display = 'inline-block'; 
+        
+    } catch (error) {
+        console.error('Error accessing the camera:', error);
+    }
+});
+
+// Function to capture an image
+captureImageButton.addEventListener('click', () => {
+    const canvas = document.createElement('canvas');
+    canvas.width = liveCameraFeed.videoWidth;
+    canvas.height = liveCameraFeed.videoHeight;
+    canvas.getContext('2d').drawImage(liveCameraFeed, 0, 0);
+    capturedImage.src = canvas.toDataURL('image/png');
+    capturedImage.style.display = 'block';
+});
+
+// Function to stop the camera feed
+stopCameraButton.addEventListener('click', () => {
+    if (videoStream) {
+        videoStream.getTracks().forEach((track) => {
+            track.stop();
         });
-        takePictureButton.addEventListener('click', () => {
-            takePicture();
-        });
-        stopCameraButton.addEventListener('click', () => {
-            stopCamera();
-        });
-
-        function startCamera() {
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(function (stream) {
-                    cameraStream = stream;
-                    cameraFeed.style.display = 'block';
-                    cameraFeed.srcObject = stream;
-                    startCameraButton.style.display = 'none';
-                    takePictureButton.style.display = 'inline-block';
-                    stopCameraButton.style.display = 'inline-block';
-                })
-                .catch(function (error) {
-                    console.error('Error accessing camera:', error);
-                });
+        liveCameraFeed.style.display = none;
+        startCameraButton.style.display = 'inline-block';
+        captureImageButton.style.display = 'none';
+        stopCameraButton.style.display = 'none'; 
+    }
+});
+</script>
+ 
+ <script>
+    let cropper;
+  
+    function updateImageFeedback() {
+      const fileInput = document.getElementById("imageInput");
+      const selectedImage = document.getElementById("selectedImage");
+      const cropLabel = document.getElementById("cropLabel");
+      const cropCheckbox = document.getElementById("cropImage");
+      const extractButton = document.getElementById("extractTextButton");
+      const doneButton = document.getElementById("doneButton");
+      const downloadLink = document.getElementById("downloadLink");
+      const resetButton = document.getElementById("resetButton");
+  
+      if (fileInput.files.length > 0) {
+        selectedImage.src = URL.createObjectURL(fileInput.files[0]);
+        selectedImage.style.display = "block";
+        cropLabel.style.display = "block";
+        cropCheckbox.style.display = "block";
+        resetButton.style.display = "block";
+  
+        if (cropCheckbox.checked) {
+          extractButton.style.display = "none"; // Hide the "Extract Text" button when cropping
+          doneButton.style.display = "block";
+          resetButton.style.display = "block";
+          downloadLink.style.display = "none";
+  
+          cropper = new Cropper(selectedImage, {
+            aspectRatio: 2 / 1,
+            viewMode: 2,
+          });
+  
+          doneButton.addEventListener("click", () => {
+            doneButton.style.display = "none";
+            downloadLink.style.display = "block";
+            extractButton.style.display = "block"; // Show the "Extract Text" button when cropping is done
+          });
+        } else {
+          if (cropper) {
+            cropper.destroy();
+            cropper = null;
+          }
+          doneButton.style.display = "none";
+          downloadLink.style.display = "none";
+          extractButton.style.display = "block"; // Show the "Extract Text" button when not cropping
         }
-
-        function takePicture() {
-            const canvas = document.createElement('canvas');
-            canvas.width = cameraFeed.videoWidth;
-            canvas.height = cameraFeed.videoHeight;
-            canvas.getContext('2d').drawImage(cameraFeed, 0, 0, canvas.width, canvas.height);
-            const imgDataUri = canvas.toDataURL('image/jpeg');
-            img.src = imgDataUri;
-            recognizeText(dataURItoBlob(imgDataUri));
-        }
-
-        function stopCamera() {
-            if (cameraStream) {
-                cameraStream.getTracks().forEach(track => track.stop());
-            }
-            cameraFeed.style.display = 'none';
-            startCameraButton.style.display = 'inline-block';
-            takePictureButton.style.display = 'none';
-            stopCameraButton.style.display = 'none';
-        }
-
-        function dataURItoBlob(dataURI) {
-            const byteString = atob(dataURI.split(',')[1]);
-            const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-            const ab = new ArrayBuffer(byteString.length);
-            const ia = new Uint8Array(ab);
-            for (let i = 0; i < byteString.length; i++) {
-                ia[i] = byteString.charCodeAt(i);
-            }
-            return new Blob([ab], { type: mimeString });
-        }
-
-        function recognizeText(file) {
-            textarea.innerHTML = '';
-            const rec = new Tesseract.TesseractWorker();
-            rec.recognize(file)
-                .progress(function (response) {
-                    if (response.status == 'recognizing text') {
-                        progress.innerHTML = response.status + '   ' + response.progress;
-                    } else {
-                        progress.innerHTML = response.status;
-                    }
-                })
-                .then(function (data) {
-                    textarea.innerHTML = data.text;
-                    progress.innerHTML = 'Done!';
-                    console.log('ito na', data);
-                    const serialNumber = data.text.replace(/\n/g, '');
-
-                    if (serialNumber) {
-                        const xhr = new XMLHttpRequest();
-                        const route = '/scan';
-                        xhr.open('POST', route, true);
-                        xhr.setRequestHeader('Content-Type', 'application/json');
-                        xhr.onreadystatechange = function () {
-                            if (xhr.readyState === XMLHttpRequest.DONE) {
-                                if (xhr.status === 200) {
-                                    console.log('Serial number sent successfully');
-                                    const response = JSON.parse(xhr.responseText);
-                                    if (response.message) {
-                                        successMessage.style.display = 'block';
-                                        successMessageText.innerText = response.message;
-                                    }
-                                } else {
-                                    console.error('Failed to send serial number');
-                                    errorMessage.style.display = 'block';
-                                    errorMessage.innerText = 'Failed to send serial number. Please try again.';
-                                }
-                            }
-                        };
-                        const data = JSON.stringify({ serialNumber });
-                        xhr.send(data);
-                    } else {
-                        errorMessage.style.display = 'block';
-                        errorMessage.innerText = 'No serial number found in the image. Please try again with a clearer picture.';
-                    }
-                });
-        }
-    </script>
+      } else {
+        selectedImage.src = "";
+        selectedImage.style.display = "none";
+        cropLabel.style.display = "none";
+        cropCheckbox.style.display = "none";
+        extractButton.style.display = "none";
+        doneButton.style.display = "none";
+        downloadLink.style.display = "none";
+        resetButton.style.display = "none";
+      }
+    }
+  
+    document.getElementById("imageInput").addEventListener("change", () => {
+      updateImageFeedback();
+    });
+  
+    document.getElementById("cropImage").addEventListener("change", () => {
+      updateImageFeedback();
+    });
+  
+    document.getElementById("doneButton").addEventListener("click", () => {
+      if (cropper) {
+        const croppedCanvas = cropper.getCroppedCanvas();
+        const downloadLink = document.getElementById("downloadLink");
+        downloadLink.href = croppedCanvas.toDataURL("image/jpeg");
+        downloadLink.style.display = "block";
+      }
+    });
+    document.getElementById("resetButton").addEventListener("click", () => {
+      const fileInput = document.getElementById("imageInput");
+      fileInput.value = ""; // Clear the file input
+      updateImageFeedback();
+    });
+  </script>
+  
 
 
-</body>
 
-</html>
+
+    </body>
+
+    </html>

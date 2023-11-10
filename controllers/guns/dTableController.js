@@ -15,7 +15,7 @@ exports.getDTable = async function (req, res) {
     const startDate = req.query.startDate;
     const endDate = req.query.endDate;
 
-    // Calculate the count of last names
+    // Count the total number of records
     // const TotalGun = await collection.countDocuments({
     //   archived: false,
     // });
