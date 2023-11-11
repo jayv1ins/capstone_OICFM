@@ -24,7 +24,10 @@
   <div class="sidebar">
     <div class="logo-details">
       <img src="/pnp-male.jpg" alt="" class="circle-image">
-      <span class="logo_name">Admin</span>
+
+      <span class="logo_name">
+        <%= user.firstName%>
+      </span>
     </div>
     <ul class="nav-links">
       <li>
@@ -151,10 +154,10 @@
                   <thead class="custom-table-header">
                     <tr>
                       <th>#</th>
-                      <th>Full Name</th>
                       <th>Rank</th>
-                      <th>Police ID</th>
+                      <th>Full Name</th>
                       <th>Station</th>
+                      <th>Police ID</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
@@ -168,19 +171,20 @@
                               <%= counter %>
                             </td>
                             <td>
+                              <%= data.rank %>
+                            </td>
+                            <td>
                               <%= data.lastName %>, <%= data.firstName %>
                                   <%= data.middleName %>
                                     <%= data.QLFR %>
                             </td>
                             <td>
-                              <%= data.rank %>
+                              <%= data.station %>
                             </td>
                             <td>
                               <%= data.policeId %>
                             </td>
-                            <td>
-                              <%= data.station %>
-                            </td>
+                            
 
                             <td>
 

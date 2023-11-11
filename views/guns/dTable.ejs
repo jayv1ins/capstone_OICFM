@@ -18,7 +18,11 @@
   <div class="sidebar">
     <div class="logo-details">
       <img src="pnp-male.jpg" alt="" class="circle-image">
-      <span class="logo_name">Admin</span>
+
+      <span class="logo_name">
+        <%= user.firstName%>
+      </span>
+
     </div>
     <ul class="nav-links">
       <li>
@@ -210,14 +214,14 @@
             <thead class="custom-table-header">
               <tr>
                 <th>S.No</th>
-                <th>Full Name</th>
                 <th>Rank</th>
+                <th>Full Name</th>
+                <th>Station</th>
                 <th>Gun Type</th>
+                <th>Caliber</th>
                 <th>Gun Name</th>
                 <th>Serial ID</th>
-                <th>Caliber</th>
                 <th>Cost</th>
-                <th>Station</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -231,13 +235,20 @@
                         <%= counter %>
                       </td>
                       <td>
+                        <%= data.rank %>
+
+                      </td>
+                      <td>
                         <%= data.lastName %>, <%= data.firstName %> . <%= data.middleName %>
                       </td>
                       <td>
-                        <%= data.rank %>
+                        <%= data.station %>
                       </td>
                       <td>
                         <%= data.Gtype %>
+                      </td>
+                      <td>
+                        <%= data.caliber %>
                       </td>
                       <td>
                         <%= data.Gname %>
@@ -245,20 +256,17 @@
                       <td>
                         <%= data.serialN %>
                       </td>
-                      <td>
-                        <%= data.caliber %>
-                      </td>
+
                       <td>
                         <%= data.cost %>
                       </td>
-                      <td>
-                        <%= data.station %>
-                      </td>
+
 
                       <td>
 
                         <div class="custom-button-group">
                           <button class="custom-button1 selectedData" data-bs-toggle="modal"
+                            data-qualifier="<%= data.QLFR %>" data-rank="<%= data.rank %>"
                             data-bs-target="#selectedData" data-id="<%= data.id %>" data-lastname="<%= data.lastName %>"
                             data-firstname="<%= data.firstName %>" data-middlename="<%= data.middleName %>"
                             data-qualifier="<%= data.QLFR %>" data-rank="<%= data.rank %>"
@@ -272,14 +280,13 @@
 
 
                           <button class="custom-button2 editData" data-bs-toggle="modal" data-bs-target="#editData"
-                            data-id="<%= data.id %>" data-lastname="<%= data.lastName %>"
-                            data-firstname="<%= data.firstName %>" data-middlename="<%= data.middleName %>"
-                            data-qualifier="<%= data.QLFR %>" data-rank="<%= data.rank %>"
-                            data-station="<%= data.station %>"
-                            data-guntype="<%= data.Gtype %>" data-gunname="<%= data.Gname %>"
-                            data-caliber="<%= data.caliber %>" data-serialnumber="<%= data.serialN %>"
-                            data-cost="<%= data.cost %>" data-acquisitiondate="<%= data.acquisition %>"
-                            data-turnover="<%= data.turnOver %>" data-returned="<%= data.returned %>">
+                            data-qualifier="<%= data.QLFR %>" data-rank="<%= data.rank %>" data-id="<%= data.id %>"
+                            data-lastname="<%= data.lastName %>" data-firstname="<%= data.firstName %>"
+                            data-middlename="<%= data.middleName %>" data-guntype="<%= data.Gtype %>"
+                            data-gunname="<%= data.Gname %>" data-caliber="<%= data.caliber %>"
+                            data-serialnumber="<%= data.serialN %>" data-cost="<%= data.cost %>"
+                            data-acquisitiondate="<%= data.acquisition %>" data-turnover="<%= data.turnOver %>"
+                            data-returned="<%= data.returned %>">
                             <i class='bx bx-edit'></i>
                           </button>
 
@@ -349,6 +356,10 @@
                 <div class="modal-body">
                   <table class="table table-hover">
                     <tbody>
+                      <tr>
+                        <td><strong>Rank</strong></td>
+                        <td id="modalRank"></td>
+                      </tr>
                       <tr>
                         <td><strong>Last Name</strong></td>
                         <td id="modalLastName"></td>
@@ -424,7 +435,7 @@
                     <span>&times;</span> <!-- "X" icon for close button -->
                   </button>
                   <h4 class="modal-title">Edit Data</h4>
-                  
+
                 </div>
 
                 <div class="modal-body">
@@ -437,6 +448,11 @@
                           <td><input type="text" class="form-control" id="editDataId" name="id"></td>
                         </tr>
 
+                        <tr>
+                          <td><strong>Rank</strong></td>
+                          <td><input type="text" class="form-control" id="editDataRank" name="rank" autocomplete="Rank"
+                              required minlength="4" pattern="[a-zA-Z ]+"></td>
+                        </tr>
                         <tr>
                           <td><strong>Last Name</strong></td>
                           <td><input type="text" class="form-control" id="editDataLastName" name="lastName"
@@ -457,11 +473,7 @@
                           <td><input type="text" class="form-control" id="editDataQualifier" name="qualifier"
                               autocomplete="Qualifier" pattern="[a-zA-Z ]+"></td>
                         </tr>
-                        <tr>
-                          <td><strong>Rank</strong></td>
-                          <td><input type="text" class="form-control" id="editDataRank" name="rank" autocomplete="Rank"
-                              required minlength="4" pattern="[a-zA-Z ]+"></td>
-                        </tr>
+
                         <tr>
                           <td><strong>Station</strong></td>
                           <td><input type="text" class="form-control" id="editDataStation" name="station" autocomplete="station"

@@ -20,7 +20,10 @@
     <div class="logo-details">
       <img src="pnp-male.jpg" alt="" class="circle-image">
       <% if (user.usertype==='Admin' ) { %>
-        <span class="logo_name">Admin</span>
+        <span class="logo_name">
+          <%= user.firstName%>
+        </span>
+        
     </div>
     <ul class="nav-links">
       <li>
@@ -151,7 +154,7 @@
                   </div>
                 </div>
 
-  
+
                 <div class="product-top-chart flex">
                   <div class="product-bottom-chart-left top-chart-box">
                     <h2 class="heading">Guns per Gun Type</h2>
@@ -160,11 +163,9 @@
 
                   <div class="bottom-chart top-chart-box">
                     <h2 class="heading">Total Cost per Acquisition</h2>
-                      <div id="chart11"></div>        
+                    <div id="chart11"></div>
                   </div>
                 </div>
-
-
 
                 <div class="top-chart flex">
                   <div class="top-chart-box bottom-chart-left">
@@ -179,7 +180,7 @@
                   </div>
                 </div>
 
-              
+
                 <div class="product-top-chart flex">
                   <div class="product-bottom-chart-left top-chart-box">
                     <h2 class="heading">Turnover Rate</h2>
@@ -188,7 +189,7 @@
 
                   <div class="bottom-chart top-chart-box">
                     <h2 class="heading">Gun Acquisitions per Date</h2>
-                      <div id="chart10"></div>        
+                    <div id="chart10"></div>
                   </div>
                 </div>
 
@@ -206,7 +207,7 @@
                   </div>
                 </div>
 
-                
+
                 <div class="product-top-chart flex">
                   <div class="product-bottom-chart-left top-chart-box">
                     <h2 class="heading">Scanned QR Code to Gun Numbers</h2>
@@ -215,17 +216,17 @@
 
                   <div class="bottom-chart top-chart-box">
                     <h2 class="heading">Gun Type by Rank</h2>
-                      <div id="chart14"></div>        
+                    <div id="chart14"></div>
                   </div>
-                </div>            
+                </div>
 
-                
+
                 <div class="product-top-chart flex">
-                  
+
 
                   <div class="bottom-chart top-chart-box">
                     <h2 class="heading">Guns per Calibre</h2>
-                      <div id="chart6"></div>        
+                    <div id="chart6"></div>
                   </div>
 
                   <div class="product-bottom-chart-left top-chart-box">
@@ -241,12 +242,12 @@
                     <div id="chart4"></div>
                   </div>
 
-                  
+
                 </div>
 
-                
+
               </div>
-              
+
             </div>
           </div>
 
@@ -268,36 +269,36 @@
       <script>
         const ChartsEmbedSDK = window.ChartsEmbedSDK;
 
-// Configuration for the MongoDB Charts Embed SDK
-const sdk = new ChartsEmbedSDK({
-  baseUrl: "https://charts.mongodb.com/charts-project-0-omorz",
-  theme: "dark",
-  height: 250,
-});
+        // Configuration for the MongoDB Charts Embed SDK
+        const sdk = new ChartsEmbedSDK({
+          baseUrl: "https://charts.mongodb.com/charts-project-0-omorz",
+          theme: "dark",
+          height: 250,
+        });
 
-const chartIds = [
-  "6492abe4-74f2-4905-805e-f685c6754286",
-  "64994e7e-6f89-4b9b-8926-e4595ee18be1",
-  "6492afa8-e63f-4b36-8007-0f06bc0fceb5",
-  "6492af4a-7081-435a-88d2-cbf173aa2add",
-  "64a4e114-bfd6-4c5c-82e1-aed10e4d8504",
-  "6499393e-5d6e-4d4b-80e6-5c0004764687",
-  "649937ab-6ccc-47e8-8431-13e80f87ab31",
-  "64a7c613-c709-43c3-8b0f-73a5bdd4f530",
-  "64a75be6-7fe0-4990-8c22-994ad4f608cf",
-  "64a7c276-7fe0-4399-846c-994ad42930fa",
-  "64aa6838-5bfe-4e8d-82ec-be414ef2ae74",
-  "64aa77c2-c709-44ca-809a-73a5bd6426e9",
-  "64aa7bf4-2925-478c-8eff-15cc0ae2b5da",
-  "64aa808f-904b-4bad-810f-87a9d4d94c75",
-  "6522ad57-8f60-4161-89ce-00d9b33e9a97",
-];
+        const chartIds = [
+          "6492abe4-74f2-4905-805e-f685c6754286",
+          "64994e7e-6f89-4b9b-8926-e4595ee18be1",
+          "6492afa8-e63f-4b36-8007-0f06bc0fceb5",
+          "6492af4a-7081-435a-88d2-cbf173aa2add",
+          "64a4e114-bfd6-4c5c-82e1-aed10e4d8504",
+          "6499393e-5d6e-4d4b-80e6-5c0004764687",
+          "649937ab-6ccc-47e8-8431-13e80f87ab31",
+          "64a7c613-c709-43c3-8b0f-73a5bdd4f530",
+          "64a75be6-7fe0-4990-8c22-994ad4f608cf",
+          "64a7c276-7fe0-4399-846c-994ad42930fa",
+          "64aa6838-5bfe-4e8d-82ec-be414ef2ae74",
+          "64aa77c2-c709-44ca-809a-73a5bd6426e9",
+          "64aa7bf4-2925-478c-8eff-15cc0ae2b5da",
+          "64aa808f-904b-4bad-810f-87a9d4d94c75",
+          "6522ad57-8f60-4161-89ce-00d9b33e9a97",
+        ];
 
-const charts = chartIds.map(chartId => sdk.createChart({ chartId }));
+        const charts = chartIds.map(chartId => sdk.createChart({ chartId }));
 
-charts.forEach((chart, index) => {
-  chart.render(document.getElementById(`chart${index + 1}`));
-});
+        charts.forEach((chart, index) => {
+          chart.render(document.getElementById(`chart${index + 1}`));
+        });
 
 
         function handleFilterSubmit(event) {
@@ -331,8 +332,8 @@ charts.forEach((chart, index) => {
 
 <style>
   html {
-  font-size: 62.5%;
-}
+    font-size: 62.5%;
+  }
 
   .dashboard_content {
     background: #18242c;
@@ -368,7 +369,7 @@ charts.forEach((chart, index) => {
 
   /* Main Content */
   .main-content {
-    
+
     padding: 0 3rem 3rem 3rem;
     width: 100%;
   }
@@ -404,10 +405,10 @@ charts.forEach((chart, index) => {
     font-size: 1.6rem;
     align-items: center;
     width: 100%;
-    
+
   }
 
-  #chart4{
+  #chart4 {
     width: 100%;
   }
 
@@ -456,6 +457,21 @@ charts.forEach((chart, index) => {
   .bottom-chart {
     width: 60%;
   }
+
+ 
+  .top-chart-box,
+  .product-top-chart .top-chart-box,
+  .bottom-chart-right {
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .top-chart-box:hover,
+  .product-top-chart .top-chart-box:hover,
+  .bottom-chart-right:hover {
+    transform: scale(1.1);
+   
+  }
+
 
   /* Responsive */
   @media (max-width: 1200px) {
@@ -570,7 +586,6 @@ charts.forEach((chart, index) => {
       font-size: 35%;
     }
   }
-
 </style>
 
 </html>
