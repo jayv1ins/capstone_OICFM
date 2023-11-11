@@ -1,7 +1,6 @@
 <html>
-
-<head>
-  <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8">
   <link rel="Website Icon" type="png" href="logo_pnp.png">
   <title> Records </title>
   <link rel="stylesheet" href="/stylesheets/index_style.css">
@@ -198,14 +197,14 @@
               <button type="submit" class="custom-button primary">Search<i class='bx bx-search-alt-2'></i></button>
 
             </div>
-            <div class="custom-form-row">
+          
+          </form>
+  <div class="custom-form-row">
               <div class="custom-form-group col">
                 <button class="downloadBtn" id="downloadExcelBtn">Download Excel<i
                     class='bx bx-spreadsheet'></i></button>
               </div>
             </div>
-          </form>
-
 
           <table class="custom-table">
             <thead class="custom-table-header">
@@ -263,6 +262,7 @@
                             data-bs-target="#selectedData" data-id="<%= data.id %>" data-lastname="<%= data.lastName %>"
                             data-firstname="<%= data.firstName %>" data-middlename="<%= data.middleName %>"
                             data-qualifier="<%= data.QLFR %>" data-rank="<%= data.rank %>"
+                            data-station="<%= data.station %>"
                             data-guntype="<%= data.Gtype %>" data-gunname="<%= data.Gname %>"
                             data-caliber="<%= data.caliber %>" data-serialnumber="<%= data.serialN %>"
                             data-cost="<%= data.cost %>" data-acquisitiondate="<%= data.acquisition %>"
@@ -275,6 +275,7 @@
                             data-id="<%= data.id %>" data-lastname="<%= data.lastName %>"
                             data-firstname="<%= data.firstName %>" data-middlename="<%= data.middleName %>"
                             data-qualifier="<%= data.QLFR %>" data-rank="<%= data.rank %>"
+                            data-station="<%= data.station %>"
                             data-guntype="<%= data.Gtype %>" data-gunname="<%= data.Gname %>"
                             data-caliber="<%= data.caliber %>" data-serialnumber="<%= data.serialN %>"
                             data-cost="<%= data.cost %>" data-acquisitiondate="<%= data.acquisition %>"
@@ -331,7 +332,7 @@
             </div>
           </div>
 
-          <!-- Modal -->
+          <!-- Modal View -->
           <div class="modal fade" id="selectedData">
             <div class="modal-dialog modal-dialog-centered modal-lg">
               <!-- Modal content -->
@@ -350,7 +351,7 @@
                     <tbody>
                       <tr>
                         <td><strong>Last Name</strong></td>
-                        <td id="modalLastName"> bat wala</td>
+                        <td id="modalLastName"></td>
                       </tr>
                       <tr>
                         <td><strong>First Name</strong></td>
@@ -367,6 +368,10 @@
                       <tr>
                         <td><strong>Rank</strong></td>
                         <td id="modalRank"></td>
+                      </tr>
+                      <tr>
+                        <td><strong>Station</strong></td>
+                        <td id="modalStation"></td>
                       </tr>
                       <tr>
                         <td><strong>Gun Type</strong></td>
@@ -408,7 +413,7 @@
             </div>
           </div>
 
-          <!-- My Modal 2 -->
+          <!-- Modal Edit -->
 
           <div class="modal fade" id="editData">
             <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -457,6 +462,12 @@
                           <td><input type="text" class="form-control" id="editDataRank" name="rank" autocomplete="Rank"
                               required minlength="4" pattern="[a-zA-Z ]+"></td>
                         </tr>
+                        <tr>
+                          <td><strong>Station</strong></td>
+                          <td><input type="text" class="form-control" id="editDataStation" name="station" autocomplete="station"
+                              required minlength="4" pattern="[a-zA-Z ]+"></td>
+                        </tr>
+
                         <tr>
                           <td><strong>Gun Type</strong></td>
                           <td><input type="text" class="form-control" id="editDataGunType" name="Gtype"
@@ -577,6 +588,7 @@
     var selectedDataMiddleName = document.getElementById("modalMiddleName");
     var selectedDataQualifier = document.getElementById("modalQualifier");
     var selectedDataRank = document.getElementById("modalRank");
+    var selectedDataStation = document.getElementById("modalStation");
     var selectedDataGunType = document.getElementById("modalGunType");
     var selectedDataGunName = document.getElementById("modalGunName");
     var selectedDataCaliber = document.getElementById("modalCaliber");
@@ -596,6 +608,7 @@
         var middleName = this.getAttribute("data-middlename");
         var qualifier = this.getAttribute("data-qualifier");
         var rank = this.getAttribute("data-rank");
+        var station = this.getAttribute("data-station");
         var gunType = this.getAttribute("data-guntype");
         var gunName = this.getAttribute("data-gunname");
         var caliber = this.getAttribute("data-caliber");
@@ -612,6 +625,7 @@
         selectedDataMiddleName.innerText = middleName;
         selectedDataQualifier.innerText = qualifier;
         selectedDataRank.innerText = rank;
+        selectedDataStation.innerText = station;
         selectedDataGunType.innerText = gunType;
         selectedDataGunName.innerText = gunName;
         selectedDataCaliber.innerText = caliber;
@@ -631,6 +645,7 @@
       selectedDataMiddleName.innerText = "";
       selectedDataQualifier.innerText = "";
       selectedDataRank.innerText = "";
+      selectedDataStation.innerText = "";
       selectedDataGunType.innerText = "";
       selectedDataGunName.innerText = "";
       selectedDataCaliber.innerText = "";
@@ -649,6 +664,7 @@
       document.getElementById("editDataMiddleName").value = data.middlename || "";
       document.getElementById("editDataQualifier").value = data.qualifier || "";
       document.getElementById("editDataRank").value = data.rank || "";
+      document.getElementById("editDataStation").value = data.station || "";
       document.getElementById("editDataGunType").value = data.guntype || "";
       document.getElementById("editDataGunName").value = data.gunname || "";
       document.getElementById("editDataCaliber").value = data.caliber || "";
@@ -675,6 +691,7 @@
           middlename: this.dataset.middlename,
           qualifier: this.dataset.qualifier,
           rank: this.dataset.rank,
+          station: this.dataset.station,
           guntype: this.dataset.guntype,
           gunname: this.dataset.gunname,
           caliber: this.dataset.caliber,
@@ -715,6 +732,45 @@
         $('#selectedData').modal('hide');
       });
     });
+  </script>
+
+  <script>
+    function exportExcel() {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const monthNames = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+    const month = monthNames[currentDate.getMonth()];
+    const day = currentDate.getDate().toString().padStart(2, '0');
+
+
+    // Construct the file name with the current date
+    const fileName = `table_data_${month}_${year}.xlsx`;
+    fetch('/DataTable/ToExcel') // Replace with the actual server route
+      .then((response) => {
+        if (response.ok) {
+          return response.blob();
+        } else {
+          throw new Error('Export failed.');
+        }
+      })
+      .then((blob) => {
+        // Create a URL for the blob and trigger the download
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        a.click();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  // Attach the exportExcel function to the button click event
+  document.getElementById('downloadExcelBtn').addEventListener('click', exportExcel);
   </script>
 
 
