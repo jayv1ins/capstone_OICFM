@@ -76,6 +76,7 @@ exports.scanUpdate = async (req, res) => {
       const successMessage =
         "The Serial Number of " + serialNumber + " is valid";
       return res.render("guns/scanner", {
+        user: req.user,
         text,
         successMessage,
         errorMessage: "",
@@ -85,6 +86,7 @@ exports.scanUpdate = async (req, res) => {
       const errorMessage =
         "Please Try again with clearer Image or check the Serial Number of the Gun";
       return res.render("guns/scanner", {
+        user: req.user,
         text,
         errorMessage,
         successMessage: "",

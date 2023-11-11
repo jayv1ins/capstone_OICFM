@@ -188,7 +188,7 @@
 
                             <td>
 
-                              <!-- Modal Button -->
+                              <!-- Modal View -->
                               <div class="custom-button-group-manager">
                                 <button class="custom-button1 selectedData" data-bs-toggle="modal"
                                 data-bs-target="#selectedData" data-id="<%= data.id %>" data-lastname="<%= data.lastName %>"
@@ -202,15 +202,14 @@
                                 <i class="bx bx-low-vision"></i>
                               </button>
 
-                            
-
-
+                              <!-- Modal Edit -->
                               <button class="custom-button2 editData" data-bs-toggle="modal" data-bs-target="#editData"
                               data-id="<%= data.id %>" data-lastname="<%= data.lastName %>"
                               data-firstname="<%= data.firstName %>" data-middlename="<%= data.middleName %>"
-                              data-qualifier="<%= data.QLFR %>" data-rank="<%= data.rank %>"
-                              data-station="<%= data.station %>"
+                              data-qualifier="<%= data.QLFR %>" 
                               data-policeId="<%= data.policeId %>" 
+                              data-rank="<%= data.rank %>"
+                              data-station="<%= data.station %>"
                               data-usertype="<%= data.usertype %>"
                               data-password="<%= data.password %>"
                               data-shift="<%= data.shift %>" >
@@ -308,9 +307,7 @@
                             </tr>
                             <tr>
                               <td><strong>Police ID Number</strong></td>
-                              <td id="modalPoliceId">
-    
-                              </td>
+                              <td id="modalPoliceId"></td>
                             </tr>
                             <tr>
                               <td><strong>Station</strong></td>
@@ -322,7 +319,7 @@
                             </tr>
                             <tr>
                               <td><strong>User Type</strong></td>
-                              <td id="modalUsertype">saan ka</td>
+                              <td id="modalUsertype"></td>
                             </tr>
                             <tr>
                               <td><strong>Password</strong></td>
@@ -385,15 +382,16 @@
                                     autocomplete="Qualifier" pattern="[a-zA-Z ]+"></td>
                               </tr>
                               <tr>
-                                <td><strong>Rank</strong></td>
-                                <td><input type="text" class="form-control" id="editDataRank" name="rank" autocomplete="Rank"
-                                    required minlength="4" pattern="[a-zA-Z ]+"></td>
-                              </tr>
-                              <tr>
                                 <td><strong>Police Id</strong></td>
                                 <td><input type="text" class="form-control" id="editDataPoliceId" name="policeId" autocomplete="policeId"
                                     required minlength="4" pattern="[a-zA-Z ]+"></td>
                               </tr>
+                              <tr>
+                                <td><strong>Rank</strong></td>
+                                <td><input type="text" class="form-control" id="editDataRank" name="rank" autocomplete="Rank"
+                                    required minlength="4" pattern="[a-zA-Z ]+"></td>
+                              </tr>
+                              
                               <tr>
                                 <td><strong>Station</strong></td>
                                 <td><input type="text" class="form-control" id="editDataStation" name="station" autocomplete="station"
@@ -638,16 +636,17 @@
     togglePasswordIcon.classList.add("fa-eye");
   }
 }
+
   function populateEditDataModal(data) {
       document.getElementById("editDataId").value = data.id || "";
       document.getElementById("editDataLastName").value = data.lastname || "";
       document.getElementById("editDataFirstName").value = data.firstname || "";
       document.getElementById("editDataMiddleName").value = data.middlename || "";
       document.getElementById("editDataQualifier").value = data.qualifier || "";
+      document.getElementById("editDataPoliceId").value = data.policeId || "";
       document.getElementById("editDataRank").value = data.rank || "";
       document.getElementById("editDataStation").value = data.station || "";
       document.getElementById("editDataUserType").value = data.usertype || "";
-      document.getElementById("editDataPoliceId").value = data.policeId || "";
       document.getElementById("editDataPassword").value = decryptCaesar(data.password, data.shift) || "";
       toggleEditPasswordVisibilityIcon();
       
@@ -668,11 +667,11 @@
           firstname: this.dataset.firstname,
           middlename: this.dataset.middlename,
           qualifier: this.dataset.qualifier,
+          policeId: this.dataset.policeId,
           rank: this.dataset.rank,
           station: this.dataset.station,
           usertype: this.dataset.usertype,
           password: this.dataset.password,
-          policeId: this.dataset.policeId,
           shift: this.dataset.shift,
         };
         populateEditDataModal(data);

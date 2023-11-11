@@ -263,7 +263,7 @@
 
 
                       <td>
-
+                        <!-- Modal View -->
                         <div class="custom-button-group">
                           <button class="custom-button1 selectedData" data-bs-toggle="modal"
                             data-qualifier="<%= data.QLFR %>" data-rank="<%= data.rank %>"
@@ -277,19 +277,22 @@
                             data-turnover="<%= data.turnOver %>" data-returned="<%= data.returned %>">
                             <i class="bx bx-low-vision"></i>
                           </button>
-
-
+                          <!-- Modal Edit -->
                           <button class="custom-button2 editData" data-bs-toggle="modal" data-bs-target="#editData"
-                            data-qualifier="<%= data.QLFR %>" data-rank="<%= data.rank %>" data-id="<%= data.id %>"
-                            data-lastname="<%= data.lastName %>" data-firstname="<%= data.firstName %>"
-                            data-middlename="<%= data.middleName %>" data-guntype="<%= data.Gtype %>"
+                            data-qualifier="<%= data.QLFR %>" 
+                            data-rank="<%= data.rank %>" 
+                            data-id="<%= data.id %>"
+                            data-lastname="<%= data.lastName %>" 
+                            data-firstname="<%= data.firstName %>"
+                            data-middlename="<%= data.middleName %>" 
+                            data-guntype="<%= data.Gtype %>"
+                            data-station="<%= data.station %>"
                             data-gunname="<%= data.Gname %>" data-caliber="<%= data.caliber %>"
                             data-serialnumber="<%= data.serialN %>" data-cost="<%= data.cost %>"
                             data-acquisitiondate="<%= data.acquisition %>" data-turnover="<%= data.turnOver %>"
                             data-returned="<%= data.returned %>">
                             <i class='bx bx-edit'></i>
                           </button>
-
 
                           <button class="custom-button2 custom-button-danger" onclick="confirmDelete('<%= data.id %>')">
                             <i class='bx bx-trash'></i>
@@ -377,10 +380,6 @@
                         <td id="modalQualifier"></td>
                       </tr>
                       <tr>
-                        <td><strong>Rank</strong></td>
-                        <td id="modalRank"></td>
-                      </tr>
-                      <tr>
                         <td><strong>Station</strong></td>
                         <td id="modalStation"></td>
                       </tr>
@@ -443,10 +442,7 @@
 
                     <table class="table table-hover">
                       <tbody>
-                        <tr>
-                          <td><strong>Id </strong></td>
-                          <td><input type="text" class="form-control" id="editDataId" name="id"></td>
-                        </tr>
+                      
 
                         <tr>
                           <td><strong>Rank</strong></td>
@@ -670,7 +666,6 @@
 
     // Function to populate the EditData modal with data
     function populateEditDataModal(data) {
-      document.getElementById("editDataId").value = data.id || "";
       document.getElementById("editDataLastName").value = data.lastname || "";
       document.getElementById("editDataFirstName").value = data.firstname || "";
       document.getElementById("editDataMiddleName").value = data.middlename || "";
@@ -716,6 +711,7 @@
         populateEditDataModal(data);
         console.log("ito ang populated data", data);
         console.log("ito id", data.id)
+        console.log("ito ang sta", station);
       });
     });
 

@@ -7,7 +7,12 @@ const multer = require("multer");
 const storageOptions = multer.memoryStorage();
 const upload = multer({ storage: storageOptions });
 
-router.get("/scanner", scannerController.scanner);
-router.post("/scan", upload.single("image"), scannerController.scanUpdate);
+router.get("/scanner", isAuth, scannerController.scanner);
+router.post(
+  "/scan",
+  upload.single("image"),
+  isAuth,
+  scannerController.scanUpdate
+);
 
 module.exports = router;
