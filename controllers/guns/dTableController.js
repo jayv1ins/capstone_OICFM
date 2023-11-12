@@ -16,9 +16,9 @@ exports.getDTable = async function (req, res) {
     const endDate = req.query.endDate;
 
     // Count the total number of records
-    // const TotalGun = await collection.countDocuments({
-    //   archived: false,
-    // });
+    const TotalGun = await collection.countDocuments({
+      archived: false,
+    });
 
     // Calculate the count of created this month
     // const currentMonth = new Date().getMonth() + 1; // Get the current month
@@ -48,16 +48,25 @@ exports.getDTable = async function (req, res) {
     // Checkbox distinct options
     const distinctGunTypes = await collection.distinct("Gtype", {
       archived: false,
+      Gtype: { $exists: true, $ne: null },
     });
+
     const distinctGunNames = await collection.distinct("Gname", {
       archived: false,
+      Gname: { $exists: true, $ne: null },
     });
-    const distinctRank = await collection.distinct("rank", { archived: false });
+    const distinctRank = await collection.distinct("rank", {
+      archived: false,
+      rank: { $exists: true, $ne: null },
+    });
+
     const distinctStation = await collection.distinct("station", {
       archived: false,
+      station: { $exists: true, $ne: null },
     });
     const distinctCaliber = await collection.distinct("caliber", {
       archived: false,
+      caliber: { $exists: true, $ne: null },
     });
 
     const checkbGunTypes = distinctGunTypes;
@@ -236,6 +245,11 @@ exports.getDTable = async function (req, res) {
       // archivedThisMonthCount, // Stats
     });
     console.log("what is this", filter);
+    console.log("distinct", distinctGunTypes);
+    console.log("the checkbox", checkbGunTypes);
+
+    console.log("distinct rank", distinctRank);
+    console.log("the checkbox rank", checkbRanks);
   } catch (error) {
     console.error(error);
     await client.close(); // Close the connection

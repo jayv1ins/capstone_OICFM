@@ -26,9 +26,13 @@ exports.getDTable = async function (req, res) {
     let CBranks = req.query.rank || [];
     let CBstations = req.query.station || [];
     // Checkbox distinct options
-    const distinctRank = await collection.distinct("rank", { archived: false });
+    const distinctRank = await collection.distinct("rank", {
+      archived: false,
+      rank: { $exists: true, $ne: null },
+    });
     const distinctStation = await collection.distinct("station", {
       archived: false,
+      station: { $exists: true, $ne: null },
     });
 
     const checkbRanks = distinctRank;
