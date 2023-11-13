@@ -15,7 +15,7 @@ body {
     font-size: 13px;
     color: #676a6c;
     overflow-x: hidden;
-    
+
 }
 
 header {
@@ -40,19 +40,22 @@ header {
 .navbar-scrolled {
     background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    
+
 }
 
 #features {
     padding-top: 100px;
 }
-#team{
+
+#team {
     padding-top: 20px;
 }
-#gallery{
+
+#gallery {
     padding-top: 80px;
 }
-#contacts{
+
+#contacts {
     padding-top: 75px;
 }
 
@@ -71,8 +74,8 @@ header {
 }
 
 .navbar .logo img {
-    width: 40px;
-    
+    width: 50px;
+
 }
 
 .navbar .logo h2 {
@@ -83,7 +86,7 @@ header {
 
 .navbar-scrolled .navbar h2 {
     color: black;
-    
+
 }
 
 
@@ -156,7 +159,7 @@ header {
     background: #fff;
     border: 1px solid #000;
     transform: translate(-50%, -70%);
-    
+
 }
 
 .show-popup .form-popup {
@@ -211,9 +214,9 @@ header {
 .login .form-details {
     padding: 0 40px;
     background: url("https://pldims.pnp.gov.ph/pdffiles/firearmissuance.png");
-    background-position:center;
+    background-position: center;
     background-size: cover;
-    
+
 }
 
 
@@ -301,8 +304,8 @@ form button {
     transition: 0.2s ease;
 }
 
-.btn{
-    background: #1C84C6; 
+.btn {
+    background: #1C84C6;
 }
 
 form button:hover {
@@ -412,61 +415,83 @@ strong {
     font-weight: 700;
 }
 
-
-
 .container {
     text-align: center;
     margin-top: 20px;
-  }
+}
 
-  .widget {
-    background-color: #1C84C6;
+
+.widget {
+    position: relative;
+    background-color: #000;
     color: white;
-    border-radius: 100px;
-    padding: 10px;
-    box-shadow: 0 10px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
-  }
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+}
 
-  .widget:hover {
-    animation: bounce 1s ease infinite;
-  }
+.widget:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-width: 0 60px 60px 0;
+    border-style: solid;
+    border-color: transparent #FF0000 transparent transparent;
+    width: 0;
+    height: 0;
+    transition: border-color 0.2s;
+}
 
-  @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-      transform: translateY(0);
-    }
-    40% {
-      transform: translateY(-20px);
-    }
-    60% {
-      transform: translateY(-10px);
-    }
-  }
+.widget:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 
-  .widget i {
+}
+
+.widget:hover:before {
+    border-color: transparent #CC0000 transparent transparent;
+
+}
+
+.widget i {
     font-size: 4rem;
-  }
+    color: #FF0000;
 
-  .widget h2 {
+}
+
+.widget h2 {
     font-size: 1.5rem;
     margin-top: 10px;
-  }
+}
 
-  .avp-button {
-    background-color: #337ab7;
+.avp-button {
+    background-color: #FF0000;
     color: white;
     border: none;
     border-radius: 25px;
-    padding: 5px 15px;
+    padding: 10px 20px;
     cursor: pointer;
     margin-top: 20px;
     font-weight: 500;
     transition: background-color 0.2s;
-  }
+}
 
-  .avp-button:hover {
-    background-color: #1C84C6;
-  }
+.avp-button:hover {
+    background-color: #CC0000;
+    /* Slightly darker red on hover */
+}
 
-  
+
+.container-contacts {
+    text-align: center;
+    margin-top: 20px;
+    text-align: left;
+    background-color: rgba(0, 0, 0, 0.1);
+    background-image: url('/contact-background.png');
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+}

@@ -505,17 +505,10 @@ nav .sidebar-button i {
 }
 
 .form-group {
-	flex: 1;
+	
 	text-align: center;
 	margin: 10px;
 
-}
-
-.custom-input {
-	width: 100%;
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 6px;
 }
 
 .custom-button {
@@ -642,10 +635,17 @@ nav .sidebar-button i {
 }
 
 .custom-input {
-	width: 100%;
 	padding: 10px;
 	border: 1px solid #ccc;
 	border-radius: 6px;
+	width: 200px;
+
+	box-sizing: border-box;
+
+
+	outline: none;
+	background-color: #f5f5f5;
+	/* Background color */
 }
 
 .search-input {
@@ -768,7 +768,7 @@ nav .sidebar-button i {
 	height: 100%;
 	overflow: auto;
 	background-color: rgba(0, 0, 0, 0.4);
-	
+
 }
 
 .modal-content {
@@ -799,26 +799,26 @@ nav .sidebar-button i {
 .modal .modal-header {
 	position: relative;
 	text-align: center;
-	background-color: #2f4050; 
-  color: #fff; 
-  padding: 10px; 
+	background-color: #2f4050;
+	color: #fff;
+	padding: 10px;
 }
 
 .modal-body input.form-control {
-	border: 1px solid #ccc; 
-	border-radius: 5px; 
-	padding: 8px; 
-	margin: 1px 0; 
-	width: 100%; 
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 8px;
+	margin: 1px 0;
+	width: 100%;
 	transition: border-color 0.2s;
-  }
-  
-  .modal-body input.form-control:hover,
-  .modal-body input.form-control:focus {
-	border-color: #007bff; 
-  }
-  
- 
+}
+
+.modal-body input.form-control:hover,
+.modal-body input.form-control:focus {
+	border-color: #007bff;
+}
+
+
 .modal-footer #saveChangesButton {
 	background-color: #007BFF;
 	color: #fff;
@@ -826,29 +826,29 @@ nav .sidebar-button i {
 	border-radius: 5px;
 	padding: 10px 20px;
 	cursor: pointer;
-	transition: background-color 0.3s, color 0.3s; 
-  }
-  
-  .modal-footer {
+	transition: background-color 0.3s, color 0.3s;
+}
+
+.modal-footer {
 	text-align: center;
-  }
-  
-  .modal-footer button {
+}
+
+.modal-footer button {
 	margin: 10px;
-  }
-  
-  .modal-footer #saveChangesButton:hover {
+}
+
+.modal-footer #saveChangesButton:hover {
 	background-color: #0056b3;
-  }
-  
- 
+}
 
-  
 
-  
-  
-  
-  
+
+
+
+
+
+
+
 
 .modal .modal-title {
 	font-size: 24px;
@@ -992,8 +992,6 @@ nav .sidebar-button i {
 	font-size: 18px;
 }
 
-.custom-input {
-	width: 200px;
-	padding: 5px;
-	margin-right: 10px;
-}
+
+
+
