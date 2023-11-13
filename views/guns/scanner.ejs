@@ -76,38 +76,49 @@
     <div class="home-content">
       <div class="main-boxes">
         <div class="right-boxes box" style="width: 100%; height: auto;">
-          <header >
+          <header>
             <h1>Convert image to Text</h1>
-        </header>
+          </header>
 
 
           <form method="post" action="/scan" enctype="multipart/form-data">
-            <input type="file" name="image" id="imageInput" class="custom-input" accept="image/*">
+
+
+            <button type="button" class="upload-button">
+              <i class='bx bx-upload'></i> Upload File
+              <input type="file" name="image" id="imageInput" class="custom-input" accept="image/*">
+            </button>
+
+
             <img id="selectedImage" src="" alt="Selected Image"
               style="max-width: 750px; max-height: 500px; display: none;">
-            <button type="submit" id="extractTextButton" style="display: none;">Extract Text</button>
-
-
+            <button type="submit" id="extractTextButton" style="display: none;" class="extract-button">Extract
+              Text</button>
 
           </form>
 
-          <video id="live-camera-feed" autoplay></video>
+
+
+
+
+          <div class="crop-container">
+            <label for="cropImage" id="cropLabel" style="display: none;">Crop Image</label>
+            <input type="checkbox" id="cropImage" name="cropImage" style="display: none; margin-right: 15px;" class="crop-checkbox">
+          </div>
+
+          <input type="hidden" id="croppedImageData" name="croppedImageData">
+          <button id="doneButton" style="display: none;" class="done-button">Done</button>
+          <button id="resetButton" style="display: none;" class="reset-button">Reset</button>
+          <a id="downloadLink" download="cropped_image.jpg" style="display: none;" class="download-link"> Download</a>
+
+
           <img id="captured-image" style="display: none;">
           <button id="start-camera" class="custom-button3">Camera <i class='bx bx-camera'></i></button>
           <button id="capture-image" class="custom-button3" style="display: none;">Capture Image <i
               class='bx bx-camera'></i> </button>
           <button id="stop-camera" style="display: none;" class="custom-button3 custom-button-danger">Stop Camera <i
               class='bx bx-stop'></i></button>
-
-          Crop the selected Image
-          <label for="cropImage" id="cropLabel" style="display: none;">Crop Image</label>
-          <input type="checkbox" id="cropImage" name="cropImage" style="display: none;">
-          <input type="hidden" id="croppedImageData" name="croppedImageData">
-          <button id="doneButton" style="display: none;">Done</button>
-          <button id="resetButton" style="display: none;">Reset</button>
-          <a id="downloadLink" style="display: none;" download="cropped_image.jpg">Download</a>
-
-
+          <video id="live-camera-feed" autoplay></video>
 
 
 
@@ -287,102 +298,131 @@
 
 
   <style>
+    .crop-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      background: #3498db;
+      margin-top: 10px;
+      border-radius: 5px;
+      width: fit-content;
+    }
 
-        section {
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-            width: 100%;
-            
-        }
+    #cropLabel {
+      color: #fff;
+      padding: 10px 15px;
+    }
 
-        form {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    .extract-button,
+    .reset-button,
+    .done-button {
+      display: inline-block;
+      padding: 10px 15px;
+      margin-top: 10px;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+    }
 
-        input[type="file"] {
-            margin: 20px 0;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+    .extract-button:hover,
+    .reset-button:hover,
+    .done-button:hover {
+      background-color: #2980b9;
+    }
 
-        img {
-            max-width: 100%;
-            max-height: 300px;
-            margin: 20px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+    .reset-button {
+      background-color: #e74c3c;
+    }
 
-        button {
-            background-color: #4E21B7;
-            color: #fff;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            display: none;
-        }
+    .reset-button:hover {
+      background-color: #c0392b;
+    }
 
-        #start-camera {
-            display: inline-block;
-        }
+    .download-link {
+      display: inline-block;
+      padding: 10px 15px;
+      margin-top: 10px;
+      background-color: #2ecc71;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: fit-content;
+    }
 
-        #stop-camera,
-        #capture-image {
-            background-color: #FF5252;
-            display: none;
-        }
+    .download-link:hover {
+      background-color: #27ae60;
+    }
 
-        #downloadLink {
-            color: #4E21B7;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 10px;
-            display: none;
-        }
+    form {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-        #croppedImageData {
-            display: none;
-        }
 
-        notif {
-            text-align: center;
-            margin-top: 20px;
-        }
 
-        h2 {
-            color: #4E21B7;
-        }
+    img {
+      max-width: 100%;
+      max-height: 300px;
+      margin: 20px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
 
-        pre {
-            background-color: #e6e6e6;
-            padding: 10px;
-            border-radius: 5px;
-            overflow: auto;
-        }
 
-        .success-message {
-            color: green;
-            margin-top: 10px;
-        }
 
-        .error-message {
-            color: red;
-            margin-top: 10px;
-        }
+    notif {
+      text-align: center;
+      margin-top: 20px;
+    }
 
-        header{
-          display: flex;
-          flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-        }
+
+
+    pre {
+      background-color: #e6e6e6;
+      padding: 10px;
+      border-radius: 5px;
+      overflow: auto;
+    }
+
+    header {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+
+    .upload-button {
+      position: relative;
+      padding: 11px 16px;
+      font-size: 15px;
+      line-height: 1.5;
+      border-radius: 3px;
+      color: #fff;
+      background-color: #4CAF50;
+      border: 0;
+      transition: 0.2s;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .upload-button input[type="file"] {
+      cursor: pointer;
+      position: absolute;
+      left: 0%;
+      top: 0%;
+      transform: scale(3);
+      opacity: 0;
+    }
+
+    .upload-button:hover {
+      background-color: #45A049;
+    }
   </style>
 
 
