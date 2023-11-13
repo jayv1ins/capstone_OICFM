@@ -12,7 +12,7 @@ async function createDataEntries() {
         caliber: "9MM",
         serialN: "T6472-18-BG 10191",
         acquisition: "2019/12/02",
-        TurnOver: "2023/7/25",
+        TurnOver: "2023/9/25",
         Returned: "2023/7/30",
         cost: 23995,
         station: "Sub-Station 8",

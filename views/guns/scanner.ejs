@@ -10,8 +10,9 @@
         <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+    
 
     </head>
 
@@ -77,23 +78,34 @@
                 <div class="main-boxes">
                     <div class="right-boxes box" style="width: 100%; height: auto;">
                         <center>
+                          <div class="upper">
                             <!-- for file -->
-                            <form method="post" action="/scan" enctype="multipart/form-data">
-                              <input type="file" name="image" id="imageInput" class="custom-input" accept="image/*">
-                              <img id="selectedImage" src="" alt="Selected Image" style="max-width: 750px; max-height: 500px; display: none;">
-                              <button type="submit" id="extractTextButton" style="display: none;">Extract Text</button>
-                            </form> 
-
-                            <video id="live-camera-feed" autoplay></video>
-                            <img id="captured-image" style="display: none;">
+                            <input type="file" name="image" id="imageInput" class="custom-input" accept="image/*">
+                            <!-- for Camera -->
                             <button id="start-camera" class="custom-button3">Camera <i class='bx bx-camera'></i></button>
                             <button id="capture-image" class="custom-button3" style="display: none;">Capture Image <i class='bx bx-camera'></i> </button>
                             <button id="stop-camera" style="display: none;" class="custom-button3 custom-button-danger">Stop Camera <i class='bx bx-stop'></i></button>
+                          </div>
+
+
+                          <label for="cropImage" id="cropLabel" style="display: none;">Crop Image</label>
+                          <input type="checkbox" id="cropImage" name="cropImage" style="display: none;">
+                          <input type="hidden" id="croppedImageData" name="croppedImageData">
+
+                          <pic>
+                            <form method="post" id="scanForm">
+                              <img id="selectedImage" src="" alt="Selected Image" style="max-width: 750px; max-height: 500px; display: none;">
+                              <video id="live-camera-feed" style="display: none;" autoplay></video>
+                              <img id="captured-image" style="display: none;">
+                              <button type="submit" id="extractTextButton" style="display: none;">Extract Text</button>
+                            </form>
+                          </pic>
+
+
+                          </form>
                             
                             <!-- Crop the selected Image -->
-                            <label for="cropImage" id="cropLabel" style="display: none;">Crop Image</label>
-                            <input type="checkbox" id="cropImage" name="cropImage" style="display: none;">
-                            <input type="hidden" id="croppedImageData" name="croppedImageData">
+                            
                             <button id="doneButton" style="display: none;">Done</button>
                             <button id="resetButton" style="display: none;">Reset</button>
                             <a id="downloadLink" style="display: none;" download="cropped_image.jpg">Download</a>
@@ -138,53 +150,6 @@
             }
         </script>
  
-
-<script>
-  const liveCameraFeed = document.getElementById('live-camera-feed');
-const capturedImage = document.getElementById('captured-image');
-const startCameraButton = document.getElementById('start-camera');
-const captureImageButton = document.getElementById('capture-image');
-const stopCameraButton = document.getElementById('stop-camera');
-
-let videoStream;
-
-// Function to start the camera feed
-startCameraButton.addEventListener('click', async () => {
-    try {
-        videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
-        liveCameraFeed.srcObject = videoStream;
-        startCameraButton.style.display = 'none';
-        captureImageButton.style.display = 'inline-block';
-        stopCameraButton.style.display = 'inline-block'; 
-        
-    } catch (error) {
-        console.error('Error accessing the camera:', error);
-    }
-});
-
-// Function to capture an image
-captureImageButton.addEventListener('click', () => {
-    const canvas = document.createElement('canvas');
-    canvas.width = liveCameraFeed.videoWidth;
-    canvas.height = liveCameraFeed.videoHeight;
-    canvas.getContext('2d').drawImage(liveCameraFeed, 0, 0);
-    capturedImage.src = canvas.toDataURL('image/png');
-    capturedImage.style.display = 'block';
-});
-
-// Function to stop the camera feed
-stopCameraButton.addEventListener('click', () => {
-    if (videoStream) {
-        videoStream.getTracks().forEach((track) => {
-            track.stop();
-        });
-        liveCameraFeed.style.display = none;
-        startCameraButton.style.display = 'inline-block';
-        captureImageButton.style.display = 'none';
-        stopCameraButton.style.display = 'none'; 
-    }
-});
-</script>
  
  <script>
     let cropper;
@@ -259,11 +224,69 @@ stopCameraButton.addEventListener('click', () => {
         downloadLink.style.display = "block";
       }
     });
+
     document.getElementById("resetButton").addEventListener("click", () => {
       const fileInput = document.getElementById("imageInput");
       fileInput.value = ""; // Clear the file input
       updateImageFeedback();
     });
+
+
+    const liveCameraFeed = document.getElementById('live-camera-feed');
+    const capturedImage = document.getElementById('captured-image');
+    const startCameraButton = document.getElementById('start-camera');
+    const captureImageButton = document.getElementById('capture-image');
+    const stopCameraButton = document.getElementById('stop-camera');
+    
+    const extractButton = document.getElementById("extractTextButton");
+    let videoStream;
+
+    // Function to start the camera feed
+    startCameraButton.addEventListener('click', async () => {
+        try {
+            videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
+            liveCameraFeed.style.display = "inline-block";
+            liveCameraFeed.srcObject = videoStream;
+            startCameraButton.style.display = 'none';
+            captureImageButton.style.display = 'inline-block';
+            stopCameraButton.style.display = 'inline-block'; 
+            
+        } catch (error) {
+            console.error('Error accessing the camera:', error);
+        }
+    });
+
+    // Function to capture an image
+    captureImageButton.addEventListener('click', () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = liveCameraFeed.videoWidth;
+        canvas.height = liveCameraFeed.videoHeight;
+        canvas.getContext('2d').drawImage(liveCameraFeed, 0, 0);
+        capturedImage.src = canvas.toDataURL('image/png');
+        capturedImage.style.display = 'block';
+
+        extractButton.style.display = "block";
+    });
+
+    // Function to stop the camera feed
+    stopCameraButton.addEventListener('click', () => {
+        if (videoStream) {
+            videoStream.getTracks().forEach((track) => {
+                track.stop();
+            });
+            liveCameraFeed.style.display = "none";
+            startCameraButton.style.display = 'inline-block';
+            captureImageButton.style.display = 'none';
+            stopCameraButton.style.display = 'none'; 
+            capturedImage.style.display = 'none';
+
+            extractButton.style.display = "none";
+        }
+    });
+
+    const scanForm = document.getElementById("scanForm");
+    scanForm.action = "/scan";
+      console.log("Form action:", scanForm.action);
   </script>
   
 

@@ -206,10 +206,41 @@
             </div>
           
           </form>
-  <div class="custom-form-row">
+            <div class="custom-form-row">
               <div class="custom-form-group col">
                 <button class="downloadBtn" id="downloadExcelBtn">Download Excel<i
                     class='bx bx-spreadsheet'></i></button>
+              </div>
+
+              <div class="main-cards">
+                <div class="card">
+                  <div class="card-inner">
+                    <p class="text-primary">TOTAL NUMBER OF USER</p>
+                    <span class="material-icons-outlined text-orange">account_circle</span>
+                  </div>
+                  <h1>
+                    <%= TotalGun %>
+                  </h1>
+                </div>
+        
+                <div class="card">
+                  <div class="card-inner">
+                    <p class="text-primary">TOTAL GAIN OF THIS MONTH</p>
+                    <span class="material-icons-outlined text-green">account_circle</span>
+                  </div>
+        
+                  <h1><%= Created.length %></h1>
+                </div>
+        
+                <div class="card">
+                  <div class="card-inner">
+                    <p class="text-primary">TOTAL LOSES OF THIS MONTH</p>
+                    <span class="material-icons-outlined text-red">account_circle</span>
+                  </div>
+        
+                  <h1><%= Archived.length %> </h1>
+                </div>
+        
               </div>
             </div>
 
@@ -446,7 +477,6 @@
                     <table class="table table-hover">
                       <tbody>
                       
-
                         <tr>
                           <td><strong>Rank</strong></td>
                           <td><input type="text" class="form-control" id="editDataRank" name="rank" autocomplete="Rank"

@@ -15,36 +15,96 @@ exports.getDTable = async function (req, res) {
     const startDate = req.query.startDate;
     const endDate = req.query.endDate;
 
-    // Count the total number of records
+    // The Card Count
     const TotalGun = await collection.countDocuments({
       archived: false,
     });
 
-    // Calculate the count of created this month
-    // const currentMonth = new Date().getMonth() + 1; // Get the current month
-    // const currentYear = new Date().getFullYear(); // Get the current year
-    // const createdThisMonthCount = await collection.countDocuments({
-    //   archived: false,
-    //   createdAt: {
-    //     $gte: new Date(`${currentYear}-${currentMonth}-01`),
-    //     $lt: new Date(`${currentYear}-${currentMonth + 1}-01`),
-    //   },
-    // });
+    // Get current month and year
+    const currentMonth = new Date().getMonth() + 1; // Months are zero-indexed, so add 1
+    const currentYear = new Date().getFullYear();
 
-    // const archivedThisMonthCount = await collection.countDocuments({
-    //   archived: true,
-    //   createdAt: {
-    //     $gte: new Date(`${currentYear}-${currentMonth}-01`),
-    //     $lt: new Date(`${currentYear}-${currentMonth + 1}-01`),
-    //   },
-    // });
+    // Dynamically construct the date range
+    const start = `${currentYear}-${currentMonth}-01`;
+    const end = `${currentYear}-${currentMonth}-30`;
 
-    // let query checkbox
+    const New = [
+      {
+        $match: {
+          archived: false,
+          createdAt: {
+            $gte: start,
+            $lte: end,
+          },
+        },
+      },
+    ];
+
+    const remove = [
+      {
+        $match: {
+          archived: true,
+          createdAt: {
+            $gte: start,
+            $lte: end,
+          },
+        },
+      },
+    ];
+
+    const Created = await collection.aggregate(New).toArray();
+    const Archived = await collection.aggregate(remove).toArray();
+
+    //----------------------------------------------------------------------------------------------
+
+    // Pagination
+    const page = parseInt(req.query.page) || 1;
+    const limit = 20;
+    const offset = (page - 1) * limit;
+    //----------------------------------------------------------------------------------------------
+
+    // Build the MongoDB query with optional date and search filtering
+    const queryOptions = {
+      archived: false,
+    };
+
+    // Request query options and Build the search filter
+    const searchQuery = req.query.search || "";
+    const searchFilter = { archived: false };
+
+    // Search filter opttions
+    if (searchQuery) {
+      const searchRegex = new RegExp(searchQuery, "i");
+      searchFilter.$or = [
+        { firstName: searchRegex },
+        { lastName: searchRegex },
+        { middleName: searchRegex },
+        { Gname: searchRegex },
+        { Gtype: searchRegex },
+        { rank: searchRegex },
+        { station: searchRegex },
+        { serialN: searchRegex },
+        { caliber: searchRegex },
+      ];
+    }
+    //----------------------------------------------------------------------------------------------
+
+    // Date filter
+    if (startDate && endDate) {
+      searchFilter.turnOver = {
+        $gte: new Date(startDate),
+        $lte: new Date(endDate),
+      };
+    }
+    //----------------------------------------------------------------------------------------------
+
+    // Base query checkbox
     let CBgunTypes = req.query.Gtype || [];
     let CBgunNames = req.query.Gname || [];
     let CBranks = req.query.rank || [];
     let CBstations = req.query.station || [];
     let CBcalibers = req.query.caliber || [];
+
     // Checkbox distinct options
     const distinctGunTypes = await collection.distinct("Gtype", {
       archived: false,
@@ -75,44 +135,7 @@ exports.getDTable = async function (req, res) {
     const checkbStations = distinctStation;
     const checkbCalibers = distinctCaliber;
 
-    // Pagination
-    const page = parseInt(req.query.page) || 1;
-    const limit = 10;
-    const offset = (page - 1) * limit;
-
-    // Build the MongoDB query with optional date and search filtering
-    const queryOptions = {
-      archived: false,
-    };
-
-    // Request query options and Build the search filter
-    const searchQuery = req.query.search || "";
-    const searchFilter = { archived: false };
-
-    if (searchQuery) {
-      const searchRegex = new RegExp(searchQuery, "i");
-      searchFilter.$or = [
-        { firstName: searchRegex },
-        { lastName: searchRegex },
-        { middleName: searchRegex },
-        { Gname: searchRegex },
-        { Gtype: searchRegex },
-        { rank: searchRegex },
-        { station: searchRegex },
-        { serialN: searchRegex },
-        { caliber: searchRegex },
-      ];
-    }
-
-    // Add date filtering if startDate and endDate are provided
-    if (startDate && endDate) {
-      searchFilter.turnOver = {
-        $gte: new Date(startDate),
-        $lte: new Date(endDate),
-      };
-    }
-
-    // Filter by checkbox
+    // Option Checkbox filter
     if (!Array.isArray(CBgunTypes)) {
       CBgunTypes = [CBgunTypes];
     }
@@ -148,6 +171,9 @@ exports.getDTable = async function (req, res) {
     if (CBcalibers.length > 0) {
       searchFilter.caliber = { $in: CBcalibers };
     }
+    //----------------------------------------------------------------------------------------------
+
+    // Base Data from database
     const projection = {
       id: true,
       Gtype: true,
@@ -166,22 +192,25 @@ exports.getDTable = async function (req, res) {
       QLFR: true,
     };
 
+    // Final filter to display
     const filter = {
       $and: [searchFilter],
     };
-
+    // Final data to display
     const newData = await collection
       .find(filter)
       .project(projection)
-      .sort({ _id: -1 })
+      .sort({ lastName: 1 })
       .skip(offset)
       .limit(limit)
       .toArray();
+
     // Retrieve data and suggestions from the database
     const suggestions = [];
-
     const totalRecords = await collection.countDocuments(filter);
     const totalPages = Math.ceil(totalRecords / limit);
+
+    //----------------------------------------------------------------------------------------------
 
     const datas = newData.map((row) => {
       const id = row._id.toString();
@@ -230,6 +259,7 @@ exports.getDTable = async function (req, res) {
       user: req.user,
       searchQuery: searchQuery,
       suggestions: [], // Search
+      //Checkbox Dropdown Menu
       CBgunTypes,
       checkbGunTypes,
       CBgunNames,
@@ -239,17 +269,21 @@ exports.getDTable = async function (req, res) {
       CBstations,
       checkbStations,
       checkbCalibers,
-      CBcalibers, // Checkbox
-      // TotalGun,
-      // createdThisMonthCount,
-      // archivedThisMonthCount, // Stats
+      CBcalibers,
+      //Card Count
+      TotalGun,
+      Created,
+      Archived,
     });
-    console.log("what is this", filter);
-    console.log("distinct", distinctGunTypes);
-    console.log("the checkbox", checkbGunTypes);
+    // For debugging purposes
+    // console.log("what is this", filter);
+    // console.log("distinct", distinctGunTypes);
+    // console.log("the checkbox", checkbGunTypes);
 
-    console.log("distinct rank", distinctRank);
-    console.log("the checkbox rank", checkbRanks);
+    // console.log("distinct rank", distinctRank);
+    // console.log("the checkbox rank", checkbRanks);
+    console.log("the created", Created.length);
+    console.log("the archived", Archived.length);
   } catch (error) {
     console.error(error);
     await client.close(); // Close the connection

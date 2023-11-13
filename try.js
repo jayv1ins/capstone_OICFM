@@ -1,51 +1,60 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+const { MongoClient } = require("mongodb");
+
+const DATABASE_URL =
+  "mongodb+srv://majnnakpil:nakpilers@nakpilcluster.ervgh0t.mongodb.net/PNP_management";
 
 async function fetchData() {
+  const client = new MongoClient(DATABASE_URL, { useUnifiedTopology: true });
+
   try {
-    const currentMonth = new Date().getMonth() + 1; // Get the current month
-    const currentYear = new Date().getFullYear(); // Get the current year
-    const createdThisMonthCount = await prisma.record.aggregate({
-      _count: { id: true },
-      where: {
-        createdAt: {
-          gte: new Date(`${currentYear}-${currentMonth}-01`),
-          lt: new Date(`${currentYear}-${currentMonth + 1}-01`),
+    await client.connect();
+
+    const db = client.db("PNP_management");
+    const collection = db.collection("Record");
+
+    // Get current month and year
+    const currentMonth = new Date().getMonth() + 1; // Months are zero-indexed, so add 1
+    const currentYear = new Date().getFullYear();
+
+    // Dynamically construct the date range
+    const start = `${currentYear}-${currentMonth}-01`;
+    const end = `${currentYear}-${currentMonth}-30`;
+
+    // Aggregate pipeline to filter documents based on 'archived' status and 'turnOver' date
+    const pipeline = [
+      {
+        $match: {
+          archived: false,
+          turnOver: {
+            $gte: start,
+            $lte: end,
+          },
         },
       },
-    });
+    ];
 
-    // Calculate the count of created last month
-    let lastMonth = currentMonth - 1;
-    let lastMonthYear = currentYear;
-    if (lastMonth === 0) {
-      lastMonth = 12;
-      lastMonthYear = currentYear - 1;
-    }
-
-    const createdLastMonthCount = await prisma.record.aggregate({
-      _count: { id: true },
-      where: {
-        createdAt: {
-          gte: new Date(`${lastMonthYear}-${lastMonth}-01`),
-          lt: new Date(`${currentYear}-${currentMonth}-01`),
+    const totalArchivedPipeline = [
+      {
+        $match: {
+          archived: true,
+          turnOver: {
+            $gte: start,
+            $lte: end,
+          },
         },
       },
-    });
+    ];
 
-    console.log('Current Month Count:', createdThisMonthCount._count.id);
-    console.log('Previous Month Count:', createdLastMonthCount._count.id);
+    // Execute the aggregation pipelines
+    const Created = await collection.aggregate(pipeline).toArray();
+    const Archived = await collection
+      .aggregate(totalArchivedPipeline)
+      .toArray();
 
-    const currentMonthCount = parseInt(createdThisMonthCount._count.id, 10);
-    const previousMonthCount = parseInt(createdLastMonthCount._count.id, 10);
-
-    const monthDifference = currentMonthCount - previousMonthCount;
-
-    console.log('Month Difference:', monthDifference);
-  } catch (error) {
-    console.error(error);
+    console.log("Total Documents:", Created.length);
+    console.log("Total Archived:", Archived.length);
   } finally {
-    await prisma.$disconnect();
+    await client.close();
   }
 }
 

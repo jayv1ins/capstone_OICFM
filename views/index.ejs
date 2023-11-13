@@ -313,17 +313,17 @@
             charts.forEach(chart => {
               chart.setFilter({
                 $and: [
-                  { acquisition: { $gte: startDate } },
-                  { acquisition: { $lte: endDate } }
+                  { turnOver: { $gte: startDate } },
+                  { turnOver: { $lte: endDate } }
                 ]
               });
+              console.log(startDate);
             });
           } else {
             // If either start date or end date is not selected, remove the filter
             charts.forEach(chart => chart.setFilter({}));
           }
         }
-
 
 
       </script>
