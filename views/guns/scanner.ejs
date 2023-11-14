@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -77,73 +78,62 @@
       <div class="main-boxes">
         <div class="right-boxes box" style="width: 100%; height: auto;">
           <header>
-            <h1>Convert image to Text</h1>
+            <h1>Scanner</h1>
           </header>
 
+            <center>
 
-          <form method="post" action="/scan" enctype="multipart/form-data">
+              <!-- File select -->
+              <button type="button" class="upload-button">
+                <i class='bx bx-upload'></i> Upload File
+                <input type="file" name="image" id="file-input" class="custom-input" accept="image/*">
+              </button>
+              <img id="captured-image"  alt="Captured/Selected Image"
+                style="max-width: 750px; max-height: 500px; display: none;">
+            
 
+              <div class="crop-container">
+                <label for="cropImage" id="cropLabel" style="display: none;">Crop Image</label>
+                <input type="checkbox" id="cropImage" name="cropImage" style="display: none; margin-right: 15px;" class="crop-checkbox">
+              </div>
 
-            <button type="button" class="upload-button">
-              <i class='bx bx-upload'></i> Upload File
-              <input type="file" name="image" id="imageInput" class="custom-input" accept="image/*">
-            </button>
+              <button  id="recognizeText" style="display: none;" class="extract-button">Extract
+                Text</button>
 
+              <!-- Buttons -->
+              <button id="doneButton" style="display: none;" class="done-button">Done</button>
+              <button id="resetButton" style="display: none;" class="reset-button">Reset</button>
+              <a id="downloadLink" download="cropped_image.jpg" style="display: none;" class="download-link"> Download</a>
 
-            <img id="selectedImage" src="" alt="Selected Image"
-              style="max-width: 750px; max-height: 500px; display: none;">
-            <button type="submit" id="extractTextButton" style="display: none;" class="extract-button">Extract
-              Text</button>
+              <!-- Camera  -->
+              <button id="startCamera" class="custom-button3">Start Camera <i class='bx bx-camera'></i></button>
+              <button id="capture" class="custom-button3" style="display: none;">Capture Image <i
+                  class='bx bx-camera'></i> </button>
+              <button id="stopCamera" style="display: none;" class="custom-button3 custom-button-danger">Stop Camera <i
+                  class='bx bx-stop'></i></button>
 
-          </form>
-
-
-
-
-
-          <div class="crop-container">
-            <label for="cropImage" id="cropLabel" style="display: none;">Crop Image</label>
-            <input type="checkbox" id="cropImage" name="cropImage" style="display: none; margin-right: 15px;" class="crop-checkbox">
-          </div>
-
-          <input type="hidden" id="croppedImageData" name="croppedImageData">
-          <button id="doneButton" style="display: none;" class="done-button">Done</button>
-          <button id="resetButton" style="display: none;" class="reset-button">Reset</button>
-          <a id="downloadLink" download="cropped_image.jpg" style="display: none;" class="download-link"> Download</a>
-
-
-          <img id="captured-image" style="display: none;">
-          <button id="start-camera" class="custom-button3">Camera <i class='bx bx-camera'></i></button>
-          <button id="capture-image" class="custom-button3" style="display: none;">Capture Image <i
-              class='bx bx-camera'></i> </button>
-          <button id="stop-camera" style="display: none;" class="custom-button3 custom-button-danger">Stop Camera <i
-              class='bx bx-stop'></i></button>
-          <video id="live-camera-feed" autoplay></video>
+              <!-- For Camera and File Val -->
+              <video id="video" width="640" height="480" autoplay style="display:none;"></video>
+              <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+            </center>
 
 
+              <!-- Notification Message -->
+              <notif>
+                  <h2 id="ETlabel" style="display: none;">Extracted Text:</h2>
+                  <pre id="recognizedTextResult"  style="display: none;"></pre>
 
-          <!-- Notification Message -->
-          <notif>
-            <% if (text) { %>
-              <h2>Extracted Text:</h2>
-              <pre><%= text %></pre>
-              <% } %>
-
-
-                <% if (successMessage) { %>
-                  <div style="color: green; margin-top: 10px; text-align: center;">
-                    <p style="color: green;">
-                      <%= successMessage %>
-                    </p>
-                  </div>
-                  <% } else { %>
-                    <div style="color: red; margin-top: 10px; text-align: center;">
-                      <p style="color: red;">
-                        <%= errorMessage %>
-                      </p>
-                    </div>
-                    <% } %>
-          </notif>
+                      <div style="color: green; margin-top: 10px; text-align: center;">
+                        <p style="color: green;" id="successMessage">
+                     
+                        </p>
+                      </div>
+                        <div style="color: red; margin-top: 10px; text-align: center;">
+                          <p style="color: red;" id="errorMessage">
+                            
+                          </p>
+                        </div>
+              </notif>
 
 
 
@@ -165,113 +155,221 @@
     }
   </script>
 
+<script>
+  const startCameraButton = document.getElementById('startCamera');
+  const stopCameraButton = document.getElementById('stopCamera');
+  const captureButton = document.getElementById('capture');
+  const video = document.getElementById('video');
+  const canvas = document.getElementById('canvas');
+  const capturedImage = document.getElementById('captured-image');
+  const recognizeTextButton = document.getElementById('recognizeText');
+  const fileInput = document.querySelector('#file-input');
+  const cropLabel = document.getElementById('cropLabel');
+  const cropCheckbox = document.getElementById('cropImage');
+  const doneButton = document.getElementById('doneButton');
+  const downloadLink = document.getElementById('downloadLink');
+  const resetButton = document.getElementById('resetButton');
+  const recognizedTextResult = document.getElementById('recognizedTextResult');
 
-  <script>
-    const liveCameraFeed = document.getElementById('live-camera-feed');
-    const capturedImage = document.getElementById('captured-image');
-    const startCameraButton = document.getElementById('start-camera');
-    const captureImageButton = document.getElementById('capture-image');
-    const stopCameraButton = document.getElementById('stop-camera');
+  const ETlabel = document.getElementById('ETlabel');
+  const errorMessage = document.getElementById('errorMessage');
+  const successMessage = document.getElementById('successMessage');
 
-    let videoStream;
+  let stream;
+  let cropper;
 
-    // Function to start the camera feed
-    startCameraButton.addEventListener('click', async () => {
-      try {
-        videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
-        liveCameraFeed.srcObject = videoStream;
-        startCameraButton.style.display = 'none';
-        captureImageButton.style.display = 'inline-block';
-        stopCameraButton.style.display = 'inline-block';
-      } catch (error) {
-        console.error('Error accessing the camera:', error);
-      }
-    });
-
-    // Function to stop the camera feed
-    stopCameraButton.addEventListener('click', () => {
-      if (videoStream) {
-        videoStream.getTracks().forEach((track) => {
-          track.stop();
-        });
-        liveCameraFeed.style.display = 'none';
-        startCameraButton.style.display = 'inline-block';
-        captureImageButton.style.display = 'none';
-        stopCameraButton.style.display = 'none';
-      }
-    });
-
-    // Function to capture an image
-    captureImageButton.addEventListener('click', () => {
-      const canvas = document.createElement('canvas');
-      canvas.width = liveCameraFeed.videoWidth;
-      canvas.height = liveCameraFeed.videoHeight;
-      canvas.getContext('2d').drawImage(liveCameraFeed, 0, 0);
-      capturedImage.src = canvas.toDataURL('image/png');
+  function updateImageFeedback() {
+    if (fileInput.files.length > 0) {
+      const selectedFile = fileInput.files[0];
+      const imgUrl = window.URL.createObjectURL(selectedFile);
+      capturedImage.src = imgUrl;
       capturedImage.style.display = 'block';
-    });
-  </script>
+      recognizeTextButton.style.display = 'inline-block';
 
-  <script>
-    let cropper;
+      cropLabel.style.display = "block";
+      cropCheckbox.style.display = "block";
+      startCameraButton.style.display = 'none';
 
-    function updateImageFeedback() {
-      const fileInput = document.getElementById("imageInput");
-      const selectedImage = document.getElementById("selectedImage");
-      const cropLabel = document.getElementById("cropLabel");
-      const cropCheckbox = document.getElementById("cropImage");
-      const extractButton = document.getElementById("extractTextButton");
-      const doneButton = document.getElementById("doneButton");
-      const downloadLink = document.getElementById("downloadLink");
-      const resetButton = document.getElementById("resetButton");
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const imgDataUri = event.target.result;
+        capturedImage.src = imgDataUri;
+        // Prepare the image for form submission
+        fileInput.src = imgDataUri;
+      };
+      reader.readAsDataURL(selectedFile);
 
-      if (fileInput.files.length > 0) {
-        selectedImage.src = URL.createObjectURL(fileInput.files[0]);
-        selectedImage.style.display = "block";
-        cropLabel.style.display = "block";
-        cropCheckbox.style.display = "block";
+      if (cropCheckbox.checked) {
+        recognizeTextButton.style.display = "none";
+        doneButton.style.display = "block";
         resetButton.style.display = "block";
+        downloadLink.style.display = "none";
 
-        if (cropCheckbox.checked) {
-          extractButton.style.display = "none"; // Hide the "Extract Text" button when cropping
-          doneButton.style.display = "block";
-          resetButton.style.display = "block";
-          downloadLink.style.display = "none";
+        cropper = new Cropper(capturedImage, {
+          aspectRatio: 2 / 1,
+          viewMode: 2,
+        });
+        console.log("sa crop",capturedImage);
 
-          cropper = new Cropper(selectedImage, {
-            aspectRatio: 2 / 1,
-            viewMode: 2,
-          });
-
-          doneButton.addEventListener("click", () => {
-            doneButton.style.display = "none";
-            downloadLink.style.display = "block";
-            extractButton.style.display = "block"; // Show the "Extract Text" button when cropping is done
-          });
-        } else {
-          if (cropper) {
-            cropper.destroy();
-            cropper = null;
-          }
+        doneButton.addEventListener("click", () => {
           doneButton.style.display = "none";
-          downloadLink.style.display = "none";
-          extractButton.style.display = "block"; // Show the "Extract Text" button when not cropping
-        }
+          downloadLink.style.display = "block";
+          recognizeTextButton.style.display = "block";
+        });
       } else {
-        selectedImage.src = "";
-        selectedImage.style.display = "none";
-        cropLabel.style.display = "none";
-        cropCheckbox.style.display = "none";
-        extractButton.style.display = "none";
+        if (cropper) {
+          cropper.destroy();
+          cropper = null;
+        }
         doneButton.style.display = "none";
         downloadLink.style.display = "none";
-        resetButton.style.display = "none";
+        recognizeTextButton.style.display = "block";
+      }
+    } else {
+      capturedImage.src = "";
+      capturedImage.style.display = "none";
+      recognizeTextButton.style.display = "none";
+      cropLabel.style.display = "none";
+      cropCheckbox.style.display = "none";
+      doneButton.style.display = "none";
+      downloadLink.style.display = "none";
+      resetButton.style.display = "none";
+    }
+  }
+
+    fileInput.onchange = () => {
+      updateImageFeedback();
+    };
+
+    async function initCamera() {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        video.srcObject = stream;
+        startCameraButton.style.display = 'none';
+        stopCameraButton.style.display = 'inline-block';
+        captureButton.style.display = 'inline-block';
+        video.style.display = 'block';
+        canvas.style.display = 'none';
+      } catch (error) {
+        console.error('Error accessing camera:', error);
       }
     }
 
-    document.getElementById("imageInput").addEventListener("change", () => {
-      updateImageFeedback();
-    });
+    function stopCamera() {
+      const tracks = stream.getTracks();
+      tracks.forEach(track => track.stop());
+      video.srcObject = null;
+      startCameraButton.style.display = 'inline-block';
+      stopCameraButton.style.display = 'none';
+      captureButton.style.display = 'none';
+      video.style.display = 'none';
+      canvas.style.display = 'none';
+    }
+
+    function captureImage() {
+    const context = canvas.getContext('2d');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    const imgDataUri = canvas.toDataURL('image/jpeg');
+    capturedImage.src = imgDataUri;
+    dataURItoBlob(imgDataUri);
+    console.log("sa capture",imgDataUri);
+    capturedImage.style.display = 'block';
+    cropLabel.style.display = "block";
+    cropCheckbox.style.display = "block";
+
+    if (cropCheckbox.checked) {
+      recognizeTextButton.style.display = "none";
+      doneButton.style.display = "block";
+      resetButton.style.display = "block";
+      downloadLink.style.display = "none";
+      video.style.display = "none";
+
+      // Destroy the previous cropper if exists
+      if (cropper) {
+        cropper.destroy();
+        cropper = null;
+      }
+
+      // Initialize the Cropper for the captured image
+      cropper = new Cropper(capturedImage, {
+        aspectRatio: 2 / 1,
+        viewMode: 2,
+      });
+
+      doneButton.addEventListener("click", () => {
+        doneButton.style.display = "none";
+        downloadLink.style.display = "block";
+        recognizeTextButton.style.display = "block";
+      });
+    } else {
+      recognizeTextButton.style.display = "inline-block";
+      doneButton.style.display = "none";
+      downloadLink.style.display = "none";
+    }
+  }
+
+    function dataURItoBlob(dataURI) {
+      const byteString = atob(dataURI.split(',')[1]);
+      const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+      return new Blob([ab], { type: mimeString });
+    }
+
+    function downloadImage() {
+      const downloadLink = document.createElement('a');
+      downloadLink.href = capturedImage.src;
+      downloadLink.download = 'captured_image.jpg';
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    }
+
+    function recognizeText(imageBlob) {
+      const formData = new FormData();
+      formData.append('image', imageBlob);
+
+      console.log('Image size:', imageBlob.size, 'bytes');
+
+      capturedImage.src = imageBlob;
+      capturedImage.style.display = 'none';
+      video.style.display = 'none';
+      stopCameraButton.style.display = 'none';
+      captureButton.style.display = 'none';
+
+      cropLabel.style.display = "none";
+      cropCheckbox.style.display = "none";
+      recognizeTextButton.style.display = 'none';
+
+
+      startCameraButton.style.display = 'block';
+      ETlabel.style.display = 'block';
+      recognizedTextResult.style.display = 'block';
+
+
+
+      fetch('/scan', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Success:', data);
+        recognizedTextResult.textContent = data.text;
+        errorMessage.textContent = data.errorMessage;
+        successMessage.textContent = data.successMessage;
+
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    }
 
     document.getElementById("cropImage").addEventListener("change", () => {
       updateImageFeedback();
@@ -285,13 +383,16 @@
         downloadLink.style.display = "block";
       }
     });
+
     document.getElementById("resetButton").addEventListener("click", () => {
-      const fileInput = document.getElementById("imageInput");
-      fileInput.value = ""; // Clear the file input
+      fileInput.src = "";
       updateImageFeedback();
     });
 
-
+    startCameraButton.addEventListener('click', initCamera);
+    stopCameraButton.addEventListener('click', stopCamera);
+    captureButton.addEventListener('click', captureImage);
+    recognizeTextButton.addEventListener('click', () => recognizeText(dataURItoBlob(capturedImage.src)));
 
   </script>
 
