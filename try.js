@@ -21,38 +21,27 @@ async function fetchData() {
     const end = `${currentYear}-${currentMonth}-30`;
 
     // Aggregate pipeline to filter documents based on 'archived' status and 'turnOver' date
-    const pipeline = [
-      {
-        $match: {
-          archived: false,
-          turnOver: {
-            $gte: start,
-            $lte: end,
-          },
-        },
-      },
-    ];
 
-    const totalArchivedPipeline = [
-      {
-        $match: {
-          archived: true,
-          turnOver: {
-            $gte: start,
-            $lte: end,
-          },
-        },
+    const New = await collection.countDocuments({
+      archived: false,
+      turnOver: {
+        $gte: start,
+        $lte: end,
       },
-    ];
+    });
+
+    const remove = await collection.countDocuments({
+      archived: true,
+      turnOver: {
+        $gte: start,
+        $lte: end,
+      },
+    });
 
     // Execute the aggregation pipelines
-    const Created = await collection.aggregate(pipeline).toArray();
-    const Archived = await collection
-      .aggregate(totalArchivedPipeline)
-      .toArray();
 
-    console.log("Total Documents:", Created.length);
-    console.log("Total Archived:", Archived.length);
+    console.log("Total Documents new:", New);
+    console.log("Total Archived:", remove);
   } finally {
     await client.close();
   }

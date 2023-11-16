@@ -206,7 +206,7 @@
         downloadLink.style.display = "none";
 
         cropper = new Cropper(capturedImage, {
-          aspectRatio: 2 / 1,
+          aspectRatio: 3 / 1,
           viewMode: 2,
         });
         console.log("sa crop",capturedImage);
@@ -272,44 +272,43 @@
     canvas.height = video.videoHeight;
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
+    captureButton.style.display = 'none';
+    video.style.display = 'none';
+
     const imgDataUri = canvas.toDataURL('image/jpeg');
     capturedImage.src = imgDataUri;
     dataURItoBlob(imgDataUri);
-    console.log("sa capture",imgDataUri);
-    capturedImage.style.display = 'block';
-    cropLabel.style.display = "block";
-    cropCheckbox.style.display = "block";
+    console.log("sa capture", imgDataUri);
+    doneButton.style.display = "block";
+    resetButton.style.display = "block";
+    downloadLink.style.display = "none";
 
-    if (cropCheckbox.checked) {
-      recognizeTextButton.style.display = "none";
-      doneButton.style.display = "block";
-      resetButton.style.display = "block";
-      downloadLink.style.display = "none";
-      video.style.display = "none";
-
-      // Destroy the previous cropper if exists
-      if (cropper) {
-        cropper.destroy();
-        cropper = null;
-      }
-
-      // Initialize the Cropper for the captured image
-      cropper = new Cropper(capturedImage, {
-        aspectRatio: 2 / 1,
-        viewMode: 2,
-      });
-
-      doneButton.addEventListener("click", () => {
-        doneButton.style.display = "none";
-        downloadLink.style.display = "block";
-        recognizeTextButton.style.display = "block";
-      });
-    } else {
-      recognizeTextButton.style.display = "inline-block";
+    doneButton.addEventListener("click", () => {
       doneButton.style.display = "none";
-      downloadLink.style.display = "none";
+      downloadLink.style.display = "block";
+      recognizeTextButton.style.display = "block";
+    });
+
+    // Destroy the previous cropper if exists
+    if (cropper) {
+      cropper.destroy();
+      cropper = null;
     }
+    doneButton.style.display = "block";
+    downloadLink.style.display = "none";
+    recognizeTextButton.style.display = "none";
+     
+
+    // Initialize the Cropper for the captured image
+    cropper = new Cropper(capturedImage, {
+      aspectRatio: 2 / 1,
+      viewMode: 2,
+    });
+
+    // Call the cropImage function directly
+    cropImage();
   }
+
 
     function dataURItoBlob(dataURI) {
       const byteString = atob(dataURI.split(',')[1]);
@@ -331,44 +330,50 @@
       document.body.removeChild(downloadLink);
     }
 
-    function recognizeText(imageBlob) {
-      const formData = new FormData();
-      formData.append('image', imageBlob);
+    function recognizeText() {
+      // Check if cropper is defined
+      if (cropper) {
+        // Get the cropped canvas
+        const croppedCanvas = cropper.getCroppedCanvas();
 
-      console.log('Image size:', imageBlob.size, 'bytes');
+        startCameraButton.style.display = 'block';
+        ETlabel.style.display = 'block';
+        recognizedTextResult.style.display = 'block';
 
-      capturedImage.src = imageBlob;
-      capturedImage.style.display = 'none';
-      video.style.display = 'none';
-      stopCameraButton.style.display = 'none';
-      captureButton.style.display = 'none';
+        cropLabel.style.display = "none";
+        cropCheckbox.style.display = "none";
+        doneButton.style.display = "none";
+        resetButton.style.display = "none";
+        captureImage.style.display = "none";
 
-      cropLabel.style.display = "none";
-      cropCheckbox.style.display = "none";
-      recognizeTextButton.style.display = 'none';
+        
+        
+        // Convert the cropped canvas to a Blob
+        croppedCanvas.toBlob((blob) => {
+          // Create a FormData object and append the cropped image Blob
+          const formData = new FormData();
+          formData.append('image', blob);
 
-
-      startCameraButton.style.display = 'block';
-      ETlabel.style.display = 'block';
-      recognizedTextResult.style.display = 'block';
-
-
-
-      fetch('/scan', {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Success:', data);
-        recognizedTextResult.textContent = data.text;
-        errorMessage.textContent = data.errorMessage;
-        successMessage.textContent = data.successMessage;
-
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+          // Perform the fetch call with the FormData
+          fetch('/scan', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log('Success:', data);
+            recognizedTextResult.textContent = data.text;
+            errorMessage.textContent = data.errorMessage;
+            successMessage.textContent = data.successMessage;
+            cropper.destroy();
+          cropper = null;
+          })
+          
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+        }, 'image/jpeg'); // Specify the desired image format (e.g., 'image/jpeg')
+      }
     }
 
     document.getElementById("cropImage").addEventListener("change", () => {

@@ -205,7 +205,7 @@
                 <i class='bx bx-user-circle'></i>
               </div>
               <h1>
-                <%= TotalGun %>
+                <%= TotalGun +1 %>
               </h1>
             </div>
 
@@ -216,7 +216,7 @@
               </div>
 
               <h1>
-                <%= Created.length %>
+                <%= New %> 
               </h1>
             </div>
 
@@ -227,7 +227,7 @@
               </div>
 
               <h1>
-                <%= Archived.length %>
+                <%= Remove %> 
               </h1>
             </div>
 
@@ -248,15 +248,13 @@
               <button type="submit" class="custom-button primary">Search<i class='bx bx-search-alt-2'></i></button>
 
             </div>
-
+            <div class="custom-form-row">
+                        <div class="custom-form-group col">
+                          <button class="downloadBtn" id="downloadExcelBtn">Download Excel<i class='bx bx-spreadsheet'></i></button>
+                        </div>
+                      </div>
           </form>
-          <div class="custom-form-row">
-            <div class="custom-form-group col">
-              <button class="downloadBtn" id="downloadExcelBtn">Download Excel<i class='bx bx-spreadsheet'></i></button>
-            </div>
-
-            
-          </div>
+          
           
 
 

@@ -28,32 +28,21 @@ exports.getDTable = async function (req, res) {
     const start = `${currentYear}-${currentMonth}-01`;
     const end = `${currentYear}-${currentMonth}-30`;
 
-    const New = [
-      {
-        $match: {
-          archived: false,
-          createdAt: {
-            $gte: start,
-            $lte: end,
-          },
-        },
+    const New = await collection.countDocuments({
+      archived: false,
+      turnOver: {
+        $gte: start,
+        $lte: end,
       },
-    ];
+    });
 
-    const remove = [
-      {
-        $match: {
-          archived: true,
-          createdAt: {
-            $gte: start,
-            $lte: end,
-          },
-        },
+    const Remove = await collection.countDocuments({
+      archived: true,
+      turnOver: {
+        $gte: start,
+        $lte: end,
       },
-    ];
-
-    const Created = await collection.aggregate(New).toArray();
-    const Archived = await collection.aggregate(remove).toArray();
+    });
 
     //----------------------------------------------------------------------------------------------
 
@@ -272,8 +261,8 @@ exports.getDTable = async function (req, res) {
       CBcalibers,
       //Card Count
       TotalGun,
-      Created,
-      Archived,
+      New,
+      Remove,
     });
     // For debugging purposes
     // console.log("what is this", filter);
@@ -282,8 +271,6 @@ exports.getDTable = async function (req, res) {
 
     // console.log("distinct rank", distinctRank);
     // console.log("the checkbox rank", checkbRanks);
-    console.log("the created", Created.length);
-    console.log("the archived", Archived.length);
   } catch (error) {
     console.error(error);
     await client.close(); // Close the connection
