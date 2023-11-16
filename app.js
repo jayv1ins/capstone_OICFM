@@ -44,7 +44,7 @@ const logoutRoutes = require("./routes/accounts/logout");
 const editManagerRoutes = require("./routes/accounts/editManager");
 //Admin
 const aCreateRoutes = require("./routes/accounts/admin/create");
-const aTableRoutes = require("./routes/accounts/admin/Table");
+const aTableRoutes = require("./routes/accounts/admin/table");
 const aEditRoutes = require("./routes/accounts/admin/edit");
 
 app.use("/", loginRoutes);
