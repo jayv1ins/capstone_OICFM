@@ -330,7 +330,7 @@
       document.body.removeChild(downloadLink);
     }
 
-    function recognizeText() {
+    function recognizeText(imageBlob) {
       // Check if cropper is defined
       if (cropper) {
         // Get the cropped canvas
@@ -344,9 +344,10 @@
         cropCheckbox.style.display = "none";
         doneButton.style.display = "none";
         resetButton.style.display = "none";
-        captureImage.style.display = "none";
-
         
+        downloadLink.style.display = "none";
+        capturedImage.style.display = 'none';
+        recognizeTextButton.style.display = 'none';
         
         // Convert the cropped canvas to a Blob
         croppedCanvas.toBlob((blob) => {
@@ -373,7 +374,47 @@
             console.error('Error:', error);
           });
         }, 'image/jpeg'); // Specify the desired image format (e.g., 'image/jpeg')
-      }
+      } else {
+        const formData = new FormData();
+        formData.append('image', imageBlob);
+
+        console.log('Image size:', imageBlob.size, 'bytes');
+
+        capturedImage.src = imageBlob;
+        capturedImage.style.display = 'none';
+        video.style.display = 'none';
+        stopCameraButton.style.display = 'none';
+        captureButton.style.display = 'none';
+
+        cropLabel.style.display = "none";
+        cropCheckbox.style.display = "none";
+        recognizeTextButton.style.display = 'none';
+
+
+        startCameraButton.style.display = 'block';
+        ETlabel.style.display = 'block';
+        recognizedTextResult.style.display = 'block';
+
+
+
+        fetch('/scan', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Success:', data);
+          recognizedTextResult.textContent = data.text;
+          errorMessage.textContent = data.errorMessage;
+          successMessage.textContent = data.successMessage;
+
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+      } 
+      
+      
     }
 
     document.getElementById("cropImage").addEventListener("change", () => {
@@ -391,6 +432,14 @@
 
     document.getElementById("resetButton").addEventListener("click", () => {
       fileInput.src = "";
+      startCameraButton.style.display = 'block';
+      stopCameraButton.style.display = 'none';
+      captureButton.style.display = 'none';
+
+      startCameraButton.style.display = 'none';
+      ETlabel.style.display = 'none';
+      recognizedTextResult.style.display = 'none';
+
       updateImageFeedback();
     });
 
