@@ -7,6 +7,7 @@ const { log } = require("debug/src/browser");
 //For Vision API
 const { ImageAnnotatorClient } = require("@google-cloud/vision");
 const credentials = require("../../aye.json");
+const e = require("express");
 
 // new Client for Vision
 const visionC = new ImageAnnotatorClient({
@@ -22,6 +23,12 @@ exports.scanner = (req, res) => {
     text: "",
     successMessage: "",
     errorMessage: "",
+    IdD: "",
+    GnameD: "",
+    GtypeD: "",
+    lastNameD: "",
+    turnOverD: "",
+    returnedD: "",
   });
 };
 
@@ -75,11 +82,24 @@ exports.scanUpdate = async (req, res) => {
 
       const successMessage =
         "The Serial Number of " + serialNumber + " is valid";
+      const IdD = existingData._id;
+      const GnameD = existingData.Gname;
+      const GtypeD = existingData.Gtype;
+      const lastNameD = existingData.lastName;
+      const turnOverD = existingData.turnOver;
+      const returnedD = existingData.returned;
+
       return res.status(200).json({
         user: req.user,
         text,
         successMessage,
         errorMessage: "",
+        IdD,
+        GnameD,
+        GtypeD,
+        lastNameD,
+        turnOverD,
+        returnedD,
       });
       console.log("succ is ", successMessage);
     } else {
