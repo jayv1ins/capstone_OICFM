@@ -133,10 +133,7 @@
                         <p style="color: green;" id="turnOverD"></p>
                         <p style="color: green;" id="returnedD"></p>
                         
-                          <!-- <button id="IdD" class="custom-button2 custom-button-danger" onclick="console.log('IdD:', '<%= IdD %>'); confirmDelete('<%= IdD %>')">
-                            <i class='bx bx-trash'></i>
-                          </button> -->
-                        
+                    
 
                       </div>
                         <div style="color: red; margin-top: 10px; text-align: center;">
@@ -168,17 +165,7 @@
         sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
     }
 
-    // Function to confirm the Delete
-    function confirmDelete(id) {
-      if (confirm("Are you sure you want to delete this data?")) {
-        // If the user confirms, submit the form for deletion
-        const form = document.createElement('form');
-        form.action = '/delete/' + id;
-        form.method = 'POST';
-        document.body.appendChild(form);
-        form.submit();
-      }
-    }
+  
   </script>
 
   <script>
@@ -207,6 +194,9 @@
   const LastNameD = document.getElementById('lastNameD');
   const TurnOverD = document.getElementById('turnOverD');
   const ReturnedD = document.getElementById('returnedD');
+
+ 
+
 
   let stream;
   let cropper;
@@ -399,6 +389,13 @@
             recognizedTextResult.textContent = data.text;
             errorMessage.textContent = data.errorMessage;
             successMessage.textContent = data.successMessage;
+
+            IdD.textContent = data.IdD;
+            GnameD.textContent = data.GnameD;
+            GtypeD.textContent = data.GtypeD;
+            LastNameD.textContent = data.lastNameD;
+            TurnOverD.textContent = data.turnOverD;
+            ReturnedD.textContent = data.returnedD;
             cropper.destroy();
           cropper = null;
           })
@@ -445,6 +442,8 @@
           LastNameD.textContent = data.lastNameD;
           TurnOverD.textContent = data.turnOverD;
           ReturnedD.textContent = data.returnedD;
+
+          
          
 
         })
@@ -486,7 +485,11 @@
     captureButton.addEventListener('click', captureImage);
     recognizeTextButton.addEventListener('click', () => recognizeText(dataURItoBlob(capturedImage.src)));
 
+
+
   </script>
+
+
 
 
 
