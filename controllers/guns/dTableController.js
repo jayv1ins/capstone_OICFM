@@ -71,7 +71,7 @@ exports.getDTable = async function (req, res) {
         { Gname: searchRegex },
         { Gtype: searchRegex },
         { rank: searchRegex },
-        { station: searchRegex },
+        { office: searchRegex },
         { serialN: searchRegex },
         { caliber: searchRegex },
       ];
@@ -91,7 +91,7 @@ exports.getDTable = async function (req, res) {
     let CBgunTypes = req.query.Gtype || [];
     let CBgunNames = req.query.Gname || [];
     let CBranks = req.query.rank || [];
-    let CBstations = req.query.station || [];
+    let CBoffices = req.query.office || [];
     let CBcalibers = req.query.caliber || [];
 
     // Checkbox distinct options
@@ -109,9 +109,9 @@ exports.getDTable = async function (req, res) {
       rank: { $exists: true, $ne: null },
     });
 
-    const distinctStation = await collection.distinct("station", {
+    const distinctStation = await collection.distinct("office", {
       archived: false,
-      station: { $exists: true, $ne: null },
+      office: { $exists: true, $ne: null },
     });
     const distinctCaliber = await collection.distinct("caliber", {
       archived: false,
@@ -121,7 +121,7 @@ exports.getDTable = async function (req, res) {
     const checkbGunTypes = distinctGunTypes;
     const checkbGunNames = distinctGunNames;
     const checkbRanks = distinctRank;
-    const checkbStations = distinctStation;
+    const checkbOffices = distinctStation;
     const checkbCalibers = distinctCaliber;
 
     // Option Checkbox filter
@@ -134,8 +134,8 @@ exports.getDTable = async function (req, res) {
     if (!Array.isArray(CBranks)) {
       CBranks = [CBranks];
     }
-    if (!Array.isArray(CBstations)) {
-      CBstations = [CBstations];
+    if (!Array.isArray(CBoffices)) {
+      CBoffices = [CBoffices];
     }
     if (!Array.isArray(CBcalibers)) {
       CBcalibers = [CBcalibers];
@@ -153,8 +153,8 @@ exports.getDTable = async function (req, res) {
       searchFilter.rank = { $in: CBranks };
     }
 
-    if (CBstations.length > 0) {
-      searchFilter.station = { $in: CBstations };
+    if (CBoffices.length > 0) {
+      searchFilter.office = { $in: CBoffices };
     }
 
     if (CBcalibers.length > 0) {
@@ -173,7 +173,7 @@ exports.getDTable = async function (req, res) {
       turnOver: true,
       returned: true,
       cost: true,
-      station: true,
+      office: true,
       rank: true,
       lastName: true,
       firstName: true,
@@ -183,8 +183,9 @@ exports.getDTable = async function (req, res) {
 
     // Final filter to display
     const filter = {
-      $and: [searchFilter],
+      $and: [searchFilter, { archived: false }],
     };
+
     // Final data to display
     const newData = await collection
       .find(filter)
@@ -212,7 +213,7 @@ exports.getDTable = async function (req, res) {
         turnOver,
         returned,
         cost,
-        station,
+        office,
         rank,
         lastName,
         firstName,
@@ -230,7 +231,7 @@ exports.getDTable = async function (req, res) {
         turnOver,
         returned,
         cost,
-        station,
+        office,
         rank,
         lastName,
         firstName,
@@ -255,8 +256,8 @@ exports.getDTable = async function (req, res) {
       checkbGunNames,
       CBranks,
       checkbRanks,
-      CBstations,
-      checkbStations,
+      CBoffices,
+      checkbOffices,
       checkbCalibers,
       CBcalibers,
       //Card Count
@@ -329,7 +330,7 @@ exports.exportToExcel = async function (req, res) {
       turnOver: true,
       returned: true,
       cost: true,
-      station: true,
+      office: true,
       rank: true,
       lastName: true,
       firstName: true,
@@ -406,7 +407,7 @@ exports.getSelect = async function (req, res) {
           turnOver: true,
           returned: true,
           cost: true,
-          station: true,
+          office: true,
           rank: true,
           lastName: true,
           firstName: true,
@@ -429,7 +430,7 @@ exports.getSelect = async function (req, res) {
       turnOver,
       returned,
       cost,
-      station,
+      office,
       rank,
       lastName,
       firstName,

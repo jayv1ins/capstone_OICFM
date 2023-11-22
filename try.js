@@ -20,9 +20,24 @@ async function fetchData() {
     const start = `${currentYear}-${currentMonth}-01`;
     const end = `${currentYear}-${currentMonth}-30`;
 
-    // Aggregate pipeline to filter documents based on 'archived' status and 'turnOver' date
+    // Find and log details of new documents
+    const newDocuments = await collection
+      .find({
+        archived: false,
+        turnOver: {
+          $gte: start,
+          $lte: end,
+        },
+      })
+      .toArray();
 
-    const New = await collection.countDocuments({
+    console.log("New Documents:");
+    newDocuments.forEach((document) => {
+      console.log("Details:", document);
+    });
+
+    // Count and log the total number of new and archived documents
+    const totalNew = await collection.countDocuments({
       archived: false,
       turnOver: {
         $gte: start,
@@ -30,7 +45,7 @@ async function fetchData() {
       },
     });
 
-    const remove = await collection.countDocuments({
+    const totalArchived = await collection.countDocuments({
       archived: true,
       turnOver: {
         $gte: start,
@@ -38,10 +53,8 @@ async function fetchData() {
       },
     });
 
-    // Execute the aggregation pipelines
-
-    console.log("Total Documents new:", New);
-    console.log("Total Archived:", remove);
+    console.log("Total Documents new:", totalNew);
+    console.log("Total Archived:", totalArchived);
   } finally {
     await client.close();
   }

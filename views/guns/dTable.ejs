@@ -80,7 +80,7 @@
 
 
       <form onsubmit="handleFilterSubmit(event)" class="custom-form-date" action="/DataTable">
-        <h1 class="form-title">Select Date Range for Acquisition</h1>
+        <h1 class="form-title">Select Date Range for Turn-Over</h1>
         <div class="form-row">
           <div class="form-group col">
             <label for="startDate">Start Date:</label>
@@ -95,6 +95,7 @@
             <button type="reset" class="custom-button secondary">Reset<i class='bx bx-reset'></i></button>
           </div>
         </div>
+        <a href="/DataTable">Scan This Month</a>
       </form>
 
       <!-- //Form for dropdown -->
@@ -161,15 +162,15 @@
 
             <div class="custom-dropdown">
               <button type="button" class="custom-dropdown-toggle">
-                Station<i class='bx bx-chevron-down'></i>
+                Office<i class='bx bx-chevron-down'></i>
               </button>
               <ul class="custom-dropdown-menu scrollable-menu">
-                <% checkbStations.forEach(function(CBstation) { %>
+                <% checkbOffices.forEach(function(CBoffice) { %>
                   <li class="custom-dropdown-item">
                     <div class="custom-form-check">
-                      <input class="custom-form-check-input" type="checkbox" id="<%- CBstation %>" name="station"
-                        value="<%- CBstation %>" <% if (CBstations.includes(CBstation)) { %>checked<% } %>>
-                        <label class="custom-form-check-label" for="<%- CBstation %>"> <%- CBstation %> </label>
+                      <input class="custom-form-check-input" type="checkbox" id="<%- CBoffice %>" name="office"
+                        value="<%- CBoffice %>" <% if (CBoffices.includes(CBoffice)) { %>checked<% } %>>
+                        <label class="custom-form-check-label" for="<%- CBoffice %>"> <%- CBoffice %> </label>
                     </div>
                   </li>
                   <% }); %>
@@ -181,7 +182,7 @@
                 Caliber<i class='bx bx-chevron-down'></i>
               </button>
               <ul class="custom-dropdown-menu scrollable-menu">
-                <% checkbStations.forEach(function(CBcaliber) { %>
+                <% checkbCalibers.forEach(function(CBcaliber) { %>
                   <li class="custom-dropdown-item">
                     <div class="custom-form-check">
                       <input class="custom-form-check-input" type="checkbox" id="<%- CBcaliber %>" name="caliber"
@@ -264,12 +265,12 @@
                 <th>S.No</th>
                 <th>Rank</th>
                 <th>Full Name</th>
-                <th>Station</th>
+                <th>Office</th>
                 <th>Gun Type</th>
                 <th>Caliber</th>
                 <th>Gun Name</th>
                 <th>Serial ID</th>
-                <th>Cost</th>
+                <th>turnOver</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -290,7 +291,7 @@
                         <%= data.lastName %>, <%= data.firstName %> . <%= data.middleName %>
                       </td>
                       <td>
-                        <%= data.station %>
+                        <%= data.office %>
                       </td>
                       <td>
                         <%= data.Gtype %>
@@ -306,7 +307,7 @@
                       </td>
 
                       <td>
-                        <%= data.cost %>
+                        <%= data.turnOver %>
                       </td>
 
 
@@ -318,7 +319,7 @@
                             data-bs-target="#selectedData" data-id="<%= data.id %>" data-lastname="<%= data.lastName %>"
                             data-firstname="<%= data.firstName %>" data-middlename="<%= data.middleName %>"
                             data-qualifier="<%= data.QLFR %>" data-rank="<%= data.rank %>"
-                            data-station="<%= data.station %>" data-guntype="<%= data.Gtype %>"
+                            data-office="<%= data.office %>" data-guntype="<%= data.Gtype %>"
                             data-gunname="<%= data.Gname %>" data-caliber="<%= data.caliber %>"
                             data-serialnumber="<%= data.serialN %>" data-cost="<%= data.cost %>"
                             data-acquisitiondate="<%= data.acquisition %>" data-turnover="<%= data.turnOver %>"
@@ -330,7 +331,7 @@
                             data-qualifier="<%= data.QLFR %>" data-rank="<%= data.rank %>" data-id="<%= data.id %>"
                             data-lastname="<%= data.lastName %>" data-firstname="<%= data.firstName %>"
                             data-middlename="<%= data.middleName %>" data-guntype="<%= data.Gtype %>"
-                            data-station="<%= data.station %>" data-gunname="<%= data.Gname %>"
+                            data-office="<%= data.office %>" data-gunname="<%= data.Gname %>"
                             data-caliber="<%= data.caliber %>" data-serialnumber="<%= data.serialN %>"
                             data-cost="<%= data.cost %>" data-acquisitiondate="<%= data.acquisition %>"
                             data-turnover="<%= data.turnOver %>" data-returned="<%= data.returned %>">
@@ -514,8 +515,8 @@
 
                         <tr>
                           <td><strong>Station</strong></td>
-                          <td><input type="text" class="form-control" id="editDataStation" name="station"
-                              autocomplete="station" required minlength="4" pattern="[a-zA-Z ]+"></td>
+                          <td><input type="text" class="form-control" id="editDataStation" name="office"
+                              autocomplete="office" required minlength="4" pattern="^[a-zA-Z0-9\s-]+$"></td>
                         </tr>
 
                         <tr>
@@ -536,7 +537,7 @@
                         <tr>
                           <td><strong>Serial Number</strong></td>
                           <td><input type="text" class="form-control" id="editDataSerialNumber" name="serialN"
-                              autocomplete="serialN" required minlength="4" pattern="[a-zA-Z0-9 ]+"></td>
+                              autocomplete="serialN" required minlength="4" pattern="^[a-zA-Z0-9\s-]+$"></td>
                         </tr>
                         <tr>
                           <td><strong>Cost</strong></td>
@@ -663,7 +664,7 @@
         var middleName = this.getAttribute("data-middlename");
         var qualifier = this.getAttribute("data-qualifier");
         var rank = this.getAttribute("data-rank");
-        var station = this.getAttribute("data-station");
+        var office = this.getAttribute("data-office");
         var gunType = this.getAttribute("data-guntype");
         var gunName = this.getAttribute("data-gunname");
         var caliber = this.getAttribute("data-caliber");
@@ -680,7 +681,7 @@
         selectedDataMiddleName.innerText = middleName;
         selectedDataQualifier.innerText = qualifier;
         selectedDataRank.innerText = rank;
-        selectedDataStation.innerText = station;
+        selectedDataStation.innerText = office;
         selectedDataGunType.innerText = gunType;
         selectedDataGunName.innerText = gunName;
         selectedDataCaliber.innerText = caliber;
@@ -718,7 +719,7 @@
       document.getElementById("editDataMiddleName").value = data.middlename || "";
       document.getElementById("editDataQualifier").value = data.qualifier || "";
       document.getElementById("editDataRank").value = data.rank || "";
-      document.getElementById("editDataStation").value = data.station || "";
+      document.getElementById("editDataStation").value = data.office || "";
       document.getElementById("editDataGunType").value = data.guntype || "";
       document.getElementById("editDataGunName").value = data.gunname || "";
       document.getElementById("editDataCaliber").value = data.caliber || "";
@@ -745,7 +746,7 @@
           middlename: this.dataset.middlename,
           qualifier: this.dataset.qualifier,
           rank: this.dataset.rank,
-          station: this.dataset.station,
+          office: this.dataset.office,
           guntype: this.dataset.guntype,
           gunname: this.dataset.gunname,
           caliber: this.dataset.caliber,
@@ -758,7 +759,7 @@
         populateEditDataModal(data);
         console.log("ito ang populated data", data);
         console.log("ito id", data.id)
-        console.log("ito ang sta", station);
+        console.log("ito ang sta", office);
       });
     });
 

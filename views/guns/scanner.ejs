@@ -235,7 +235,6 @@
 
         doneButton.addEventListener("click", () => {
           doneButton.style.display = "none";
-          downloadLink.style.display = "block";
           recognizeTextButton.style.display = "block";
         });
       } else {
@@ -304,10 +303,10 @@
     doneButton.style.display = "block";
     resetButton.style.display = "block";
     downloadLink.style.display = "none";
+    stopCameraButton.style.display = 'none';
 
     doneButton.addEventListener("click", () => {
       doneButton.style.display = "none";
-      downloadLink.style.display = "block";
       recognizeTextButton.style.display = "block";
     });
 
@@ -317,7 +316,6 @@
       cropper = null;
     }
     doneButton.style.display = "block";
-    downloadLink.style.display = "none";
     recognizeTextButton.style.display = "none";
      
 
@@ -353,7 +351,6 @@
     }
 
     function recognizeText(imageBlob) {
-      // Check if cropper is defined
       if (cropper) {
         // Get the cropped canvas
         const croppedCanvas = cropper.getCroppedCanvas();
@@ -367,13 +364,10 @@
         doneButton.style.display = "none";
         resetButton.style.display = "none";
         
-        downloadLink.style.display = "none";
         capturedImage.style.display = 'none';
         recognizeTextButton.style.display = 'none';
-        
-        // Convert the cropped canvas to a Blob
+        //To blob the crop version
         croppedCanvas.toBlob((blob) => {
-          // Create a FormData object and append the cropped image Blob
           const formData = new FormData();
           formData.append('image', blob);
 
@@ -396,13 +390,16 @@
             ReturnedD.textContent = data.returnedD;
             cropper.destroy();
           cropper = null;
+          cropCheckbox.checked = false;
+
           })
           
           .catch((error) => {
             console.error('Error:', error);
           });
-        }, 'image/jpeg'); // Specify the desired image format (e.g., 'image/jpeg')
+        }, 'image/jpeg'); 
       } else {
+        //File select
         const formData = new FormData();
         formData.append('image', imageBlob);
 
@@ -439,9 +436,12 @@
           LastNameD.textContent = data.lastNameD;
           TurnOverD.textContent = data.turnOverD;
           ReturnedD.textContent = data.returnedD;
-
           
-         
+          
+          cropper.destroy();
+          cropper = null;
+          cropCheckbox.checked = false;
+
 
         })
         .catch((error) => {
@@ -460,7 +460,6 @@
         const croppedCanvas = cropper.getCroppedCanvas();
         const downloadLink = document.getElementById("downloadLink");
         downloadLink.href = croppedCanvas.toDataURL("image/jpeg");
-        downloadLink.style.display = "block";
       }
     });
 
@@ -491,6 +490,11 @@
 
 
   <style>
+    .cropper-container cropper-bg {
+      max-width: 640px;
+      max-height: 480px;
+    }
+    
     .crop-container {
       display: flex;
       flex-direction: row;

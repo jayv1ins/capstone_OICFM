@@ -117,7 +117,7 @@
 
         <div class="home-content2">
           <form onsubmit="handleFilterSubmit(event)" class="custom-form2">
-            <h1 class="form-title">Select Date Range for Acquisition</h1>
+            <h1 class="form-title">Select Date Range for Turn-Over</h1>
             <div class="form-row">
               <div class="form-group col">
                 <label for="startDate">Start Date:</label>
@@ -210,8 +210,7 @@
 
                 <div class="product-top-chart flex">
                   <div class="product-bottom-chart-left top-chart-box">
-                    <h2 class="heading">Scanned QR Code to Gun Numbers</h2>
-                    <div id="chart9"></div>
+                  
                   </div>
 
                   <div class="bottom-chart top-chart-box">
@@ -274,6 +273,8 @@
           baseUrl: "https://charts.mongodb.com/charts-project-0-omorz",
           theme: "dark",
           height: 250,
+          autoRefresh: true,  // Set autoRefresh to true
+          maxDataAge: 30,
         });
 
         const chartIds = [
@@ -285,7 +286,6 @@
           "6499393e-5d6e-4d4b-80e6-5c0004764687",
           "649937ab-6ccc-47e8-8431-13e80f87ab31",
           "64a7c613-c709-43c3-8b0f-73a5bdd4f530",
-          "64a75be6-7fe0-4990-8c22-994ad4f608cf",
           "64a7c276-7fe0-4399-846c-994ad42930fa",
           "64aa6838-5bfe-4e8d-82ec-be414ef2ae74",
           "64aa77c2-c709-44ca-809a-73a5bd6426e9",
@@ -300,6 +300,8 @@
           chart.render(document.getElementById(`chart${index + 1}`));
         });
 
+         // Function to handle chart refresh
+      
 
         function handleFilterSubmit(event) {
           event.preventDefault();
