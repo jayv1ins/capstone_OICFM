@@ -25,22 +25,25 @@ exports.getDTable = async function (req, res) {
     const currentYear = new Date().getFullYear();
 
     // Dynamically construct the date range
-    const start = `${currentYear}-${currentMonth}-01`;
-    const end = `${currentYear}-${currentMonth}-30`;
+    const start = new Date(`${currentYear}-${currentMonth}-01`);
+    const end = new Date(`${currentYear}-${currentMonth}-30`);
+
+    const startString = start.toISOString();
+    const endString = end.toISOString();
 
     const New = await collection.countDocuments({
       archived: false,
       turnOver: {
-        $gte: start,
-        $lte: end,
+        $gte: startString,
+        $lte: endString,
       },
     });
 
     const Remove = await collection.countDocuments({
       archived: true,
-      turnOver: {
-        $gte: start,
-        $lte: end,
+      updateAt: {
+        $gte: startString,
+        $lte: endString,
       },
     });
 
@@ -53,9 +56,7 @@ exports.getDTable = async function (req, res) {
     //----------------------------------------------------------------------------------------------
 
     // Build the MongoDB query with optional date and search filtering
-    const queryOptions = {
-      archived: false,
-    };
+    const queryOptions = {};
 
     // Request query options and Build the search filter
     const searchQuery = req.query.search || "";
@@ -79,10 +80,13 @@ exports.getDTable = async function (req, res) {
     //----------------------------------------------------------------------------------------------
 
     // Date filter
+    let dateFilter = {};
     if (startDate && endDate) {
-      searchFilter.turnOver = {
-        $gte: new Date(startDate),
-        $lte: new Date(endDate),
+      dateFilter = {
+        $and: [
+          { turnOver: { $gte: startDate } },
+          { turnOver: { $lte: endDate } },
+        ],
       };
     }
     //----------------------------------------------------------------------------------------------
@@ -183,7 +187,7 @@ exports.getDTable = async function (req, res) {
 
     // Final filter to display
     const filter = {
-      $and: [searchFilter, { archived: false }],
+      $and: [searchFilter, dateFilter],
     };
 
     // Final data to display
@@ -266,7 +270,10 @@ exports.getDTable = async function (req, res) {
       Remove,
     });
     // For debugging purposes
-    // console.log("what is this", filter);
+    console.log("what is this", filter);
+    console.log("date", dateFilter);
+    console.log("startDate:", startDate);
+    console.log("endDate:", endDate);
     // console.log("distinct", distinctGunTypes);
     // console.log("the checkbox", checkbGunTypes);
 

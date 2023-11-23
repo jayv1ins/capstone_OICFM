@@ -20,9 +20,9 @@
   <div class="sidebar">
     <div class="logo-details">
       <img src="pnp-male.jpg" alt="" class="circle-image">
-
+      <% if (user.usertype==='Admin' ) { %>
       <span class="logo_name">
-        <%= user.firstName%>
+        Admin <%= user.firstName%>
       </span>
 
     </div>
@@ -66,6 +66,48 @@
       </li>
     </ul>
   </div>
+  <% } else { %>
+
+    <span class="logo_name">
+      <%= user.firstName%>
+    </span>
+  </div>
+  <ul class="nav-links">
+    <li>
+      <a href="/index" id="home-link" class="active">
+        <i class='bx bx-grid-alt'></i>
+        <span class="links_name">Dashboard</span>
+      </a>
+    </li>
+    <li>
+      <a id="datatable-link" href="/DataTable">
+        <i class='bx bx-table'></i>
+        <span class="links_name">Records</span>
+      </a>
+    </li>
+    <li>
+      <a id="scanner-link" href="/scanner">
+        <i class='bx bx-scan'></i>
+        <span class="links_name">Scanner</span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <i class='bx bx-book'></i>
+        <span class="links_name">Help</span>
+      </a>
+    </li>
+
+    <li class="log_out">
+      <a id="logout-link" href="/logout">
+        <i class='bx bx-log-out'></i>
+        <span class="links_name">Log out</span>
+      </a>
+    </li>
+  </ul>
+  </div>
+  <% } %>
+  <!-- Current Active Link -->
   <section class="home-section">
     <nav>
       <div class="sidebar-button">
@@ -76,28 +118,15 @@
     </nav>
     <div class="home-content">
 
-
-
-
       <form onsubmit="handleFilterSubmit(event)" class="custom-form-date" action="/DataTable">
-        <h1 class="form-title">Select Date Range for Turn-Over</h1>
-        <div class="form-row">
-          <div class="form-group col">
-            <label for="startDate">Start Date:</label>
+        <div style="display: none;">
+          <!-- Hide the old Promp of Date -->
             <input type="date" id="startDate" name="startDate" class="custom-input" required>
-          </div>
-          <div class="form-group col">
-            <label for="endDate">End Date:</label>
             <input type="date" id="endDate" name="endDate" class="custom-input" required>
-          </div>
-          <div class="form-group col">
-            <button type="submit" class="custom-button primary">Submit</button>
-            <button type="reset" class="custom-button secondary">Reset<i class='bx bx-reset'></i></button>
-          </div>
         </div>
-        <a href="/DataTable">Scan This Month</a>
+        <button id="scannedThisMonth" class="custom-button primary">Scanned This Month</button>
+        <button id="NotScannedThisMonth" class="custom-button primary">No Scanned for this Month</button>
       </form>
-
       <!-- //Form for dropdown -->
       <div class="main-boxes">
         <div class="right-boxes box" style="width: 100%; height: auto;">
@@ -580,7 +609,51 @@
     </div>
   </section>
 
+  <script>
+    document.getElementById('scannedThisMonth').addEventListener('click', function() {
+          // Get current month and year
+      const currentMonth = new Date().getMonth() + 1; // Months are zero-indexed, so add 1
+      const currentYear = new Date().getFullYear();
 
+      // Set the start date to the 1st day of the current month
+      const formattedStartDate = `${currentYear}-${currentMonth.toString().padStart(2, '0')}-01`;
+    
+      // Set the end date to the last day of the current month
+      const formattedEndDate = `${currentYear}-${currentMonth.toString().padStart(2, '0')}-30`;
+    
+      // Set the start and end date input values
+      document.getElementById('startDate').value = formattedStartDate;
+      document.getElementById('endDate').value = formattedEndDate;
+    
+      // Log the formatted dates to the console
+      console.log('Formatted Start Date:', formattedStartDate);
+      console.log('Formatted End Date:', formattedEndDate);
+    });
+
+    document.getElementById('NotScannedThisMonth').addEventListener('click', function() {
+          // Get current month and year
+      const currentMonth = new Date().getMonth() + 1; // Months are zero-indexed, so add 1
+      const currentYear = new Date().getFullYear();
+
+      // Set the start date to the 1st day of the current month
+      const lastMonth = currentMonth === 1 ? 12 : currentMonth - 1;
+      const formattedStartDate = `${currentYear}-${lastMonth.toString().padStart(2, '0')}-01`;
+    
+      // Set the end date to the last day of the current month
+      const formattedEndDate = `${currentYear}-${lastMonth.toString().padStart(2, '0')}-30`;
+    
+      // Set the start and end date input values
+      document.getElementById('startDate').value = formattedStartDate;
+      document.getElementById('endDate').value = formattedEndDate;
+    
+      // Log the formatted dates to the console
+      console.log('Formatted Start Date:', formattedStartDate);
+      console.log('Formatted End Date:', formattedEndDate);
+    });
+
+    </script>
+    
+    
 
 
 
