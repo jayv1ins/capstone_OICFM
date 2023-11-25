@@ -20,10 +20,12 @@
   <div class="sidebar">
     <div class="logo-details">
       <img src="pnp-male.jpg" alt="" class="circle-image">
-      <span class="logo_name">
-        <%= user.firstName%>
-        <p style="font-size: small;">(Admin)</p>
-      </span>
+      <% if (user.usertype==='Admin' ) { %>
+        <span class="logo_name">
+          <%= user.firstName%>
+            <p style="font-size: small;">(Admin)</p>
+        </span>
+
     </div>
     <ul class="nav-links">
       <li>
@@ -65,14 +67,62 @@
       </li>
     </ul>
   </div>
-  <section class="home-section">
-    <nav>
-      <div class="sidebar-button">
-        <i class='bx bx-menu sidebarBtn'></i>
-        <span class="dashboard">Scanner</span>
-      </div>
+  <% } else { %>
 
-    </nav>
+    <span class="logo_name">
+      <%= user.firstName%>
+    </span>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="/profile/" id="home-link" class="active">
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name">Profile</span>
+        </a>
+      </li>
+      <li>
+        <a href="/index" id="home-link" class="active">
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a id="datatable-link" href="/DataTable">
+          <i class='bx bx-table'></i>
+          <span class="links_name">Records</span>
+        </a>
+      </li>
+      <li>
+        <a id="scanner-link" href="/scanner">
+          <i class='bx bx-scan'></i>
+          <span class="links_name">Scanner</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-book'></i>
+          <span class="links_name">Help</span>
+        </a>
+      </li>
+
+      <li class="log_out">
+        <a id="logout-link" href="/logout">
+          <i class='bx bx-log-out'></i>
+          <span class="links_name">Log out</span>
+        </a>
+      </li>
+    </ul>
+    </div>
+    <% } %>
+      <!-- Current Active Link -->
+      <section class="home-section">
+        <nav>
+          <div class="sidebar-button">
+            <i class='bx bx-menu sidebarBtn'></i>
+            <span class="dashboard">Scanner</span>
+          </div>
+
+        </nav>
 
 
     <div class="home-content">
@@ -127,11 +177,12 @@
                       <div style="color: green; margin-top: 10px; text-align: center;">
                         <p style="color: green;" id="successMessage"></p>
                         
-                        <p style="color: green;" id="GtypeD"></p>
-                        <p style="color: green;" id="GnameD"></p>
-                        <p style="color: green;" id="lastNameD"></p>
-                        <p style="color: green;" id="turnOverD"></p>
-                        <p style="color: green;" id="returnedD"></p>
+                        <p  id="GtypeD"></p>
+                        <p  id="GnameD"></p>
+                        <p  id="lastNameD"></p>
+                        <p  id="firstNameD"></p>
+                        <p  id="turnOverD"></p>
+                        <p  id="returnedD"></p>
                         
                     
 
@@ -192,6 +243,7 @@
   const GnameD = document.getElementById('GnameD');
   const GtypeD = document.getElementById('GtypeD');
   const LastNameD = document.getElementById('lastNameD');
+  const FirstNameD = document.getElementById('firstNameD');
   const TurnOverD = document.getElementById('turnOverD');
   const ReturnedD = document.getElementById('returnedD');
 
@@ -387,6 +439,7 @@
             GnameD.textContent = data.GnameD;
             GtypeD.textContent = data.GtypeD;
             LastNameD.textContent = data.lastNameD;
+            FirstNameD.textContent = data.firstNameD;
             TurnOverD.textContent = data.turnOverD;
             ReturnedD.textContent = data.returnedD;
             cropper.destroy();
@@ -435,6 +488,7 @@
           GnameD.textContent = data.GnameD;
           GtypeD.textContent = data.GtypeD;
           LastNameD.textContent = data.lastNameD;
+          FirstNameD.textContent = data.firstNameD;
           TurnOverD.textContent = data.turnOverD;
           ReturnedD.textContent = data.returnedD;
           

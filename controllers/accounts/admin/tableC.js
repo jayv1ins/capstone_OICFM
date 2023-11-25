@@ -24,15 +24,15 @@ exports.getDTable = async function (req, res) {
     };
     // let query checkbox
     let CBranks = req.query.rank || [];
-    let CBstations = req.query.station || [];
+    let CBoffices = req.query.office || [];
     // Checkbox distinct options
     const distinctRank = await collection.distinct("rank", {
       archived: false,
       rank: { $exists: true, $ne: null },
     });
-    const distinctStation = await collection.distinct("station", {
+    const distinctStation = await collection.distinct("office", {
       archived: false,
-      station: { $exists: true, $ne: null },
+      office: { $exists: true, $ne: null },
     });
 
     const checkbRanks = distinctRank;
@@ -49,15 +49,15 @@ exports.getDTable = async function (req, res) {
         { lastName: searchRegex },
         { middleName: searchRegex },
         { rank: searchRegex },
-        { station: searchRegex },
+        { office: searchRegex },
       ];
     }
     if (!Array.isArray(CBranks)) {
       CBranks = [CBranks];
     }
 
-    if (!Array.isArray(CBstations)) {
-      CBstations = [CBstations];
+    if (!Array.isArray(CBoffices)) {
+      CBoffices = [CBoffices];
     }
 
     // To filter if checkbox options are provided
@@ -65,12 +65,12 @@ exports.getDTable = async function (req, res) {
       searchFilter.rank = { $in: CBranks };
     }
 
-    if (CBstations.length > 0) {
-      searchFilter.station = { $in: CBstations };
+    if (CBoffices.length > 0) {
+      searchFilter.office = { $in: CBoffices };
     }
     const projection = {
       id: true,
-      station: true,
+      office: true,
       rank: true,
       lastName: true,
       firstName: true,
@@ -116,7 +116,7 @@ exports.getDTable = async function (req, res) {
         middleName,
         QLFR,
         policeId,
-        station,
+        office,
         usertype,
         password,
         shift,
@@ -124,7 +124,7 @@ exports.getDTable = async function (req, res) {
 
       return {
         id,
-        station,
+        office,
         rank,
         lastName,
         firstName,
@@ -149,7 +149,7 @@ exports.getDTable = async function (req, res) {
       suggestions: [],
       CBranks,
       checkbRanks,
-      CBstations,
+      CBoffices,
       checkbStations,
     });
   } catch (error) {
@@ -232,7 +232,7 @@ exports.getEdit = async function (req, res) {
           QLFR: true,
           policeId: true,
           rank: true,
-          station: true,
+          office: true,
           usertype: true,
           password: true,
           shift: true,
@@ -245,7 +245,7 @@ exports.getEdit = async function (req, res) {
     }
 
     const {
-      station,
+      office,
       rank,
       email,
       lastName,

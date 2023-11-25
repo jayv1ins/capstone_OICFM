@@ -13,7 +13,7 @@ exports.index = (req, res) => {
 exports.postCreate = async (req, res) => {
   const {
     email,
-    station,
+    office,
     rank,
     lastName,
     firstName,
@@ -74,7 +74,7 @@ exports.postCreate = async (req, res) => {
     QLFR: QLFR,
     policeId: policeId,
     rank: rank,
-    station: station,
+    office: office,
     usertype: usertype,
     password: encryptedPassword,
     shift: shift,

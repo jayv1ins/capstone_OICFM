@@ -33,7 +33,7 @@ exports.getDTable = async function (req, res) {
 
     const New = await collection.countDocuments({
       archived: false,
-      turnOver: {
+      createdAt: {
         $gte: startString,
         $lte: endString,
       },
@@ -294,6 +294,7 @@ exports.deleteData = async function (req, res) {
     await client.connect();
     const db = client.db("PNP_management");
     const collection = db.collection("Record");
+    const currentDate = new Date();
 
     const existingData = await collection.findOne({
       _id: new ObjectId(id),
@@ -307,7 +308,7 @@ exports.deleteData = async function (req, res) {
         {
           _id: new ObjectId(id),
         },
-        { $set: { archived: true } }
+        { $set: { archived: true, updateAt: currentDate.toISOString() } }
       );
 
       res.redirect("/DataTable");

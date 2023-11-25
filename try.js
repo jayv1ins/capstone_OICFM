@@ -15,6 +15,7 @@ async function fetchData() {
     // Get current month and year
     const currentMonth = new Date().getMonth() + 1; // Months are zero-indexed, so add 1
     const currentYear = new Date().getFullYear();
+    const currentDate = new Date();
 
     // Dynamically construct the date range
     const start = `${currentYear}-${currentMonth}-01`;
@@ -52,7 +53,7 @@ async function fetchData() {
         $lte: end,
       },
     });
-
+    console.log("date ", currentDate);
     console.log("Total Documents new:", totalNew);
     console.log("Total Archived:", totalArchived);
   } finally {

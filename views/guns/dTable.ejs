@@ -20,7 +20,6 @@
   <div class="sidebar">
     <div class="logo-details">
       <img src="pnp-male.jpg" alt="" class="circle-image">
-
       <% if (user.usertype==='Admin' ) { %>
         <span class="logo_name">
           <%= user.firstName%>
@@ -75,6 +74,12 @@
     </span>
     </div>
     <ul class="nav-links">
+      <li>
+        <a href="/profile/" id="home-link" class="active">
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name">Profile</span>
+        </a>
+      </li>
       <li>
         <a href="/index" id="home-link" class="active">
           <i class='bx bx-grid-alt'></i>
@@ -368,7 +373,7 @@
                                 data-middlename="<%= data.middleName %>" data-guntype="<%= data.Gtype %>"
                                 data-office="<%= data.office %>" data-gunname="<%= data.Gname %>"
                                 data-caliber="<%= data.caliber %>" data-serialnumber="<%= data.serialN %>"
-                                data-cost="<%= data.cost %>" data-acquisitiondate="<%= data.acquisition %>"
+                                data-cost="<%= data.cost %>" data-acquisition="<%= data.acquisition %>"
                                 data-turnover="<%= data.turnOver %>" data-returned="<%= data.returned %>">
                                 <i class='bx bx-edit'></i>
                               </button>
@@ -460,8 +465,8 @@
                             <td id="modalQualifier"></td>
                           </tr>
                           <tr>
-                            <td><strong>Station</strong></td>
-                            <td id="modalStation"></td>
+                            <td><strong>Office</strong></td>
+                            <td id="modalOffice"></td>
                           </tr>
                           <tr>
                             <td><strong>Gun Type</strong></td>
@@ -548,8 +553,8 @@
                               <td><input type="text" class="form-control" id="editDataQualifier" name="qualifier"
                                   autocomplete="Qualifier" pattern="[a-zA-Z ]+"></td>
 
-                              <td><strong>Station</strong></td>
-                              <td><input type="text" class="form-control" id="editDataStation" name="office"
+                              <td><strong>Office</strong></td>
+                              <td><input type="text" class="form-control" id="editDataOffice" name="office"
                                   autocomplete="office" required minlength="4" pattern="^[a-zA-Z0-9\s-]+$"></td>
                             </tr>
 
@@ -584,7 +589,7 @@
 
 
                               <td><strong>Acquisition Date</strong></td>
-                              <td> <input type="date" class="form-control" id="editDataAcquisitionDate"
+                              <td> <input type="date" class="form-control" id="editDataAcquisition"
                                   name="acquisition">
                             </tr>
 
@@ -627,6 +632,7 @@
         </div>
       </section>
 
+      <!-- date -->
       <script>
         document.getElementById('scannedThisMonth').addEventListener('click', function () {
           // Get current month and year
@@ -670,9 +676,6 @@
         });
 
       </script>
-
-
-
 
 
       <!-- Side bar -->
@@ -735,7 +738,7 @@
         var selectedDataMiddleName = document.getElementById("modalMiddleName");
         var selectedDataQualifier = document.getElementById("modalQualifier");
         var selectedDataRank = document.getElementById("modalRank");
-        var selectedDataStation = document.getElementById("modalStation");
+        var selectedDataOffice = document.getElementById("modalOffice");
         var selectedDataGunType = document.getElementById("modalGunType");
         var selectedDataGunName = document.getElementById("modalGunName");
         var selectedDataCaliber = document.getElementById("modalCaliber");
@@ -772,7 +775,7 @@
             selectedDataMiddleName.innerText = middleName;
             selectedDataQualifier.innerText = qualifier;
             selectedDataRank.innerText = rank;
-            selectedDataStation.innerText = office;
+            selectedDataOffice.innerText = office;
             selectedDataGunType.innerText = gunType;
             selectedDataGunName.innerText = gunName;
             selectedDataCaliber.innerText = caliber;
@@ -792,7 +795,7 @@
           selectedDataMiddleName.innerText = "";
           selectedDataQualifier.innerText = "";
           selectedDataRank.innerText = "";
-          selectedDataStation.innerText = "";
+          selectedDataOffice.innerText = "";
           selectedDataGunType.innerText = "";
           selectedDataGunName.innerText = "";
           selectedDataCaliber.innerText = "";
@@ -810,13 +813,13 @@
           document.getElementById("editDataMiddleName").value = data.middlename || "";
           document.getElementById("editDataQualifier").value = data.qualifier || "";
           document.getElementById("editDataRank").value = data.rank || "";
-          document.getElementById("editDataStation").value = data.office || "";
+          document.getElementById("editDataOffice").value = data.office || "";
           document.getElementById("editDataGunType").value = data.guntype || "";
           document.getElementById("editDataGunName").value = data.gunname || "";
           document.getElementById("editDataCaliber").value = data.caliber || "";
           document.getElementById("editDataSerialNumber").value = data.serialnumber || "";
           document.getElementById("editDataCost").value = data.cost || "";
-          document.getElementById("editDataAcquisitionDate").value = data.acquisitiondate || "";
+          document.getElementById("editDataAcquisition").value = data.acquisition  || "";
           document.getElementById("editDataTurnOver").value = data.turnover || "";
           document.getElementById("editDataReturned").value = data.returned || "";
 
@@ -843,14 +846,14 @@
               caliber: this.dataset.caliber,
               serialnumber: this.dataset.serialnumber,
               cost: this.dataset.cost,
-              acquisitiondate: this.dataset.acquisitiondate,
+              acquisition: this.dataset.acquisition,
               turnover: this.dataset.turnover,
               returned: this.dataset.returned,
             };
             populateEditDataModal(data);
             console.log("ito ang populated data", data);
-            console.log("ito id", data.id)
-            console.log("ito ang sta", office);
+            console.log("ito id", data.acquisition)
+            console.log("ito ang sta", data.office);
           });
         });
 

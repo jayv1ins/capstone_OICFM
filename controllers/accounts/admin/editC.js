@@ -42,7 +42,7 @@ exports.getEdit = async function (req, res) {
           QLFR: true,
           policeId: true,
           rank: true,
-          station: true,
+          office: true,
           usertype: true,
           password: true,
           shift: true,
@@ -55,7 +55,7 @@ exports.getEdit = async function (req, res) {
     }
 
     const {
-      station,
+      office,
       rank,
       email,
       lastName,
@@ -76,7 +76,7 @@ exports.getEdit = async function (req, res) {
       data: {
         id,
         email,
-        station,
+        office,
         rank,
         lastName,
         firstName,
@@ -115,7 +115,7 @@ exports.updatedData = async function (req, res) {
   const id = String(req.params.id);
   const {
     email,
-    station,
+    office,
     rank,
     lastName,
     firstName,
@@ -144,7 +144,7 @@ exports.updatedData = async function (req, res) {
           QLFR: true,
           policeId: true,
           rank: true,
-          station: true,
+          office: true,
           usertype: true,
           password: true,
           shift: true,
@@ -179,7 +179,7 @@ exports.updatedData = async function (req, res) {
           QLFR: QLFR,
           policeId: policeId,
           rank: rank,
-          station: station,
+          office: office,
           usertype: usertype,
           password: encryptedPassword,
           shift: newShift,
@@ -200,7 +200,7 @@ exports.updatedData = async function (req, res) {
         QLFR,
         policeId,
         rank,
-        station,
+        office,
         usertype,
       },
       SuccessMessage: "Data updated successfully",

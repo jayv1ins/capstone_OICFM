@@ -26,6 +26,7 @@ exports.scanner = (req, res) => {
     GnameD: "",
     GtypeD: "",
     lastNameD: "",
+    firstNameD: "",
     turnOverD: "",
     returnedD: "",
   });
@@ -85,6 +86,7 @@ exports.scanUpdate = async (req, res) => {
       const GnameD = existingData.Gname;
       const GtypeD = existingData.Gtype;
       const lastNameD = existingData.lastName;
+      const firstNameD = existingData.firstName;
       const turnOverD = existingData.turnOver;
       const returnedD = existingData.returned;
 
@@ -96,6 +98,7 @@ exports.scanUpdate = async (req, res) => {
         GnameD,
         GtypeD,
         lastNameD,
+        firstNameD,
         turnOverD,
         returnedD,
       });

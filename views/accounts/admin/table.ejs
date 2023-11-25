@@ -23,12 +23,13 @@
 <body>
   <div class="sidebar">
     <div class="logo-details">
-      <img src="/pnp-male.jpg" alt="" class="circle-image">
+      <img src="pnp-male.jpg" alt="" class="circle-image">
+      <% if (user.usertype==='Admin' ) { %>
+        <span class="logo_name">
+          <%= user.firstName%>
+            <p style="font-size: small;">(Admin)</p>
+        </span>
 
-      <span class="logo_name">
-        <%= user.firstName%>
-        <p style="font-size: small;">(Admin)</p>
-      </span>
     </div>
     <ul class="nav-links">
       <li>
@@ -70,6 +71,54 @@
       </li>
     </ul>
   </div>
+  <% } else { %>
+
+    <span class="logo_name">
+      <%= user.firstName%>
+    </span>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="/profile/" id="home-link" class="active">
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name">Profile</span>
+        </a>
+      </li>
+      <li>
+        <a href="/index" id="home-link" class="active">
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a id="datatable-link" href="/DataTable">
+          <i class='bx bx-table'></i>
+          <span class="links_name">Records</span>
+        </a>
+      </li>
+      <li>
+        <a id="scanner-link" href="/scanner">
+          <i class='bx bx-scan'></i>
+          <span class="links_name">Scanner</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-book'></i>
+          <span class="links_name">Help</span>
+        </a>
+      </li>
+
+      <li class="log_out">
+        <a id="logout-link" href="/logout">
+          <i class='bx bx-log-out'></i>
+          <span class="links_name">Log out</span>
+        </a>
+      </li>
+    </ul>
+    </div>
+    <% } %>
+      <!-- Current Active Link -->
   <section class="home-section">
     <nav>
       <div class="sidebar-button">
@@ -106,12 +155,12 @@
                 Station<i class='bx bx-chevron-down'></i>
               </button>
               <ul class="custom-dropdown-menu scrollable-menu">
-                <% checkbStations.forEach(function(CBstation) { %>
+                <% checkbStations.forEach(function(CBoffice) { %>
                   <li class="custom-dropdown-item">
                     <div class="custom-form-check">
-                      <input class="custom-form-check-input" type="checkbox" id="<%- CBstation %>" name="station"
-                        value="<%- CBstation %>" <% if (CBstations.includes(CBstation)) { %>checked<% } %>>
-                        <label class="custom-form-check-label" for="<%- CBstation %>"> <%- CBstation %> </label>
+                      <input class="custom-form-check-input" type="checkbox" id="<%- CBoffice %>" name="office"
+                        value="<%- CBoffice %>" <% if (CBoffices.includes(CBoffice)) { %>checked<% } %>>
+                        <label class="custom-form-check-label" for="<%- CBoffice %>"> <%- CBoffice %> </label>
                     </div>
                   </li>
                   <% }); %>
@@ -180,7 +229,7 @@
                                     <%= data.QLFR %>
                             </td>
                             <td>
-                              <%= data.station %>
+                              <%= data.office %>
                             </td>
                             <td>
                               <%= data.policeId %>
@@ -195,7 +244,7 @@
                                   data-bs-target="#selectedData" data-id="<%= data.id %>"
                                   data-lastname="<%= data.lastName %>" data-firstname="<%= data.firstName %>"
                                   data-middlename="<%= data.middleName %>" data-qualifier="<%= data.QLFR %>"
-                                  data-rank="<%= data.rank %>" data-station="<%= data.station %>"
+                                  data-rank="<%= data.rank %>" data-office="<%= data.office %>"
                                   data-policeId="<%= data.policeId %>" data-usertype="<%= data.usertype %>"
                                   data-password="<%= data.password %>" data-shift="<%= data.shift %>">
                                   <i class="bx bx-low-vision"></i>
@@ -377,9 +426,9 @@
                               </tr>
 
                               <tr>
-                                <td><strong>Station</strong></td>
-                                <td><input type="text" class="form-control" id="editDataStation" name="station"
-                                    autocomplete="station" required minlength="4" pattern="[a-zA-Z ]+"></td>
+                                <td><strong>Office</strong></td>
+                                <td><input type="text" class="form-control" id="editDataStation" name="office"
+                                    autocomplete="office" required minlength="4" pattern="[a-zA-Z ]+"></td>
                               </tr>
 
                               <tr>
@@ -567,7 +616,7 @@
         var middleName = this.getAttribute("data-middlename");
         var qualifier = this.getAttribute("data-qualifier");
         var rank = this.getAttribute("data-rank");
-        var station = this.getAttribute("data-station");
+        var office = this.getAttribute("data-office");
         var policeId = this.getAttribute("data-policeId");
         var usertype = this.getAttribute("data-usertype");
         var password = this.getAttribute("data-password");
@@ -583,7 +632,7 @@
         selectedDataMiddleName.innerText = middleName;
         selectedDataQualifier.innerText = qualifier;
         selectedDataRank.innerText = rank;
-        selectedDataStation.innerText = station;
+        selectedDataStation.innerText = office;
         selectedDataPoliceId.innerText = policeId;
         selectedDataUsertype.innerText = usertype;
         selectedDataPassword.innerText = decryptedPassword;
@@ -632,7 +681,7 @@
       document.getElementById("editDataQualifier").value = data.qualifier || "";
       document.getElementById("editDataPoliceId").value = data.policeId || "";
       document.getElementById("editDataRank").value = data.rank || "";
-      document.getElementById("editDataStation").value = data.station || "";
+      document.getElementById("editDataStation").value = data.office || "";
       document.getElementById("editDataUserType").value = data.usertype || "";
       document.getElementById("editDataPassword").value = decryptCaesar(data.password, data.shift) || "";
       toggleEditPasswordVisibilityIcon();
@@ -656,7 +705,7 @@
           qualifier: this.dataset.qualifier,
           policeId: this.dataset.policeId,
           rank: this.dataset.rank,
-          station: this.dataset.station,
+          office: this.dataset.office,
           usertype: this.dataset.usertype,
           password: this.dataset.password,
           shift: this.dataset.shift,

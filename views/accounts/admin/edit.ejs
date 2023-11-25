@@ -33,7 +33,63 @@
   
 </head>
 <body >
+  <div class="sidebar">
+    <div class="logo-details">
+      <img src="/pnp-male.jpg" alt="" class="circle-image">
 
+      <span class="logo_name">
+        <%= user.firstName%>
+        <p style="font-size: small;">(Admin)</p>
+      </span>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="/index" id="home-link" class="active">
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a id="datatable-link" href="/DataTable">
+          <i class='bx bx-table'></i>
+          <span class="links_name">Records</span>
+        </a>
+      </li>
+      <li>
+        <a id="scanner-link" href="/scanner">
+          <i class='bx bx-scan'></i>
+          <span class="links_name">Scanner</span>
+        </a>
+      </li>
+      <li>
+        <a id="admin-table-link" href="/admin/table">
+          <i class='bx bx-user'></i>
+          <span class="links_name">Manager</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-book'></i>
+          <span class="links_name">Help</span>
+        </a>
+      </li>
+
+      <li class="log_out">
+        <a id="logout-link" href="/logout">
+          <i class='bx bx-log-out'></i>
+          <span class="links_name">Log out</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <section class="home-section">
+    <nav>
+      <div class="sidebar-button">
+        <i class='bx bx-menu sidebarBtn'></i>
+        <span class="dashboard">Manager List</span>
+      </div>
+
+    </nav>
 
     <div class="container">
 
@@ -90,8 +146,8 @@
 
           
                 <div class="col-sm-4 form-group">
-                  <label for="inputEmail4">Station</label>
-                  <input type="text" class="form-control" value="<%= data.station %>" name="station" autocomplete="station"
+                  <label for="inputEmail4">Office</label>
+                  <input type="text" class="form-control" value="<%= data.office %>" name="office" autocomplete="office"
                     required min="4" pattern="^[A-Z][a-zA-Z]*$">
                 </div>
 
@@ -101,8 +157,6 @@
                   <input type="text" class="form-control" id="rank" name="rank" value="<%= data.rank %>">
                 </div>
 
-          
-                
 
                 <div class="col-sm-4 form-group">
                   <label for="inputZip">User Type</label>

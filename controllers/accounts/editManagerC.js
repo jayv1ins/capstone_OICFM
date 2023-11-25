@@ -41,7 +41,7 @@ exports.getEdit = async function (req, res) {
           QLFR: true,
           policeId: true,
           rank: true,
-          station: true,
+          office: true,
           usertype: true,
           password: true,
           shift: true,
@@ -54,7 +54,7 @@ exports.getEdit = async function (req, res) {
     }
 
     const {
-      station,
+      office,
       rank,
       email,
       lastName,
@@ -75,7 +75,7 @@ exports.getEdit = async function (req, res) {
       data: {
         id,
         email,
-        station,
+        office,
         rank,
         lastName,
         firstName,
@@ -112,10 +112,9 @@ function encryptCaesar(text, shift) {
 
 exports.updatedData = async function (req, res) {
   const id = String(req.params.id);
-  const user = req.user;
   const {
     email,
-    station,
+    office,
     rank,
     lastName,
     firstName,
@@ -130,13 +129,43 @@ exports.updatedData = async function (req, res) {
     await client.connect();
     const db = client.db("PNP_management");
     const collection = db.collection("User");
+    const data = await collection.findOne(
+      {
+        _id: new ObjectId(id), // Use ObjectId with id variable
+      },
+      {
+        projection: {
+          id: true,
+          email: true,
+          lastName: true,
+          firstName: true,
+          middleName: true,
+          QLFR: true,
+          policeId: true,
+          rank: true,
+          office: true,
+          usertype: true,
+          password: true,
+          shift: true,
+        },
+      }
+    );
+    if (!data) {
+      res.render(`accounts/admin/edit/${id}`, {
+        user: req.user,
+        ErrorMessage: "Error",
+      });
+    }
+
+    // Retrieve the current shift value from the database
+    const currentShift = data.shift;
+
     // Generate a new shift value using random number
     const newShift = Math.floor(Math.random() * 25) + 1;
 
-    // Encrypt the new password using the new shift value
+    // Encrypt the new password get from the encryption formula above and new shift value then pass it to the database
     const encryptedPassword = encryptCaesar(password, newShift);
 
-    // Update user details in the database
     const updatedAt = new Date();
     const updatedData = await collection.updateOne(
       { _id: new ObjectId(id) },
@@ -149,7 +178,7 @@ exports.updatedData = async function (req, res) {
           QLFR: QLFR,
           policeId: policeId,
           rank: rank,
-          station: station,
+          office: office,
           usertype: usertype,
           password: encryptedPassword,
           shift: newShift,
@@ -163,6 +192,18 @@ exports.updatedData = async function (req, res) {
       user: {
         ...user,
         updatedData,
+        data: {
+          id,
+          email,
+          lastName,
+          firstName,
+          middleName,
+          QLFR,
+          policeId,
+          rank,
+          office,
+          usertype,
+        },
         SuccessMessage: "Data updated successfully",
       },
     });

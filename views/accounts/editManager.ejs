@@ -33,7 +33,7 @@
 <body >
 
 
-  <%- include('../../components/navbar') %>
+
 
   
 
@@ -45,38 +45,80 @@
         <h2 class="text-center mb-4 mt-5" >Manager Edit Information</h2>
         <div class="row jumbotron shadow-lg p-3 mb-5 bg-body-tertiary rounded border">
 
-          <% if (typeof ErrorMessage !=='undefined' ) { %>
+          <% if (typeof ErrorMessage !== 'undefined') { %>
             <p style="color: red;">
               <%= ErrorMessage %>
             </p>
-            <% } else if (typeof SuccessMessage !=='undefined' ) { %>
-              <p style="color: green;">
-                <%= SuccessMessage %>
-              </p>
-              <% } %>
+          <% } else if (typeof SuccessMessage  !== 'undefined') { %>
+            <p style="color: green;">
+              <%= SuccessMessage %>
+            </p>
+          <% } %>
+
+              <div class="col-sm-4 form-group">
+                <label for="inputEmail4">Email</label>
+                <input type="email" class="form-control" value="<%= data.email %>" id="email"
+                  name="email" autocomplete="email" required >
+              </div>
 
                 <div class="col-sm-4 form-group">
-                  <label for="inputEmail4">User Name</label>
-                  <input type="text" class="form-control" value="<%= user.username %>" id="username"
-                    name="username" autocomplete="username" required min="4" pattern="[a-zA-Z]+">
+                  <label for="inputEmail4">Last Name</label>
+                  <input type="text" class="form-control" value="<%= data.lastName %>" id="lastName"
+                    name="lastName" autocomplete="LastName" required min="4" pattern="[a-zA-Z]+">
                 </div>
 
                 <div class="col-sm-4 form-group">
-                  <label for="inputPassword4">Email</label>
-                  <input type="text" class="form-control" value="<%= user.email %>" id="email"
-                    name="email" autocomplete="email" required min="4">
+                  <label for="inputPassword4">First Name</label>
+                  <input type="text" class="form-control" value="<%= data.firstName %>" id="firstName"
+                    name="firstName" autocomplete="firstName" required min="4" pattern="[a-zA-Z]+">
                 </div>
 
                 <div class="col-sm-4 form-group">
-                  <label for="inputPassword4">Usertype</label>
-                  <input type="text" class="form-control" value="<%= user.usertype %>" id="Usertype"
-                    name="Usertype" autocomplete="Usertype" required min="4" pattern="[a-zA-Z]+">
+                  <label for="inputPassword4">Middle Name</label>
+                  <input type="text" class="form-control" value="<%= data.middleName %>" id="middleName"
+                    name="middleName" autocomplete="middleName" required min="4" pattern="[a-zA-Z]+">
+                </div>
+
+                <div class="col-sm-4 form-group">
+                  <label for="inputPassword4">QLFR</label>
+                  <input type="text" class="form-control" value="<%= data.QLFR %>" id="QLFR" name="QLFR" autocomplete="QLFR">
+                </div>
+
+
+                <div class="col-sm-4 form-group">
+                  <label for="inputEmail4">Police ID Number</label>
+                  <input type="text" class="form-control" value="<%= data.policeId %>" name="policeId"
+                    autocomplete="serialN" required min="4">
+                </div>
+
+          
+                <div class="col-sm-4 form-group">
+                  <label for="inputEmail4">Office</label>
+                  <input type="text" class="form-control" value="<%= data.office %>" name="office" autocomplete="office"
+                    required min="4" pattern="^[A-Z][a-zA-Z]*$">
+                </div>
+
+               
+                <div class="col-sm-4 form-group">
+                  <label for="inputZip">Rank</label>
+                  <input type="text" class="form-control" id="rank" name="rank" value="<%= data.rank %>">
+                </div>
+
+
+                <div class="col-sm-4 form-group">
+                  <label for="inputZip">User Type</label>
+                  <input type="text" class="form-control" id="usertype" name="usertype" value="<%= data.usertype %>">
                 </div>
 
                 <div class="col-sm-4 form-group">
                   <label for="inputZip">Password</label>
                   <div class="input-group">
-                  
+                    <input type="password" class="form-control" id="password" name="password" value="<%= data.password %>">
+                    <div class="input-group-append">
+                      <span class="input-group-text">
+                        <i class="fas fa-eye" id="togglePassword" onclick="togglePasswordVisibility()"></i>
+                      </span>
+                    </div>
                   </div>
                 </div>
         </div>
