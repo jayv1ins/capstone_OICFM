@@ -20,10 +20,12 @@
   <div class="sidebar">
     <div class="logo-details">
       <img src="pnp-male.jpg" alt="" class="circle-image">
+
       <% if (user.usertype==='Admin' ) { %>
-      <span class="logo_name">
-        Admin <%= user.firstName%>
-      </span>
+        <span class="logo_name">
+          <%= user.firstName%>
+            <p style="font-size: small;">(Admin)</p>
+        </span>
 
     </div>
     <ul class="nav-links">
@@ -71,925 +73,944 @@
     <span class="logo_name">
       <%= user.firstName%>
     </span>
-  </div>
-  <ul class="nav-links">
-    <li>
-      <a href="/index" id="home-link" class="active">
-        <i class='bx bx-grid-alt'></i>
-        <span class="links_name">Dashboard</span>
-      </a>
-    </li>
-    <li>
-      <a id="datatable-link" href="/DataTable">
-        <i class='bx bx-table'></i>
-        <span class="links_name">Records</span>
-      </a>
-    </li>
-    <li>
-      <a id="scanner-link" href="/scanner">
-        <i class='bx bx-scan'></i>
-        <span class="links_name">Scanner</span>
-      </a>
-    </li>
-    <li>
-      <a href="#">
-        <i class='bx bx-book'></i>
-        <span class="links_name">Help</span>
-      </a>
-    </li>
+    </div>
+    <ul class="nav-links">
+      <li>
+        <a href="/index" id="home-link" class="active">
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a id="datatable-link" href="/DataTable">
+          <i class='bx bx-table'></i>
+          <span class="links_name">Records</span>
+        </a>
+      </li>
+      <li>
+        <a id="scanner-link" href="/scanner">
+          <i class='bx bx-scan'></i>
+          <span class="links_name">Scanner</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-book'></i>
+          <span class="links_name">Help</span>
+        </a>
+      </li>
 
-    <li class="log_out">
-      <a id="logout-link" href="/logout">
-        <i class='bx bx-log-out'></i>
-        <span class="links_name">Log out</span>
-      </a>
-    </li>
-  </ul>
-  </div>
-  <% } %>
-  <!-- Current Active Link -->
-  <section class="home-section">
-    <nav>
-      <div class="sidebar-button">
-        <i class='bx bx-menu sidebarBtn'></i>
-        <span class="dashboard">Data Table</span>
-      </div>
-
-    </nav>
-    <div class="home-content">
-
-      <form onsubmit="handleFilterSubmit(event)" class="custom-form-date" action="/DataTable">
-        <div style="display: none;">
-          <!-- Hide the old Promp of Date -->
-            <input type="date" id="startDate" name="startDate" class="custom-input" required>
-            <input type="date" id="endDate" name="endDate" class="custom-input" required>
-        </div>
-        <button id="scannedThisMonth" class="custom-button primary">Scanned This Month</button>
-        <button id="NotScannedThisMonth" class="custom-button primary">No Scanned for this Month</button>
-      </form>
-      <!-- //Form for dropdown -->
-      <div class="main-boxes">
-        <div class="right-boxes box" style="width: 100%; height: auto;">
-
-
-
-          
-
-          <form action="/DataTable" method="GET" onsubmit="handleFilterSubmit(event)" class="custom-form">
-
-
-            <div class="custom-dropdown">
-              <button class="custom-dropdown-toggle" type="button" aria-expanded="false">Gun Type<i
-                  class='bx bx-chevron-down'></i></button>
-              <ul class="custom-dropdown-menu scrollable-menu">
-                <% checkbGunTypes.forEach(function(CBgunType) { %>
-                  <li class="custom-dropdown-item">
-                    <div class="custom-form-check">
-                      <input type="checkbox" id="<%- CBgunType %>" class="custom-form-check-input" name="Gtype"
-                        value="<%- CBgunType %>" <% if (CBgunTypes.includes(CBgunType)) { %>checked<% } %>>
-                        <label class="custom-form-check-label" for="<%- CBgunType %>"><%- CBgunType %></label>
-                    </div>
-                  </li>
-                  <% }); %>
-              </ul>
-            </div>
-
-
-            <div class="custom-dropdown">
-              <button class="custom-dropdown-toggle" type="button" aria-expanded="false">Gun Name<i
-                  class='bx bx-chevron-down'></i></button>
-              <ul class="custom-dropdown-menu scrollable-menu">
-                <% checkbGunNames.forEach(function(CBgunName) { %>
-                  <li class="custom-dropdown-item">
-                    <div class="custom-form-check">
-                      <input type="checkbox" id="<%- CBgunName %>" class="custom-form-check-input" name="Gname"
-                        value="<%- CBgunName %>" <% if (CBgunNames.includes(CBgunName)) { %>checked<% } %>>
-                        <label class="custom-form-check-label" for="<%- CBgunName %>"><%- CBgunName %></label>
-                    </div>
-                  </li>
-                  <% }); %>
-              </ul>
-            </div>
-
-
-            <div class="custom-dropdown">
-              <button type="button" class="custom-dropdown-toggle">
-                Rank<i class='bx bx-chevron-down'></i>
-              </button>
-              <ul class="custom-dropdown-menu scrollable-menu">
-                <% checkbRanks.forEach(function(CBrank) { %>
-                  <li class="custom-dropdown-item">
-                    <div class="custom-form-check">
-                      <input type="checkbox" id="<%- CBrank %>" class="custom-form-check-input" name="rank"
-                        value="<%- CBrank %>" <% if (CBranks.includes(CBrank)) { %>checked<% } %>>
-                        <label class="custom-form-check-label" for="<%- CBrank %>"><%- CBrank %></label>
-                    </div>
-                  </li>
-                  <% }); %>
-              </ul>
-            </div>
-
-            <div class="custom-dropdown">
-              <button type="button" class="custom-dropdown-toggle">
-                Office<i class='bx bx-chevron-down'></i>
-              </button>
-              <ul class="custom-dropdown-menu scrollable-menu">
-                <% checkbOffices.forEach(function(CBoffice) { %>
-                  <li class="custom-dropdown-item">
-                    <div class="custom-form-check">
-                      <input class="custom-form-check-input" type="checkbox" id="<%- CBoffice %>" name="office"
-                        value="<%- CBoffice %>" <% if (CBoffices.includes(CBoffice)) { %>checked<% } %>>
-                        <label class="custom-form-check-label" for="<%- CBoffice %>"> <%- CBoffice %> </label>
-                    </div>
-                  </li>
-                  <% }); %>
-              </ul>
-            </div>
-
-            <div class="custom-dropdown">
-              <button type="button" class="custom-dropdown-toggle" aria-expanded="false">
-                Caliber<i class='bx bx-chevron-down'></i>
-              </button>
-              <ul class="custom-dropdown-menu scrollable-menu">
-                <% checkbCalibers.forEach(function(CBcaliber) { %>
-                  <li class="custom-dropdown-item">
-                    <div class="custom-form-check">
-                      <input class="custom-form-check-input" type="checkbox" id="<%- CBcaliber %>" name="caliber"
-                        value="<%- CBcaliber %>" <% if (CBcalibers.includes(CBcaliber)) { %>checked<% } %>>
-                        <label class="custom-form-check-label" for="<%- CBcaliber %>"> <%- CBcaliber %> </label>
-                    </div>
-                  </li>
-                  <% }); %>
-              </ul>
-            </div>
-
-            <button type="submit" class="custom-button primary">Filter<i class='bx bx-filter-alt'></i></button>
-            <button type="reset" class="custom-button secondary">Reset<i class='bx bx-reset'></i></button>
-          </form>
-
-
-          <div class="main-cards">
-            <div class="card">
-              <div class="card-inner">
-                <p class="text-primary">TOTAL NUMBER OF USER</p>
-                <i class='bx bx-user-circle'></i>
-              </div>
-              <h1>
-                <%= TotalGun +1 %>
-              </h1>
-            </div>
-
-            <div class="card">
-              <div class="card-inner">
-                <p class="text-primary">TOTAL GAIN OF THIS MONTH</p>
-                <i class='bx bx-line-chart'></i>
-              </div>
-
-              <h1>
-                <%= New %> 
-              </h1>
-            </div>
-
-            <div class="card">
-              <div class="card-inner">
-                <p class="text-primary">TOTAL LOSES OF THIS MONTH</p>
-                <i class='bx bx-trending-down'></i>
-              </div>
-
-              <h1>
-                <%= Remove %> 
-              </h1>
-            </div>
-
+      <li class="log_out">
+        <a id="logout-link" href="/logout">
+          <i class='bx bx-log-out'></i>
+          <span class="links_name">Log out</span>
+        </a>
+      </li>
+    </ul>
+    </div>
+    <% } %>
+      <!-- Current Active Link -->
+      <section class="home-section">
+        <nav>
+          <div class="sidebar-button">
+            <i class='bx bx-menu sidebarBtn'></i>
+            <span class="dashboard">Data Table</span>
           </div>
 
-          <!-- Search bar -->
-          <form action="/DataTable" method="GET" onsubmit="handleFilterSubmit(event)" class="custom-search-form">
-            <div class="custom-form-row">
-              <div class="custom-form-group col">
-                <input type="text" class="search-input" id="searchQuery" name="search" list="searchSuggestions"
-                  placeholder="Enter name or gun name" <% if (searchQuery) { %>value="<%- searchQuery %>"<% } %>>
-                    <datalist id="searchSuggestions">
-                      <% suggestions.forEach(function(suggestion) { %>
-                        <option value="<%- suggestion %>">
-                          <% }); %>
-                    </datalist>
-              </div>
-              <button type="submit" class="custom-button primary">Search<i class='bx bx-search-alt-2'></i></button>
+        </nav>
+        <div class="home-content">
 
-            </div>
-            <div class="custom-form-row">
-                        <div class="custom-form-group col">
-                          <button class="downloadBtn" id="downloadExcelBtn">Download Excel<i class='bx bx-spreadsheet'></i></button>
+
+          <!-- //Form for dropdown -->
+          <div class="main-boxes">
+            <div class="right-boxes box" style="width: 100%; height: auto;">
+
+
+
+
+
+              <form action="/DataTable" method="GET" onsubmit="handleFilterSubmit(event)" class="custom-form">
+
+
+                <div class="custom-dropdown">
+                  <button class="custom-dropdown-toggle" type="button" aria-expanded="false">Gun Type<i
+                      class='bx bx-chevron-down'></i></button>
+                  <ul class="custom-dropdown-menu scrollable-menu">
+                    <% checkbGunTypes.forEach(function(CBgunType) { %>
+                      <li class="custom-dropdown-item">
+                        <div class="custom-form-check">
+                          <input type="checkbox" id="<%- CBgunType %>" class="custom-form-check-input" name="Gtype"
+                            value="<%- CBgunType %>" <% if (CBgunTypes.includes(CBgunType)) { %>checked<% } %>>
+                            <label class="custom-form-check-label" for="<%- CBgunType %>"><%- CBgunType %></label>
                         </div>
-                      </div>
-          </form>
-          
-          
-
-
-          <table class="custom-table">
-            <thead class="custom-table-header">
-              <tr>
-                <th>S.No</th>
-                <th>Rank</th>
-                <th>Full Name</th>
-                <th>Office</th>
-                <th>Gun Type</th>
-                <th>Caliber</th>
-                <th>Gun Name</th>
-                <th>Serial ID</th>
-                <th>turnOver</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <% if (datas.length> 0) { %>
-                <% let counter=(page - 1) * limit + 1; %>
-                  <% datas.forEach(function (data) { %>
-                    <tr>
-                      <td>
-                        <%= counter %>
-                      </td>
-                      <td>
-                        <%= data.rank %>
-
-                      </td>
-                      <td>
-                        <%= data.lastName %>, <%= data.firstName %> . <%= data.middleName %>
-                      </td>
-                      <td>
-                        <%= data.office %>
-                      </td>
-                      <td>
-                        <%= data.Gtype %>
-                      </td>
-                      <td>
-                        <%= data.caliber %>
-                      </td>
-                      <td>
-                        <%= data.Gname %>
-                      </td>
-                      <td>
-                        <%= data.serialN %>
-                      </td>
-
-                      <td>
-                        <%= data.turnOver %>
-                      </td>
-
-
-                      <td>
-                        <!-- Modal View -->
-                        <div class="custom-button-group">
-                          <button class="custom-button1 selectedData" data-bs-toggle="modal"
-                            data-qualifier="<%= data.QLFR %>" data-rank="<%= data.rank %>"
-                            data-bs-target="#selectedData" data-id="<%= data.id %>" data-lastname="<%= data.lastName %>"
-                            data-firstname="<%= data.firstName %>" data-middlename="<%= data.middleName %>"
-                            data-qualifier="<%= data.QLFR %>" data-rank="<%= data.rank %>"
-                            data-office="<%= data.office %>" data-guntype="<%= data.Gtype %>"
-                            data-gunname="<%= data.Gname %>" data-caliber="<%= data.caliber %>"
-                            data-serialnumber="<%= data.serialN %>" data-cost="<%= data.cost %>"
-                            data-acquisitiondate="<%= data.acquisition %>" data-turnover="<%= data.turnOver %>"
-                            data-returned="<%= data.returned %>">
-                            <i class="bx bx-low-vision"></i>
-                          </button>
-                          <!-- Modal Edit -->
-                          <button class="custom-button2 editData" data-bs-toggle="modal" data-bs-target="#editData"
-                            data-qualifier="<%= data.QLFR %>" data-rank="<%= data.rank %>" data-id="<%= data.id %>"
-                            data-lastname="<%= data.lastName %>" data-firstname="<%= data.firstName %>"
-                            data-middlename="<%= data.middleName %>" data-guntype="<%= data.Gtype %>"
-                            data-office="<%= data.office %>" data-gunname="<%= data.Gname %>"
-                            data-caliber="<%= data.caliber %>" data-serialnumber="<%= data.serialN %>"
-                            data-cost="<%= data.cost %>" data-acquisitiondate="<%= data.acquisition %>"
-                            data-turnover="<%= data.turnOver %>" data-returned="<%= data.returned %>">
-                            <i class='bx bx-edit'></i>
-                          </button>
-
-                          <button class="custom-button2 custom-button-danger" onclick="confirmDelete('<%= data.id %>')">
-                            <i class='bx bx-trash'></i>
-                          </button>
-
-                        </div>
-                      </td>
-
-                    </tr>
-                    <% counter++; %>
+                      </li>
                       <% }); %>
-                        <% } else { %>
-                          <tr>
-                            <td colspan="10" class="text-center">No data found.</td>
-                          </tr>
-                          <% } %>
-            </tbody>
-          </table>
+                  </ul>
+                </div>
 
-          <!-- Pagination -->
-          <div class="custom-pagination mt-5">
-            <div class="custom-pagination-info">
-              <span class="custom-pagination-text">Showing <%= (page - 1) * limit + 1 %>-<%= Math.min(page * limit,
-                    totalRecords) %> of <%= totalRecords %></span>
-            </div>
-            <div class="custom-pagination-buttons">
 
-              <% if (page> 1) { %>
-                <a href="/DataTable?page=<%= page - 1 %>" class="custom-button2 custom-button-primary"><i
-                    class='bx bx-skip-previous'></i></a>
-                <% } %>
-                  <% for (let i=1; i <=totalPages; i++) { %>
-                    <% if (page===i) { %>
-                      <span class="custom-button2 custom-button-secondary">
-                        <%= i %>
-                      </span>
-                      <% } else { %>
-                        <a href="/DataTable?page=<%= i %>" class="custom-button2 custom-button-primary">
-                          <%= i %>
-                        </a>
-                        <% } %>
-                          <% } %>
-                            <% if (page < totalPages) { %>
-                              <a href="/DataTable?page=<%= page + 1 %>" class="custom-button2 custom-button-primary"><i
-                                  class='bx bx-skip-next'></i></a>
+                <div class="custom-dropdown">
+                  <button class="custom-dropdown-toggle" type="button" aria-expanded="false">Gun Name<i
+                      class='bx bx-chevron-down'></i></button>
+                  <ul class="custom-dropdown-menu scrollable-menu">
+                    <% checkbGunNames.forEach(function(CBgunName) { %>
+                      <li class="custom-dropdown-item">
+                        <div class="custom-form-check">
+                          <input type="checkbox" id="<%- CBgunName %>" class="custom-form-check-input" name="Gname"
+                            value="<%- CBgunName %>" <% if (CBgunNames.includes(CBgunName)) { %>checked<% } %>>
+                            <label class="custom-form-check-label" for="<%- CBgunName %>"><%- CBgunName %></label>
+                        </div>
+                      </li>
+                      <% }); %>
+                  </ul>
+                </div>
+
+
+                <div class="custom-dropdown">
+                  <button type="button" class="custom-dropdown-toggle">
+                    Rank<i class='bx bx-chevron-down'></i>
+                  </button>
+                  <ul class="custom-dropdown-menu scrollable-menu">
+                    <% checkbRanks.forEach(function(CBrank) { %>
+                      <li class="custom-dropdown-item">
+                        <div class="custom-form-check">
+                          <input type="checkbox" id="<%- CBrank %>" class="custom-form-check-input" name="rank"
+                            value="<%- CBrank %>" <% if (CBranks.includes(CBrank)) { %>checked<% } %>>
+                            <label class="custom-form-check-label" for="<%- CBrank %>"><%- CBrank %></label>
+                        </div>
+                      </li>
+                      <% }); %>
+                  </ul>
+                </div>
+
+                <div class="custom-dropdown">
+                  <button type="button" class="custom-dropdown-toggle">
+                    Office<i class='bx bx-chevron-down'></i>
+                  </button>
+                  <ul class="custom-dropdown-menu scrollable-menu">
+                    <% checkbOffices.forEach(function(CBoffice) { %>
+                      <li class="custom-dropdown-item">
+                        <div class="custom-form-check">
+                          <input class="custom-form-check-input" type="checkbox" id="<%- CBoffice %>" name="office"
+                            value="<%- CBoffice %>" <% if (CBoffices.includes(CBoffice)) { %>checked<% } %>>
+                            <label class="custom-form-check-label" for="<%- CBoffice %>"> <%- CBoffice %> </label>
+                        </div>
+                      </li>
+                      <% }); %>
+                  </ul>
+                </div>
+
+                <div class="custom-dropdown">
+                  <button type="button" class="custom-dropdown-toggle" aria-expanded="false">
+                    Caliber<i class='bx bx-chevron-down'></i>
+                  </button>
+                  <ul class="custom-dropdown-menu scrollable-menu">
+                    <% checkbCalibers.forEach(function(CBcaliber) { %>
+                      <li class="custom-dropdown-item">
+                        <div class="custom-form-check">
+                          <input class="custom-form-check-input" type="checkbox" id="<%- CBcaliber %>" name="caliber"
+                            value="<%- CBcaliber %>" <% if (CBcalibers.includes(CBcaliber)) { %>checked<% } %>>
+                            <label class="custom-form-check-label" for="<%- CBcaliber %>"> <%- CBcaliber %> </label>
+                        </div>
+                      </li>
+                      <% }); %>
+                  </ul>
+                </div>
+
+                <button type="submit" class="custom-button primary">Filter<i class='bx bx-filter-alt'></i></button>
+                <button type="reset" class="custom-button secondary">Reset<i class='bx bx-reset'></i></button>
+              </form>
+
+              <form onsubmit="handleFilterSubmit(event)" class="custom-form-date" action="/DataTable">
+                <div style="display: none;">
+                  <!-- Hide the old Promp of Date -->
+                  <input type="date" id="startDate" name="startDate" class="custom-input" required>
+                  <input type="date" id="endDate" name="endDate" class="custom-input" required>
+                </div>
+                <button id="scannedThisMonth" class="custom-button primary">Scanned This Month</button>
+                <button id="NotScannedThisMonth" class="custom-button primary">No Scanned for this Month</button>
+              </form>
+
+              <div class="main-cards">
+                <div class="card">
+                  <div class="card-inner">
+                    <p class="text-primary">TOTAL NUMBER OF USER</p>
+                    <i class='bx bx-user-circle'></i>
+                  </div>
+                  <h1>
+                    <%= TotalGun +1 %>
+                  </h1>
+                </div>
+
+                <div class="card">
+                  <div class="card-inner">
+                    <p class="text-primary">TOTAL GAIN OF THIS MONTH</p>
+                    <i class='bx bx-line-chart'></i>
+                  </div>
+
+                  <h1>
+                    <%= New %>
+                  </h1>
+                </div>
+
+                <div class="card">
+                  <div class="card-inner">
+                    <p class="text-primary">TOTAL LOSES OF THIS MONTH</p>
+                    <i class='bx bx-trending-down'></i>
+                  </div>
+
+                  <h1>
+                    <%= Remove %>
+                  </h1>
+                </div>
+
+              </div>
+
+              <!-- Search bar -->
+              <form action="/DataTable" method="GET" onsubmit="handleFilterSubmit(event)" class="custom-search-form">
+                <div class="custom-form-row">
+                  <div class="custom-form-group col">
+                    <input type="text" class="search-input" id="searchQuery" name="search" list="searchSuggestions"
+                      placeholder="Enter name or gun name" <% if (searchQuery) { %>value="<%- searchQuery %>"<% } %>>
+                        <datalist id="searchSuggestions">
+                          <% suggestions.forEach(function(suggestion) { %>
+                            <option value="<%- suggestion %>">
+                              <% }); %>
+                        </datalist>
+                  </div>
+                  <button type="submit" class="custom-button primary">Search<i class='bx bx-search-alt-2'></i></button>
+
+                </div>
+
+
+                <div class="custom-form-row">
+                  <div class="custom-form-group col">
+                    <button class="downloadBtn" id="downloadExcelBtn">Download Excel<i
+                        class='bx bx-spreadsheet'></i></button>
+                  </div>
+                </div>
+              </form>
+
+
+
+
+              <table class="custom-table">
+                <thead class="custom-table-header">
+                  <tr>
+                    <th>S.No</th>
+                    <th>Rank</th>
+                    <th>Full Name</th>
+                    <th>Office</th>
+                    <th>Gun Type</th>
+                    <th>Caliber</th>
+                    <th>Gun Name</th>
+                    <th>Serial ID</th>
+                    <th>Turn Over</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <% if (datas.length> 0) { %>
+                    <% let counter=(page - 1) * limit + 1; %>
+                      <% datas.forEach(function (data) { %>
+                        <tr>
+                          <td>
+                            <%= counter %>
+                          </td>
+                          <td>
+                            <%= data.rank %>
+
+                          </td>
+                          <td>
+                            <%= data.lastName %>, <%= data.firstName %> . <%= data.middleName %>
+                          </td>
+                          <td>
+                            <%= data.office %>
+                          </td>
+                          <td>
+                            <%= data.Gtype %>
+                          </td>
+                          <td>
+                            <%= data.caliber %>
+                          </td>
+                          <td>
+                            <%= data.Gname %>
+                          </td>
+                          <td>
+                            <%= data.serialN %>
+                          </td>
+
+                          <td style="white-space: nowrap;">
+                            <%= data.turnOver %>
+                          </td>
+
+
+                          <td>
+                            <!-- Modal View -->
+                            <div class="custom-button-group">
+                              <button class="custom-button1 selectedData" data-bs-toggle="modal"
+                                data-qualifier="<%= data.QLFR %>" data-rank="<%= data.rank %>"
+                                data-bs-target="#selectedData" data-id="<%= data.id %>"
+                                data-lastname="<%= data.lastName %>" data-firstname="<%= data.firstName %>"
+                                data-middlename="<%= data.middleName %>" data-qualifier="<%= data.QLFR %>"
+                                data-rank="<%= data.rank %>" data-office="<%= data.office %>"
+                                data-guntype="<%= data.Gtype %>" data-gunname="<%= data.Gname %>"
+                                data-caliber="<%= data.caliber %>" data-serialnumber="<%= data.serialN %>"
+                                data-cost="<%= data.cost %>" data-acquisitiondate="<%= data.acquisition %>"
+                                data-turnover="<%= data.turnOver %>" data-returned="<%= data.returned %>">
+                                <i class="bx bx-low-vision"></i>
+                              </button>
+                              <!-- Modal Edit -->
+                              <button class="custom-button2 editData" data-bs-toggle="modal" data-bs-target="#editData"
+                                data-qualifier="<%= data.QLFR %>" data-rank="<%= data.rank %>" data-id="<%= data.id %>"
+                                data-lastname="<%= data.lastName %>" data-firstname="<%= data.firstName %>"
+                                data-middlename="<%= data.middleName %>" data-guntype="<%= data.Gtype %>"
+                                data-office="<%= data.office %>" data-gunname="<%= data.Gname %>"
+                                data-caliber="<%= data.caliber %>" data-serialnumber="<%= data.serialN %>"
+                                data-cost="<%= data.cost %>" data-acquisitiondate="<%= data.acquisition %>"
+                                data-turnover="<%= data.turnOver %>" data-returned="<%= data.returned %>">
+                                <i class='bx bx-edit'></i>
+                              </button>
+
+                              <button class="custom-button2 custom-button-danger"
+                                onclick="confirmDelete('<%= data.id %>')">
+                                <i class='bx bx-trash'></i>
+                              </button>
+
+                            </div>
+                          </td>
+
+                        </tr>
+                        <% counter++; %>
+                          <% }); %>
+                            <% } else { %>
+                              <tr>
+                                <td colspan="10" class="text-center">No data found.</td>
+                              </tr>
                               <% } %>
-            </div>
-          </div>
+                </tbody>
+              </table>
 
-          <!-- Modal View -->
-          <div class="modal fade" id="selectedData">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-              <!-- Modal content -->
-              <div class="modal-content">
-
-                <div class="modal-header">
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    <span>&times;</span> <!-- "X" icon for close button -->
-                  </button>
-                  <h4 class="modal-title">Select</h4>
-
+              <!-- Pagination -->
+              <div class="custom-pagination mt-5">
+                <div class="custom-pagination-info">
+                  <span class="custom-pagination-text">Showing <%= (page - 1) * limit + 1 %>-<%= Math.min(page * limit,
+                        totalRecords) %> of <%= totalRecords %></span>
                 </div>
+                <div class="custom-pagination-buttons">
 
-                <div class="modal-body">
-                  <table class="table table-hover">
-                    <tbody>
-                      <tr>
-                        <td><strong>Rank</strong></td>
-                        <td id="modalRank"></td>
-                      </tr>
-                      <tr>
-                        <td><strong>Last Name</strong></td>
-                        <td id="modalLastName"></td>
-                      </tr>
-                      <tr>
-                        <td><strong>First Name</strong></td>
-                        <td id="modalFirstName"></td>
-                      </tr>
-                      <tr>
-                        <td><strong>Middle Name</strong></td>
-                        <td id="modalMiddleName"></td>
-                      </tr>
-                      <tr>
-                        <td><strong>Qualifier</strong></td>
-                        <td id="modalQualifier"></td>
-                      </tr>
-                      <tr>
-                        <td><strong>Station</strong></td>
-                        <td id="modalStation"></td>
-                      </tr>
-                      <tr>
-                        <td><strong>Gun Type</strong></td>
-                        <td id="modalGunType"></td>
-                      </tr>
-                      <tr>
-                        <td><strong>Gun Name</strong></td>
-                        <td id="modalGunName"></td>
-                      </tr>
-                      <tr>
-                        <td><strong>Caliber</strong></td>
-                        <td id="modalCaliber"></td>
-                      </tr>
-                      <tr>
-                        <td><strong>Serial Number</strong></td>
-                        <td id="modalSerialNumber"></td>
-                      </tr>
-                      <tr>
-                        <td><strong>Cost</strong></td>
-                        <td id="modalCost"></td>
-                      </tr>
-                      <tr>
-                        <td><strong>Acquisition Date</strong></td>
-                        <td id="modalAcquisitionDate"></td>
-                      </tr>
-                      <tr>
-                        <td><strong>Turn Over</strong></td>
-                        <td id="modalTurnOver"></td>
-                      </tr>
-                      <tr>
-                        <td><strong>Returned</strong></td>
-                        <td id="modalReturned"></td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <% if (page> 1) { %>
+                    <a href="/DataTable?page=<%= page - 1 %>" class="custom-button2 custom-button-primary"><i
+                        class='bx bx-skip-previous'></i></a>
+                    <% } %>
+                      <% for (let i=1; i <=totalPages; i++) { %>
+                        <% if (page===i) { %>
+                          <span class="custom-button2 custom-button-secondary">
+                            <%= i %>
+                          </span>
+                          <% } else { %>
+                            <a href="/DataTable?page=<%= i %>" class="custom-button2 custom-button-primary">
+                              <%= i %>
+                            </a>
+                            <% } %>
+                              <% } %>
+                                <% if (page < totalPages) { %>
+                                  <a href="/DataTable?page=<%= page + 1 %>"
+                                    class="custom-button2 custom-button-primary"><i class='bx bx-skip-next'></i></a>
+                                  <% } %>
                 </div>
-
               </div>
-            </div>
-          </div>
 
-          <!-- Modal Edit -->
-          <div class="modal fade" id="editData">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-              <!-- Modal content -->
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    <span>&times;</span> <!-- "X" icon for close button -->
-                  </button>
-                  <h4 class="modal-title">Edit Data</h4>
+              <!-- Modal View -->
+              <div class="modal fade" id="selectedData">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                  <!-- Modal content -->
+                  <div class="modal-content">
 
-                </div>
+                    <div class="modal-header">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span>&times;</span> <!-- "X" icon for close button -->
+                      </button>
+                      <h4 class="modal-title">Select</h4>
 
-                <div class="modal-body">
-                  <form method="POST" id="editForm">
-
-                    <table class="table table-hover">
-                      <tbody>
-
-
-                        <tr>
-                          <td><strong>Rank</strong></td>
-                          <td><input type="text" class="form-control" id="editDataRank" name="rank" autocomplete="Rank"
-                              required minlength="4" pattern="[a-zA-Z ]+"></td>
-                        </tr>
-                        <tr>
-                          <td><strong>Last Name</strong></td>
-                          <td><input type="text" class="form-control" id="editDataLastName" name="lastName"
-                              autocomplete="LastName" required minlength="4" pattern="[a-zA-Z ]+"></td>
-                        </tr>
-                        <tr>
-                          <td><strong>First Name</strong></td>
-                          <td><input type="text" class="form-control" id="editDataFirstName" name="firstName"
-                              autocomplete="FirstName" required minlength="4" pattern="[a-zA-Z ]+"></td>
-                        </tr>
-                        <tr>
-                          <td><strong>Middle Name</strong></td>
-                          <td><input type="text" class="form-control" id="editDataMiddleName" name="middleName"
-                              autocomplete="MiddleName" required minlength="1" pattern="[a-zA-Z ]+"></td>
-                        </tr>
-                        <tr>
-                          <td><strong>Qualifier</strong></td>
-                          <td><input type="text" class="form-control" id="editDataQualifier" name="qualifier"
-                              autocomplete="Qualifier" pattern="[a-zA-Z ]+"></td>
-                        </tr>
-
-                        <tr>
-                          <td><strong>Station</strong></td>
-                          <td><input type="text" class="form-control" id="editDataStation" name="office"
-                              autocomplete="office" required minlength="4" pattern="^[a-zA-Z0-9\s-]+$"></td>
-                        </tr>
-
-                        <tr>
-                          <td><strong>Gun Type</strong></td>
-                          <td><input type="text" class="form-control" id="editDataGunType" name="Gtype"
-                              autocomplete="GunType" required minlength="4" pattern="[a-zA-Z ]+"></td>
-                        </tr>
-                        <tr>
-                          <td><strong>Gun Name</strong></td>
-                          <td><input type="text" class="form-control" id="editDataGunName" name="Gname"
-                              autocomplete="GunName" required minlength="4" pattern="^[A-Z0-9][A-Za-z0-9 -]*$"></td>
-                        </tr>
-                        <tr>
-                          <td><strong>Caliber</strong></td>
-                          <td><input type="text" class="form-control" id="editDataCaliber" name="caliber"
-                              autocomplete="Caliber" required minlength="4" pattern="^[A-Z0-9][A-Za-z0-9 -]*$"></td>
-                        </tr>
-                        <tr>
-                          <td><strong>Serial Number</strong></td>
-                          <td><input type="text" class="form-control" id="editDataSerialNumber" name="serialN"
-                              autocomplete="serialN" required minlength="4" pattern="^[a-zA-Z0-9\s-]+$"></td>
-                        </tr>
-                        <tr>
-                          <td><strong>Cost</strong></td>
-                          <td><input type="text" class="form-control" id="editDataCost" name="cost" autocomplete="Cost"
-                              required minlength="4" pattern="[0-9]+"></td>
-                        </tr>
-                        <tr>
-                          <td><strong>Acquisition Date</strong></td>
-                          <td> <input type="date" class="form-control" id="editDataAcquisitionDate" name="acquisition">
-                        </tr>
-                        <tr>
-                          <td><strong>Turn Over</strong></td>
-                          <td><input type="date" class="form-control" id="editDataTurnOver" placeholder="Turn-Over"
-                              name="turnOver">
-                        </tr>
-                        <tr>
-                          <td><strong>Returned</strong></td>
-                          <td> <input type="date" class="form-control" placeholder="Returned" name="returned"
-                              id="editDataReturned">
-                        </tr>
-                      </tbody>
-                    </table>
-                    <div class="modal-footer">
-                      <button type="submit" class="btn btn-primary" id="saveChangesButton">Update</button>
                     </div>
-                  </form>
 
+                    <div class="modal-body">
+                      <table class="table table-hover">
+                        <tbody>
+                          <tr>
+                            <td><strong>Rank</strong></td>
+                            <td id="modalRank"></td>
+                          </tr>
+                          <tr>
+                            <td><strong>Last Name</strong></td>
+                            <td id="modalLastName"></td>
+                          </tr>
+                          <tr>
+                            <td><strong>First Name</strong></td>
+                            <td id="modalFirstName"></td>
+                          </tr>
+                          <tr>
+                            <td><strong>Middle Name</strong></td>
+                            <td id="modalMiddleName"></td>
+                          </tr>
+                          <tr>
+                            <td><strong>Qualifier</strong></td>
+                            <td id="modalQualifier"></td>
+                          </tr>
+                          <tr>
+                            <td><strong>Station</strong></td>
+                            <td id="modalStation"></td>
+                          </tr>
+                          <tr>
+                            <td><strong>Gun Type</strong></td>
+                            <td id="modalGunType"></td>
+                          </tr>
+                          <tr>
+                            <td><strong>Gun Name</strong></td>
+                            <td id="modalGunName"></td>
+                          </tr>
+                          <tr>
+                            <td><strong>Caliber</strong></td>
+                            <td id="modalCaliber"></td>
+                          </tr>
+                          <tr>
+                            <td><strong>Serial Number</strong></td>
+                            <td id="modalSerialNumber"></td>
+                          </tr>
+                          <tr>
+                            <td><strong>Cost</strong></td>
+                            <td id="modalCost"></td>
+                          </tr>
+                          <tr>
+                            <td><strong>Acquisition Date</strong></td>
+                            <td id="modalAcquisitionDate"></td>
+                          </tr>
+                          <tr>
+                            <td><strong>Turn Over</strong></td>
+                            <td id="modalTurnOver"></td>
+                          </tr>
+                          <tr>
+                            <td><strong>Returned</strong></td>
+                            <td id="modalReturned"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                  </div>
                 </div>
-
               </div>
+
+              <!-- Modal Edit -->
+              <div class="modal fade" id="editData">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                  <!-- Modal content -->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span>&times;</span> <!-- "X" icon for close button -->
+                      </button>
+                      <h4 class="modal-title">Edit Data</h4>
+
+                    </div>
+
+                    <div class="modal-body">
+                      <form method="POST" id="editForm">
+
+                        <table class="table table-hover">
+                          <tbody>
+
+
+                            <tr>
+                              <td><strong>Rank</strong></td>
+                              <td><input type="text" class="form-control" id="editDataRank" name="rank"
+                                  autocomplete="Rank" required minlength="4" pattern="[a-zA-Z ]+"></td>
+
+                              <td><strong>Last Name</strong></td>
+                              <td><input type="text" class="form-control" id="editDataLastName" name="lastName"
+                                  autocomplete="LastName" required minlength="4" pattern="[a-zA-Z ]+"></td>
+                            </tr>
+
+                            <tr>
+                              <td><strong>First Name</strong></td>
+                              <td><input type="text" class="form-control" id="editDataFirstName" name="firstName"
+                                  autocomplete="FirstName" required minlength="4" pattern="[a-zA-Z ]+"></td>
+
+                              <td><strong>Middle Name</strong></td>
+                              <td><input type="text" class="form-control" id="editDataMiddleName" name="middleName"
+                                  autocomplete="MiddleName" required minlength="1" pattern="[a-zA-Z ]+"></td>
+                            </tr>
+
+                            <tr>
+                              <td><strong>Qualifier</strong></td>
+                              <td><input type="text" class="form-control" id="editDataQualifier" name="qualifier"
+                                  autocomplete="Qualifier" pattern="[a-zA-Z ]+"></td>
+
+                              <td><strong>Station</strong></td>
+                              <td><input type="text" class="form-control" id="editDataStation" name="office"
+                                  autocomplete="office" required minlength="4" pattern="^[a-zA-Z0-9\s-]+$"></td>
+                            </tr>
+
+
+                            <tr>
+                              <td><strong>Gun Type</strong></td>
+                              <td><input type="text" class="form-control" id="editDataGunType" name="Gtype"
+                                  autocomplete="GunType" required minlength="4" pattern="[a-zA-Z ]+"></td>
+
+
+                              <td><strong>Gun Name</strong></td>
+                              <td><input type="text" class="form-control" id="editDataGunName" name="Gname"
+                                  autocomplete="GunName" required minlength="4" pattern="^[A-Z0-9][A-Za-z0-9 -]*$"></td>
+                            </tr>
+
+                            <tr>
+                              <td><strong>Caliber</strong></td>
+                              <td><input type="text" class="form-control" id="editDataCaliber" name="caliber"
+                                  autocomplete="Caliber" required minlength="4" pattern="^[A-Z0-9][A-Za-z0-9 -]*$"></td>
+
+
+                              <td><strong>Serial Number</strong></td>
+                              <td><input type="text" class="form-control" id="editDataSerialNumber" name="serialN"
+                                  autocomplete="serialN" required minlength="4" pattern="^[a-zA-Z0-9\s-]+$"></td>
+                            </tr>
+
+                            <tr>
+
+                              <td><strong>Cost</strong></td>
+                              <td><input type="text" class="form-control" id="editDataCost" name="cost"
+                                  autocomplete="Cost" required minlength="4" pattern="[0-9]+"></td>
+
+
+                              <td><strong>Acquisition Date</strong></td>
+                              <td> <input type="date" class="form-control" id="editDataAcquisitionDate"
+                                  name="acquisition">
+                            </tr>
+
+                            <tr>
+
+                              <td><strong>Turn Over</strong></td>
+                              <td><input type="date" class="form-control" id="editDataTurnOver" placeholder="Turn-Over"
+                                  name="turnOver">
+
+
+                              <td><strong>Returned</strong></td>
+                              <td> <input type="date" class="form-control" placeholder="Returned" name="returned"
+                                  id="editDataReturned">
+
+                            </tr>
+
+
+
+
+                          </tbody>
+                        </table>
+
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-primary" id="saveChangesButton">Update</button>
+                        </div>
+                      </form>
+
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
             </div>
+
           </div>
 
         </div>
 
-      </div>
+        </div>
+      </section>
 
-    </div>
-
-    </div>
-  </section>
-
-  <script>
-    document.getElementById('scannedThisMonth').addEventListener('click', function() {
+      <script>
+        document.getElementById('scannedThisMonth').addEventListener('click', function () {
           // Get current month and year
-      const currentMonth = new Date().getMonth() + 1; // Months are zero-indexed, so add 1
-      const currentYear = new Date().getFullYear();
+          const currentMonth = new Date().getMonth() + 1; // Months are zero-indexed, so add 1
+          const currentYear = new Date().getFullYear();
 
-      // Set the start date to the 1st day of the current month
-      const formattedStartDate = `${currentYear}-${currentMonth.toString().padStart(2, '0')}-01`;
-    
-      // Set the end date to the last day of the current month
-      const formattedEndDate = `${currentYear}-${currentMonth.toString().padStart(2, '0')}-30`;
-    
-      // Set the start and end date input values
-      document.getElementById('startDate').value = formattedStartDate;
-      document.getElementById('endDate').value = formattedEndDate;
-    
-      // Log the formatted dates to the console
-      console.log('Formatted Start Date:', formattedStartDate);
-      console.log('Formatted End Date:', formattedEndDate);
-    });
+          // Set the start date to the 1st day of the current month
+          const formattedStartDate = `${currentYear}-${currentMonth.toString().padStart(2, '0')}-01`;
 
-    document.getElementById('NotScannedThisMonth').addEventListener('click', function() {
-          // Get current month and year
-      const currentMonth = new Date().getMonth() + 1; // Months are zero-indexed, so add 1
-      const currentYear = new Date().getFullYear();
+          // Set the end date to the last day of the current month
+          const formattedEndDate = `${currentYear}-${currentMonth.toString().padStart(2, '0')}-30`;
 
-      // Set the start date to the 1st day of the current month
-      const lastMonth = currentMonth === 1 ? 12 : currentMonth - 1;
-      const formattedStartDate = `${currentYear}-${lastMonth.toString().padStart(2, '0')}-01`;
-    
-      // Set the end date to the last day of the current month
-      const formattedEndDate = `${currentYear}-${lastMonth.toString().padStart(2, '0')}-30`;
-    
-      // Set the start and end date input values
-      document.getElementById('startDate').value = formattedStartDate;
-      document.getElementById('endDate').value = formattedEndDate;
-    
-      // Log the formatted dates to the console
-      console.log('Formatted Start Date:', formattedStartDate);
-      console.log('Formatted End Date:', formattedEndDate);
-    });
+          // Set the start and end date input values
+          document.getElementById('startDate').value = formattedStartDate;
+          document.getElementById('endDate').value = formattedEndDate;
 
-    </script>
-    
-    
-
-
-
-  <!-- Side bar -->
-  <script>
-    let sidebar = document.querySelector(".sidebar");
-    let sidebarBtn = document.querySelector(".sidebarBtn");
-    sidebarBtn.onclick = function () {
-      sidebar.classList.toggle("active");
-      if (sidebar.classList.contains("active")) {
-        sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
-      } else
-        sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
-    }
-  </script>
-
-  <!-- Dropdown menu -->
-  <script>
-    document.addEventListener("click", function (event) {
-      closeDropdowns(event.target);
-    });
-
-    function closeDropdowns(currentButton) {
-      var buttons = document.querySelectorAll(".custom-dropdown button");
-      buttons.forEach(function (button) {
-        var dropdown = button.nextElementSibling;
-        if (button !== currentButton) {
-          dropdown.style.display = "none";
-        }
-      });
-    }
-
-    var dropdownToggles = document.querySelectorAll('.custom-dropdown-toggle');
-
-    dropdownToggles.forEach(function (toggle) {
-      toggle.addEventListener('click', function (event) {
-        var dropdown = toggle.nextElementSibling;
-        closeDropdowns(toggle);
-        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-        event.stopPropagation();
-      });
-    });
-
-    // Add an event listener to handle checkbox selections
-    var checkboxes = document.querySelectorAll('.custom-dropdown .custom-form-check-input');
-
-    checkboxes.forEach(function (checkbox) {
-      checkbox.addEventListener('click', function (event) {
-        event.stopPropagation(); // Prevent the dropdown from closing on checkbox click
-      });
-    });
-  </script>
-
-
-  <!-- Modal -->
-  <script>
-    var selectedDataModal = document.getElementById("selectedData");
-    var selectedDataTitle = document.querySelector("#selectedData .modal-title");
-    var selectedDataLastName = document.getElementById("modalLastName");
-    var selectedDataFirstName = document.getElementById("modalFirstName");
-    var selectedDataMiddleName = document.getElementById("modalMiddleName");
-    var selectedDataQualifier = document.getElementById("modalQualifier");
-    var selectedDataRank = document.getElementById("modalRank");
-    var selectedDataStation = document.getElementById("modalStation");
-    var selectedDataGunType = document.getElementById("modalGunType");
-    var selectedDataGunName = document.getElementById("modalGunName");
-    var selectedDataCaliber = document.getElementById("modalCaliber");
-    var selectedDataSerialNumber = document.getElementById("modalSerialNumber");
-    var selectedDataCost = document.getElementById("modalCost");
-    var selectedDataAcquisitionDate = document.getElementById("modalAcquisitionDate");
-    var selectedDataTurnOver = document.getElementById("modalTurnOver");
-    var selectedDataReturned = document.getElementById("modalReturned");
-    var selectedDataBtns = document.querySelectorAll(".selectedData");
-
-    selectedDataBtns.forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        // Get the data attributes from the button
-        var id = this.getAttribute("data-id");
-        var lastName = this.getAttribute("data-lastname");
-        var firstName = this.getAttribute("data-firstname");
-        var middleName = this.getAttribute("data-middlename");
-        var qualifier = this.getAttribute("data-qualifier");
-        var rank = this.getAttribute("data-rank");
-        var office = this.getAttribute("data-office");
-        var gunType = this.getAttribute("data-guntype");
-        var gunName = this.getAttribute("data-gunname");
-        var caliber = this.getAttribute("data-caliber");
-        var serialNumber = this.getAttribute("data-serialnumber");
-        var cost = this.getAttribute("data-cost");
-        var acquisitionDate = this.getAttribute("data-acquisitiondate");
-        var turnOver = this.getAttribute("data-turnover");
-        var returned = this.getAttribute("data-returned");
-
-        // Populate the selectedData modal with data
-        selectedDataTitle.innerText = "Selected Data";
-        selectedDataLastName.innerText = lastName;
-        selectedDataFirstName.innerText = firstName;
-        selectedDataMiddleName.innerText = middleName;
-        selectedDataQualifier.innerText = qualifier;
-        selectedDataRank.innerText = rank;
-        selectedDataStation.innerText = office;
-        selectedDataGunType.innerText = gunType;
-        selectedDataGunName.innerText = gunName;
-        selectedDataCaliber.innerText = caliber;
-        selectedDataSerialNumber.innerText = serialNumber;
-        selectedDataCost.innerText = cost;
-        selectedDataAcquisitionDate.innerText = acquisitionDate;
-        selectedDataTurnOver.innerText = turnOver;
-        selectedDataReturned.innerText = returned;
-      });
-    });
-
-    // Function to clear the selectedData modal when it is hidden
-    selectedDataModal.addEventListener("hidden.bs.modal", function () {
-      selectedDataTitle.innerText = "";
-      selectedDataLastName.innerText = "";
-      selectedDataFirstName.innerText = "";
-      selectedDataMiddleName.innerText = "";
-      selectedDataQualifier.innerText = "";
-      selectedDataRank.innerText = "";
-      selectedDataStation.innerText = "";
-      selectedDataGunType.innerText = "";
-      selectedDataGunName.innerText = "";
-      selectedDataCaliber.innerText = "";
-      selectedDataSerialNumber.innerText = "";
-      selectedDataCost.innerText = "";
-      selectedDataAcquisitionDate.innerText = "";
-      selectedDataTurnOver.innerText = "";
-      selectedDataReturned.innerText = "";
-    });
-
-    // Function to populate the EditData modal with data
-    function populateEditDataModal(data) {
-      document.getElementById("editDataLastName").value = data.lastname || "";
-      document.getElementById("editDataFirstName").value = data.firstname || "";
-      document.getElementById("editDataMiddleName").value = data.middlename || "";
-      document.getElementById("editDataQualifier").value = data.qualifier || "";
-      document.getElementById("editDataRank").value = data.rank || "";
-      document.getElementById("editDataStation").value = data.office || "";
-      document.getElementById("editDataGunType").value = data.guntype || "";
-      document.getElementById("editDataGunName").value = data.gunname || "";
-      document.getElementById("editDataCaliber").value = data.caliber || "";
-      document.getElementById("editDataSerialNumber").value = data.serialnumber || "";
-      document.getElementById("editDataCost").value = data.cost || "";
-      document.getElementById("editDataAcquisitionDate").value = data.acquisitiondate || "";
-      document.getElementById("editDataTurnOver").value = data.turnover || "";
-      document.getElementById("editDataReturned").value = data.returned || "";
-
-
-      const editForm = document.getElementById("editForm");
-      editForm.action = "/update/" + data.id;
-      console.log("Form action:", editForm.action);
-    }
-
-    var editDataBtns = document.querySelectorAll(".editData");
-    editDataBtns.forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        var dataId = this.dataset.id;
-        var data = {
-          id: this.dataset.id,
-          lastname: this.dataset.lastname,
-          firstname: this.dataset.firstname,
-          middlename: this.dataset.middlename,
-          qualifier: this.dataset.qualifier,
-          rank: this.dataset.rank,
-          office: this.dataset.office,
-          guntype: this.dataset.guntype,
-          gunname: this.dataset.gunname,
-          caliber: this.dataset.caliber,
-          serialnumber: this.dataset.serialnumber,
-          cost: this.dataset.cost,
-          acquisitiondate: this.dataset.acquisitiondate,
-          turnover: this.dataset.turnover,
-          returned: this.dataset.returned,
-        };
-        populateEditDataModal(data);
-        console.log("ito ang populated data", data);
-        console.log("ito id", data.id)
-        console.log("ito ang sta", office);
-      });
-    });
-
-
-    // Function to confirm the Delete
-    function confirmDelete(id) {
-      if (confirm("Are you sure you want to delete this data?")) {
-        // If the user confirms, submit the form for deletion
-        const form = document.createElement('form');
-        form.action = '/delete/' + id;
-        form.method = 'POST';
-        document.body.appendChild(form);
-        form.submit();
-      }
-    }
-
-
-  </script>
-
-
-  <!-- JavaScript to close the modal -->
-  <script>
-    $(document).ready(function () {
-      // Close the modal when the close button is clicked
-      $('.btn-close').click(function () {
-        $('#selectedData').modal('hide');
-      });
-    });
-  </script>
-
-<!-- Excell -->
-  <script>
-    function exportExcel() {
-      const currentDate = new Date();
-      const year = currentDate.getFullYear();
-      const monthNames = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-      ];
-      const month = monthNames[currentDate.getMonth()];
-      const day = currentDate.getDate().toString().padStart(2, '0');
-
-
-      // Construct the file name with the current date
-      const fileName = `table_data_${month}_${year}.xlsx`;
-      fetch('/DataTable/ToExcel') // Replace with the actual server route
-        .then((response) => {
-          if (response.ok) {
-            return response.blob();
-          } else {
-            throw new Error('Export failed.');
-          }
-        })
-        .then((blob) => {
-          // Create a URL for the blob and trigger the download
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = fileName;
-          a.click();
-        })
-        .catch((error) => {
-          console.error(error);
+          // Log the formatted dates to the console
+          console.log('Formatted Start Date:', formattedStartDate);
+          console.log('Formatted End Date:', formattedEndDate);
         });
-    }
 
-    // Attach the exportExcel function to the button click event
-    document.getElementById('downloadExcelBtn').addEventListener('click', exportExcel);
-  </script>
+        document.getElementById('NotScannedThisMonth').addEventListener('click', function () {
+          // Get current month and year
+          const currentMonth = new Date().getMonth() + 1; // Months are zero-indexed, so add 1
+          const currentYear = new Date().getFullYear();
 
+          // Set the start date to the 1st day of the current month
+          const lastMonth = currentMonth === 1 ? 12 : currentMonth - 1;
+          const formattedStartDate = `${currentYear}-${lastMonth.toString().padStart(2, '0')}-01`;
 
+          // Set the end date to the last day of the current month
+          const formattedEndDate = `${currentYear}-${lastMonth.toString().padStart(2, '0')}-30`;
 
+          // Set the start and end date input values
+          document.getElementById('startDate').value = formattedStartDate;
+          document.getElementById('endDate').value = formattedEndDate;
 
-  <style>
-    .main-container {
-      grid-area: main;
-      overflow-y: auto;
-      padding: 20px 20px;
-      background-color: #e6e8ed;
-    }
+          // Log the formatted dates to the console
+          console.log('Formatted Start Date:', formattedStartDate);
+          console.log('Formatted End Date:', formattedEndDate);
+        });
 
-    .main-title {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .main-title>p {
-      font-size: 15px;
-
-    }
-
-    .main-cards {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 20px;
-      margin: 30px auto;
-      width: fit-content;
-    }
-
-    .card {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      padding: 25px;
-      background-color: #ffffff;
-      box-sizing: border-box;
-      border: 1px solid #d2d2d3;
-      border-radius: 5px;
-      box-shadow: 0 6px 7px -4px rgba(0, 0, 0, 0.2);
-
-    }
-
-    .card:first-child {
-      border-left: 7px solid #246dec;
-    }
-
-    .card:nth-child(2) {
-      border-left: 7px solid #f5b74f;
-    }
-
-    .card:nth-child(3) {
-      border-left: 7px solid #367952;
-    }
-
-    .card:nth-child(4) {
-      border-left: 7px solid #cc3c43;
-    }
-
-    .card>.h1 {
-      font-size: 20px;
-      font-weight: 600;
-      height: 150px;
-    }
-
-    .card-inner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
+      </script>
 
 
 
-    }
 
-    .card-inner>p {
-      font-size: 18px;
-      
 
-    }
+      <!-- Side bar -->
+      <script>
+        let sidebar = document.querySelector(".sidebar");
+        let sidebarBtn = document.querySelector(".sidebarBtn");
+        sidebarBtn.onclick = function () {
+          sidebar.classList.toggle("active");
+          if (sidebar.classList.contains("active")) {
+            sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+          } else
+            sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+        }
+      </script>
 
-    .card-inner>i {
-      margin-top: 10px;
-      font-size: 50px;
-    }
+      <!-- Dropdown menu -->
+      <script>
+        document.addEventListener("click", function (event) {
+          closeDropdowns(event.target);
+        });
 
-    
-  </style>
+        function closeDropdowns(currentButton) {
+          var buttons = document.querySelectorAll(".custom-dropdown button");
+          buttons.forEach(function (button) {
+            var dropdown = button.nextElementSibling;
+            if (button !== currentButton) {
+              dropdown.style.display = "none";
+            }
+          });
+        }
+
+        var dropdownToggles = document.querySelectorAll('.custom-dropdown-toggle');
+
+        dropdownToggles.forEach(function (toggle) {
+          toggle.addEventListener('click', function (event) {
+            var dropdown = toggle.nextElementSibling;
+            closeDropdowns(toggle);
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+            event.stopPropagation();
+          });
+        });
+
+        // Add an event listener to handle checkbox selections
+        var checkboxes = document.querySelectorAll('.custom-dropdown .custom-form-check-input');
+
+        checkboxes.forEach(function (checkbox) {
+          checkbox.addEventListener('click', function (event) {
+            event.stopPropagation(); // Prevent the dropdown from closing on checkbox click
+          });
+        });
+      </script>
+
+
+      <!-- Modal -->
+      <script>
+        var selectedDataModal = document.getElementById("selectedData");
+        var selectedDataTitle = document.querySelector("#selectedData .modal-title");
+        var selectedDataLastName = document.getElementById("modalLastName");
+        var selectedDataFirstName = document.getElementById("modalFirstName");
+        var selectedDataMiddleName = document.getElementById("modalMiddleName");
+        var selectedDataQualifier = document.getElementById("modalQualifier");
+        var selectedDataRank = document.getElementById("modalRank");
+        var selectedDataStation = document.getElementById("modalStation");
+        var selectedDataGunType = document.getElementById("modalGunType");
+        var selectedDataGunName = document.getElementById("modalGunName");
+        var selectedDataCaliber = document.getElementById("modalCaliber");
+        var selectedDataSerialNumber = document.getElementById("modalSerialNumber");
+        var selectedDataCost = document.getElementById("modalCost");
+        var selectedDataAcquisitionDate = document.getElementById("modalAcquisitionDate");
+        var selectedDataTurnOver = document.getElementById("modalTurnOver");
+        var selectedDataReturned = document.getElementById("modalReturned");
+        var selectedDataBtns = document.querySelectorAll(".selectedData");
+
+        selectedDataBtns.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            // Get the data attributes from the button
+            var id = this.getAttribute("data-id");
+            var lastName = this.getAttribute("data-lastname");
+            var firstName = this.getAttribute("data-firstname");
+            var middleName = this.getAttribute("data-middlename");
+            var qualifier = this.getAttribute("data-qualifier");
+            var rank = this.getAttribute("data-rank");
+            var office = this.getAttribute("data-office");
+            var gunType = this.getAttribute("data-guntype");
+            var gunName = this.getAttribute("data-gunname");
+            var caliber = this.getAttribute("data-caliber");
+            var serialNumber = this.getAttribute("data-serialnumber");
+            var cost = this.getAttribute("data-cost");
+            var acquisitionDate = this.getAttribute("data-acquisitiondate");
+            var turnOver = this.getAttribute("data-turnover");
+            var returned = this.getAttribute("data-returned");
+
+            // Populate the selectedData modal with data
+            selectedDataTitle.innerText = "Selected Data";
+            selectedDataLastName.innerText = lastName;
+            selectedDataFirstName.innerText = firstName;
+            selectedDataMiddleName.innerText = middleName;
+            selectedDataQualifier.innerText = qualifier;
+            selectedDataRank.innerText = rank;
+            selectedDataStation.innerText = office;
+            selectedDataGunType.innerText = gunType;
+            selectedDataGunName.innerText = gunName;
+            selectedDataCaliber.innerText = caliber;
+            selectedDataSerialNumber.innerText = serialNumber;
+            selectedDataCost.innerText = cost;
+            selectedDataAcquisitionDate.innerText = acquisitionDate;
+            selectedDataTurnOver.innerText = turnOver;
+            selectedDataReturned.innerText = returned;
+          });
+        });
+
+        // Function to clear the selectedData modal when it is hidden
+        selectedDataModal.addEventListener("hidden.bs.modal", function () {
+          selectedDataTitle.innerText = "";
+          selectedDataLastName.innerText = "";
+          selectedDataFirstName.innerText = "";
+          selectedDataMiddleName.innerText = "";
+          selectedDataQualifier.innerText = "";
+          selectedDataRank.innerText = "";
+          selectedDataStation.innerText = "";
+          selectedDataGunType.innerText = "";
+          selectedDataGunName.innerText = "";
+          selectedDataCaliber.innerText = "";
+          selectedDataSerialNumber.innerText = "";
+          selectedDataCost.innerText = "";
+          selectedDataAcquisitionDate.innerText = "";
+          selectedDataTurnOver.innerText = "";
+          selectedDataReturned.innerText = "";
+        });
+
+        // Function to populate the EditData modal with data
+        function populateEditDataModal(data) {
+          document.getElementById("editDataLastName").value = data.lastname || "";
+          document.getElementById("editDataFirstName").value = data.firstname || "";
+          document.getElementById("editDataMiddleName").value = data.middlename || "";
+          document.getElementById("editDataQualifier").value = data.qualifier || "";
+          document.getElementById("editDataRank").value = data.rank || "";
+          document.getElementById("editDataStation").value = data.office || "";
+          document.getElementById("editDataGunType").value = data.guntype || "";
+          document.getElementById("editDataGunName").value = data.gunname || "";
+          document.getElementById("editDataCaliber").value = data.caliber || "";
+          document.getElementById("editDataSerialNumber").value = data.serialnumber || "";
+          document.getElementById("editDataCost").value = data.cost || "";
+          document.getElementById("editDataAcquisitionDate").value = data.acquisitiondate || "";
+          document.getElementById("editDataTurnOver").value = data.turnover || "";
+          document.getElementById("editDataReturned").value = data.returned || "";
+
+
+          const editForm = document.getElementById("editForm");
+          editForm.action = "/update/" + data.id;
+          console.log("Form action:", editForm.action);
+        }
+
+        var editDataBtns = document.querySelectorAll(".editData");
+        editDataBtns.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var dataId = this.dataset.id;
+            var data = {
+              id: this.dataset.id,
+              lastname: this.dataset.lastname,
+              firstname: this.dataset.firstname,
+              middlename: this.dataset.middlename,
+              qualifier: this.dataset.qualifier,
+              rank: this.dataset.rank,
+              office: this.dataset.office,
+              guntype: this.dataset.guntype,
+              gunname: this.dataset.gunname,
+              caliber: this.dataset.caliber,
+              serialnumber: this.dataset.serialnumber,
+              cost: this.dataset.cost,
+              acquisitiondate: this.dataset.acquisitiondate,
+              turnover: this.dataset.turnover,
+              returned: this.dataset.returned,
+            };
+            populateEditDataModal(data);
+            console.log("ito ang populated data", data);
+            console.log("ito id", data.id)
+            console.log("ito ang sta", office);
+          });
+        });
+
+
+        // Function to confirm the Delete
+        function confirmDelete(id) {
+          if (confirm("Are you sure you want to delete this data?")) {
+            // If the user confirms, submit the form for deletion
+            const form = document.createElement('form');
+            form.action = '/delete/' + id;
+            form.method = 'POST';
+            document.body.appendChild(form);
+            form.submit();
+          }
+        }
+
+
+      </script>
+
+
+      <!-- JavaScript to close the modal -->
+      <script>
+        $(document).ready(function () {
+          // Close the modal when the close button is clicked
+          $('.btn-close').click(function () {
+            $('#selectedData').modal('hide');
+          });
+        });
+      </script>
+
+      <!-- Excell -->
+      <script>
+        function exportExcel() {
+          const currentDate = new Date();
+          const year = currentDate.getFullYear();
+          const monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+          ];
+          const month = monthNames[currentDate.getMonth()];
+          const day = currentDate.getDate().toString().padStart(2, '0');
+
+
+          // Construct the file name with the current date
+          const fileName = `table_data_${month}_${year}.xlsx`;
+          fetch('/DataTable/ToExcel') // Replace with the actual server route
+            .then((response) => {
+              if (response.ok) {
+                return response.blob();
+              } else {
+                throw new Error('Export failed.');
+              }
+            })
+            .then((blob) => {
+              // Create a URL for the blob and trigger the download
+              const url = window.URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = fileName;
+              a.click();
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        }
+
+        // Attach the exportExcel function to the button click event
+        document.getElementById('downloadExcelBtn').addEventListener('click', exportExcel);
+      </script>
+
+
+
+
+      <style>
+        .main-container {
+          grid-area: main;
+          overflow-y: auto;
+          padding: 20px 20px;
+          background-color: #e6e8ed;
+        }
+
+        .main-title {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .main-title>p {
+          font-size: 15px;
+
+        }
+
+        .main-cards {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr;
+          gap: 20px;
+          margin: 30px auto;
+          width: fit-content;
+        }
+
+        .card {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          padding: 25px;
+          background-color: #ffffff;
+          box-sizing: border-box;
+          border: 1px solid #d2d2d3;
+          border-radius: 5px;
+          box-shadow: 0 6px 7px -4px rgba(0, 0, 0, 0.2);
+
+        }
+
+        .card:first-child {
+          border-left: 7px solid #246dec;
+        }
+
+        .card:nth-child(2) {
+          border-left: 7px solid #f5b74f;
+        }
+
+        .card:nth-child(3) {
+          border-left: 7px solid #367952;
+        }
+
+        .card:nth-child(4) {
+          border-left: 7px solid #cc3c43;
+        }
+
+        .card>h1 {
+          font-size: 40px;
+          font-weight: 600;
+        }
+
+        .card-inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: space-between;
+
+
+
+        }
+
+        .card-inner>p {
+          font-size: 20px;
+        }
+
+        .card-inner>i {
+          margin-top: 10px;
+          font-size: 50px;
+        }
+
+        .my-jumbotron {
+          margin-top: 20px;
+          padding: 20px;
+          background-color: #f8f9fa;
+          border: 1px solid #ddd;
+          border-radius: 10px;
+        }
+      </style>
 
 
 </body>

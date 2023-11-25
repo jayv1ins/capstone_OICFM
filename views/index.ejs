@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="Website Icon" type="png" href="logo_npd.png"/>
+  <link rel="Website Icon" type="png" href="logo_npd.png" />
   <title> Dashboard</title>
   <link rel="stylesheet" href="/stylesheets/index_style.css">
   <!-- Boxicons CDN Link -->
@@ -21,9 +21,10 @@
       <img src="pnp-male.jpg" alt="" class="circle-image">
       <% if (user.usertype==='Admin' ) { %>
         <span class="logo_name">
-          Admin <%= user.firstName%>
+          <%= user.firstName%>
+            <p style="font-size: small;">(Admin)</p>
         </span>
-        
+
     </div>
     <ul class="nav-links">
       <li>
@@ -145,7 +146,7 @@
               <div class="main-content">
                 <div class="top-chart flex">
                   <div class="top-chart-box bottom-chart-left">
-                    <h2 class="heading">Total Cost per Gun Type</h2>
+                    <h2 class="heading">Number of Officers per Rank</h2>
                     <div id="chart3"></div>
                   </div>
 
@@ -159,13 +160,17 @@
 
                 <div class="product-top-chart flex">
                   <div class="product-bottom-chart-left top-chart-box">
-                    <h2 class="heading">Firearm Type Distribution</h2>
-                    <div id="chart5"></div>
+                    <h2 class="heading">Authorized Users</h2>
+                    <div id="chart14"></div>
+                    
+                    <hr>
+                    <h2 class="heading">Turnover Rate</h2>
+                    <div id="chart12"></div>
                   </div>
 
                   <div class="bottom-chart top-chart-box">
                     <h2 class="heading">Total Cost per Acquisition</h2>
-                    <div id="chart11"></div>
+                    <div id="chart10"></div>
                   </div>
                 </div>
 
@@ -173,38 +178,39 @@
                   <div class="top-chart-box bottom-chart-left">
                     <h2 class="heading">Number of Guns per Gun Name</h2>
                     <div id="chart7"></div>
+                    
                   </div>
-
+                  
                   <div class="top-chart-box bottom-chart-right">
-                    <h2 class="heading">Authorized Users</h2>
-
-                    <div id="chart15"></div>
+                    
+                    <h2 class="heading">Firearm Type Distribution</h2>
+                    <div id="chart5"></div>
                   </div>
+
                 </div>
 
 
                 <div class="product-top-chart flex">
                   <div class="product-bottom-chart-left top-chart-box">
                     <h2 class="heading">Turnover Rate</h2>
-                    <div id="chart13"></div>
+                    <div id="chart6"></div>
                   </div>
 
                   <div class="bottom-chart top-chart-box">
-                    <h2 class="heading">Gun Acquisitions per Date</h2>
-                    <div id="chart10"></div>
+                    <h2 class="heading">Total Cost per Gun Type</h2>
+                    <div id="chart8"></div>
                   </div>
                 </div>
 
 
                 <div class="top-chart flex">
                   <div class="top-chart-box bottom-chart-left">
-                    <h2 class="heading">Total Cost per Gun Type</h2>
-                    <div id="chart8"></div>
+                    <h2 class="heading">Gun Type Distribution</h2>
+                    <div id="chart13"></div>
                   </div>
 
                   <div class="top-chart-box bottom-chart-right">
                     <h2 class="heading">Total Cost</h2>
-
                     <div id="chart2"></div>
                   </div>
                 </div>
@@ -212,35 +218,35 @@
 
                 <div class="product-top-chart flex">
                   <div class="product-bottom-chart-left top-chart-box">
-                  
+                    <h2 class="heading">Return Frequency Analysis</h2>
+                    <div id="chart17"></div>
                   </div>
 
                   <div class="bottom-chart top-chart-box">
                     <h2 class="heading">Gun Type by Rank</h2>
-                    <div id="chart14"></div>
+                    <div id="chart9"></div>
                   </div>
                 </div>
 
 
-                <div class="product-top-chart flex">
-
-
-                  <div class="bottom-chart top-chart-box">
-                    <h2 class="heading">Guns per Calibre</h2>
-                    <div id="chart6"></div>
+                <div class="top-chart flex">
+                  <div class="top-chart-box bottom-chart-left">
+                    <h2 class="heading">Average Cost of Firearms by Gun Name</h2>
+                    <div id="chart16"></div>
+                  </div>
+                  <div class="top-chart-box bottom-chart-right">
+                    <h2 class="heading">Turn Over Rate By Date</h2>
+                    <div id="chart18"></div>
                   </div>
 
-                  <div class="product-bottom-chart-left top-chart-box">
-                    <h2 class="heading">Accumulated Costs</h2>
-                    <div id="chart12"></div>
-                  </div>
                 </div>
 
 
+                
                 <div class="top-chart2 flex">
                   <div class="top-chart-box bottom-chart-left">
-                    <h2 class="heading">Number of Guns per Station</h2>
-                    <div id="chart4"></div>
+                    <h2 class="heading2">Number of Guns per Station</h2>
+                    <div id="chart11"></div>
                   </div>
 
 
@@ -274,7 +280,6 @@
         const sdk = new ChartsEmbedSDK({
           baseUrl: "https://charts.mongodb.com/charts-project-0-omorz",
           theme: "dark",
-          height: 250,
           autoRefresh: true,  // Set autoRefresh to true
           maxDataAge: 30,
         });
@@ -294,6 +299,10 @@
           "64aa7bf4-2925-478c-8eff-15cc0ae2b5da",
           "64aa808f-904b-4bad-810f-87a9d4d94c75",
           "6522ad57-8f60-4161-89ce-00d9b33e9a97",
+          "655ca36a-5d06-4ec9-8022-76093bc0c619",
+          "655ca613-5048-4b0e-8b3b-8d5d6921a74b",
+          "655ca9ac-6cc5-43e1-8110-0464683107a5",
+          "654cf4ee-df50-461e-8018-1d9cd1828f33",
         ];
 
         const charts = chartIds.map(chartId => sdk.createChart({ chartId }));
@@ -302,8 +311,8 @@
           chart.render(document.getElementById(`chart${index + 1}`));
         });
 
-         // Function to handle chart refresh
-      
+        // Function to handle chart refresh
+
 
         function handleFilterSubmit(event) {
           event.preventDefault();
@@ -359,10 +368,17 @@
   }
 
   .heading {
-    font-size: 1.8rem;
+    font-size: 2.5rem;
     color: #fcfcfc;
     font-weight: 500;
     text-align: left;
+  }
+  .heading2 {
+    font-size: 2.5rem;
+    color: #fcfcfc;
+    font-weight: 500;
+    text-align: center;
+    min-width: 165%;
   }
 
 
@@ -407,13 +423,78 @@
     background: #21313C;
     margin-top: 4rem;
     font-size: 1.6rem;
-    align-items: center;
-    width: 100%;
+    justify-content: flex-start;
+    
+   
 
   }
 
+
+  #chart1 {
+height: 300px;
+  }
+
+  #chart2 {
+    height: 300px;
+  }
+
+  #chart3 {
+    height: 300px;
+  }
+
   #chart4 {
-    width: 100%;
+    height: 300px;
+  }
+
+  #chart5 {
+    height: 350px;
+    
+  }
+
+  #chart6 {
+    height: 300px;
+  }
+  #chart7 {
+    height: 400px;
+  }
+
+  #chart8 {
+    height: 300px;
+  }
+
+  #chart9 {
+    height: 300px;
+  }
+
+  #chart10 {
+    height: 500px;
+  }
+
+  #chart11 {
+    height: 500px;
+    min-width: 165%;
+  }
+  #chart12 {
+    height: 225px;
+  }
+  #chart13 {
+    height: 300px;
+  }
+  #chart14 {
+    height: 225px;
+  }
+  #chart15 {
+    height: 300px;
+  }
+  #chart16 {
+    height: 500px;
+  }
+
+  #chart17 {
+    height: 300px;
+  }
+  #chart18 {
+    height: 500px;
   }
 
   .top-chart-box {
@@ -457,12 +538,13 @@
     width: 38%;
 
   }
+  
 
   .bottom-chart {
     width: 60%;
   }
 
- 
+
   .top-chart-box,
   .product-top-chart .top-chart-box,
   .bottom-chart-right {
@@ -473,7 +555,7 @@
   .product-top-chart .top-chart-box:hover,
   .bottom-chart-right:hover {
     transform: scale(1.1);
-   
+
   }
 
 

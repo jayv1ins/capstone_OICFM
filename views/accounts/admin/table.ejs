@@ -27,6 +27,7 @@
 
       <span class="logo_name">
         <%= user.firstName%>
+        <p style="font-size: small;">(Admin)</p>
       </span>
     </div>
     <ul class="nav-links">
@@ -184,41 +185,24 @@
                             <td>
                               <%= data.policeId %>
                             </td>
-                            
+
 
                             <td>
 
                               <!-- Modal View -->
                               <div class="custom-button-group-manager">
                                 <button class="custom-button1 selectedData" data-bs-toggle="modal"
-                                data-bs-target="#selectedData" data-id="<%= data.id %>" data-lastname="<%= data.lastName %>"
-                                data-firstname="<%= data.firstName %>" data-middlename="<%= data.middleName %>"
-                                data-qualifier="<%= data.QLFR %>" data-rank="<%= data.rank %>"
-                                data-station="<%= data.station %>"
-                                data-policeId="<%= data.policeId %>" 
-                                data-usertype="<%= data.usertype %>"
-                                data-password="<%= data.password %>"
-                                data-shift="<%= data.shift %>" >
-                                <i class="bx bx-low-vision"></i>
-                              </button>
+                                  data-bs-target="#selectedData" data-id="<%= data.id %>"
+                                  data-lastname="<%= data.lastName %>" data-firstname="<%= data.firstName %>"
+                                  data-middlename="<%= data.middleName %>" data-qualifier="<%= data.QLFR %>"
+                                  data-rank="<%= data.rank %>" data-station="<%= data.station %>"
+                                  data-policeId="<%= data.policeId %>" data-usertype="<%= data.usertype %>"
+                                  data-password="<%= data.password %>" data-shift="<%= data.shift %>">
+                                  <i class="bx bx-low-vision"></i>
+                                </button>
 
-                              <!-- Modal Edit -->
-                              <button class="custom-button2 editData" data-bs-toggle="modal" data-bs-target="#editData"
-                              data-id="<%= data.id %>" data-lastname="<%= data.lastName %>"
-                              data-firstname="<%= data.firstName %>" data-middlename="<%= data.middleName %>"
-                              data-qualifier="<%= data.QLFR %>" 
-                              data-policeId="<%= data.policeId %>" 
-                              data-rank="<%= data.rank %>"
-                              data-station="<%= data.station %>"
-                              data-usertype="<%= data.usertype %>"
-                              data-password="<%= data.password %>"
-                              data-shift="<%= data.shift %>" >
-                              <i class="bx bx-edit"></i>
-                            </button>
-
-
-                              <a href="/admin/edit/<%= data.id %>"><button class="btn btn-primary"><i
-                                class="bi bi-pencil-square">Old Edit</i></button></a>
+                                <a href="/admin/edit/<%= data.id %>"><button class="custom-button2"><i
+                                      class="bx bx-edit"></i></button></a>
 
 
                                 <button class="custom-button2 custom-button-danger"
@@ -277,15 +261,15 @@
                   <div class="modal-dialog modal-dialog-centered modal-lg">
                     <!-- Modal content -->
                     <div class="modal-content">
-      
+
                       <div class="modal-header">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                           <span>&times;</span> <!-- "X" icon for close button -->
                         </button>
                         <h4 class="modal-title">Select</h4>
-      
+
                       </div>
-      
+
                       <div class="modal-body">
                         <table class="table table-hover">
                           <tbody>
@@ -333,7 +317,7 @@
                           </tbody>
                         </table>
                       </div>
-      
+
                     </div>
                   </div>
                 </div>
@@ -348,7 +332,7 @@
                           <span>&times;</span> <!-- "X" icon for close button -->
                         </button>
                         <h4 class="modal-title">Edit Data</h4>
-                        
+
                       </div>
 
                       <div class="modal-body">
@@ -383,19 +367,19 @@
                               </tr>
                               <tr>
                                 <td><strong>Police Id</strong></td>
-                                <td><input type="text" class="form-control" id="editDataPoliceId" name="policeId" autocomplete="policeId"
-                                    required minlength="4" pattern="[a-zA-Z ]+"></td>
+                                <td><input type="text" class="form-control" id="editDataPoliceId" name="policeId"
+                                    autocomplete="policeId" required minlength="4" pattern="[a-zA-Z ]+"></td>
                               </tr>
                               <tr>
                                 <td><strong>Rank</strong></td>
-                                <td><input type="text" class="form-control" id="editDataRank" name="rank" autocomplete="Rank"
-                                    required minlength="4" pattern="[a-zA-Z ]+"></td>
+                                <td><input type="text" class="form-control" id="editDataRank" name="rank"
+                                    autocomplete="Rank" required minlength="4" pattern="[a-zA-Z ]+"></td>
                               </tr>
-                              
+
                               <tr>
                                 <td><strong>Station</strong></td>
-                                <td><input type="text" class="form-control" id="editDataStation" name="station" autocomplete="station"
-                                    required minlength="4" pattern="[a-zA-Z ]+"></td>
+                                <td><input type="text" class="form-control" id="editDataStation" name="station"
+                                    autocomplete="station" required minlength="4" pattern="[a-zA-Z ]+"></td>
                               </tr>
 
                               <tr>
@@ -403,19 +387,22 @@
                                 <td><input type="text" class="form-control" id="editDataUserType" name="usertype"
                                     autocomplete="usertype" required minlength="4" pattern="[a-zA-Z ]+"></td>
                               </tr>
-                              
+
                               <tr>
                                 <td><strong>Password </strong></td>
                                 <td>
                                   <div class="input-group">
-                                    <input type="text" class="form-control" id="editDataPassword" name="password" autocomplete="password" required minlength="4" pattern="^[A-Z0-9][A-Za-z0-9 -]*$" readonly>
-                                    <span class="input-group-text" id="togglePasswordIcon" onclick="toggleEditPasswordVisibility()">
+                                    <input type="text" class="form-control" id="editDataPassword" name="password"
+                                      autocomplete="password" required minlength="4" pattern="^[A-Z0-9][A-Za-z0-9 -]*$"
+                                      readonly>
+                                    <span class="input-group-text" id="togglePasswordIcon"
+                                      onclick="toggleEditPasswordVisibility()">
                                       <i class="fas fa-eye" id="editTogglePassword"></i>
                                     </span>
                                   </div>
                                 </td>
                               </tr>
-                              
+
                             </tbody>
                           </table>
                           <div class="modal-footer">
@@ -508,136 +495,136 @@
     }
   </script>
 
-<script>
-  var selectedDataModal = document.getElementById("selectedData");
-  var selectedDataTitle = document.querySelector("#selectedData .modal-title");
-  var selectedDataLastName = document.getElementById("modalLastName");
-  var selectedDataFirstName = document.getElementById("modalFirstName");
-  var selectedDataMiddleName = document.getElementById("modalMiddleName");
-  var selectedDataQualifier = document.getElementById("modalQualifier");
-  var selectedDataRank = document.getElementById("modalRank");
-  var selectedDataStation = document.getElementById("modalStation");
-  var selectedDataPoliceId = document.getElementById("modalPoliceId");
-  var selectedDataUsertype = document.getElementById("modalUsertype");
-  var selectedDataPassword = document.getElementById("modalPassword");
-  var togglePasswordIcon = document.getElementById("togglePassword");
-  var selectedDataBtns = document.querySelectorAll(".selectedData");
-
-  function decryptCaesar(password, shift) {
-    const chars = password.split("");
-    const decryptedChars = chars.map((char) => {
-      if (char.match(/[a-z]/i)) {
-        const code = char.charCodeAt(0);
-        if (code >= 65 && code <= 90) {
-          char = String.fromCharCode(((code - 65 - shift + 26) % 26) + 65);
-        } else if (code >= 97 && code <= 122) {
-          char = String.fromCharCode(((code - 97 - shift + 26) % 26) + 97);
-        }
-      }
-      return char;
-    });
-    return decryptedChars.join("");
-  }
-  function togglePasswordVisibility() {
-    var passwordInput = document.getElementById("modalPassword");
+  <script>
+    var selectedDataModal = document.getElementById("selectedData");
+    var selectedDataTitle = document.querySelector("#selectedData .modal-title");
+    var selectedDataLastName = document.getElementById("modalLastName");
+    var selectedDataFirstName = document.getElementById("modalFirstName");
+    var selectedDataMiddleName = document.getElementById("modalMiddleName");
+    var selectedDataQualifier = document.getElementById("modalQualifier");
+    var selectedDataRank = document.getElementById("modalRank");
+    var selectedDataStation = document.getElementById("modalStation");
+    var selectedDataPoliceId = document.getElementById("modalPoliceId");
+    var selectedDataUsertype = document.getElementById("modalUsertype");
+    var selectedDataPassword = document.getElementById("modalPassword");
     var togglePasswordIcon = document.getElementById("togglePassword");
+    var selectedDataBtns = document.querySelectorAll(".selectedData");
 
-    if (passwordInput.type === "password") {
-      passwordInput.type = "text";
-      togglePasswordIcon.classList.remove("fa-eye");
-      togglePasswordIcon.classList.add("fa-eye-slash");
-    } else {
-      passwordInput.type = "password";
-      togglePasswordIcon.classList.remove("fa-eye-slash");
-      togglePasswordIcon.classList.add("fa-eye");
+    function decryptCaesar(password, shift) {
+      const chars = password.split("");
+      const decryptedChars = chars.map((char) => {
+        if (char.match(/[a-z]/i)) {
+          const code = char.charCodeAt(0);
+          if (code >= 65 && code <= 90) {
+            char = String.fromCharCode(((code - 65 - shift + 26) % 26) + 65);
+          } else if (code >= 97 && code <= 122) {
+            char = String.fromCharCode(((code - 97 - shift + 26) % 26) + 97);
+          }
+        }
+        return char;
+      });
+      return decryptedChars.join("");
     }
-  }
+    function togglePasswordVisibility() {
+      var passwordInput = document.getElementById("modalPassword");
+      var togglePasswordIcon = document.getElementById("togglePassword");
 
-  function toggleEditPasswordVisibility() {
-  var passwordInput = document.getElementById("editDataPassword");
-  var togglePasswordIcon = document.getElementById("editTogglePassword");
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        togglePasswordIcon.classList.remove("fa-eye");
+        togglePasswordIcon.classList.add("fa-eye-slash");
+      } else {
+        passwordInput.type = "password";
+        togglePasswordIcon.classList.remove("fa-eye-slash");
+        togglePasswordIcon.classList.add("fa-eye");
+      }
+    }
 
-  if (passwordInput.type === "password") {
-    passwordInput.type = "text";
-    togglePasswordIcon.classList.remove("fa-eye");
-    togglePasswordIcon.classList.add("fa-eye-slash");
-  } else {
-    passwordInput.type = "password";
-    togglePasswordIcon.classList.remove("fa-eye-slash");
-    togglePasswordIcon.classList.add("fa-eye");
-  }
-}
+    function toggleEditPasswordVisibility() {
+      var passwordInput = document.getElementById("editDataPassword");
+      var togglePasswordIcon = document.getElementById("editTogglePassword");
+
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        togglePasswordIcon.classList.remove("fa-eye");
+        togglePasswordIcon.classList.add("fa-eye-slash");
+      } else {
+        passwordInput.type = "password";
+        togglePasswordIcon.classList.remove("fa-eye-slash");
+        togglePasswordIcon.classList.add("fa-eye");
+      }
+    }
 
 
 
 
-  selectedDataBtns.forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      // Get the data attributes from the button
-      var id = this.getAttribute("data-id");
-      var lastName = this.getAttribute("data-lastname");
-      var firstName = this.getAttribute("data-firstname");
-      var middleName = this.getAttribute("data-middlename");
-      var qualifier = this.getAttribute("data-qualifier");
-      var rank = this.getAttribute("data-rank");
-      var station = this.getAttribute("data-station");
-      var policeId = this.getAttribute("data-policeId");
-      var usertype = this.getAttribute("data-usertype");
-      var password = this.getAttribute("data-password");
-      var shift = this.getAttribute("data-shift");
+    selectedDataBtns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        // Get the data attributes from the button
+        var id = this.getAttribute("data-id");
+        var lastName = this.getAttribute("data-lastname");
+        var firstName = this.getAttribute("data-firstname");
+        var middleName = this.getAttribute("data-middlename");
+        var qualifier = this.getAttribute("data-qualifier");
+        var rank = this.getAttribute("data-rank");
+        var station = this.getAttribute("data-station");
+        var policeId = this.getAttribute("data-policeId");
+        var usertype = this.getAttribute("data-usertype");
+        var password = this.getAttribute("data-password");
+        var shift = this.getAttribute("data-shift");
 
-      // Decrypt the password
-      var decryptedPassword = decryptCaesar(password, shift);
+        // Decrypt the password
+        var decryptedPassword = decryptCaesar(password, shift);
 
-      // Populate the selectedData modal with data
-      selectedDataTitle.innerText = "Selected Data";
-      selectedDataLastName.innerText = lastName;
-      selectedDataFirstName.innerText = firstName;
-      selectedDataMiddleName.innerText = middleName;
-      selectedDataQualifier.innerText = qualifier;
-      selectedDataRank.innerText = rank;
-      selectedDataStation.innerText = station;
-      selectedDataPoliceId.innerText = policeId;
-      selectedDataUsertype.innerText = usertype;
-      selectedDataPassword.innerText = decryptedPassword;
-      selectedDataPassword.setAttribute("data-decrypted-password", decryptedPassword);
-      selectedDataPassword.setAttribute("data-visible", "false");
+        // Populate the selectedData modal with data
+        selectedDataTitle.innerText = "Selected Data";
+        selectedDataLastName.innerText = lastName;
+        selectedDataFirstName.innerText = firstName;
+        selectedDataMiddleName.innerText = middleName;
+        selectedDataQualifier.innerText = qualifier;
+        selectedDataRank.innerText = rank;
+        selectedDataStation.innerText = station;
+        selectedDataPoliceId.innerText = policeId;
+        selectedDataUsertype.innerText = usertype;
+        selectedDataPassword.innerText = decryptedPassword;
+        selectedDataPassword.setAttribute("data-decrypted-password", decryptedPassword);
+        selectedDataPassword.setAttribute("data-visible", "false");
+        togglePasswordIcon.classList.remove("fa-eye-slash");
+        togglePasswordIcon.classList.add("fa-eye");
+      });
+
+    });
+
+    // Function to clear the selectedData modal when it is hidden
+    selectedDataModal.addEventListener("hidden.bs.modal", function () {
+      selectedDataTitle.innerText = "";
+      selectedDataLastName.innerText = "";
+      selectedDataFirstName.innerText = "";
+      selectedDataMiddleName.innerText = "";
+      selectedDataQualifier.innerText = "";
+      selectedDataRank.innerText = "";
+      selectedDataStation.innerText = "";
+      selectedDataPoliceId.innerText = "";
+      selectedDataUsertype.innerText = "";
+      selectedDataPassword.innerText = "";
       togglePasswordIcon.classList.remove("fa-eye-slash");
       togglePasswordIcon.classList.add("fa-eye");
     });
-    
-  });
 
-  // Function to clear the selectedData modal when it is hidden
-  selectedDataModal.addEventListener("hidden.bs.modal", function () {
-    selectedDataTitle.innerText = "";
-    selectedDataLastName.innerText = "";
-    selectedDataFirstName.innerText = "";
-    selectedDataMiddleName.innerText = "";
-    selectedDataQualifier.innerText = "";
-    selectedDataRank.innerText = "";
-    selectedDataStation.innerText = "";
-    selectedDataPoliceId.innerText = "";
-    selectedDataUsertype.innerText = "";
-    selectedDataPassword.innerText = "";
-    togglePasswordIcon.classList.remove("fa-eye-slash");
-    togglePasswordIcon.classList.add("fa-eye");
-  });
+    function toggleEditPasswordVisibilityIcon() {
+      var passwordInput = document.getElementById("editDataPassword");
+      var togglePasswordIcon = document.getElementById("editTogglePassword");
 
-  function toggleEditPasswordVisibilityIcon() {
-  var passwordInput = document.getElementById("editDataPassword");
-  var togglePasswordIcon = document.getElementById("editTogglePassword");
+      if (passwordInput.type === "text") {
+        togglePasswordIcon.classList.remove("fa-eye");
+        togglePasswordIcon.classList.add("fa-eye-slash");
+      } else {
+        togglePasswordIcon.classList.remove("fa-eye-slash");
+        togglePasswordIcon.classList.add("fa-eye");
+      }
+    }
 
-  if (passwordInput.type === "text") {
-    togglePasswordIcon.classList.remove("fa-eye");
-    togglePasswordIcon.classList.add("fa-eye-slash");
-  } else {
-    togglePasswordIcon.classList.remove("fa-eye-slash");
-    togglePasswordIcon.classList.add("fa-eye");
-  }
-}
-
-  function populateEditDataModal(data) {
+    function populateEditDataModal(data) {
       document.getElementById("editDataId").value = data.id || "";
       document.getElementById("editDataLastName").value = data.lastname || "";
       document.getElementById("editDataFirstName").value = data.firstname || "";
@@ -649,9 +636,9 @@
       document.getElementById("editDataUserType").value = data.usertype || "";
       document.getElementById("editDataPassword").value = decryptCaesar(data.password, data.shift) || "";
       toggleEditPasswordVisibilityIcon();
-      
 
-      
+
+
       const editForm = document.getElementById("editForm");
       editForm.action = "/update/" + data.id;
       console.log("Form action:", editForm.action);
@@ -681,7 +668,7 @@
         console.log("ito ang shift", data.shift)
       });
     });
-</script>
+  </script>
 
 
 
