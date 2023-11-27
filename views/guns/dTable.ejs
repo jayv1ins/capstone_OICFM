@@ -131,9 +131,6 @@
             <div class="right-boxes box" style="width: 100%; height: auto;">
 
 
-
-
-
               <form action="/DataTable" method="GET" onsubmit="handleFilterSubmit(event)" class="custom-form">
 
 
@@ -233,7 +230,8 @@
                   <input type="date" id="endDate" name="endDate" class="custom-input" required>
                 </div>
                 <button id="scannedThisMonth" class="custom-button primary">Scanned This Month</button>
-                <button id="NotScannedThisMonth" class="custom-button primary">No Scanned for this Month</button>
+                <button id="NotScannedThisMonth" class="custom-button primary">No Scanned for This Month</button>
+                <button class="downloadBtn" id="downloadExcelBtn">Download<i class='bx bx-spreadsheet'></i></button>
               </form>
 
               <div class="main-cards">
@@ -271,10 +269,12 @@
 
               </div>
 
-              <!-- Search bar -->
-              <form action="/DataTable" method="GET" onsubmit="handleFilterSubmit(event)" class="custom-search-form">
-                <div class="custom-form-row">
-                  <div class="custom-form-group col">
+
+              <div class="custom-form-row">
+                <button class="custom-button primary newUser" data-bs-toggle="modal" data-bs-target="#userForm">Create New<i
+                    class='bx bxs-user-plus'></i></button>
+                <form action="/DataTable" method="GET" onsubmit="handleFilterSubmit(event)" class="custom-search-form">
+                  <div class="search-container">
                     <input type="text" class="search-input" id="searchQuery" name="search" list="searchSuggestions"
                       placeholder="Enter name or gun name" <% if (searchQuery) { %>value="<%- searchQuery %>"<% } %>>
                         <datalist id="searchSuggestions">
@@ -284,20 +284,10 @@
                         </datalist>
                   </div>
                   <button type="submit" class="custom-button primary">Search<i class='bx bx-search-alt-2'></i></button>
-
-                </div>
-
-
-                <div class="custom-form-row">
-                  <div class="custom-form-group col">
-                    <button class="downloadBtn" id="downloadExcelBtn">Download Excel<i
-                        class='bx bx-spreadsheet'></i></button>
-                  </div>
-                </div>
-              </form>
+                </form>
 
 
-
+              </div>
 
               <table class="custom-table">
                 <thead class="custom-table-header">
@@ -431,7 +421,7 @@
               <div class="modal fade" id="selectedData">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                   <!-- Modal content -->
-                  <div class="modal-content">
+                  <div class="modal-content2">
 
                     <div class="modal-header">
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
@@ -531,17 +521,17 @@
                             <tr>
                               <td><strong>Rank</strong></td>
                               <td><input type="text" class="form-control" id="editDataRank" name="rank"
-                                  autocomplete="Rank" required minlength="4" pattern="[a-zA-Z ]+"></td>
+                                  autocomplete="Rank" required minlength="3" pattern="[a-zA-Z ]+"></td>
 
                               <td><strong>Last Name</strong></td>
                               <td><input type="text" class="form-control" id="editDataLastName" name="lastName"
-                                  autocomplete="LastName" required minlength="4" pattern="[a-zA-Z ]+"></td>
+                                  autocomplete="LastName" required minlength="3" pattern="[a-zA-Z ]+"></td>
                             </tr>
 
                             <tr>
                               <td><strong>First Name</strong></td>
                               <td><input type="text" class="form-control" id="editDataFirstName" name="firstName"
-                                  autocomplete="FirstName" required minlength="4" pattern="[a-zA-Z ]+"></td>
+                                  autocomplete="FirstName" required minlength="3" pattern="[a-zA-Z ]+"></td>
 
                               <td><strong>Middle Name</strong></td>
                               <td><input type="text" class="form-control" id="editDataMiddleName" name="middleName"
@@ -555,25 +545,25 @@
 
                               <td><strong>Office</strong></td>
                               <td><input type="text" class="form-control" id="editDataOffice" name="office"
-                                  autocomplete="office" required minlength="4" pattern="^[a-zA-Z0-9\s-]+$"></td>
+                                  autocomplete="office" required minlength="3" pattern="^[a-zA-Z0-9\s-]+$"></td>
                             </tr>
 
 
                             <tr>
                               <td><strong>Gun Type</strong></td>
                               <td><input type="text" class="form-control" id="editDataGunType" name="Gtype"
-                                  autocomplete="GunType" required minlength="4" pattern="[a-zA-Z ]+"></td>
+                                  autocomplete="GunType" required minlength="3" pattern="[a-zA-Z ]+"></td>
 
 
                               <td><strong>Gun Name</strong></td>
                               <td><input type="text" class="form-control" id="editDataGunName" name="Gname"
-                                  autocomplete="GunName" required minlength="4" pattern="^[A-Z0-9][A-Za-z0-9 -]*$"></td>
+                                  autocomplete="GunName" required minlength="3" pattern="^[A-Z0-9][A-Za-z0-9 -]*$"></td>
                             </tr>
 
                             <tr>
                               <td><strong>Caliber</strong></td>
                               <td><input type="text" class="form-control" id="editDataCaliber" name="caliber"
-                                  autocomplete="Caliber" required minlength="4" pattern="^[A-Z0-9][A-Za-z0-9 -]*$"></td>
+                                  autocomplete="Caliber" required minlength="3" pattern="^[A-Z0-9][A-Za-z0-9 -]*$"></td>
 
 
                               <td><strong>Serial Number</strong></td>
@@ -589,20 +579,20 @@
 
 
                               <td><strong>Acquisition Date</strong></td>
-                              <td> <input type="date" class="form-control" id="editDataAcquisition"
-                                  name="acquisition">
+                              <td> <input type="date" class="form-control" id="editDataAcquisition" name="acquisition">
+                              </td>
                             </tr>
 
                             <tr>
 
                               <td><strong>Turn Over</strong></td>
                               <td><input type="date" class="form-control" id="editDataTurnOver" placeholder="Turn-Over"
-                                  name="turnOver">
+                                  name="turnOver"></td>
 
 
                               <td><strong>Returned</strong></td>
                               <td> <input type="date" class="form-control" placeholder="Returned" name="returned"
-                                  id="editDataReturned">
+                                  id="editDataReturned"></td>
 
                             </tr>
 
@@ -619,6 +609,170 @@
 
                     </div>
 
+                  </div>
+                </div>
+              </div>
+
+
+
+              <div class="modal fade" id="userForm">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                  <div class="modal-content">
+
+                    <div class="modal-header">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span>&times;</span> <!-- "X" icon for close button -->
+                      </button>
+                      <h4 class="modal-title">Fill the Form</h4>
+                    </div>
+
+
+
+                    <div class="modal-body">
+
+                      <form method="POST" action="/create" id="myForm">
+
+                        <% if (typeof ErrorMessage !=='undefined' ) { %>
+                          <p style="color: red;">
+                            <%= ErrorMessage %>
+                          </p>
+                          <% } else if (typeof SuccessMessage !=='undefined' ) { %>
+                            <p style="color: green;">
+                              <%= SuccessMessage %>
+                            </p>
+                            <% } %>
+
+                              <table class="table table-hover">
+                                <tbody>
+                                  <tr>
+
+                                    <td><strong>Rank</strong></td>
+                                    <td>
+                                      <input type="text" class="form-control" id="rank" name="rank"
+                                        placeholder="Enter rank">
+                                    </td>
+
+                                    <td><strong>Last Name</strong></td>
+                                    <td>
+                                      <input type="text" class="form-control" placeholder="Enter your last name."
+                                        id="lastName" name="lastName" autocomplete="LastName" required min="3"
+                                        pattern="[a-zA-Z ]+">
+                                    </td>
+
+                                  </tr>
+
+
+                                  <tr>
+                                    <td><strong>First Name</strong></td>
+                                    <td>
+                                      <input type="text" class="form-control" placeholder="Enter your first name."
+                                        id="firstName" name="firstName" autocomplete="firstName" required min="3"
+                                        pattern="[a-zA-Z ]+">
+                                    </td>
+
+                                    <td><strong>Middle Name</strong></td>
+                                    <td>
+                                      <input type="text" class="form-control" placeholder="Enter your middle name."
+                                        id="middleName" name="middleName" autocomplete="middleName" required min="3"
+                                        pattern="[a-zA-Z ]+">
+                                    </td>
+                                  </tr>
+
+
+                                  <tr>
+                                    <td><strong>Qualifier</strong></td>
+                                    <td>
+                                      <input type="text" class="form-control" placeholder="Enter Qualifier" id="QLFR"
+                                        name="QLFR" autocomplete="QLFR" id="qlfr">
+                                    </td>
+
+                                    <td><strong>Office</strong></td>
+                                    <td>
+                                      <input type="text" class="form-control" id="editDataOffice"
+                                        placeholder="District/City" name="office" autocomplete="office" required min="3"
+                                        pattern="^[a-zA-Z]*$">
+                                    </td>
+
+                                  </tr>
+
+                                  <tr>
+
+                                    <td><strong>Gun Type</strong></td>
+                                    <td>
+                                      <input type="text" class="form-control" id="gtype" placeholder="Enter gun type"
+                                        name="Gtype" autocomplete="Gtype" required min="3" pattern="^[a-zA-Z]*$">
+                                    </td>
+
+                                    <td><strong>Gun Name</strong></td>
+                                    <td>
+                                      <input type="text" class="form-control" id="gname" placeholder="Enter gun name"
+                                        name="Gname" autocomplete="Gname" required min="3" pattern="^[a-zA-Z]*$">
+                                    </td>
+                                  </tr>
+
+
+                                  <tr>
+
+                                    <td><strong>Caliber</strong></td>
+                                    <td>
+                                      <input type="text" class="form-control" id="caliber" placeholder="Enter caliber"
+                                        name="caliber" autocomplete="caliber" required min="3">
+                                    </td>
+
+                                    <td><strong>Serial Number</strong></td>
+                                    <td>
+                                      <input type="text" class="form-control" id="serialN"
+                                        placeholder="Enter serial number" name="serialN" autocomplete="serialN" required
+                                        min="4">
+                                    </td>
+                                  </tr>
+
+
+                                  <tr>
+
+
+                                    <td><strong>Cost</strong></td>
+                                    <td>
+                                      <input type="text" class="form-control" id="cost" placeholder="Enter cost"
+                                        name="cost" autocomplete="cost" required min="4">
+                                    </td>
+
+                                    <td><strong>Acquisition date</strong></td>
+                                    <td>
+                                      <input type="date" class="form-control" id="acquisition" name="acquisition" required>
+                                    </td>
+                                  </tr>
+
+
+                                  <tr>
+
+                                    <td><strong>Turn Over</strong></td>
+                                    <td>
+                                      <input type="date" class="form-control" id="turnOver" placeholder="Turn Over"
+                                        name="turnOver" autocomplete="turnOver" required min="3">
+                                    </td>
+
+
+                                    <td><strong>Returned</strong></td>
+                                    <td>
+                                      <input type="date" class="form-control" id="returned" placeholder="Returned gun"
+                                        name="returned" autocomplete="returned" required min="3">
+                                    </td>
+                                  </tr>
+
+                                </tbody>
+                              </table>
+
+
+
+
+                      </form>
+                    </div>
+
+                    <div class="modal-footer">
+                      <button type="submit" form="myForm" class="btn btn-primary submit"
+                        id="saveChangesButton">Submit</button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -749,6 +903,8 @@
         var selectedDataReturned = document.getElementById("modalReturned");
         var selectedDataBtns = document.querySelectorAll(".selectedData");
 
+
+
         selectedDataBtns.forEach(function (btn) {
           btn.addEventListener("click", function () {
             // Get the data attributes from the button
@@ -819,7 +975,7 @@
           document.getElementById("editDataCaliber").value = data.caliber || "";
           document.getElementById("editDataSerialNumber").value = data.serialnumber || "";
           document.getElementById("editDataCost").value = data.cost || "";
-          document.getElementById("editDataAcquisition").value = data.acquisition  || "";
+          document.getElementById("editDataAcquisition").value = data.acquisition || "";
           document.getElementById("editDataTurnOver").value = data.turnover || "";
           document.getElementById("editDataReturned").value = data.returned || "";
 
@@ -922,6 +1078,42 @@
 
         // Attach the exportExcel function to the button click event
         document.getElementById('downloadExcelBtn').addEventListener('click', exportExcel);
+      </script>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const myForm = document.getElementById('myForm');
+
+    myForm.addEventListener('submit', function () {
+      const fieldsToUppercase = ['lastName', 'firstName', 'middleName', 'office', 'Gtype', 'caliber', 'Gname', 'serialN'];
+
+      fieldsToUppercase.forEach(function (fieldName) {
+        const input = myForm.querySelector(`input[name="${fieldName}"]`);
+        if (input) {
+          input.value = input.value.toUpperCase();
+        }
+      });
+    });
+  });
+</script>
+
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const editForm = document.getElementById('editForm');
+
+          editForm.addEventListener('submit', function () {
+            const fieldsToUppercase = ['editDataLastName', 'editDataFirstName', 'editDataMiddleName', 'editDataQualifier', 'editDataOffice', 'editDataGunType', 'editDataGunName', 'editDataCaliber', 'editDataSerialNumber'];
+
+            fieldsToUppercase.forEach(function (fieldId) {
+              const input = document.getElementById(fieldId);
+              if (input) {
+                input.value = input.value.toUpperCase();
+              }
+            });
+          });
+        });
       </script>
 
 

@@ -6,8 +6,13 @@
 	padding: 0;
 	box-sizing: border-box;
 	font-family: 'Roboto', sans-serif;
-	
-	
+
+
+}
+
+a {
+	text-decoration: none;
+	color: #fff;
 }
 
 .sidebar {
@@ -45,14 +50,14 @@
 
 .sidebar .nav-links {
 	margin-top: 10px;
-	
+
 }
 
 .sidebar .nav-links li {
 	position: relative;
 	list-style: none;
 	height: 50px;
-	
+
 }
 
 .sidebar .nav-links li a {
@@ -217,7 +222,7 @@ nav .sidebar-button i {
 	padding: 20px 30px;
 	border-radius: 12px;
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-	
+
 }
 
 .home-content2 .main-boxes .right-boxes {
@@ -512,7 +517,7 @@ nav .sidebar-button i {
 }
 
 .form-group {
-	
+
 	text-align: center;
 	margin: 10px;
 
@@ -630,20 +635,22 @@ nav .sidebar-button i {
 /* ########################################################## */
 .custom-search-form {
 	display: flex;
+
 	align-items: center;
-	justify-content: space-between;
+	justify-content: flex-end;
 }
 
 .custom-form-group {
 	display: flex;
 	align-items: center;
-	margin-right: 10px;
+	margin-left: 10px;
 }
 
 .custom-form-row {
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 }
+
 
 .custom-input {
 	padding: 10px;
@@ -659,12 +666,17 @@ nav .sidebar-button i {
 	/* Background color */
 }
 
+.search-container {
+	margin-right: 10px;
+}
+
 .search-input {
 	width: 100%;
 	padding: 10px;
 	border: 1px solid #ccc;
 	border-radius: 6px;
 	font-size: 18px;
+
 }
 
 /* ############################################################################ */
@@ -673,7 +685,7 @@ nav .sidebar-button i {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	
+
 }
 
 .custom-button-group-manager {
@@ -696,7 +708,7 @@ nav .sidebar-button i {
 	padding: 10px;
 	border: 1px solid #ccc;
 	font-size: 20px;
-	
+
 
 }
 
@@ -707,9 +719,9 @@ nav .sidebar-button i {
 
 .custom-table tbody tr:hover {
 	background-color: #d9d9d9;
-  }
-  
-  
+}
+
+
 
 /* Custom button styles */
 .custom-button2 {
@@ -797,6 +809,16 @@ nav .sidebar-button i {
 }
 
 .modal-content {
+	background-color: #fff;
+	margin: 8% auto;
+	padding: 20px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	max-width: 50%;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content2 {
 	background-color: #fff;
 	margin: 8% auto;
 	padding: 20px;
@@ -1019,5 +1041,3 @@ nav .sidebar-button i {
 strong {
 	white-space: nowrap;
 }
-
-
