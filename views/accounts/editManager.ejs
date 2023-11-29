@@ -64,19 +64,19 @@
                 <div class="col-sm-4 form-group">
                   <label for="inputEmail4">Last Name</label>
                   <input type="text" class="form-control" value="<%= data.lastName %>" id="lastName"
-                    name="lastName" autocomplete="LastName" required min="4" pattern="[a-zA-Z]+">
+                    name="lastName" autocomplete="LastName" required min="4" pattern="[a-zA-Z -]+">
                 </div>
 
                 <div class="col-sm-4 form-group">
                   <label for="inputPassword4">First Name</label>
                   <input type="text" class="form-control" value="<%= data.firstName %>" id="firstName"
-                    name="firstName" autocomplete="firstName" required min="4" pattern="[a-zA-Z]+">
+                    name="firstName" autocomplete="firstName" required min="4" pattern="[a-zA-Z -]+">
                 </div>
 
                 <div class="col-sm-4 form-group">
                   <label for="inputPassword4">Middle Name</label>
                   <input type="text" class="form-control" value="<%= data.middleName %>" id="middleName"
-                    name="middleName" autocomplete="middleName" required min="4" pattern="[a-zA-Z]+">
+                    name="middleName" autocomplete="middleName" required min="4" pattern="[a-zA-Z -]+">
                 </div>
 
                 <div class="col-sm-4 form-group">
@@ -95,13 +95,13 @@
                 <div class="col-sm-4 form-group">
                   <label for="inputEmail4">Office</label>
                   <input type="text" class="form-control" value="<%= data.office %>" name="office" autocomplete="office"
-                    required min="4" pattern="^[A-Z][a-zA-Z]*$">
+                    required min="4" pattern="^[A-Z][a-zA-Z -]*$">
                 </div>
 
                
                 <div class="col-sm-4 form-group">
                   <label for="inputZip">Rank</label>
-                  <input type="text" class="form-control" id="rank" name="rank" value="<%= data.rank %>">
+                  <input type="text" class="form-control" id="rank" name="rank" value="<%= data.rank %>" pattern="[a-zA-Z -]+">
                 </div>
 
 
