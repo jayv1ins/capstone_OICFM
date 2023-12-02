@@ -93,15 +93,18 @@
       <h2 class="text-center mb-4 mt-5" >Manager Registration</h2>
       <div class="row jumbotron shadow-lg p-3 mb-5 bg-body-tertiary rounded border">
 
-        <% if (typeof ErrorMessage !=='undefined' ) { %>
-          <p style="color: red;">
-            <%= ErrorMessage %>
-          </p>
-          <% } else if (typeof SuccessMessage !=='undefined' ) { %>
-            <p style="color: green;">
-              <%= SuccessMessage %>
+        <center>
+          <% if (typeof ErrorMessage !== 'undefined') { %>
+            <p style="color: red;">
+              <%= req.query.ErrorMessage %>
             </p>
-            <% } %>
+          <% } else if (typeof SuccessMessage !== 'undefined') { %>
+            <p style="color: green;">
+              <%= req.query.SuccessMessage %>
+            </p>
+          <% } %>
+        </center>
+
 
             <div class="col-sm-4 form-group">
               <label for="inputEmail4">Email</label>
@@ -142,20 +145,20 @@
         
               <div class="col-sm-4 form-group">
                 <label for="inputEmail4">Office</label>
-                <input type="text" class="form-control" placeholder="District/City" name="office" autocomplete="office"
+                <input type="text" class="form-control" placeholder="Office" name="office" autocomplete="office"
                   required min="4" pattern="^[A-Z][a-zA-Z]*$">
               </div>
 
               
               <div class="col-sm-4 form-group">
                 <label for="inputZip">Rank</label>
-                <input type="text" class="form-control" id="rank" name="rank" value="generatedPin">
+                <input type="text" class="form-control" id="rank" name="rank" placeholder="Rank">
               </div>
 
               <div class="col-sm-4 form-group">
                 <label for="inputZip">Password <span id="password-strength"></span></label>
                 <div class="input-group">
-                  <input type="password" class="form-control" id="password" name="password">
+                  <input type="password" class="form-control" id="password" name="password" pattern=".*[A-Z].*">
                   <div class="input-group-append">
                     <span class="input-group-text">
                       <i class="fas fa-eye" id="togglePassword" onclick="togglePasswordVisibility()"></i>
@@ -166,17 +169,17 @@
 
               <div class="col-sm-4 form-group">
                 <label for="inputZip">User Type</label>
-                <select id="usertype" name="usertype" class="form-control " >
+                <select id="usertype" name="usertype" class="form-control "   onchange="validateUserType(this)" required>
                   <option value="Choose from this list">.....</option>
                   <option value="Admin">Admin</option>
                   <option value="Manager">Manager</option>
                   </select>
               </div>
 
-              <div class="col-sm-4 form-group">
-                <label for="inputZip">Pin code</label>
-                <input type="text" class="form-control " id="pin" name="pin" placeholder="Pin code" readonly>
-              </div>
+                 <!-- for spacing -->
+                 <div class="col-sm-4 form-group">
+                </div>
+
 
               <div class="col-sm-4 form-group">
                 <label>Password Requirements</label>
@@ -189,11 +192,6 @@
               <div class="col-sm-4 form-group">
               </div>
               
-              <div class="col-sm-4 form-group">
-                <center>
-                  <button type="button" id="generatePinNoButton" class="btn btn-primary ">Generate Pin</button>
-                </center>
-              </div>
 
               <div class="col-sm-4 form-group">
               </div>
@@ -213,6 +211,7 @@
 
 
   <script>
+    
   // Function to show password when the eye icon is clicked
     function togglePasswordVisibility() {
       var passwordInput = document.getElementById("password");
@@ -254,25 +253,18 @@
     const passwordInput = document.getElementById("password");
     passwordInput.addEventListener("input", updatePasswordStrengthMeter);
 
-
-  // Function to generate a random 9-digit number
-  function generatePinNo() {
-      const min = 100000000; // Smallest 9-digit number
-      const max = 999999999; // Largest 9-digit number
-      return Math.floor(Math.random() * (max - min + 1)) + min;
+  // To pick the user type
+  function validateUserType(select) {
+    const errorElement = document.getElementById('usertype-error');
+    if (select.value === '') {
+      errorElement.textContent = 'Please choose a user type.';
+      select.setCustomValidity('Please choose a user type.');
+    } else {
+      errorElement.textContent = '';
+      select.setCustomValidity('');
     }
-    
-    // When the generatePinNoButton is clicked, generate a random 9-digit number
-    function ButtonClick() {
-      const generatedPin = generatePinNo();
-      const pin = document.getElementById('pin');
-      pin.value = generatedPin;
-    }
-    
-    // Attach click event listener to the button
-    const generatePinNoButton = document.getElementById('generatePinNoButton');
-    generatePinNoButton.addEventListener('click', ButtonClick);
-  </script>
+  }
+</script>
     
     
    

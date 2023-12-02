@@ -71,15 +71,18 @@
         <h2 class="text-center mb-4 mt-5">Manager Edit Information</h2>
         <div class="row jumbotron shadow-lg p-3 mb-5 bg-body-tertiary rounded border">
 
-          <% if (typeof ErrorMessage !=='undefined' ) { %>
-            <p style="color: red;">
-              <%= ErrorMessage %>
-            </p>
-            <% } else if (typeof SuccessMessage !=='undefined' ) { %>
+          <center>
+            <% if (typeof ErrorMessage !== 'undefined') { %>
+              <p style="color: red;">
+                <%= ErrorMessage %>
+              </p>
+            <% } else if (typeof SuccessMessage !== 'undefined') { %>
               <p style="color: green;">
                 <%= SuccessMessage %>
               </p>
-              <% } %>
+            <% } %>
+          </center>
+  
 
                 <div class="col-sm-4 form-group">
                   <label for="inputEmail4">Email</label>
@@ -166,6 +169,7 @@
 
 
     <script>
+      //To see password
       function togglePasswordVisibility() {
         var passwordInput = document.getElementById("password");
         var togglePasswordIcon = document.getElementById("togglePassword");

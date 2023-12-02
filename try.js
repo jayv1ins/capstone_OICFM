@@ -15,17 +15,21 @@ async function fetchData() {
     // Get current month and year
     const currentMonth = new Date().getMonth() + 1; // Months are zero-indexed, so add 1
     const currentYear = new Date().getFullYear();
-    const currentDate = new Date();
+
+    // Get the last day of the current month
+    const lastDay = new Date(currentYear, currentMonth, 0).getDate();
 
     // Dynamically construct the date range
     const start = `${currentYear}-${currentMonth}-01`;
-    const end = `${currentYear}-${currentMonth}-30`;
+    const end = `${currentYear}-${currentMonth}-${lastDay}`;
+
+    // Rest of your code remains unchanged
 
     // Find and log details of new documents
     const newDocuments = await collection
       .find({
-        archived: false,
-        turnOver: {
+        archived: true,
+        updatedAt: {
           $gte: start,
           $lte: end,
         },
@@ -40,7 +44,7 @@ async function fetchData() {
     // Count and log the total number of new and archived documents
     const totalNew = await collection.countDocuments({
       archived: false,
-      turnOver: {
+      createdAt: {
         $gte: start,
         $lte: end,
       },
@@ -48,13 +52,14 @@ async function fetchData() {
 
     const totalArchived = await collection.countDocuments({
       archived: true,
-      turnOver: {
+      updatedAt: {
         $gte: start,
         $lte: end,
       },
     });
-    console.log("date ", currentDate);
+
     console.log("Total Documents new:", totalNew);
+    console.log("start:", start);
     console.log("Total Archived:", totalArchived);
   } finally {
     await client.close();

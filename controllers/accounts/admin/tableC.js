@@ -30,13 +30,13 @@ exports.getDTable = async function (req, res) {
       archived: false,
       rank: { $exists: true, $ne: null },
     });
-    const distinctStation = await collection.distinct("office", {
+    const distinctOffice = await collection.distinct("office", {
       archived: false,
       office: { $exists: true, $ne: null },
     });
 
     const checkbRanks = distinctRank;
-    const checkbStations = distinctStation;
+    const checkboffices = distinctOffice;
 
     // Request query options and Build the search filter
     const searchQuery = req.query.search || "";
@@ -150,7 +150,7 @@ exports.getDTable = async function (req, res) {
       CBranks,
       checkbRanks,
       CBoffices,
-      checkbStations,
+      checkboffices,
     });
   } catch (error) {
     console.error(error);
@@ -168,6 +168,11 @@ exports.deleteManager = async function (req, res) {
     const db = client.db("PNP_management");
     const collection = db.collection("User");
 
+    const currentMonth = new Date().getMonth() + 1; // Months are zero-indexed, so add 1
+    const currentYear = new Date().getFullYear();
+    const currentDay = new Date().getDate();
+
+    const updatedAt = `${currentYear}-${currentMonth}-${currentDay}`;
     const existingData = await collection.findOne({
       _id: new ObjectId(id),
     });
@@ -180,9 +185,8 @@ exports.deleteManager = async function (req, res) {
         {
           _id: new ObjectId(id),
         },
-        { $set: { archived: true } }
+        { $set: { archived: true, updatedAt } }
       );
-
       res.redirect("/admin/table");
     }
   } catch (error) {

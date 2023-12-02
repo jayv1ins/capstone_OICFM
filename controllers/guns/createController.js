@@ -29,8 +29,24 @@ exports.postCreate = async (req, res) => {
 
   try {
     await client.connect();
-    const createdAt = new Date();
-    const updatedAt = new Date();
+    const existingGunDetail = await collection.findOne({
+      serialN,
+      archived: false,
+    });
+    if (existingGunDetail) {
+      const message =
+        existingGunDetail.serialN === serialN
+          ? "Serial Number already taken"
+          : null;
+      res.render("/DataTable", { message, user: req.user });
+    }
+
+    const currentMonth = new Date().getMonth() + 1; // Months are zero-indexed, so add 1
+    const currentYear = new Date().getFullYear();
+    const currentDay = new Date().getDate();
+
+    const createdAt = `${currentYear}-${currentMonth}-${currentDay}`;
+    const updatedAt = `${currentYear}-${currentMonth}-${currentDay}`;
     const NewRegister = await collection.insertOne({
       Gtype: Gtype,
       Gname: Gname,
@@ -50,8 +66,8 @@ exports.postCreate = async (req, res) => {
       updatedAt: updatedAt,
       archived: false,
     });
-
-    return res.redirect(`/DataTable`);
+    const SuccessMessage = "Successfully Registered!";
+    res.redirect(`/DataTable`);
   } catch (error) {
     console.error(error);
     res

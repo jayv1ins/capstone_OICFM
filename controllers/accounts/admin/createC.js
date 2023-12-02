@@ -40,14 +40,23 @@ exports.postCreate = async (req, res) => {
   }
   await client.connect();
   const existingUser = await collection.findOne({
-    policeId,
+    $or: [
+      { policeId, archived: false },
+      { email, archived: false },
+    ],
   });
   if (existingUser) {
-    const message =
-      existingUser.policeId === policeId
-        ? "Police Id Nmber already taken"
-        : null;
-    return res.render("accounts/admin/create", { ErrorMessage });
+    let ErrorMessage;
+
+    if (existingUser.policeId === policeId && existingUser.email === email) {
+      ErrorMessage = "Police Id Number and Email are already taken";
+    } else if (existingUser.policeId === policeId) {
+      ErrorMessage = "Police Id Number already taken";
+    } else if (existingUser.email === email) {
+      ErrorMessage = "Email already taken";
+    }
+
+    res.render("accounts/admin/create", { ErrorMessage, user: req.user });
   }
 
   const shift = Math.floor(Math.random() * 25) + 1;
@@ -64,8 +73,14 @@ exports.postCreate = async (req, res) => {
     return char;
   });
   const encryptedPassword = encryptedChars.join("");
-  const createdAt = new Date();
-  const updatedAt = new Date();
+
+  const currentMonth = new Date().getMonth() + 1; // Months are zero-indexed, so add 1
+  const currentYear = new Date().getFullYear();
+  const currentDay = new Date().getDate();
+
+  const createdAt = `${currentYear}-${currentMonth}-${currentDay}`;
+  const updatedAt = `${currentYear}-${currentMonth}-${currentDay}`;
+
   const user = await collection.insertOne({
     email: email,
     lastName: lastName,
@@ -82,6 +97,7 @@ exports.postCreate = async (req, res) => {
     updatedAt: updatedAt,
     archived: false,
   });
+  const SuccessCreate = "Successfully Registered!";
   return res.redirect(`/admin/edit/${user.insertedId}`);
   sendManagerCredentials(email, policeId, password); // Adjust arguments as needed
   console.log("email sent successfully", sendManagerCredentials);

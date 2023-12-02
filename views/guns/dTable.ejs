@@ -241,7 +241,7 @@
                     <i class='bx bx-user-circle'></i>
                   </div>
                   <h1>
-                    <%= TotalGun +1 %>
+                    <%= TotalGun %>
                   </h1>
                 </div>
 
@@ -284,6 +284,15 @@
                         </datalist>
                   </div>
                   <button type="submit" class="custom-button primary">Search<i class='bx bx-search-alt-2'></i></button>
+                    <% if (typeof ErrorMessage !=='undefined' ) { %>
+            <p style="color: red;">
+              <%= ErrorMessage %>
+            </p>
+            <% } else if (typeof SuccessMessage !=='undefined' ) { %>
+              <p style="color: green;">
+                <%= SuccessMessage %>
+              </p>
+              <% } %>
                 </form>
 
 
@@ -689,7 +698,7 @@
                                     <td><strong>Office</strong></td>
                                     <td>
                                       <input type="text" class="form-control" id="editDataOffice"
-                                        placeholder="District/City" name="office" autocomplete="office" required min="3"
+                                        placeholder="Office" name="office" autocomplete="office" required min="3"
                                         pattern="^[a-zA-Z]*$">
                                     </td>
 

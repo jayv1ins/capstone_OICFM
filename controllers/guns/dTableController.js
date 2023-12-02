@@ -23,13 +23,13 @@ exports.getDTable = async function (req, res) {
     // Get current month and year
     const currentMonth = new Date().getMonth() + 1; // Months are zero-indexed, so add 1
     const currentYear = new Date().getFullYear();
-
+    const lastDay = new Date(currentYear, currentMonth, 0).getDate();
     // Dynamically construct the date range
     const start = new Date(`${currentYear}-${currentMonth}-01`);
-    const end = new Date(`${currentYear}-${currentMonth}-30`);
+    const end = new Date(`${currentYear}-${currentMonth}-${lastDay}`);
 
-    const startString = start.toISOString();
-    const endString = end.toISOString();
+    const startString = `${currentYear}-${currentMonth}-01`;
+    const endString = `${currentYear}-${currentMonth}-${lastDay}`;
 
     const New = await collection.countDocuments({
       archived: false,
@@ -268,12 +268,16 @@ exports.getDTable = async function (req, res) {
       TotalGun,
       New,
       Remove,
+      errorMessage: null,
+      successMessage: null,
     });
     // For debugging purposes
-    console.log("what is this", filter);
-    console.log("date", dateFilter);
-    console.log("startDate:", startDate);
-    console.log("endDate:", endDate);
+    console.log("end", endString);
+    console.log("start", startString);
+    // console.log("what is this", filter);
+    // console.log("date", dateFilter);
+    // console.log("startDate:", startDate);
+    // console.log("endDate:", endDate);
     // console.log("distinct", distinctGunTypes);
     // console.log("the checkbox", checkbGunTypes);
 
@@ -294,7 +298,11 @@ exports.deleteData = async function (req, res) {
     await client.connect();
     const db = client.db("PNP_management");
     const collection = db.collection("Record");
-    const currentDate = new Date();
+
+    const currentMonth = new Date().getMonth() + 1; // Months are zero-indexed, so add 1
+    const currentYear = new Date().getFullYear();
+    const currentDay = new Date().getDate();
+    const updatedAt = `${currentYear}-${currentMonth}-${currentDay}`;
 
     const existingData = await collection.findOne({
       _id: new ObjectId(id),
@@ -308,7 +316,7 @@ exports.deleteData = async function (req, res) {
         {
           _id: new ObjectId(id),
         },
-        { $set: { archived: true, updateAt: currentDate.toISOString() } }
+        { $set: { archived: true, updatedAt } }
       );
 
       res.redirect("/DataTable");
