@@ -353,9 +353,10 @@ exports.exportToExcel = async function (req, res) {
       middleName: true,
       QLFR: true,
     };
+
     const data = await collection
       .find({ archived: false })
-      .sort({ acquisition: -1 })
+      .sort({ lastName: 1 })
       .project(projection)
       .toArray();
 
@@ -364,19 +365,69 @@ exports.exportToExcel = async function (req, res) {
 
     // Create a new Excel workbook
     const wb = XLSX.utils.book_new();
-    const ws = XLSX.utils.json_to_sheet(data);
-
-    // Add the data worksheet to the workbook
-    XLSX.utils.book_append_sheet(wb, ws, "Table Data");
 
     // Create a new worksheet for additional data (e.g., total count)
-    const extraDataWs = XLSX.utils.json_to_sheet(
-      [{ "Total Count": totalGunCount }],
-      { header: ["Total Count"] }
-    );
+    const additionalHeaders = [
+      "Type",
+      "Make",
+      "Cal",
+      "Serial Nr",
+      "Acquisition Date",
+      "Acquisition Cost",
+      "Office",
+      "Rank",
+      "Last Name",
+      "First Name",
+      "Middle Name",
+      "QLF",
+    ];
 
-    // Add the additional data worksheet to the workbook
-    XLSX.utils.book_append_sheet(wb, extraDataWs, "Additional Data");
+    const additionalData = data.map((record) => ({
+      Type: record.Gtype,
+      Make: record.Gname,
+      Cal: record.caliber,
+      "Serial Nr": record.serialN,
+      "Acquisition Date": record.acquisition,
+      "Acquisition Cost": record.cost,
+      Office: record.office,
+      Rank: record.rank,
+      "Last Name": record.lastName,
+      "First Name": record.firstName,
+      "Middle Name": record.middleName,
+      QLF: record.QLFR,
+    }));
+
+    const additionalWs = XLSX.utils.json_to_sheet(additionalData, {
+      header: additionalHeaders,
+      skipHeader: true, // Skip the header row when adding to the worksheet
+    });
+
+    // Manually set header values for additional data
+    additionalWs["A1"] = { v: "DESCRIPTION", t: "s" };
+    additionalWs["A2"] = { v: "Type" };
+    additionalWs["B2"] = { v: "Make" };
+    additionalWs["C2"] = { v: "Cal" };
+    additionalWs["D2"] = { v: "Serial Nr" };
+    additionalWs["E1"] = { v: "Acquisition Date", t: "s" };
+    additionalWs["F1"] = { v: "Acquisition Cost", t: "s" };
+    additionalWs["G1"] = { v: "WHEREABOUTS", t: "s" };
+    additionalWs["G2"] = { v: "Office" };
+    additionalWs["H2"] = { v: "Rank" };
+    additionalWs["I2"] = { v: "Last Name" };
+    additionalWs["J2"] = { v: "First Name" };
+    additionalWs["K2"] = { v: "Middle Name" };
+    additionalWs["L2"] = { v: "QLF" };
+
+    // Define merges for the DESCRIPTION, Acquisition Date, and WHEREABOUTS cells
+    additionalWs["!merges"] = [
+      { s: { r: 0, c: 0 }, e: { r: 0, c: 3 } }, // Merge A1 to D1 for DESCRIPTION
+      { s: { r: 0, c: 4 }, e: { r: 1, c: 4 } }, // Merge E1 to E2 for Acquisition Date
+      { s: { r: 0, c: 5 }, e: { r: 1, c: 5 } }, // Merge F1 to F2 for Acquisition Cost
+      { s: { r: 0, c: 6 }, e: { r: 0, c: 11 } }, // Merge G1 to L1 for WHEREABOUTS
+    ];
+
+    // Add the data worksheet to the workbook
+    XLSX.utils.book_append_sheet(wb, additionalWs, "Records");
 
     // Generate the Excel file as a buffer
     const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "buffer" });
