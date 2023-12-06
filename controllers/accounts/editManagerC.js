@@ -166,7 +166,13 @@ exports.updatedData = async function (req, res) {
     // Encrypt the new password get from the encryption formula above and new shift value then pass it to the database
     const encryptedPassword = encryptCaesar(password, newShift);
 
-    const updatedAt = new Date();
+    const currentMonth = new Date().getMonth() + 1; // Months are zero-indexed, so add 1
+    const currentYear = new Date().getFullYear();
+    const currentDay = new Date().getDate();
+
+    const formattedDay = String(currentDay).padStart(2, "0");
+
+    const updatedAt = `${currentYear}-${currentMonth}-${formattedDay}`;
     const updatedData = await collection.updateOne(
       { _id: new ObjectId(id) },
       {

@@ -11,15 +11,18 @@ exports.getCreate = (req, res) => {
 
 exports.postCreate = async (req, res) => {
   const {
+    //Guns details
     Gtype,
     Gname,
     caliber,
     serialN,
+    cost,
+    // Trasanction
     acquisition,
     turnOver,
     returned,
-    cost,
-    station,
+    // Officer details
+    office,
     rank,
     lastName,
     firstName,

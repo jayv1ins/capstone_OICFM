@@ -77,8 +77,9 @@ exports.postCreate = async (req, res) => {
   const currentMonth = new Date().getMonth() + 1; // Months are zero-indexed, so add 1
   const currentYear = new Date().getFullYear();
   const currentDay = new Date().getDate();
+  const formattedDay = String(currentDay).padStart(2, "0");
 
-  const createdAt = `${currentYear}-${currentMonth}-${currentDay}`;
+  const createdAt = `${currentYear}-${currentMonth}-${formattedDay}`;
   const updatedAt = `${currentYear}-${currentMonth}-${currentDay}`;
 
   const user = await collection.insertOne({

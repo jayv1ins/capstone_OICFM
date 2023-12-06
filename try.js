@@ -53,13 +53,13 @@ async function fetchData() {
     const totalArchived = await collection.countDocuments({
       archived: true,
       updatedAt: {
-        $gte: start,
-        $lte: end,
+        $gte: "0001-01-01",
+        $lte: "2023-12-31",
       },
     });
 
     console.log("Total Documents new:", totalNew);
-    console.log("start:", start);
+    console.log("start:", start, end);
     console.log("Total Archived:", totalArchived);
   } finally {
     await client.close();

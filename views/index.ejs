@@ -126,19 +126,18 @@
 
         <div class="home-content2">
           <form onsubmit="handleFilterSubmit(event)" class="custom-form2">
-            <h1 class="form-title">Select Date Range for Turn-Over</h1>
-            <div class="form-row">
-              <div class="form-group col">
-                <label for="startDate">Start Date:</label>
-                <input type="date" id="startDate" name="startDate" class="custom-input" required>
-              </div>
-              <div class="form-group col">
-                <label for="endDate">End Date:</label>
-                <input type="date" id="endDate" name="endDate" class="custom-input" required>
-              </div>
-              <div class="form-group col">
-                <button type="submit" class="custom-button primary">Submit</button>
-                <button type="reset" class="custom-button secondary">Reset</button>
+            <div style="display: none;"">
+                <input  id="startDate" name="startDate" class="custom-input" required>
+                <input  id="endDate" name="endDate" class="custom-input" required>
+            </div>
+              <div >
+                <button id="July" class="custom-button primary">July</button>
+                <button id="August" class="custom-button primary">August</button>
+                <button id="September" class="custom-button primary">September</button>
+                <button id="October" class="custom-button primary">October</button>
+                <button id="November" class="custom-button primary">November</button>
+                <button id="December" class="custom-button primary">December</button>
+                <a href="/index" class="custom-button secondary">Reset</a>
               </div>
             </div>
           </form>
@@ -251,8 +250,8 @@
                 
                 <div class="top-chart2 flex">
                   <div class="top-chart-box bottom-chart-left">
-                    <h2 class="heading2">Number of Guns per Station</h2>
-                    <div id="chart11"></div>
+                    <h2 class="heading2">Not unscanned</h2>
+                    <div id="chart19"></div>
                   </div>
 
 
@@ -265,6 +264,159 @@
           </div>
 
       </section>
+
+      <!-- date -->
+      <script>
+        document.getElementById('July').addEventListener('click', function () {
+          // Get current month and year
+          const currentYear = new Date().getFullYear();
+          const formattedStartDate = `${currentYear}-07-01`;
+          const formattedEndDate = `${currentYear}-07-31`;
+
+          if (formattedStartDate && formattedEndDate) {
+            charts.forEach(chart => {
+              chart.setFilter({
+                $and: [
+                  { turnOver: { $gte: formattedStartDate } },
+                  { turnOver: { $lte: formattedEndDate } }
+                ]
+              });
+            });
+          } else {
+            // If either start date or end date is not selected, remove the filter
+            charts.forEach(chart => chart.setFilter({}));
+          }
+
+          // Set the start and end date input values
+          document.getElementById('startDate').value = formattedStartDate;
+          document.getElementById('endDate').value = formattedEndDate;
+        });
+
+        document.getElementById('August').addEventListener('click', function () {
+          // Get current month and year
+          const currentYear = new Date().getFullYear();
+          const formattedStartDate = `${currentYear}-08-01`;
+          const formattedEndDate = `${currentYear}-08-31`;
+
+          if (formattedStartDate && formattedEndDate) {
+            charts.forEach(chart => {
+              chart.setFilter({
+                $and: [
+                  { turnOver: { $gte: formattedStartDate } },
+                  { turnOver: { $lte: formattedEndDate } }
+                ]
+              });
+            });
+          } else {
+            // If either start date or end date is not selected, remove the filter
+            charts.forEach(chart => chart.setFilter({}));
+          }
+
+          // Set the start and end date input values
+          document.getElementById('startDate').value = formattedStartDate;
+          document.getElementById('endDate').value = formattedEndDate;
+        });
+
+        document.getElementById('September').addEventListener('click', function () {
+          // Get current month and year
+          const currentYear = new Date().getFullYear();
+          const formattedStartDate = `${currentYear}-09-01`;
+          const formattedEndDate = `${currentYear}-09-31`;
+
+          if (formattedStartDate && formattedEndDate) {
+            charts.forEach(chart => {
+              chart.setFilter({
+                $and: [
+                  { turnOver: { $gte: formattedStartDate } },
+                  { turnOver: { $lte: formattedEndDate } }
+                ]
+              });
+            });
+          } else {
+            // If either start date or end date is not selected, remove the filter
+            charts.forEach(chart => chart.setFilter({}));
+          }
+
+          // Set the start and end date input values
+          document.getElementById('startDate').value = formattedStartDate;
+          document.getElementById('endDate').value = formattedEndDate;
+        });
+
+        document.getElementById('October').addEventListener('click', function () {
+          // Get current month and year
+          const currentYear = new Date().getFullYear();
+          const formattedStartDate = `${currentYear}-10-01`;
+          const formattedEndDate = `${currentYear}-10-31`;
+
+          if (formattedStartDate && formattedEndDate) {
+            charts.forEach(chart => {
+              chart.setFilter({
+                $and: [
+                  { turnOver: { $gte: formattedStartDate } },
+                  { turnOver: { $lte: formattedEndDate } }
+                ]
+              });
+            });
+          } else {
+            // If either start date or end date is not selected, remove the filter
+            charts.forEach(chart => chart.setFilter({}));
+          }
+
+          // Set the start and end date input values
+          document.getElementById('startDate').value = formattedStartDate;
+          document.getElementById('endDate').value = formattedEndDate;
+        });
+
+        document.getElementById('November').addEventListener('click', function () {
+          // Get current month and year
+          const currentYear = new Date().getFullYear();
+          const formattedStartDate = `${currentYear}-11-01`;
+          const formattedEndDate = `${currentYear}-11-31`;
+
+          if (formattedStartDate && formattedEndDate) {
+            charts.forEach(chart => {
+              chart.setFilter({
+                $and: [
+                  { turnOver: { $gte: formattedStartDate } },
+                  { turnOver: { $lte: formattedEndDate } }
+                ]
+              });
+            });
+          } else {
+            // If either start date or end date is not selected, remove the filter
+            charts.forEach(chart => chart.setFilter({}));
+          }
+          
+          // Set the start and end date input values
+          document.getElementById('startDate').value = formattedStartDate;
+          document.getElementById('endDate').value = formattedEndDate;
+        });
+
+        document.getElementById('December').addEventListener('click', function () {
+          // Get current month and year
+          const currentYear = new Date().getFullYear();
+          const formattedStartDate = `${currentYear}-12-01`;
+          const formattedEndDate = `${currentYear}-12-31`;
+
+          if (formattedStartDate && formattedEndDate) {
+            charts.forEach(chart => {
+              chart.setFilter({
+                $and: [
+                  { turnOver: { $gte: formattedStartDate } },
+                  { turnOver: { $lte: formattedEndDate } }
+                ]
+              });
+            });
+          } else {
+            // If either start date or end date is not selected, remove the filter
+            charts.forEach(chart => chart.setFilter({}));
+          }
+          
+          // Set the start and end date input values
+          document.getElementById('startDate').value = formattedStartDate;
+          document.getElementById('endDate').value = formattedEndDate;
+        });
+        </script>
 
       <script>
         let sidebar = document.querySelector(".sidebar");
@@ -309,6 +461,7 @@
           "655ca613-5048-4b0e-8b3b-8d5d6921a74b",
           "655ca9ac-6cc5-43e1-8110-0464683107a5",
           "654cf4ee-df50-461e-8018-1d9cd1828f33",
+          "3795cd24-2a80-40dc-b688-2d705e91f425",
         ];
 
         const charts = chartIds.map(chartId => sdk.createChart({ chartId }));
@@ -343,8 +496,6 @@
             charts.forEach(chart => chart.setFilter({}));
           }
         }
-
-
       </script>
 
 </body>
@@ -500,6 +651,9 @@ height: 300px;
     height: 300px;
   }
   #chart18 {
+    height: 500px;
+  }
+  #chart19 {
     height: 500px;
   }
 

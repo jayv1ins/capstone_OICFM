@@ -24,6 +24,8 @@ exports.getDTable = async function (req, res) {
     const currentMonth = new Date().getMonth() + 1; // Months are zero-indexed, so add 1
     const currentYear = new Date().getFullYear();
     const lastDay = new Date(currentYear, currentMonth, 0).getDate();
+
+    const lastMonth = currentMonth === 1 ? 12 : currentMonth - 1;
     // Dynamically construct the date range
     const start = new Date(`${currentYear}-${currentMonth}-01`);
     const end = new Date(`${currentYear}-${currentMonth}-${lastDay}`);
@@ -39,9 +41,25 @@ exports.getDTable = async function (req, res) {
       },
     });
 
+    const Scanned = await collection.countDocuments({
+      archived: false,
+      turnOver: {
+        $gte: startString,
+        $lte: endString,
+      },
+    });
+
+    const NotScanned = await collection.countDocuments({
+      archived: false,
+      turnOver: {
+        $gte: `${currentYear}-01-01`,
+        $lte: `${currentYear}-${lastMonth}-${lastDay}`,
+      },
+    });
+
     const Remove = await collection.countDocuments({
       archived: true,
-      updateAt: {
+      updatedAt: {
         $gte: startString,
         $lte: endString,
       },
@@ -267,6 +285,8 @@ exports.getDTable = async function (req, res) {
       //Card Count
       TotalGun,
       New,
+      Scanned,
+      NotScanned,
       Remove,
       errorMessage: null,
       successMessage: null,
@@ -302,7 +322,9 @@ exports.deleteData = async function (req, res) {
     const currentMonth = new Date().getMonth() + 1; // Months are zero-indexed, so add 1
     const currentYear = new Date().getFullYear();
     const currentDay = new Date().getDate();
-    const updatedAt = `${currentYear}-${currentMonth}-${currentDay}`;
+    const formattedDay = String(currentDay).padStart(2, "0");
+
+    const updatedAt = `${currentYear}-${currentMonth}-${formattedDay}`;
 
     const existingData = await collection.findOne({
       _id: new ObjectId(id),
@@ -387,7 +409,7 @@ exports.exportToExcel = async function (req, res) {
       Make: record.Gname,
       Cal: record.caliber,
       "Serial Nr": record.serialN,
-      "Acquisition Date": record.acquisition,
+      "Acquisition Date": record.turnOver,
       "Acquisition Cost": record.cost,
       Office: record.office,
       Rank: record.rank,

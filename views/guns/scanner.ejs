@@ -145,7 +145,7 @@
 
               <div class="crop-container">
                 <label for="cropImage" id="cropLabel" style="display: none;">Crop Image</label>
-                <input type="checkbox" id="cropImage" name="cropImage" style="display: none; margin-right: 15px;" class="crop-checkbox">
+                <input type="checkbox" class="crop-container" id="cropImage" name="cropImage" style="display: none; margin-right: 15px;" class="crop-checkbox">
               </div>
 
               <button  id="recognizeText" style="display: none;" class="extract-button">Extract
@@ -165,7 +165,7 @@
 
               <!-- For Camera and File Val -->
               <video id="video" width="640" height="480" autoplay style="display:none;"></video>
-              <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+              <canvas id="canvas" width="640" height="480" style="display:none; position: absolute; top: 0; left: 0;"></canvas>
             </center>
 
 
@@ -259,6 +259,9 @@
       const imgUrl = window.URL.createObjectURL(selectedFile);
       capturedImage.src = imgUrl;
       capturedImage.style.display = 'block';
+      capturedImage.style.width = '540px';
+     capturedImage.style.height = '380px';
+
       recognizeTextButton.style.display = 'inline-block';
 
       cropLabel.style.display = "block";
@@ -281,8 +284,8 @@
         downloadLink.style.display = "none";
 
         cropper = new Cropper(capturedImage, {
-          aspectRatio: 3 / 1,
-          viewMode: 2,
+          aspectRatio: 2 / 1,
+          viewMode: 1,
         });
         console.log("sa crop",capturedImage);
 
@@ -344,7 +347,7 @@
     const context = canvas.getContext('2d');
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    context.drawImage(video, 500, 500, canvas.width, canvas.height);
 
     captureButton.style.display = 'none';
     video.style.display = 'none';
@@ -357,6 +360,11 @@
     resetButton.style.display = "block";
     downloadLink.style.display = "none";
     stopCameraButton.style.display = 'none';
+
+    capturedImage.style.display = 'block';
+    capturedImage.style.width = '540px';
+    capturedImage.style.height = '380px';
+
 
     doneButton.addEventListener("click", () => {
       doneButton.style.display = "none";
@@ -375,11 +383,9 @@
     // Initialize the Cropper for the captured image
     cropper = new Cropper(capturedImage, {
       aspectRatio: 2 / 1,
-      viewMode: 2,
+      viewMode: 1,
     });
 
-    // Call the cropImage function directly
-    cropImage();
   }
 
 
@@ -519,16 +525,28 @@
     });
 
     document.getElementById("resetButton").addEventListener("click", () => {
+      //If there an result
       fileInput.src = "";
       startCameraButton.style.display = 'block';
       stopCameraButton.style.display = 'none';
       captureButton.style.display = 'none';
+      capturedImage.style.display = 'none';
 
-      startCameraButton.style.display = 'none';
       ETlabel.style.display = 'none';
       recognizedTextResult.style.display = 'none';
+      
 
-      updateImageFeedback();
+      cropper.destroy();
+          cropper = null;
+          captureButton.style.display = 'none';
+          capturedImage.style.display = "none";
+          capturedImage.src = "";
+          cropCheckbox.style.display = "none";
+          cropLabel.style.display = "none";
+          recognizeTextButton.style.display = 'none';      
+          cropCheckbox.checked = false;
+          resetButton.style.display = "none";
+          doneButton.style.display = "none";
     });
 
     startCameraButton.addEventListener('click', initCamera);
@@ -546,8 +564,14 @@
 
   <style>
     .cropper-container cropper-bg {
-      max-width: 640px;
-      max-height: 480px;
+      width: 640px;
+     height: 480px;
+     position: relative;
+    }
+
+    .cropper-crop-box {
+     height: 480px;
+    width: 640px;
     }
     
     .crop-container {
@@ -578,6 +602,7 @@
       cursor: pointer;
       text-align: center;
     }
+
 
     .extract-button:hover,
     .reset-button:hover,

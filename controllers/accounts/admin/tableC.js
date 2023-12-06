@@ -172,7 +172,9 @@ exports.deleteManager = async function (req, res) {
     const currentYear = new Date().getFullYear();
     const currentDay = new Date().getDate();
 
-    const updatedAt = `${currentYear}-${currentMonth}-${currentDay}`;
+    const formattedDay = String(currentDay).padStart(2, "0");
+
+    const updatedAt = `${currentYear}-${currentMonth}-${formattedDay}`;
     const existingData = await collection.findOne({
       _id: new ObjectId(id),
     });

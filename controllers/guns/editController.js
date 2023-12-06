@@ -107,7 +107,13 @@ exports.updatedData = async function (req, res) {
     await client.connect();
     const db = client.db("PNP_management");
     const collection = db.collection("Record");
-    const updatedAt = new Date();
+    const currentMonth = new Date().getMonth() + 1; // Months are zero-indexed, so add 1
+    const currentYear = new Date().getFullYear();
+    const currentDay = new Date().getDate();
+
+    const formattedDay = String(currentDay).padStart(2, "0");
+
+    const updatedAt = `${currentYear}-${currentMonth}-${formattedDay}`;
     const updatedData = await collection.updateOne(
       { _id: new ObjectId(id) },
       {
