@@ -579,61 +579,61 @@
                           <tr>
                             <td><strong>Rank</strong></td>
                             <td><input type="text" class="form-control" id="editDataRank" name="rank"
-                                autocomplete="Rank" required minlength="3" pattern="[a-zA-Z -]+"></td>
+                                autocomplete="Rank" required minlength="3" pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$"></td>
 
                             <td><strong>Last Name</strong></td>
                             <td><input type="text" class="form-control" id="editDataLastName" name="lastName"
-                                autocomplete="LastName" required minlength="3" pattern="[a-zA-Z -]+"></td>
+                                autocomplete="LastName" required minlength="3" pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$"></td>
                           </tr>
 
                           <tr>
                             <td><strong>First Name</strong></td>
                             <td><input type="text" class="form-control" id="editDataFirstName" name="firstName"
-                                autocomplete="FirstName" required minlength="3" pattern="[a-zA-Z -]+"></td>
+                                autocomplete="FirstName" required minlength="3" pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$"></td>
 
                             <td><strong>Middle Name</strong></td>
                             <td><input type="text" class="form-control" id="editDataMiddleName" name="middleName"
-                                autocomplete="MiddleName" required minlength="1" pattern="[a-zA-Z -]+"></td>
+                                autocomplete="MiddleName" required minlength="1" pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$"></td>
                           </tr>
 
                           <tr>
                             <td><strong>Qualifier</strong></td>
                             <td><input type="text" class="form-control" id="editDataQualifier" name="qualifier"
-                                autocomplete="Qualifier"></td>
+                                autocomplete="Qualifier" pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$"></td>
 
                             <td><strong>Office</strong></td>
                             <td><input type="text" class="form-control" id="editDataOffice" name="office"
-                                autocomplete="office" required minlength="3" pattern="^[A-Z][a-zA-Z -]*$"></td>
+                                autocomplete="office" required minlength="3" pattern="^[A-Z][a-zA-Z]*[^<>()]*$"></td>
                           </tr>
 
 
                           <tr>
                             <td><strong>Gun Type</strong></td>
                             <td><input type="text" class="form-control" id="editDataGunType" name="Gtype"
-                                autocomplete="GunType" required minlength="3" pattern="[a-zA-Z ]+"></td>
+                                autocomplete="GunType" required minlength="3" pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$"></td>
 
 
                             <td><strong>Gun Name</strong></td>
                             <td><input type="text" class="form-control" id="editDataGunName" name="Gname"
-                                autocomplete="GunName" required minlength="3" pattern="^[A-Z0-9][A-Za-z0-9 -]*$"></td>
+                                autocomplete="GunName" required minlength="3" pattern="^[A-Z][A-Za-z1-9@#$%!&*\s]*[^<>()]*$"></td>
                           </tr>
 
                           <tr>
                             <td><strong>Caliber</strong></td>
                             <td><input type="text" class="form-control" id="editDataCaliber" name="caliber"
-                                autocomplete="Caliber" required minlength="3" pattern="^[A-Z0-9][A-Za-z0-9 -]*$"></td>
+                                autocomplete="Caliber" required minlength="3" pattern="^[0-9][A-Z0-9\s-]*[^<>()!@#$%^&]*$"></td>
 
 
                             <td><strong>Serial Number</strong></td>
                             <td><input type="text" class="form-control" id="editDataSerialNumber" name="serialN"
-                                autocomplete="serialN" required minlength="4" pattern="^[a-zA-Z0-9\s- -]+$"></td>
+                                autocomplete="serialN" required minlength="4" pattern="^[A-Z][A-Za-z1-9@#$%!&*\s]*[^<>()]*$"></td>
                           </tr>
 
                           <tr>
 
                             <td><strong>Cost</strong></td>
                             <td><input type="text" class="form-control" id="editDataCost" name="cost"
-                                autocomplete="Cost" required minlength="4" pattern="[0-9]+"></td>
+                                autocomplete="Cost" required minlength="4" pattern="^[0-9]+$"></td>
 
 
                             <td><strong>Acquisition Date</strong></td>
@@ -672,7 +672,7 @@
             </div>
 
 
-
+            <!-- Modal Create -->
             <div class="modal fade" id="userForm">
               <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
@@ -707,14 +707,14 @@
                                   <td><strong>Rank</strong></td>
                                   <td>
                                     <input type="text" class="form-control" id="rank" name="rank"
-                                      placeholder="Enter rank">
+                                      placeholder="Enter rank" pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$">
                                   </td>
 
                                   <td><strong>Last Name</strong></td>
                                   <td>
                                     <input type="text" class="form-control" placeholder="Enter your last name."
                                       id="lastName" name="lastName" autocomplete="LastName" required min="3"
-                                      pattern="[a-zA-Z ]+">
+                                      pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$">
                                   </td>
 
                                 </tr>
@@ -725,14 +725,14 @@
                                   <td>
                                     <input type="text" class="form-control" placeholder="Enter your first name."
                                       id="firstName" name="firstName" autocomplete="firstName" required min="3"
-                                      pattern="[a-zA-Z ]+">
+                                      pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$">
                                   </td>
 
                                   <td><strong>Middle Name</strong></td>
                                   <td>
                                     <input type="text" class="form-control" placeholder="Enter your middle name."
                                       id="middleName" name="middleName" autocomplete="middleName" required min="3"
-                                      pattern="[a-zA-Z ]+">
+                                      pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$">
                                   </td>
                                 </tr>
 
@@ -741,13 +741,13 @@
                                   <td><strong>Qualifier</strong></td>
                                   <td>
                                     <input type="text" class="form-control" placeholder="Enter Qualifier" id="QLFR"
-                                      name="QLFR" autocomplete="QLFR" id="qlfr">
+                                      name="QLFR" autocomplete="QLFR" id="qlfr" pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$">
                                   </td>
 
                                   <td><strong>Office</strong></td>
                                   <td>
                                     <input type="text" class="form-control" id="editDataOffice" placeholder="Office"
-                                      name="office" autocomplete="office" required min="3" pattern="^[a-zA-Z]*$">
+                                      name="office" autocomplete="office" required min="3" pattern="^[A-Z][a-zA-Z]*[^<>()]*$">
                                   </td>
 
                                 </tr>
@@ -757,13 +757,13 @@
                                   <td><strong>Gun Type</strong></td>
                                   <td>
                                     <input type="text" class="form-control" id="gtype" placeholder="Enter gun type"
-                                      name="Gtype" autocomplete="Gtype" required min="3" pattern="^[a-zA-Z]*$">
+                                      name="Gtype" autocomplete="Gtype" required min="3" pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$">
                                   </td>
 
                                   <td><strong>Gun Name</strong></td>
                                   <td>
                                     <input type="text" class="form-control" id="gname" placeholder="Enter gun name"
-                                      name="Gname" autocomplete="Gname" required min="3" pattern="^[a-zA-Z]*$">
+                                      name="Gname" autocomplete="Gname" required min="3" pattern="^[A-Z][A-Za-z1-9@#$%!&*\s]*[^<>()]*$">
                                   </td>
                                 </tr>
 
@@ -773,14 +773,14 @@
                                   <td><strong>Caliber</strong></td>
                                   <td>
                                     <input type="text" class="form-control" id="caliber" placeholder="Enter caliber"
-                                      name="caliber" autocomplete="caliber" required min="3">
+                                      name="caliber" autocomplete="caliber" required min="3" pattern="^[0-9][A-Z0-9\s-]*[^<>()!@#$%^&]*$">
                                   </td>
 
                                   <td><strong>Serial Number</strong></td>
                                   <td>
                                     <input type="text" class="form-control" id="serialN"
                                       placeholder="Enter serial number" name="serialN" autocomplete="serialN" required
-                                      min="4">
+                                      min="4" pattern="^[A-Z][A-Za-z1-9@#$%!&*\s]*[^<>()]*$">
                                   </td>
                                 </tr>
 
@@ -791,7 +791,7 @@
                                   <td><strong>Cost</strong></td>
                                   <td>
                                     <input type="text" class="form-control" id="cost" placeholder="Enter cost"
-                                      name="cost" autocomplete="cost" required min="4">
+                                      name="cost" autocomplete="cost" required min="4" pattern="^[0-9]+$">
                                   </td>
 
                                   <td><strong>Acquisition date</strong></td>

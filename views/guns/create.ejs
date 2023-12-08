@@ -39,59 +39,60 @@
                 <div class="col-sm-4 form-group">
                   <label for="inputEmail4">Last Name</label>
                   <input type="text" class="form-control" placeholder="Enter your last name." id="lastName"
-                    name="lastName" autocomplete="LastName" required min="4" pattern="[a-zA-Z ]+">
+                    name="lastName" autocomplete="LastName" required min="4" 
+                    pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$">
                 </div>
 
                 <div class="col-sm-4 form-group">
                   <label for="inputPassword4">First Name</label>
                   <input type="text" class="form-control" placeholder="Enter your first name." id="firstName"
-                    name="firstName" autocomplete="firstName" required min="4" pattern="[a-zA-Z ]+">
+                    name="firstName" autocomplete="firstName" required min="4" pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$">
                 </div>
 
                 <div class="col-sm-4 form-group">
                   <label for="inputPassword4">Middle Name</label>
                   <input type="text" class="form-control" placeholder="Enter your middle name." id="middleName"
-                    name="middleName" autocomplete="middleName" required min="4" pattern="[a-zA-Z ]+">
+                    name="middleName" autocomplete="middleName" required min="4" pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$">
                 </div>
 
                 <div class="col-sm-4 form-group">
                   <label for="inputPassword4">QLFR</label>
-                  <input type="text" class="form-control" placeholder="Enter QLFR" id="QLFR" name="QLFR" autocomplete="QLFR">
+                  <input type="text" class="form-control" placeholder="Enter QLFR" id="QLFR" name="QLFR" autocomplete="QLFR" pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$">
                 </div>
 
                 <div class="col-sm-4 form-group">
                   <label for="inputZip">Rank</label>
-                  <input type="text" class="form-control" id="rank" name="rank" placeholder="Enter rank">
+                  <input type="text" class="form-control" id="rank" name="rank" placeholder="Enter rank" pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$">
                 </div>
 
                 <div class="col-sm-4 form-group">
-                  <label for="inputEmail4">Station</label>
-                  <input type="text" class="form-control" placeholder="District/City" name="station" autocomplete="station"
-                    required min="4" pattern="^[A-Z][a-zA-Z]*$">
+                  <label for="inputEmail4">Office</label>
+                  <input type="text" class="form-control" placeholder="Office" name="office" autocomplete="office"
+                    required min="4" pattern="^[A-Z][a-zA-Z]*[^<>()]*$">
                 </div>
 
                 <div class="col-sm-4 form-group">
                   <label for="inputEmail4">Gun Type</label>
                   <input type="text" class="form-control" placeholder="Enter gun type." name="Gtype" autocomplete="Gtype"
-                    required min="4" pattern="^[A-Z][a-zA-Z]*$">
+                    required min="4" pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$">
                 </div>
 
                 <div class="col-sm-4 form-group">
                   <label for="inputEmail4">Gun Name</label>
                   <input type="text" class="form-control" placeholder="Enter gun name." name="Gname" autocomplete="Gname"
-                    required min="4" pattern="^[A-Z][a-zA-Z 1-9]*$">
+                    required min="4" pattern="^[A-Z][A-Za-z1-9@#$%!&*\s]*[^<>()]*$">
                 </div>
 
                 <div class="col-sm-4 form-group">
                   <label for="inputEmail4">Caliber</label>
                   <input type="text" class="form-control" placeholder="Enter caliber" name="caliber" autocomplete="caliber"
-                    required min="4">
+                    required min="4" pattern="^[0-9][A-Z0-9\s-]*[^<>()!@#$%^&]*$">
                 </div>
 
                 <div class="col-sm-4 form-group">
                   <label for="inputEmail4">Serial Number</label>
                   <input type="text" class="form-control" placeholder="Enter serial number" name="serialN"
-                    autocomplete="serialN" required min="4">
+                    autocomplete="serialN" required min="4" pattern="^[A-Z][A-Za-z1-9@#$%!&*\s]*[^<>()]*$">
                 </div>
 
                
@@ -100,7 +101,7 @@
                 <div class="col-sm-4 form-group">
                   <label for="inputEmail4">Cost</label>
                   <input type="text" class="form-control" placeholder="Enter cost" name="cost" autocomplete="cost" required
-                    min="4">
+                    min="4" pattern="^[0-9]+$">
                 </div>
 
 

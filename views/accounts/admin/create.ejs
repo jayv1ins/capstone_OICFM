@@ -109,56 +109,57 @@
             <div class="col-sm-4 form-group">
               <label for="inputEmail4">Email</label>
               <input type="mail" class="form-control" placeholder="Enter the Email." id="email"
-                name="email" autocomplete="email" required >
+                name="email" autocomplete="email" pattern="^[^<>()]+$" required >
             </div>
 
               <div class="col-sm-4 form-group">
                 <label for="inputEmail4">Last Name</label>
                 <input type="text" class="form-control" placeholder="Enter your last name." id="lastName"
-                  name="lastName" autocomplete="LastName" required min="4" pattern="[a-zA-Z]+">
+                  name="lastName" autocomplete="LastName" required min="4" 
+                  pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$">
               </div>
 
               <div class="col-sm-4 form-group">
                 <label for="inputPassword4">First Name</label>
                 <input type="text" class="form-control" placeholder="Enter your first name." id="firstName"
-                  name="firstName" autocomplete="firstName" required min="4" pattern="[a-zA-Z]+">
+                  name="firstName" autocomplete="firstName" required min="4" pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$">
               </div>
 
               <div class="col-sm-4 form-group">
                 <label for="inputPassword4">Middle Name</label>
                 <input type="text" class="form-control" placeholder="Enter your middle name." id="middleName"
-                  name="middleName" autocomplete="middleName" required min="4" pattern="[a-zA-Z]+">
+                  name="middleName" autocomplete="middleName" required min="4" pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$">
               </div>
 
               <div class="col-sm-4 form-group">
                 <label for="inputPassword4">QLFR</label>
-                <input type="text" class="form-control" placeholder="Enter QLFR" id="QLFR" name="QLFR" autocomplete="QLFR">
+                <input type="text" class="form-control" placeholder="Enter QLFR" id="QLFR" name="QLFR" autocomplete="QLFR" pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$">
               </div>
 
 
               <div class="col-sm-4 form-group">
                 <label for="inputEmail4">Police ID Number</label>
                 <input type="text" class="form-control" placeholder="Enter Police ID Number" name="policeId"
-                  autocomplete="serialN" required min="4">
+                  autocomplete="serialN" required min="4" pattern="^[A-Z][A-Za-z1-9@#$%!&*\s]*[^<>()]*$">
               </div>
 
         
               <div class="col-sm-4 form-group">
                 <label for="inputEmail4">Office</label>
                 <input type="text" class="form-control" placeholder="Office" name="office" autocomplete="office"
-                  required min="4" pattern="^[A-Z][a-zA-Z]*$">
+                  required min="4" pattern="^[A-Z][a-zA-Z]*[^<>()]*$">
               </div>
 
               
               <div class="col-sm-4 form-group">
                 <label for="inputZip">Rank</label>
-                <input type="text" class="form-control" id="rank" name="rank" placeholder="Rank">
+                <input type="text" class="form-control" id="rank" name="rank" placeholder="Rank"  pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$">
               </div>
 
               <div class="col-sm-4 form-group">
                 <label for="inputZip">Password <span id="password-strength"></span></label>
                 <div class="input-group">
-                  <input type="password" class="form-control" id="password" name="password" pattern=".*[A-Z].*">
+                  <input type="password" class="form-control" id="password" name="password" pattern="^[A-Z][A-Za-z1-9@#$%!&*\s]*[^<>()]*$">
                   <div class="input-group-append">
                     <span class="input-group-text">
                       <i class="fas fa-eye" id="togglePassword" onclick="togglePasswordVisibility()"></i>

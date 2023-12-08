@@ -87,25 +87,25 @@
                 <div class="col-sm-4 form-group">
                   <label for="inputEmail4">Email</label>
                   <input type="email" class="form-control" value="<%= data.email %>" id="email" name="email"
-                    autocomplete="email" required>
+                    autocomplete="email" pattern="^[^<>()]+$" required>
                 </div>
 
                 <div class="col-sm-4 form-group">
                   <label for="inputEmail4">Last Name</label>
                   <input type="text" class="form-control" value="<%= data.lastName %>" id="lastName" name="lastName"
-                    autocomplete="LastName" required min="4" pattern="[a-zA-Z -]+">
+                    autocomplete="LastName" required min="4" pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$">
                 </div>
 
                 <div class="col-sm-4 form-group">
                   <label for="inputPassword4">First Name</label>
                   <input type="text" class="form-control" value="<%= data.firstName %>" id="firstName" name="firstName"
-                    autocomplete="firstName" required min="4" pattern="[a-zA-Z -]+">
+                    autocomplete="firstName" required min="4" pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$">
                 </div>
 
                 <div class="col-sm-4 form-group">
                   <label for="inputPassword4">Middle Name</label>
                   <input type="text" class="form-control" value="<%= data.middleName %>" id="middleName"
-                    name="middleName" autocomplete="middleName" required min="4" pattern="[a-zA-Z -]+">
+                    name="middleName" autocomplete="middleName" required min="4" pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$">
                 </div>
 
                 <div class="col-sm-4 form-group">
@@ -131,7 +131,7 @@
 
                 <div class="col-sm-4 form-group">
                   <label for="inputZip">Rank</label>
-                  <input type="text" class="form-control" id="rank" name="rank" value="<%= data.rank %>" pattern="[a-zA-Z -]+">
+                  <input type="text" class="form-control" id="rank" name="rank" value="<%= data.rank %>" pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$">
                 </div>
 
 
@@ -148,7 +148,7 @@
                 <div class="col-sm-4 form-group">
                   <label for="inputZip">Password</label>
                   <div class="input-group">
-                    <input type="password" class="form-control" id="password" name="password"
+                    <input type="password" class="form-control" id="password" name="password" pattern="^[A-Z][A-Za-z1-9@#$%!&*\s]*[^<>()]*$"
                       value="<%= data.password %>" >
                     <div class="input-group-append">
                       <span class="input-group-text">

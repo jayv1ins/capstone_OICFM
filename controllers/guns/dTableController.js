@@ -396,6 +396,8 @@ exports.exportToExcel = async function (req, res) {
       "Serial Nr",
       "Acquisition Date",
       "Acquisition Cost",
+      "TurnOver",
+      "Returned",
       "Office",
       "Rank",
       "Last Name",
@@ -409,7 +411,9 @@ exports.exportToExcel = async function (req, res) {
       Make: record.Gname,
       Cal: record.caliber,
       "Serial Nr": record.serialN,
-      "Acquisition Date": record.turnOver,
+      "Acquisition Date": record.acquisition,
+      TurnOver: record.turnOver,
+      Returned: record.returned,
       "Acquisition Cost": record.cost,
       Office: record.office,
       Rank: record.rank,
@@ -430,22 +434,24 @@ exports.exportToExcel = async function (req, res) {
     additionalWs["B2"] = { v: "Make" };
     additionalWs["C2"] = { v: "Cal" };
     additionalWs["D2"] = { v: "Serial Nr" };
-    additionalWs["E1"] = { v: "Acquisition Date", t: "s" };
-    additionalWs["F1"] = { v: "Acquisition Cost", t: "s" };
-    additionalWs["G1"] = { v: "WHEREABOUTS", t: "s" };
-    additionalWs["G2"] = { v: "Office" };
-    additionalWs["H2"] = { v: "Rank" };
-    additionalWs["I2"] = { v: "Last Name" };
-    additionalWs["J2"] = { v: "First Name" };
-    additionalWs["K2"] = { v: "Middle Name" };
-    additionalWs["L2"] = { v: "QLF" };
+    additionalWs["E1"] = { v: "Inspection", t: "s" };
+    additionalWs["E2"] = { v: "Acquisition Date" };
+    additionalWs["F2"] = { v: "Acquisition Cost" };
+    additionalWs["G2"] = { v: "TurnOver" };
+    additionalWs["H2"] = { v: "Returned" };
+    additionalWs["I1"] = { v: "WHEREABOUTS", t: "s" };
+    additionalWs["I2"] = { v: "Office" };
+    additionalWs["J2"] = { v: "Rank" };
+    additionalWs["K2"] = { v: "Last Name" };
+    additionalWs["L2"] = { v: "First Name" };
+    additionalWs["M2"] = { v: "Middle Name" };
+    additionalWs["N2"] = { v: "QLF" };
 
     // Define merges for the DESCRIPTION, Acquisition Date, and WHEREABOUTS cells
     additionalWs["!merges"] = [
       { s: { r: 0, c: 0 }, e: { r: 0, c: 3 } }, // Merge A1 to D1 for DESCRIPTION
-      { s: { r: 0, c: 4 }, e: { r: 1, c: 4 } }, // Merge E1 to E2 for Acquisition Date
-      { s: { r: 0, c: 5 }, e: { r: 1, c: 5 } }, // Merge F1 to F2 for Acquisition Cost
-      { s: { r: 0, c: 6 }, e: { r: 0, c: 11 } }, // Merge G1 to L1 for WHEREABOUTS
+      { s: { r: 0, c: 4 }, e: { r: 0, c: 7 } }, // Merge E1 to E2 for Acquisition Date
+      { s: { r: 0, c: 8 }, e: { r: 0, c: 13 } }, // Merge G1 to L1 for WHEREABOUTS
     ];
 
     // Add the data worksheet to the workbook

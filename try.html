@@ -12,34 +12,18 @@
 
 <body>
   <form onsubmit="return validateForm()">
-    <div class="col-sm-4 form-group">
-      <label for="inputEmail4">Gun Name</label>
-      <input type="text" class="form-control" placeholder="Enter gun name." name="Gname" autocomplete="Gname" required
-        min="4" pattern="^[A-Z][a-zA-Z 1-9]*$">
-    </div>
+    <label for="inputEmail4">Email</label>
+    <input type="text" class="form-control" placeholder="Enter the Text." id="textInput" name="textInput" autocomplete="text" pattern="^[^<>()]+$">
 
-    <div class="col-sm-4 form-group">
-      <label for="inputZip">User Type</label>
-      <select id="usertype" name="usertype" class="form-control" required>
-        <option value="Choose from this list">.....</option>
-        <option value="Admin">Admin</option>
-        <option value="Manager">Manager</option>
-      </select>
-    </div>
+    
 
     <button type="submit">Submit</button>
   </form>
 
   <script>
-    function validateForm() {
-      var selectedValue = document.getElementById("usertype").value;
-
-      if (selectedValue === "Choose from this list") {
-        alert("Please select a valid user type.");
-        return false; // Prevent form submission
-      } else {
-        return true; // Allow form submission
-      }
+     function validateForm() {
+      // Your validation logic here
+      return true; // Change to false if validation fails
     }
   </script>
 </body>
