@@ -14,11 +14,11 @@
   <script src="https://unpkg.com/@mongodb-js/charts-embed-dom"></script>
 
   <style>
-     .activeDropDown {
-    /* Your active styles */
-    background-color: #4CAF50;
-    color: white;
-  }
+    .activeDropDown {
+      /* Your active styles */
+      background-color: #4CAF50;
+      color: white;
+    }
   </style>
 
 </head>
@@ -78,12 +78,13 @@
 
     <span class="logo_name">
       <%= user.firstName%>
+      <p style="font-size: small;">(Manager)</p>
     </span>
     </div>
     <ul class="nav-links">
       <li>
         <a href="/profile/<%= user._id%>" id="home-link" class="active">
-          <i class='bx bx-grid-alt'></i>
+          <i class='bx bx-user'></i>
           <span class="links_name">Profile</span>
         </a>
       </li>
@@ -133,20 +134,21 @@
 
 
         <div class="home-content2">
-          <form onsubmit="handleFilterSubmit(event)" class="custom-form2">
-            <div style="display: none;"">
-                <input  id="startDate" name="startDate" class="custom-input" required>
-                <input  id="endDate" name="endDate" class="custom-input" required>
+          <form onsubmit="handleFilterSubmit(event)" class="custom-form3">
+            <div style="display: none;">
+              <input id="startDate" name="startDate" class="custom-input3" required>
+              <input id="endDate" name="endDate" class="custom-input3" required>
             </div>
-              <div >
-                <button id="July" class="custom-button primary">July</button>
-                <button id="August" class="custom-button primary">August</button>
-                <button id="September" class="custom-button primary">September</button>
-                <button id="October" class="custom-button primary">October</button>
-                <button id="November" class="custom-button primary">November</button>
-                <button id="December" class="custom-button primary">December</button>
-                <a href="/index" class="custom-button secondary">Reset</a>
-              </div>
+            <div>
+              <select id="monthDropdown" class="custom-dropdown3">
+                <option value="07">July</option>
+                <option value="08">August</option>
+                <option value="09">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+              <a href="/index" class="custom-button3 secondary" id="resetButton">Reset</a>
             </div>
           </form>
 
@@ -157,114 +159,141 @@
             <div class="content">
               <!-- Main Content -->
               <div class="main-content">
-                <div class="top-chart flex">
-                  <div class="top-chart-box bottom-chart-left">
-                    <h2 class="heading">Number of Officers per Rank</h2>
-                    <div id="chart3"></div>
-                  </div>
-
-                  <div class="top-chart-box bottom-chart-right">
-                    <h2 class="heading">Total Gun</h2>
-
-                    <div id="chart1"></div>
-                  </div>
-                </div>
 
 
                 <div class="product-top-chart flex">
                   <div class="product-bottom-chart-left top-chart-box">
                     <h2 class="heading">Authorized Users</h2>
-                    <div id="chart14"></div>
-
-                    <hr>
-                    <h2 class="heading">Turnover Rate</h2>
-                    <div id="chart12"></div>
+                    <div id="chart1"></div>
                   </div>
 
-                  <div class="bottom-chart top-chart-box">
-                    <h2 class="heading">Total Cost per Acquisition</h2>
-                    <div id="chart10"></div>
-                  </div>
-                </div>
-
-                <div class="top-chart flex">
-                  <div class="top-chart-box bottom-chart-left">
-                    <h2 class="heading">Number of Guns per Gun Name</h2>
-                    <div id="chart7"></div>
-
-                  </div>
-
-                  <div class="top-chart-box bottom-chart-right">
-
-                    <h2 class="heading">Firearm Type Distribution</h2>
-                    <div id="chart5"></div>
-                  </div>
-
-                </div>
-
-
-                <div class="product-top-chart flex">
                   <div class="product-bottom-chart-left top-chart-box">
-                    <h2 class="heading">Turnover Rate</h2>
-                    <div id="chart6"></div>
-                  </div>
-
-                  <div class="bottom-chart top-chart-box">
-                    <h2 class="heading">Total Cost per Gun Type</h2>
-                    <div id="chart8"></div>
-                  </div>
-                </div>
-
-
-                <div class="top-chart flex">
-                  <div class="top-chart-box bottom-chart-left">
-                    <h2 class="heading">Gun Type Distribution</h2>
-                    <div id="chart13"></div>
-                  </div>
-
-                  <div class="top-chart-box bottom-chart-right">
-                    <h2 class="heading">Total Cost</h2>
+                    <h2 class="heading">Authorized Users</h2>
                     <div id="chart2"></div>
                   </div>
+
+                  <div class="product-bottom-chart-left top-chart-box">
+                    <h2 class="heading">Authorized Users</h2>
+                    <div id="chart3"></div>
+                  </div>
+
+                  <div class="product-bottom-chart-left top-chart-box">
+                    <h2 class="heading">Authorized Users</h2>
+                    <div id="chart4"></div>
+                  </div>
+
                 </div>
 
 
                 <div class="product-top-chart flex">
-                  <div class="product-bottom-chart-left top-chart-box">
-                    <h2 class="heading">Return Frequency Analysis</h2>
-                    <div id="chart17"></div>
+                  <div class="product-bottom-chart-left top-chart-box" style="margin-right: 5px; height: 1050px;">
+                    <h2 class="heading">Authorized Users</h2>
+                    <div id="chart5"></div>
+
+
+                    <hr>
+                    <h2 class="heading">Authorized Users</h2>
+                    <div id="chart8"></div>
+
                   </div>
 
-                  <div class="bottom-chart top-chart-box">
-                    <h2 class="heading">Gun Type by Rank</h2>
+
+
+                  <div class="product-bottom-chart-left top-chart-box" style="margin-right: 5px; height: 1050px;">
+                    <h2 class="heading">Authorized Users</h2>
+                    <div id="chart6"></div>
+
+                    <hr>
+                    <h2 class="heading">Authorized Users</h2>
                     <div id="chart9"></div>
                   </div>
+
+                  <div class="product-bottom-chart-left top-chart-box" style="width: 300px; height: 1050px;">
+                    <h2 class="heading">Authorized Users</h2>
+                    <div id="chart7"></div>
+
+                    <hr>
+                    <h2 class="heading">Authorized Users</h2>
+                    <div id="chart10"></div>
+                  </div>
+
                 </div>
 
+                <div class="product-top-chart flex">
+                  <div class="product-bottom-chart-left top-chart-box" style="margin-right: 5px; height: 525px;">
+                    <h2 class="heading">Authorized Users</h2>
+                    <div id="chart11"></div>
 
-                <div class="top-chart flex">
-                  <div class="top-chart-box bottom-chart-left">
-                    <h2 class="heading">Average Cost of Firearms by Gun Name</h2>
+                  </div>
+
+
+
+                  <div class="product-bottom-chart-left top-chart-box" style="margin-right: 5px; height: 525px;">
+                    <h2 class="heading">Authorized Users</h2>
+                    <div id="chart12"></div>
+
+                  </div>
+
+                  <div class="product-bottom-chart-left top-chart-box" style="margin-right: 5px; height: 525px;">
+                    <h2 class="heading">Authorized Users</h2>
+                    <div id="chart13"></div>
+
+                  </div>
+
+
+
+                </div>
+
+                <div class="product-top-chart flex">
+                  <div class="product-bottom-chart-left top-chart-box"
+                    style="margin-right: 5px; height: 525px; width: 50%;">
+                    <h2 class="heading">Authorized Users</h2>
+                    <div id="chart14"></div>
+
+                  </div>
+
+                  <div class="product-bottom-chart-left top-chart-box"
+                    style="margin-right: 5px; height: 525px; width: 50%;">
+                    <h2 class="heading">Authorized Users</h2>
+                    <div id="chart15"></div>
+
+                  </div>
+
+                </div>
+
+                <div class="product-top-chart flex">
+                  <div class="product-bottom-chart-left top-chart-box"
+                    style="margin-right: 5px; height: 525px; width: 50%;">
+                    <h2 class="heading">Authorized Users</h2>
                     <div id="chart16"></div>
+
                   </div>
-                  <div class="top-chart-box bottom-chart-right">
-                    <h2 class="heading">Turn Over Rate By Date</h2>
+
+                  <div class="product-bottom-chart-left top-chart-box"
+                    style="margin-right: 5px; height: 525px; width: 50%;">
+                    <h2 class="heading">Authorized Users</h2>
+                    <div id="chart17"></div>
+
+                  </div>
+
+                </div>
+
+                <div class="product-top-chart flex">
+                  <div class="product-bottom-chart-left top-chart-box"
+                    style="margin-right: 5px; height: 525px; width: 50%;">
+                    <h2 class="heading">Authorized Users</h2>
                     <div id="chart18"></div>
+
                   </div>
 
-                </div>
-
-
-
-                <div class="top-chart2 flex">
-                  <div class="top-chart-box bottom-chart-left">
-                    <h2 class="heading2">Not unscanned</h2>
+                  <div class="product-bottom-chart-left top-chart-box"
+                    style="margin-right: 5px; height: 525px; width: 50%;">
+                    <h2 class="heading">Authorized Users</h2>
                     <div id="chart19"></div>
+
                   </div>
 
-
                 </div>
-
 
               </div>
 
@@ -283,7 +312,7 @@
           // Calculate start and end dates based on selected month
           const formattedStartDate = `${currentYear}-${selectedMonth}-01`;
           const formattedEndDate = `${currentYear}-${selectedMonth}-${new Date(currentYear, selectedMonth, 0).getDate()}`;
-      
+
           if (formattedStartDate && formattedEndDate) {
             charts.forEach(chart => {
               chart.setFilter({
@@ -396,7 +425,7 @@
             // If either start date or end date is not selected, remove the filter
             charts.forEach(chart => chart.setFilter({}));
           }
-          
+
           // Set the start and end date input values
           document.getElementById('startDate').value = formattedStartDate;
           document.getElementById('endDate').value = formattedEndDate;
@@ -421,7 +450,7 @@
             // If either start date or end date is not selected, remove the filter
             charts.forEach(chart => chart.setFilter({}));
           }
-          
+
           // Set the start and end date input values
           document.getElementById('startDate').value = formattedStartDate;
           document.getElementById('endDate').value = formattedEndDate;
@@ -455,23 +484,45 @@
         const chartIds = [
           "6492abe4-74f2-4905-805e-f685c6754286",
           "64994e7e-6f89-4b9b-8926-e4595ee18be1",
+          "6522ad57-8f60-4161-89ce-00d9b33e9a97",
+          "656e819d-5b45-41fd-800f-4e546ee973a5",
           "6492afa8-e63f-4b36-8007-0f06bc0fceb5",
-          "6492af4a-7081-435a-88d2-cbf173aa2add",
-          "64a4e114-bfd6-4c5c-82e1-aed10e4d8504",
-          "6499393e-5d6e-4d4b-80e6-5c0004764687",
           "649937ab-6ccc-47e8-8431-13e80f87ab31",
+          "656e8a83-34eb-4032-859c-a0aca9f4547c",
+          "3795cd24-2a80-40dc-b688-2d705e91f425",
+          "656e87e5-c69f-4635-8bfb-2b1262bd3e81",
+          "64a4e114-bfd6-4c5c-82e1-aed10e4d8504",
+          "656e8763-58b4-4616-8034-0724977f05a2",
+          "656e8a9e-d7f5-4f16-85f9-78b163731cbe",
+          "656fe555-1b88-4220-8649-062eb0e3873e",
+          "655ca613-5048-4b0e-8b3b-8d5d6921a74b",
+          "656e7ff2-c17b-4bad-8793-31ebb8d7a9f7",
+          "656e7f23-257b-4921-8524-892c6b61aad0",
+          "656ec9c0-257b-4bd1-882a-892c6babde8c",
+          "cb5fc661-3113-40f9-b482-f5edc889ff58",
+          "3f80cb2b-b191-4e07-a13f-e694ab19727d",
+
+
+
+
+
+
+          "6492af4a-7081-435a-88d2-cbf173aa2add",
+
+
+          "6499393e-5d6e-4d4b-80e6-5c0004764687",
+
           "64a7c613-c709-43c3-8b0f-73a5bdd4f530",
           "64a7c276-7fe0-4399-846c-994ad42930fa",
           "64aa6838-5bfe-4e8d-82ec-be414ef2ae74",
           "64aa77c2-c709-44ca-809a-73a5bd6426e9",
           "64aa7bf4-2925-478c-8eff-15cc0ae2b5da",
           "64aa808f-904b-4bad-810f-87a9d4d94c75",
-          "6522ad57-8f60-4161-89ce-00d9b33e9a97",
           "655ca36a-5d06-4ec9-8022-76093bc0c619",
-          "655ca613-5048-4b0e-8b3b-8d5d6921a74b",
+
           "655ca9ac-6cc5-43e1-8110-0464683107a5",
           "654cf4ee-df50-461e-8018-1d9cd1828f33",
-          "3795cd24-2a80-40dc-b688-2d705e91f425",
+
         ];
 
         const charts = chartIds.map(chartId => sdk.createChart({ chartId }));
@@ -523,7 +574,6 @@
 
   .flex {
     display: flex;
-    align-items: center;
     justify-content: center;
   }
 
@@ -598,82 +648,40 @@
   }
 
 
-  #chart1 {
-    height: 300px;
-  }
-
-  #chart2 {
-    height: 300px;
-  }
-
-  #chart3 {
-    height: 300px;
-  }
-
+  #chart1,
+  #chart2,
+  #chart3,
   #chart4 {
-    height: 300px;
+    height: 225px;
   }
 
-  #chart5 {
-    height: 350px;
+  #chart5,
+  #chart6,
+  #chart8,
+  #chart9 {
+    height: 450px;
 
-  }
-
-  #chart6 {
-    height: 300px;
   }
 
   #chart7 {
-    height: 400px;
+    height: 625px;
   }
 
-  #chart8 {
-    height: 300px;
-  }
-
-  #chart9 {
-    height: 300px;
-  }
 
   #chart10 {
-    height: 500px;
+    height: 275px;
   }
 
-  #chart11 {
-    height: 500px;
-    min-width: 165%;
-  }
-
-  #chart12 {
-    height: 225px;
-  }
-
-  #chart13 {
-    height: 300px;
-  }
-
-  #chart14 {
-    height: 225px;
-  }
-
-  #chart15 {
-    height: 300px;
-  }
-
-  #chart16 {
-    height: 500px;
-  }
-
-  #chart17 {
-    height: 300px;
-  }
-
-  #chart18 {
-    height: 500px;
-  }
-
+  #chart11,
+  #chart12,
+  #chart13,
+  #chart14,
+  #chart15,
+  #chart16,
+  #chart17,
+  #chart18,
   #chart19 {
-    height: 500px;
+    height: 450px;
   }
 
   .top-chart-box {
@@ -736,6 +744,9 @@
     transform: scale(1.1);
   }
 
+  hr {
+    margin-bottom: 20px;
+  }
 
   /* Responsive */
   @media (max-width: 1200px) {
