@@ -13,6 +13,14 @@
 
   <script src="https://unpkg.com/@mongodb-js/charts-embed-dom"></script>
 
+  <style>
+     .activeDropDown {
+    /* Your active styles */
+    background-color: #4CAF50;
+    color: white;
+  }
+  </style>
+
 </head>
 
 <body>
@@ -126,19 +134,20 @@
 
         <div class="home-content2">
           <form onsubmit="handleFilterSubmit(event)" class="custom-form2">
-            <div style="display: none;"">
-                <input  id="startDate" name="startDate" class="custom-input" required>
-                <input  id="endDate" name="endDate" class="custom-input" required>
+            <div style="display: none;">
+              <input id="startDate" name="startDate" class="custom-input" required>
+              <input id="endDate" name="endDate" class="custom-input" required>
             </div>
-              <div >
-                <button id="July" class="custom-button primary">July</button>
-                <button id="August" class="custom-button primary">August</button>
-                <button id="September" class="custom-button primary">September</button>
-                <button id="October" class="custom-button primary">October</button>
-                <button id="November" class="custom-button primary">November</button>
-                <button id="December" class="custom-button primary">December</button>
-                <a href="/index" class="custom-button secondary">Reset</a>
-              </div>
+            <div>
+              <select id="monthDropdown" class="custom-dropdown">
+                <option value="07">July</option>
+                <option value="08">August</option>
+                <option value="09">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+              <a href="/index" class="custom-button secondary" id="resetButton">Reset</a>
             </div>
           </form>
 
@@ -267,12 +276,15 @@
 
       <!-- date -->
       <script>
-        document.getElementById('July').addEventListener('click', function () {
-          // Get current month and year
+        document.getElementById('monthDropdown').addEventListener('change', function () {
+          // Get selected month value
+          const selectedMonth = this.value;
+          // Get current year
           const currentYear = new Date().getFullYear();
-          const formattedStartDate = `${currentYear}-07-01`;
-          const formattedEndDate = `${currentYear}-07-31`;
-
+          // Calculate start and end dates based on selected month
+          const formattedStartDate = `${currentYear}-${selectedMonth}-01`;
+          const formattedEndDate = `${currentYear}-${selectedMonth}-${new Date(currentYear, selectedMonth, 0).getDate()}`;
+      
           if (formattedStartDate && formattedEndDate) {
             charts.forEach(chart => {
               chart.setFilter({
@@ -282,141 +294,19 @@
                 ]
               });
             });
+      
+            this.classList.add('activeDropDown');
           } else {
-            // If either start date or end date is not selected, remove the filter
             charts.forEach(chart => chart.setFilter({}));
+      
+            this.classList.remove('active');
           }
-
+      
           // Set the start and end date input values
           document.getElementById('startDate').value = formattedStartDate;
           document.getElementById('endDate').value = formattedEndDate;
         });
-
-        document.getElementById('August').addEventListener('click', function () {
-          // Get current month and year
-          const currentYear = new Date().getFullYear();
-          const formattedStartDate = `${currentYear}-08-01`;
-          const formattedEndDate = `${currentYear}-08-31`;
-
-          if (formattedStartDate && formattedEndDate) {
-            charts.forEach(chart => {
-              chart.setFilter({
-                $and: [
-                  { turnOver: { $gte: formattedStartDate } },
-                  { turnOver: { $lte: formattedEndDate } }
-                ]
-              });
-            });
-          } else {
-            // If either start date or end date is not selected, remove the filter
-            charts.forEach(chart => chart.setFilter({}));
-          }
-
-          // Set the start and end date input values
-          document.getElementById('startDate').value = formattedStartDate;
-          document.getElementById('endDate').value = formattedEndDate;
-        });
-
-        document.getElementById('September').addEventListener('click', function () {
-          // Get current month and year
-          const currentYear = new Date().getFullYear();
-          const formattedStartDate = `${currentYear}-09-01`;
-          const formattedEndDate = `${currentYear}-09-31`;
-
-          if (formattedStartDate && formattedEndDate) {
-            charts.forEach(chart => {
-              chart.setFilter({
-                $and: [
-                  { turnOver: { $gte: formattedStartDate } },
-                  { turnOver: { $lte: formattedEndDate } }
-                ]
-              });
-            });
-          } else {
-            // If either start date or end date is not selected, remove the filter
-            charts.forEach(chart => chart.setFilter({}));
-          }
-
-          // Set the start and end date input values
-          document.getElementById('startDate').value = formattedStartDate;
-          document.getElementById('endDate').value = formattedEndDate;
-        });
-
-        document.getElementById('October').addEventListener('click', function () {
-          // Get current month and year
-          const currentYear = new Date().getFullYear();
-          const formattedStartDate = `${currentYear}-10-01`;
-          const formattedEndDate = `${currentYear}-10-31`;
-
-          if (formattedStartDate && formattedEndDate) {
-            charts.forEach(chart => {
-              chart.setFilter({
-                $and: [
-                  { turnOver: { $gte: formattedStartDate } },
-                  { turnOver: { $lte: formattedEndDate } }
-                ]
-              });
-            });
-          } else {
-            // If either start date or end date is not selected, remove the filter
-            charts.forEach(chart => chart.setFilter({}));
-          }
-
-          // Set the start and end date input values
-          document.getElementById('startDate').value = formattedStartDate;
-          document.getElementById('endDate').value = formattedEndDate;
-        });
-
-        document.getElementById('November').addEventListener('click', function () {
-          // Get current month and year
-          const currentYear = new Date().getFullYear();
-          const formattedStartDate = `${currentYear}-11-01`;
-          const formattedEndDate = `${currentYear}-11-31`;
-
-          if (formattedStartDate && formattedEndDate) {
-            charts.forEach(chart => {
-              chart.setFilter({
-                $and: [
-                  { turnOver: { $gte: formattedStartDate } },
-                  { turnOver: { $lte: formattedEndDate } }
-                ]
-              });
-            });
-          } else {
-            // If either start date or end date is not selected, remove the filter
-            charts.forEach(chart => chart.setFilter({}));
-          }
-          
-          // Set the start and end date input values
-          document.getElementById('startDate').value = formattedStartDate;
-          document.getElementById('endDate').value = formattedEndDate;
-        });
-
-        document.getElementById('December').addEventListener('click', function () {
-          // Get current month and year
-          const currentYear = new Date().getFullYear();
-          const formattedStartDate = `${currentYear}-12-01`;
-          const formattedEndDate = `${currentYear}-12-31`;
-
-          if (formattedStartDate && formattedEndDate) {
-            charts.forEach(chart => {
-              chart.setFilter({
-                $and: [
-                  { turnOver: { $gte: formattedStartDate } },
-                  { turnOver: { $lte: formattedEndDate } }
-                ]
-              });
-            });
-          } else {
-            // If either start date or end date is not selected, remove the filter
-            charts.forEach(chart => chart.setFilter({}));
-          }
-          
-          // Set the start and end date input values
-          document.getElementById('startDate').value = formattedStartDate;
-          document.getElementById('endDate').value = formattedEndDate;
-        });
-        </script>
+      </script>
 
       <script>
         let sidebar = document.querySelector(".sidebar");
