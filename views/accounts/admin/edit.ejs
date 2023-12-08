@@ -61,12 +61,12 @@
 
   <section class="home-section">
 
-    <a href="javascript:history.back()" class="back-button">Go Back<i class='bx bxs-left-arrow-square'></i></a>
+    <a href="/admin/table" class="back-button">Go Back<i class='bx bxs-left-arrow-square'></i></a>
 
     <div class="container">
       
 
-      <form method="POST" action="/admin/edit/<%= data.id %>">
+      <form method="POST" action="/admin/edit/<%= data.id %>" onsubmit="return validateUserType()">
 
         <h2 class="text-center mb-4 mt-5">Manager Edit Information</h2>
         <div class="row jumbotron shadow-lg p-3 mb-5 bg-body-tertiary rounded border">
@@ -136,9 +136,14 @@
 
 
                 <div class="col-sm-4 form-group">
-                  <label for="inputZip">User Type</label>
-                  <input type="text" class="form-control" id="usertype" name="usertype" value="<%= data.usertype %>">
-                </div>
+                <label for="inputZip">User Type</label>
+                  <select id="usertype" name="usertype" class="form-control" required>
+                    <option value="<%= data.usertype %>"><%= data.usertype %></option>
+                    <option value="Choose from this list">.....</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Manager">Manager</option>
+                  </select>
+              </div>
 
                 <div class="col-sm-4 form-group">
                   <label for="inputZip">Password</label>
@@ -183,6 +188,18 @@
           togglePasswordIcon.classList.add("fa-eye");
         }
       }
+
+      // To pick the user type
+      function validateUserType() {
+          var selectedValue = document.getElementById("usertype").value;
+
+          if (selectedValue === "Choose from this list") {
+            alert("Please select a valid user type.");
+            return false; // Prevent form submission
+          } else {
+            return true; // Allow form submission
+          }
+        }
     </script>
 
 
