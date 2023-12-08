@@ -534,8 +534,23 @@ nav .sidebar-button i {
 .custom-button.primary {
 	background-color: #1C84C6;
 	color: white;
-	margin: 0;
+	margin: 0 10px 0 0;
 	font-size: 18px;
+}
+
+.custom-button.primary:hover {
+    background-color: #155d8c; 
+    color: #fff; 
+}
+
+.custom-button.active {
+    background-color: yellow; /* Change to the active background color */
+    color: #fff; /* Change to the active text color */
+}
+
+.custom-button.secondary.active {
+    background-color: #e74c3c; /* Change to the active background color for the "Reset" button */
+    color: #fff; /* Change to the active text color for the "Reset" button */
 }
 
 .custom-button i, .downloadBtn i, .custom-dropdown i, .custom-button3 i {

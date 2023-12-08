@@ -127,19 +127,19 @@
         <div class="home-content2">
           <form onsubmit="handleFilterSubmit(event)" class="custom-form2">
             <div style="display: none;"">
-                <input  id="startDate" name="startDate" class="custom-input" required>
-                <input  id="endDate" name="endDate" class="custom-input" required>
+                <input  id=" startDate" name="startDate" class="custom-input" required>
+              <input id="endDate" name="endDate" class="custom-input" required>
             </div>
-              <div >
-                <button id="July" class="custom-button primary">July</button>
-                <button id="August" class="custom-button primary">August</button>
-                <button id="September" class="custom-button primary">September</button>
-                <button id="October" class="custom-button primary">October</button>
-                <button id="November" class="custom-button primary">November</button>
-                <button id="December" class="custom-button primary">December</button>
-                <a href="/index" class="custom-button secondary">Reset</a>
-              </div>
+            <div>
+              <button id="July" class="custom-button primary">July</button>
+              <button id="August" class="custom-button primary">August</button>
+              <button id="September" class="custom-button primary">September</button>
+              <button id="October" class="custom-button primary">October</button>
+              <button id="November" class="custom-button primary">November</button>
+              <button id="December" class="custom-button primary">December</button>
+              <a href="/index" class="custom-button secondary">Reset</a>
             </div>
+
           </form>
 
 
@@ -167,7 +167,7 @@
                   <div class="product-bottom-chart-left top-chart-box">
                     <h2 class="heading">Authorized Users</h2>
                     <div id="chart14"></div>
-                    
+
                     <hr>
                     <h2 class="heading">Turnover Rate</h2>
                     <div id="chart12"></div>
@@ -183,11 +183,11 @@
                   <div class="top-chart-box bottom-chart-left">
                     <h2 class="heading">Number of Guns per Gun Name</h2>
                     <div id="chart7"></div>
-                    
+
                   </div>
-                  
+
                   <div class="top-chart-box bottom-chart-right">
-                    
+
                     <h2 class="heading">Firearm Type Distribution</h2>
                     <div id="chart5"></div>
                   </div>
@@ -247,7 +247,7 @@
                 </div>
 
 
-                
+
                 <div class="top-chart2 flex">
                   <div class="top-chart-box bottom-chart-left">
                     <h2 class="heading2">Not unscanned</h2>
@@ -290,7 +290,12 @@
           // Set the start and end date input values
           document.getElementById('startDate').value = formattedStartDate;
           document.getElementById('endDate').value = formattedEndDate;
+
         });
+
+        
+
+
 
         document.getElementById('August').addEventListener('click', function () {
           // Get current month and year
@@ -386,7 +391,7 @@
             // If either start date or end date is not selected, remove the filter
             charts.forEach(chart => chart.setFilter({}));
           }
-          
+
           // Set the start and end date input values
           document.getElementById('startDate').value = formattedStartDate;
           document.getElementById('endDate').value = formattedEndDate;
@@ -411,12 +416,12 @@
             // If either start date or end date is not selected, remove the filter
             charts.forEach(chart => chart.setFilter({}));
           }
-          
+
           // Set the start and end date input values
           document.getElementById('startDate').value = formattedStartDate;
           document.getElementById('endDate').value = formattedEndDate;
         });
-        </script>
+      </script>
 
       <script>
         let sidebar = document.querySelector(".sidebar");
@@ -530,6 +535,7 @@
     font-weight: 500;
     text-align: left;
   }
+
   .heading2 {
     font-size: 2.5rem;
     color: #fcfcfc;
@@ -581,14 +587,14 @@
     margin-top: 4rem;
     font-size: 1.6rem;
     justify-content: flex-start;
-    
-   
+
+
 
   }
 
 
   #chart1 {
-height: 300px;
+    height: 300px;
   }
 
   #chart2 {
@@ -605,12 +611,13 @@ height: 300px;
 
   #chart5 {
     height: 350px;
-    
+
   }
 
   #chart6 {
     height: 300px;
   }
+
   #chart7 {
     height: 400px;
   }
@@ -631,18 +638,23 @@ height: 300px;
     height: 500px;
     min-width: 165%;
   }
+
   #chart12 {
     height: 225px;
   }
+
   #chart13 {
     height: 300px;
   }
+
   #chart14 {
     height: 225px;
   }
+
   #chart15 {
     height: 300px;
   }
+
   #chart16 {
     height: 500px;
   }
@@ -650,9 +662,11 @@ height: 300px;
   #chart17 {
     height: 300px;
   }
+
   #chart18 {
     height: 500px;
   }
+
   #chart19 {
     height: 500px;
   }
@@ -698,7 +712,7 @@ height: 300px;
     width: 38%;
 
   }
-  
+
 
   .bottom-chart {
     width: 60%;

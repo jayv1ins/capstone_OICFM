@@ -231,7 +231,8 @@
                 </div>
                 <button id="scannedThisMonth" class="custom-button primary">Scanned This Month</button>
                 <button id="NotScannedThisMonth" class="custom-button primary">Not Scanned This Month</button>
-                <button class="downloadBtn" id="downloadExcelBtn">Generate Report<i class='bx bx-spreadsheet'></i></button>
+                <button class="downloadBtn" id="downloadExcelBtn">Generate Report<i
+                    class='bx bx-spreadsheet'></i></button>
               </form>
 
               <div class="main-cards">
@@ -303,21 +304,23 @@
                       </div>
 
                       <div class="gauge__labels">
-                        <div class="gauge__label-target"><%= TotalGun %></div>
+                        <div class="gauge__label-target">
+                          <%= TotalGun %>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  </h1>
-
-                  
                 </div>
+                </h1>
+
 
               </div>
 
 
+
+
               <div class="custom-form-row">
-                <button class="custom-button primary newUser" data-bs-toggle="modal" data-bs-target="#userForm">Create New<i
-                    class='bx bxs-user-plus'></i></button>
+                <button class="custom-button primary newUser" data-bs-toggle="modal" data-bs-target="#userForm">Create
+                  New<i class='bx bxs-user-plus'></i></button>
                 <form action="/DataTable" method="GET" onsubmit="handleFilterSubmit(event)" class="custom-search-form">
                   <div class="search-container">
                     <input type="text" class="search-input" id="searchQuery" name="search" list="searchSuggestions"
@@ -329,15 +332,15 @@
                         </datalist>
                   </div>
                   <button type="submit" class="custom-button primary">Search<i class='bx bx-search-alt-2'></i></button>
-                    <% if (typeof ErrorMessage !=='undefined' ) { %>
-            <p style="color: red;">
-              <%= ErrorMessage %>
-            </p>
-            <% } else if (typeof SuccessMessage !=='undefined' ) { %>
-              <p style="color: green;">
-                <%= SuccessMessage %>
-              </p>
-              <% } %>
+                  <% if (typeof ErrorMessage !=='undefined' ) { %>
+                    <p style="color: red;">
+                      <%= ErrorMessage %>
+                    </p>
+                    <% } else if (typeof SuccessMessage !=='undefined' ) { %>
+                      <p style="color: green;">
+                        <%= SuccessMessage %>
+                      </p>
+                      <% } %>
                 </form>
 
 
@@ -470,370 +473,371 @@
                                   <% } %>
                 </div>
               </div>
+            </div>
 
-              <!-- Modal View -->
-              <div class="modal fade" id="selectedData">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
-                  <!-- Modal content -->
-                  <div class="modal-content2">
+            <!-- Modal View -->
+            <div class="modal fade" id="selectedData">
+              <div class="modal-dialog modal-dialog-centered modal-lg">
+                <!-- Modal content -->
+                <div class="modal-content2">
 
-                    <div class="modal-header">
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <span>&times;</span> <!-- "X" icon for close button -->
-                      </button>
-                      <h4 class="modal-title">Select</h4>
+                  <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                      <span>&times;</span> <!-- "X" icon for close button -->
+                    </button>
+                    <h4 class="modal-title">Select</h4>
 
-                    </div>
+                  </div>
 
-                    <div class="modal-body">
+                  <div class="modal-body">
+                    <table class="table table-hover">
+                      <tbody>
+                        <tr>
+                          <td><strong>Rank</strong></td>
+                          <td id="modalRank"></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Last Name</strong></td>
+                          <td id="modalLastName"></td>
+                        </tr>
+                        <tr>
+                          <td><strong>First Name</strong></td>
+                          <td id="modalFirstName"></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Middle Name</strong></td>
+                          <td id="modalMiddleName"></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Qualifier</strong></td>
+                          <td id="modalQualifier"></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Office</strong></td>
+                          <td id="modalOffice"></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Gun Type</strong></td>
+                          <td id="modalGunType"></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Gun Name</strong></td>
+                          <td id="modalGunName"></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Caliber</strong></td>
+                          <td id="modalCaliber"></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Serial Number</strong></td>
+                          <td id="modalSerialNumber"></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Cost</strong></td>
+                          <td id="modalCost"></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Acquisition Date</strong></td>
+                          <td id="modalAcquisitionDate"></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Turn Over</strong></td>
+                          <td id="modalTurnOver"></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Returned</strong></td>
+                          <td id="modalReturned"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal Edit -->
+            <div class="modal fade" id="editData">
+              <div class="modal-dialog modal-dialog-centered modal-lg">
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                      <span>&times;</span> <!-- "X" icon for close button -->
+                    </button>
+                    <h4 class="modal-title">Edit Data</h4>
+
+                  </div>
+
+                  <div class="modal-body">
+                    <form method="POST" id="editForm">
+
                       <table class="table table-hover">
                         <tbody>
+
+
                           <tr>
                             <td><strong>Rank</strong></td>
-                            <td id="modalRank"></td>
-                          </tr>
-                          <tr>
+                            <td><input type="text" class="form-control" id="editDataRank" name="rank"
+                                autocomplete="Rank" required minlength="3" pattern="[a-zA-Z -]+"></td>
+
                             <td><strong>Last Name</strong></td>
-                            <td id="modalLastName"></td>
+                            <td><input type="text" class="form-control" id="editDataLastName" name="lastName"
+                                autocomplete="LastName" required minlength="3" pattern="[a-zA-Z -]+"></td>
                           </tr>
+
                           <tr>
                             <td><strong>First Name</strong></td>
-                            <td id="modalFirstName"></td>
-                          </tr>
-                          <tr>
+                            <td><input type="text" class="form-control" id="editDataFirstName" name="firstName"
+                                autocomplete="FirstName" required minlength="3" pattern="[a-zA-Z -]+"></td>
+
                             <td><strong>Middle Name</strong></td>
-                            <td id="modalMiddleName"></td>
+                            <td><input type="text" class="form-control" id="editDataMiddleName" name="middleName"
+                                autocomplete="MiddleName" required minlength="1" pattern="[a-zA-Z -]+"></td>
                           </tr>
+
                           <tr>
                             <td><strong>Qualifier</strong></td>
-                            <td id="modalQualifier"></td>
-                          </tr>
-                          <tr>
+                            <td><input type="text" class="form-control" id="editDataQualifier" name="qualifier"
+                                autocomplete="Qualifier"></td>
+
                             <td><strong>Office</strong></td>
-                            <td id="modalOffice"></td>
+                            <td><input type="text" class="form-control" id="editDataOffice" name="office"
+                                autocomplete="office" required minlength="3" pattern="^[A-Z][a-zA-Z -]*$"></td>
                           </tr>
+
+
                           <tr>
                             <td><strong>Gun Type</strong></td>
-                            <td id="modalGunType"></td>
-                          </tr>
-                          <tr>
+                            <td><input type="text" class="form-control" id="editDataGunType" name="Gtype"
+                                autocomplete="GunType" required minlength="3" pattern="[a-zA-Z ]+"></td>
+
+
                             <td><strong>Gun Name</strong></td>
-                            <td id="modalGunName"></td>
+                            <td><input type="text" class="form-control" id="editDataGunName" name="Gname"
+                                autocomplete="GunName" required minlength="3" pattern="^[A-Z0-9][A-Za-z0-9 -]*$"></td>
                           </tr>
+
                           <tr>
                             <td><strong>Caliber</strong></td>
-                            <td id="modalCaliber"></td>
-                          </tr>
-                          <tr>
+                            <td><input type="text" class="form-control" id="editDataCaliber" name="caliber"
+                                autocomplete="Caliber" required minlength="3" pattern="^[A-Z0-9][A-Za-z0-9 -]*$"></td>
+
+
                             <td><strong>Serial Number</strong></td>
-                            <td id="modalSerialNumber"></td>
+                            <td><input type="text" class="form-control" id="editDataSerialNumber" name="serialN"
+                                autocomplete="serialN" required minlength="4" pattern="^[a-zA-Z0-9\s- -]+$"></td>
                           </tr>
+
                           <tr>
+
                             <td><strong>Cost</strong></td>
-                            <td id="modalCost"></td>
-                          </tr>
-                          <tr>
+                            <td><input type="text" class="form-control" id="editDataCost" name="cost"
+                                autocomplete="Cost" required minlength="4" pattern="[0-9]+"></td>
+
+
                             <td><strong>Acquisition Date</strong></td>
-                            <td id="modalAcquisitionDate"></td>
+                            <td> <input type="date" class="form-control" id="editDataAcquisition" name="acquisition">
+                            </td>
                           </tr>
+
                           <tr>
+
                             <td><strong>Turn Over</strong></td>
-                            <td id="modalTurnOver"></td>
-                          </tr>
-                          <tr>
+                            <td><input type="date" class="form-control" id="editDataTurnOver" placeholder="Turn-Over"
+                                name="turnOver"></td>
+
+
                             <td><strong>Returned</strong></td>
-                            <td id="modalReturned"></td>
+                            <td> <input type="date" class="form-control" placeholder="Returned" name="returned"
+                                id="editDataReturned"></td>
+
                           </tr>
+
+
+
+
                         </tbody>
                       </table>
-                    </div>
+
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="saveChangesButton">Update</button>
+                      </div>
+                    </form>
 
                   </div>
+
                 </div>
               </div>
-
-              <!-- Modal Edit -->
-              <div class="modal fade" id="editData">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
-                  <!-- Modal content -->
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <span>&times;</span> <!-- "X" icon for close button -->
-                      </button>
-                      <h4 class="modal-title">Edit Data</h4>
-
-                    </div>
-
-                    <div class="modal-body">
-                      <form method="POST" id="editForm">
-
-                        <table class="table table-hover">
-                          <tbody>
-
-
-                            <tr>
-                              <td><strong>Rank</strong></td>
-                              <td><input type="text" class="form-control" id="editDataRank" name="rank"
-                                  autocomplete="Rank" required minlength="3" pattern="[a-zA-Z -]+"></td>
-
-                              <td><strong>Last Name</strong></td>
-                              <td><input type="text" class="form-control" id="editDataLastName" name="lastName"
-                                  autocomplete="LastName" required minlength="3" pattern="[a-zA-Z -]+"></td>
-                            </tr>
-
-                            <tr>
-                              <td><strong>First Name</strong></td>
-                              <td><input type="text" class="form-control" id="editDataFirstName" name="firstName"
-                                  autocomplete="FirstName" required minlength="3" pattern="[a-zA-Z -]+"></td>
-
-                              <td><strong>Middle Name</strong></td>
-                              <td><input type="text" class="form-control" id="editDataMiddleName" name="middleName"
-                                  autocomplete="MiddleName" required minlength="1" pattern="[a-zA-Z -]+"></td>
-                            </tr>
-
-                            <tr>
-                              <td><strong>Qualifier</strong></td>
-                              <td><input type="text" class="form-control" id="editDataQualifier" name="qualifier"
-                                  autocomplete="Qualifier"></td>
-
-                              <td><strong>Office</strong></td>
-                              <td><input type="text" class="form-control" id="editDataOffice" name="office"
-                                  autocomplete="office" required minlength="3" pattern="^[A-Z][a-zA-Z -]*$"></td>
-                            </tr>
-
-
-                            <tr>
-                              <td><strong>Gun Type</strong></td>
-                              <td><input type="text" class="form-control" id="editDataGunType" name="Gtype"
-                                  autocomplete="GunType" required minlength="3" pattern="[a-zA-Z ]+"></td>
-
-
-                              <td><strong>Gun Name</strong></td>
-                              <td><input type="text" class="form-control" id="editDataGunName" name="Gname"
-                                  autocomplete="GunName" required minlength="3" pattern="^[A-Z0-9][A-Za-z0-9 -]*$"></td>
-                            </tr>
-
-                            <tr>
-                              <td><strong>Caliber</strong></td>
-                              <td><input type="text" class="form-control" id="editDataCaliber" name="caliber"
-                                  autocomplete="Caliber" required minlength="3" pattern="^[A-Z0-9][A-Za-z0-9 -]*$"></td>
-
-
-                              <td><strong>Serial Number</strong></td>
-                              <td><input type="text" class="form-control" id="editDataSerialNumber" name="serialN"
-                                  autocomplete="serialN" required minlength="4" pattern="^[a-zA-Z0-9\s- -]+$"></td>
-                            </tr>
-
-                            <tr>
-
-                              <td><strong>Cost</strong></td>
-                              <td><input type="text" class="form-control" id="editDataCost" name="cost"
-                                  autocomplete="Cost" required minlength="4" pattern="[0-9]+"></td>
-
-
-                              <td><strong>Acquisition Date</strong></td>
-                              <td> <input type="date" class="form-control" id="editDataAcquisition" name="acquisition">
-                              </td>
-                            </tr>
-
-                            <tr>
-
-                              <td><strong>Turn Over</strong></td>
-                              <td><input type="date" class="form-control" id="editDataTurnOver" placeholder="Turn-Over"
-                                  name="turnOver"></td>
-
-
-                              <td><strong>Returned</strong></td>
-                              <td> <input type="date" class="form-control" placeholder="Returned" name="returned"
-                                  id="editDataReturned"></td>
-
-                            </tr>
+            </div>
 
 
 
+            <div class="modal fade" id="userForm">
+              <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
 
-                          </tbody>
-                        </table>
-
-                        <div class="modal-footer">
-                          <button type="submit" class="btn btn-primary" id="saveChangesButton">Update</button>
-                        </div>
-                      </form>
-
-                    </div>
-
+                  <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                      <span>&times;</span> <!-- "X" icon for close button -->
+                    </button>
+                    <h4 class="modal-title">Fill the Form</h4>
                   </div>
-                </div>
-              </div>
 
 
 
-              <div class="modal fade" id="userForm">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
-                  <div class="modal-content">
+                  <div class="modal-body">
 
-                    <div class="modal-header">
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <span>&times;</span> <!-- "X" icon for close button -->
-                      </button>
-                      <h4 class="modal-title">Fill the Form</h4>
-                    </div>
+                    <form method="POST" action="/create" id="myForm">
 
-
-
-                    <div class="modal-body">
-
-                      <form method="POST" action="/create" id="myForm">
-
-                        <% if (typeof ErrorMessage !=='undefined' ) { %>
-                          <p style="color: red;">
-                            <%= ErrorMessage %>
+                      <% if (typeof ErrorMessage !=='undefined' ) { %>
+                        <p style="color: red;">
+                          <%= ErrorMessage %>
+                        </p>
+                        <% } else if (typeof SuccessMessage !=='undefined' ) { %>
+                          <p style="color: green;">
+                            <%= SuccessMessage %>
                           </p>
-                          <% } else if (typeof SuccessMessage !=='undefined' ) { %>
-                            <p style="color: green;">
-                              <%= SuccessMessage %>
-                            </p>
-                            <% } %>
+                          <% } %>
 
-                              <table class="table table-hover">
-                                <tbody>
-                                  <tr>
+                            <table class="table table-hover">
+                              <tbody>
+                                <tr>
 
-                                    <td><strong>Rank</strong></td>
-                                    <td>
-                                      <input type="text" class="form-control" id="rank" name="rank"
-                                        placeholder="Enter rank">
-                                    </td>
+                                  <td><strong>Rank</strong></td>
+                                  <td>
+                                    <input type="text" class="form-control" id="rank" name="rank"
+                                      placeholder="Enter rank">
+                                  </td>
 
-                                    <td><strong>Last Name</strong></td>
-                                    <td>
-                                      <input type="text" class="form-control" placeholder="Enter your last name."
-                                        id="lastName" name="lastName" autocomplete="LastName" required min="3"
-                                        pattern="[a-zA-Z ]+">
-                                    </td>
+                                  <td><strong>Last Name</strong></td>
+                                  <td>
+                                    <input type="text" class="form-control" placeholder="Enter your last name."
+                                      id="lastName" name="lastName" autocomplete="LastName" required min="3"
+                                      pattern="[a-zA-Z ]+">
+                                  </td>
 
-                                  </tr>
+                                </tr>
 
 
-                                  <tr>
-                                    <td><strong>First Name</strong></td>
-                                    <td>
-                                      <input type="text" class="form-control" placeholder="Enter your first name."
-                                        id="firstName" name="firstName" autocomplete="firstName" required min="3"
-                                        pattern="[a-zA-Z ]+">
-                                    </td>
+                                <tr>
+                                  <td><strong>First Name</strong></td>
+                                  <td>
+                                    <input type="text" class="form-control" placeholder="Enter your first name."
+                                      id="firstName" name="firstName" autocomplete="firstName" required min="3"
+                                      pattern="[a-zA-Z ]+">
+                                  </td>
 
-                                    <td><strong>Middle Name</strong></td>
-                                    <td>
-                                      <input type="text" class="form-control" placeholder="Enter your middle name."
-                                        id="middleName" name="middleName" autocomplete="middleName" required min="3"
-                                        pattern="[a-zA-Z ]+">
-                                    </td>
-                                  </tr>
-
-
-                                  <tr>
-                                    <td><strong>Qualifier</strong></td>
-                                    <td>
-                                      <input type="text" class="form-control" placeholder="Enter Qualifier" id="QLFR"
-                                        name="QLFR" autocomplete="QLFR" id="qlfr">
-                                    </td>
-
-                                    <td><strong>Office</strong></td>
-                                    <td>
-                                      <input type="text" class="form-control" id="editDataOffice"
-                                        placeholder="Office" name="office" autocomplete="office" required min="3"
-                                        pattern="^[a-zA-Z]*$">
-                                    </td>
-
-                                  </tr>
-
-                                  <tr>
-
-                                    <td><strong>Gun Type</strong></td>
-                                    <td>
-                                      <input type="text" class="form-control" id="gtype" placeholder="Enter gun type"
-                                        name="Gtype" autocomplete="Gtype" required min="3" pattern="^[a-zA-Z]*$">
-                                    </td>
-
-                                    <td><strong>Gun Name</strong></td>
-                                    <td>
-                                      <input type="text" class="form-control" id="gname" placeholder="Enter gun name"
-                                        name="Gname" autocomplete="Gname" required min="3" pattern="^[a-zA-Z]*$">
-                                    </td>
-                                  </tr>
+                                  <td><strong>Middle Name</strong></td>
+                                  <td>
+                                    <input type="text" class="form-control" placeholder="Enter your middle name."
+                                      id="middleName" name="middleName" autocomplete="middleName" required min="3"
+                                      pattern="[a-zA-Z ]+">
+                                  </td>
+                                </tr>
 
 
-                                  <tr>
+                                <tr>
+                                  <td><strong>Qualifier</strong></td>
+                                  <td>
+                                    <input type="text" class="form-control" placeholder="Enter Qualifier" id="QLFR"
+                                      name="QLFR" autocomplete="QLFR" id="qlfr">
+                                  </td>
 
-                                    <td><strong>Caliber</strong></td>
-                                    <td>
-                                      <input type="text" class="form-control" id="caliber" placeholder="Enter caliber"
-                                        name="caliber" autocomplete="caliber" required min="3">
-                                    </td>
+                                  <td><strong>Office</strong></td>
+                                  <td>
+                                    <input type="text" class="form-control" id="editDataOffice" placeholder="Office"
+                                      name="office" autocomplete="office" required min="3" pattern="^[a-zA-Z]*$">
+                                  </td>
 
-                                    <td><strong>Serial Number</strong></td>
-                                    <td>
-                                      <input type="text" class="form-control" id="serialN"
-                                        placeholder="Enter serial number" name="serialN" autocomplete="serialN" required
-                                        min="4">
-                                    </td>
-                                  </tr>
+                                </tr>
 
+                                <tr>
 
-                                  <tr>
+                                  <td><strong>Gun Type</strong></td>
+                                  <td>
+                                    <input type="text" class="form-control" id="gtype" placeholder="Enter gun type"
+                                      name="Gtype" autocomplete="Gtype" required min="3" pattern="^[a-zA-Z]*$">
+                                  </td>
 
-
-                                    <td><strong>Cost</strong></td>
-                                    <td>
-                                      <input type="text" class="form-control" id="cost" placeholder="Enter cost"
-                                        name="cost" autocomplete="cost" required min="4">
-                                    </td>
-
-                                    <td><strong>Acquisition date</strong></td>
-                                    <td>
-                                      <input type="date" class="form-control" id="acquisition" name="acquisition" required>
-                                    </td>
-                                  </tr>
+                                  <td><strong>Gun Name</strong></td>
+                                  <td>
+                                    <input type="text" class="form-control" id="gname" placeholder="Enter gun name"
+                                      name="Gname" autocomplete="Gname" required min="3" pattern="^[a-zA-Z]*$">
+                                  </td>
+                                </tr>
 
 
-                                  <tr>
+                                <tr>
 
-                                    <td><strong>Turn Over</strong></td>
-                                    <td>
-                                      <input type="date" class="form-control" id="turnOver" placeholder="Turn Over"
-                                        name="turnOver" autocomplete="turnOver" required min="3">
-                                    </td>
+                                  <td><strong>Caliber</strong></td>
+                                  <td>
+                                    <input type="text" class="form-control" id="caliber" placeholder="Enter caliber"
+                                      name="caliber" autocomplete="caliber" required min="3">
+                                  </td>
+
+                                  <td><strong>Serial Number</strong></td>
+                                  <td>
+                                    <input type="text" class="form-control" id="serialN"
+                                      placeholder="Enter serial number" name="serialN" autocomplete="serialN" required
+                                      min="4">
+                                  </td>
+                                </tr>
 
 
-                                    <td><strong>Returned</strong></td>
-                                    <td>
-                                      <input type="date" class="form-control" id="returned" placeholder="Returned gun"
-                                        name="returned" autocomplete="returned" required min="3">
-                                    </td>
-                                  </tr>
+                                <tr>
 
-                                </tbody>
-                              </table>
+
+                                  <td><strong>Cost</strong></td>
+                                  <td>
+                                    <input type="text" class="form-control" id="cost" placeholder="Enter cost"
+                                      name="cost" autocomplete="cost" required min="4">
+                                  </td>
+
+                                  <td><strong>Acquisition date</strong></td>
+                                  <td>
+                                    <input type="date" class="form-control" id="acquisition" name="acquisition"
+                                      required>
+                                  </td>
+                                </tr>
+
+
+                                <tr>
+
+                                  <td><strong>Turn Over</strong></td>
+                                  <td>
+                                    <input type="date" class="form-control" id="turnOver" placeholder="Turn Over"
+                                      name="turnOver" autocomplete="turnOver" required min="3">
+                                  </td>
+
+
+                                  <td><strong>Returned</strong></td>
+                                  <td>
+                                    <input type="date" class="form-control" id="returned" placeholder="Returned gun"
+                                      name="returned" autocomplete="returned" required min="3">
+                                  </td>
+                                </tr>
+
+                              </tbody>
+                            </table>
 
 
 
 
-                      </form>
-                    </div>
+                    </form>
+                  </div>
 
-                    <div class="modal-footer">
-                      <button type="submit" form="myForm" class="btn btn-primary submit"
-                        id="saveChangesButton">Submit</button>
-                    </div>
+                  <div class="modal-footer">
+                    <button type="submit" form="myForm" class="btn btn-primary submit"
+                      id="saveChangesButton">Submit</button>
                   </div>
                 </div>
               </div>
-
             </div>
 
           </div>
+
+        </div>
 
         </div>
 
@@ -1135,22 +1139,22 @@
       </script>
 
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const myForm = document.getElementById('myForm');
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const myForm = document.getElementById('myForm');
 
-    myForm.addEventListener('submit', function () {
-      const fieldsToUppercase = ['lastName', 'firstName', 'middleName', 'office', 'Gtype', 'caliber', 'Gname', 'serialN'];
+          myForm.addEventListener('submit', function () {
+            const fieldsToUppercase = ['lastName', 'firstName', 'middleName', 'office', 'Gtype', 'caliber', 'Gname', 'serialN'];
 
-      fieldsToUppercase.forEach(function (fieldName) {
-        const input = myForm.querySelector(`input[name="${fieldName}"]`);
-        if (input) {
-          input.value = input.value.toUpperCase();
-        }
-      });
-    });
-  });
-</script>
+            fieldsToUppercase.forEach(function (fieldName) {
+              const input = myForm.querySelector(`input[name="${fieldName}"]`);
+              if (input) {
+                input.value = input.value.toUpperCase();
+              }
+            });
+          });
+        });
+      </script>
 
 
       <script>
@@ -1170,24 +1174,24 @@
         });
       </script>
 
-<script>
-  const gaugeElement = document.querySelector(".gauge");
+      <script>
+        const gaugeElement = document.querySelector(".gauge");
 
-  function setGaugeValue(gauge, customPercentage) {
-  if (customPercentage < 0 || customPercentage > 100) {
-    return;
-  }
+        function setGaugeValue(gauge, customPercentage) {
+          if (customPercentage < 0 || customPercentage > 100) {
+            return;
+          }
 
-  const normalizedValue = customPercentage / 100; // Assuming customPercentage is in the range [0, 100]
-  gauge.querySelector(".gauge__fill").style.transform = `rotate(${normalizedValue * 180}deg)`;
-  gauge.querySelector(".gauge__cover").textContent = `${customPercentage.toFixed(2)}%`;
-}
-
-
-setGaugeValue(gaugeElement, <%= ((Scanned / TotalGun) * 100).toFixed(2) %>);
+          const normalizedValue = customPercentage / 100; // Assuming customPercentage is in the range [0, 100]
+          gauge.querySelector(".gauge__fill").style.transform = `rotate(${normalizedValue * 180}deg)`;
+          gauge.querySelector(".gauge__cover").textContent = `${customPercentage.toFixed(2)}%`;
+        }
 
 
-</script>
+        setGaugeValue(gaugeElement, <%=((Scanned / TotalGun) * 100).toFixed(2) %>);
+
+
+      </script>
 
 
       <style>
@@ -1242,7 +1246,7 @@ setGaugeValue(gaugeElement, <%= ((Scanned / TotalGun) * 100).toFixed(2) %>);
         }
 
         .card:nth-child(4) {
-          border-left: 7px solid ;
+          border-left: 7px solid;
         }
 
         .card:nth-child(5) {
@@ -1283,59 +1287,58 @@ setGaugeValue(gaugeElement, <%= ((Scanned / TotalGun) * 100).toFixed(2) %>);
         }
 
         .gauge {
-  width: 100%;
-  max-width: 250px;
-  font-family: "Roboto", sans-serif;
-  font-size: 32px;
-  color: #004033;
-}
+          width: 100%;
+          max-width: 250px;
+          font-family: "Roboto", sans-serif;
+          font-size: 32px;
+          color: #004033;
+        }
 
-.gauge__body {
-  width: 100%;
-  height: 0;
-  padding-bottom: 50%;
-  background: #b4c0be;
-  position: relative;
-  border-top-left-radius: 100% 200%;
-  border-top-right-radius: 100% 200%;
-  overflow: hidden;
-}
+        .gauge__body {
+          width: 100%;
+          height: 0;
+          padding-bottom: 50%;
+          background: #b4c0be;
+          position: relative;
+          border-top-left-radius: 100% 200%;
+          border-top-right-radius: 100% 200%;
+          overflow: hidden;
+        }
 
-.gauge__fill {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: inherit;
-  height: 100%;
-  background: #009578;
-  transform-origin: center top;
-  transform: rotate(0.25turn);
-  transition: transform 0.2s ease-out;
-}
+        .gauge__fill {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: inherit;
+          height: 100%;
+          background: #009578;
+          transform-origin: center top;
+          transform: rotate(0.25turn);
+          transition: transform 0.2s ease-out;
+        }
 
-.gauge__cover {
-  width: 75%;
-  height: 150%;
-  background: #ffffff;
-  border-radius: 50%;
-  position: absolute;
-  top: 25%;
-  left: 50%;
-  transform: translateX(-50%);
+        .gauge__cover {
+          width: 75%;
+          height: 150%;
+          background: #ffffff;
+          border-radius: 50%;
+          position: absolute;
+          top: 25%;
+          left: 50%;
+          transform: translateX(-50%);
 
-  /* Text */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-bottom: 25%;
-  box-sizing: border-box;
-}
+          /* Text */
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding-bottom: 25%;
+          box-sizing: border-box;
+        }
 
-.gauge__label-target {
-      flex: 1;
-      text-align: center;
-    }
-
+        .gauge__label-target {
+          flex: 1;
+          text-align: center;
+        }
       </style>
 
 
