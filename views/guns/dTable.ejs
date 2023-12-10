@@ -120,7 +120,7 @@
         <nav>
           <div class="sidebar-button">
             <i class='bx bx-menu sidebarBtn'></i>
-            <span class="dashboard">Data Table</span>
+            <span class="dashboard">Records</span>
           </div>
 
         </nav>
@@ -616,7 +616,7 @@
 
                             <td><strong>Gun Name</strong></td>
                             <td><input type="text" class="form-control" id="editDataGunName" name="Gname"
-                                autocomplete="GunName" required minlength="3" pattern="^[A-Z][A-Za-z1-9@#$%!&*\s]*[^<>()]*$"></td>
+                                autocomplete="GunName" required minlength="3" oninput="validateInput(this)"></td>
                           </tr>
 
                           <tr>
@@ -1026,7 +1026,7 @@
           document.getElementById("editDataLastName").value = data.lastname || "";
           document.getElementById("editDataFirstName").value = data.firstname || "";
           document.getElementById("editDataMiddleName").value = data.middlename || "";
-          document.getElementById("editDataQualifier").value = data.qualifier || "";
+          document.getElementById("editDataQualifier").value = data.QLFR || "";
           document.getElementById("editDataRank").value = data.rank || "";
           document.getElementById("editDataOffice").value = data.office || "";
           document.getElementById("editDataGunType").value = data.guntype || "";
@@ -1140,40 +1140,63 @@
       </script>
 
 
-      <script>
-        document.addEventListener('DOMContentLoaded', function () {
-          const myForm = document.getElementById('myForm');
+    <script>
+      const validInput = (input) => {
+        const pattern = /^[^<>()*]+$/;
+        return pattern.test(input);
+      }
+      document.addEventListener('DOMContentLoaded', function () {
+        const myForm = document.getElementById('myForm');
 
-          myForm.addEventListener('submit', function () {
-            const fieldsToUppercase = ['lastName', 'firstName', 'middleName', 'office', 'Gtype', 'caliber', 'Gname', 'serialN'];
+        myForm.addEventListener('submit', function (event) {
+          const fieldsToUppercase = ['lastName', 'firstName', 'middleName', 'office', 'Gtype', 'caliber', 'Gname', 'serialN'];
 
-            fieldsToUppercase.forEach(function (fieldName) {
-              const input = myForm.querySelector(`input[name="${fieldName}"]`);
-              if (input) {
+          fieldsToUppercase.forEach(function (fieldName) {
+            const input = myForm.querySelector(`input[name="${fieldName}"]`);
+            if (input) {
+              if (fieldName === 'qualifer' && input.value === '') {
+                return;
+              }
+              if (!validInput(input.value)) {
+                event.preventDefault(); 
+                alert(`Invalid input for ${fieldName}. Please avoid using <>()* characters.`);
+              } else {
                 input.value = input.value.toUpperCase();
               }
-            });
+            }
           });
         });
-      </script>
+      });
+    </script>
 
 
-      <script>
-        document.addEventListener('DOMContentLoaded', function () {
-          const editForm = document.getElementById('editForm');
+    
 
-          editForm.addEventListener('submit', function () {
-            const fieldsToUppercase = ['editDataLastName', 'editDataFirstName', 'editDataMiddleName', 'editDataQualifier', 'editDataOffice', 'editDataGunType', 'editDataGunName', 'editDataCaliber', 'editDataSerialNumber'];
 
-            fieldsToUppercase.forEach(function (fieldId) {
-              const input = document.getElementById(fieldId);
-              if (input) {
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const editForm = document.getElementById('editForm');
+
+        editForm.addEventListener('submit', function (event) {
+          const fieldsToUppercase = ['editDataLastName', 'editDataFirstName', 'editDataMiddleName', , 'editDataQualifier', 'editDataOffice', 'editDataGunType', 'editDataGunName', 'editDataCaliber', 'editDataSerialNumber'];
+
+          fieldsToUppercase.forEach(function (fieldId) {
+            const input = document.getElementById(fieldId);
+            if (input) {
+              if (fieldId === 'editDataQualifier' && input.value === '') {
+                return;
+              }
+              if (!validInput(input.value)) {
+                event.preventDefault(); // Prevent form submission if validation fails
+                alert(`Invalid input for ${fieldId}. Please avoid using <>()* characters.`);
+              } else {
                 input.value = input.value.toUpperCase();
               }
-            });
+            }
           });
         });
-      </script>
+      });
+    </script>
 
       <script>
         const gaugeElement = document.querySelector(".gauge");

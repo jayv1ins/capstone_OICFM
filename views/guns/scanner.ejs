@@ -278,6 +278,11 @@
       };
       reader.readAsDataURL(selectedFile);
 
+        if (cropper) {
+          cropper.destroy();
+          cropper = null;
+        }
+
       if (cropCheckbox.checked) {
         recognizeTextButton.style.display = "none";
         doneButton.style.display = "block";
@@ -285,7 +290,7 @@
         downloadLink.style.display = "none";
 
         cropper = new Cropper(capturedImage, {
-          aspectRatio: 2 / 1,
+          aspectRatio: 3 / 1,
           viewMode: 1,
         });
         console.log("sa crop",capturedImage);
@@ -383,7 +388,7 @@
 
     // Initialize the Cropper for the captured image
     cropper = new Cropper(capturedImage, {
-      aspectRatio: 2 / 1,
+      aspectRatio: 3 / 1,
       viewMode: 1,
     });
 

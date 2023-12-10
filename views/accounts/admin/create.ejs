@@ -267,7 +267,28 @@
     }
 </script>
     
-    
+<script>
+  const validInput = (input) => {
+    // Regular expression to allow any characters except <>()*
+    const pattern = /^[^<>()*]+$/;
+    return pattern.test(input);
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form');
+
+    form.addEventListener('submit', function (event) {
+      // Iterate through each form element
+      form.querySelectorAll('input').forEach(function (input) {
+        // Apply validation for restricted characters
+        if (!validInput(input.value)) {
+          event.preventDefault(); // Prevent form submission if validation fails
+          alert(`Invalid input for ${input.id}. Please avoid using <>()* characters.`);
+        }
+      });
+    });
+  });
+</script>
    
 
 </body>

@@ -59,7 +59,7 @@ exports.postCreate = async (req, res) => {
       turnOver: turnOver,
       returned: returned,
       cost: parseInt(cost),
-      station: station,
+      office: office,
       rank: rank,
       lastName: lastName,
       firstName: firstName,
