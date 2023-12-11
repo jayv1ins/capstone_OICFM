@@ -149,8 +149,7 @@
                 <input type="checkbox" class="crop-container" id="cropImage" name="cropImage" style="display: none; margin-right: 15px;" class="crop-checkbox">
               </div>
 
-              <button  id="recognizeText" style="display: none;" class="extract-button">Extract
-                Text</button>
+              <button  id="recognizeText" style="display: none;" class="extract-button">Extract Serial Number</button>
 
               <!-- Buttons -->
               <button id="doneButton" style="display: none;" class="done-button">Done</button>
@@ -166,7 +165,7 @@
 
               <!-- For Camera and File Val -->
               <video id="video" width="640" height="480" autoplay style="display:none;"></video>
-              <canvas id="canvas" width="640" height="480" style="display:none; position: absolute; top: 0; left: 0;"></canvas>
+              <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
             </center>
 
 
@@ -255,6 +254,10 @@
   let cropper;
 
   function updateImageFeedback() {
+    if (cropper) {
+          cropper.destroy();
+          cropper = null;
+        }
     if (fileInput.files.length > 0) {
       const selectedFile = fileInput.files[0];
       const imgUrl = window.URL.createObjectURL(selectedFile);
@@ -353,7 +356,7 @@
     const context = canvas.getContext('2d');
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
-    context.drawImage(video, 500, 500, canvas.width, canvas.height);
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
     captureButton.style.display = 'none';
     video.style.display = 'none';
