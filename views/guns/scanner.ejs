@@ -259,6 +259,10 @@
           cropper = null;
         }
     if (fileInput.files.length > 0) {
+      if (cropper) {
+          cropper.destroy();
+          cropper = null;
+        }
       const selectedFile = fileInput.files[0];
       const imgUrl = window.URL.createObjectURL(selectedFile);
       capturedImage.src = imgUrl;
@@ -281,10 +285,7 @@
       };
       reader.readAsDataURL(selectedFile);
 
-        if (cropper) {
-          cropper.destroy();
-          cropper = null;
-        }
+     
 
       if (cropCheckbox.checked) {
         recognizeTextButton.style.display = "none";

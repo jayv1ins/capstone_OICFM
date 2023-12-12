@@ -53,8 +53,8 @@ async function fetchData() {
     const totalArchived = await collection.countDocuments({
       archived: true,
       updatedAt: {
-        $gte: "0001-01-01",
-        $lte: "2023-12-31",
+        $gte: "2023-12-01",
+        $lte: "2024-12-31",
       },
     });
 
