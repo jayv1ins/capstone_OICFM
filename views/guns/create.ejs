@@ -35,7 +35,7 @@
         <% } %>
 
         <div class="col-sm-4 form-group">
-          <label for="inputEmail4">Last Name</label>
+          <label  >Last Name</label>
           <input type="text" class="form-control" placeholder="Enter your last name." id="lastName"
             name="lastName" autocomplete="LastName" required min="4" 
            >
@@ -59,64 +59,139 @@
         </div>
 
         <div class="col-sm-4 form-group">
-          <label for="inputZip">Rank</label>
-          <input type="text" class="form-control" id="rank" name="rank" placeholder="Enter rank" pattern="^[A-Z][a-zA-Z\s-]*$">
+          <label for="inputPassword4">email</label>
+          <input type="email" class="form-control" placeholder="Enter email" id="email" name="email" autocomplete="email" pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$">
         </div>
 
         <div class="col-sm-4 form-group">
-          <label for="inputEmail4">Office</label>
+          <label for="inputPassword4">Phone Number</label>
+          <input type="text" class="form-control" placeholder="Enter Phone number 09" id="phoneNumber"
+            name="phoneNumber" autocomplete="phoneNumber" required min="4" pattern="^[0-9]+$">
+        </div>
+
+       
+        <div class="col-sm-4 form-group">
+          <label for="inputZip">Address</label>
+          <input type="text" class="form-control" id="address" name="address" placeholder="House No. street, brgy" pattern="^[A-Z][a-zA-Z\s-]*$">
+        </div> 
+
+        <div class="col-sm-4 form-group">
+          <label >Age</label>
+          <input type="text" class="form-control" placeholder="Enter the Age" id="age"
+            name="age" autocomplete="age" required min="4" pattern="^[0-9]+$">
+        </div>
+
+        
+
+        <div class="col-sm-4 form-group">
+          <label  >Office</label>
           <input type="text" class="form-control" placeholder="Office" name="office" autocomplete="office"
             required min="4" pattern="^[A-Z][a-zA-Z]*[^<>()]*$">
         </div>
 
         <div class="col-sm-4 form-group">
-          <label for="inputEmail4">Gun Type</label>
+          <label for="inputZip">Gender</label>
+            <select id="gender" name="gender" class="form-control" required>
+              <option value="Choose from this list">.....</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+        </div>
+
+        <div class="col-sm-4 form-group">
+          <label for="inputZip">Status</label>
+            <select id="status" name="status" class="form-control" required>
+              <option value="Choose from this list">.....</option>
+              <option value="Active">Active</option>
+              <option value="Retired">retired</option>
+            </select>
+        </div>
+
+        <div class="col-sm-4 form-group">
+          <label for="inputZip">Civil Status</label>
+            <select id="civilStatus" name="civilStatus" class="form-control" required>
+              <option value="Choose from this list">.....</option>
+              <option value="Single">Single </option>
+              <option value="Married">Married</option>
+            </select>
+        </div>
+
+        <div class="col-sm-4 form-group">
+          <label for="inputZip">Rank</label>
+          <input type="text" class="form-control" id="rank" name="rank" placeholder="Enter rank" pattern="^[A-Z][a-zA-Z\s-]*$">
+        </div>
+
+        <div class="col-sm-4 form-group">
+          <label  >Gun Type</label>
           <input type="text" class="form-control" placeholder="Enter gun type." name="Gtype" autocomplete="Gtype"
             required min="4" pattern="^[A-Z][a-zA-Z\s-]*[^<>()0-9]*$">
         </div>
 
         <div class="col-sm-4 form-group">
-          <label for="inputEmail4">Gun Name</label>
+          <label  >Gun Name</label>
           <input type="text" class="form-control" placeholder="Enter gun name." name="Gname" autocomplete="Gname"
             required min="4" pattern="^[A-Z][A-Za-z1-9@#$%!&*\s]*[^<>()]*$">
         </div>
 
         <div class="col-sm-4 form-group">
-          <label for="inputEmail4">Caliber</label>
+          <label  >Caliber</label>
           <input type="text" class="form-control" placeholder="Enter caliber" name="caliber" autocomplete="caliber"
             required min="4" pattern="^[0-9][A-Z0-9\s-]*[^<>()!@#$%^&]*$">
         </div>
 
         <div class="col-sm-4 form-group">
-          <label for="inputEmail4">Serial Number</label>
+          <label  >Serial Number</label>
           <input type="text" class="form-control" placeholder="Enter serial number" name="serialN"
             autocomplete="serialN" required min="4" pattern="^[A-Z][A-Za-z1-9@#$%!&*\s]*[^<>()]*$">
         </div>
 
-       
-
+        <div class="col-sm-4 form-group">
+          <label >Barrel Length</label>
+          <input type="text" class="form-control" placeholder="Enter Barrel Length" id="barrel_Length"
+            name="barrel_Length" autocomplete="barrel_Length" required min="4" pattern="^[0-9]+$">
+        </div>
 
         <div class="col-sm-4 form-group">
-          <label for="inputEmail4">Cost</label>
+          <label  >Weight</label>
+          <input type="text" class="form-control" placeholder="Enter Weight 1kg" name="weight" autocomplete="weight" required
+            min="4" pattern="^[0-9]+$">
+        </div>
+
+        <div class="col-sm-4 form-group">
+          <label  >Round Capacity</label>
+          <input type="text" class="form-control" placeholder="Enter Round Capacity" name="roundCapacity" autocomplete="roundCapacity" required
+            min="4" pattern="^[0-9]+$">
+        </div>
+
+        <div class="col-sm-4 form-group">
+          <label  >Cost</label>
           <input type="text" class="form-control" placeholder="Enter cost" name="cost" autocomplete="cost" required
             min="4" pattern="^[0-9]+$">
         </div>
 
+        <div class="col-sm-4 form-group">
+          <label for="inputZip">Action</label>
+            <select id="status" name="status" class="form-control" required>
+              <option value="Choose from this list">.....</option>
+              <option value="Semi Automatic">Semi Automatic</option>
+              <option value="1 bolt">1 bolt</option>
+            </select>
+        </div>
 
 
         <div class="col-sm-4 form-group">
-          <label for="inputEmail4">Acquisition date</label>
+          <label  >Acquisition date</label>
           <input type="date" class="form-control" name="acquisition">
         </div>
 
         <div class="col-sm-4 form-group">
-          <label for="inputEmail4">Turn Over</label>
+          <label  >Turn Over</label>
           <input type="date" class="form-control" placeholder="Turn-Over" name="turnOver" 
            >
         </div>
 
         <div class="col-sm-4 form-group">
-          <label for="inputEmail4">Returned</label>
+          <label  >Returned</label>
           <input type="date" class="form-control" placeholder="Returned" name="returned">
         </div>
 

@@ -14,20 +14,34 @@ exports.postCreate = async (req, res) => {
     //Guns details
     Gtype,
     Gname,
+    manufacturer,
     caliber,
     serialN,
+    barrel_Length,
+    weight,
+    roundCapacity,
+    action,
     cost,
+
     // Trasanction
     acquisition,
     turnOver,
     returned,
     // Officer details
+
     office,
     rank,
     lastName,
     firstName,
     middleName,
     QLFR,
+    email,
+    phoneNumber,
+    address,
+    age,
+    civilStatus,
+    gender,
+    status,
   } = req.body;
 
   try {
@@ -51,20 +65,36 @@ exports.postCreate = async (req, res) => {
     const createdAt = `${currentYear}-${currentMonth}-${currentDay}`;
     const updatedAt = `${currentYear}-${currentMonth}-${currentDay}`;
     const NewRegister = await collection.insertOne({
+      //Guns details
       Gtype: Gtype,
       Gname: Gname,
+      manufacturer: manufacturer,
       caliber: caliber,
       serialN: serialN,
+      barrel_Length: barrel_Length,
+      weight: weight,
+      roundCapacity: roundCapacity,
+      action: action,
+      cost: parseInt(cost),
+      // Trasanction
       acquisition: acquisition,
       turnOver: turnOver,
       returned: returned,
-      cost: parseInt(cost),
+      // Officer details
       office: office,
       rank: rank,
       lastName: lastName,
       firstName: firstName,
       middleName: middleName,
       QLFR: QLFR,
+      email: email,
+      phoneNumber: phoneNumber,
+      address: address,
+      age: age,
+      civilStatus: civilStatus,
+      gender: gender,
+      status: status,
+      //basic info
       createdAt: createdAt,
       updatedAt: updatedAt,
       archived: false,

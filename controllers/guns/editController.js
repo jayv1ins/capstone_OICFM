@@ -18,20 +18,34 @@ exports.getEdit = async function (req, res) {
       {
         projection: {
           id: true,
+          //Guns details
           Gtype: true,
           Gname: true,
           caliber: true,
           serialN: true,
+          barrel_Length: true,
+          weight: true,
+          roundCapacity: true,
+          action: true,
+          cost: true,
+          // Trasanction
           acquisition: true,
           turnOver: true,
           returned: true,
-          cost: true,
+          // Officer details
           office: true,
           rank: true,
           lastName: true,
           firstName: true,
           middleName: true,
           QLFR: true,
+          email: true,
+          phoneNumber: true,
+          address: true,
+          age: true,
+          civilStatus: true,
+          gender: true,
+          status: true,
         },
       }
     );
@@ -41,40 +55,71 @@ exports.getEdit = async function (req, res) {
     }
 
     const {
+      //Guns details
       Gtype,
       Gname,
+      manufacturer,
       caliber,
       serialN,
+      barrel_Length,
+      weight,
+      roundCapacity,
+      action,
+      cost,
+
+      // Trasanction
       acquisition,
       turnOver,
       returned,
-      cost,
+      // Officer details
+
       office,
       rank,
       lastName,
       firstName,
       middleName,
       QLFR,
+      email,
+      phoneNumber,
+      address,
+      age,
+      civilStatus,
+      gender,
+      status,
     } = data;
 
     return res.render("guns/edit", {
       user: req.user,
       data: {
         id,
+        //Guns details
         Gtype,
         Gname,
         caliber,
         serialN,
+        barrel_Length,
+        weight,
+        roundCapacity,
+        action,
+        cost,
+        // Trasanction
         acquisition,
         turnOver,
         returned,
-        cost,
+        // Officer details
         office,
         rank,
         lastName,
         firstName,
         middleName,
         QLFR,
+        email,
+        phoneNumber,
+        address,
+        age,
+        civilStatus,
+        gender,
+        status,
       },
     });
   } catch (error) {
@@ -87,20 +132,37 @@ exports.getEdit = async function (req, res) {
 exports.updatedData = async function (req, res) {
   const id = String(req.params.id);
   const {
+    //Guns details
     Gtype,
     Gname,
+    manufacturer,
     caliber,
     serialN,
+    barrel_Length,
+    weight,
+    roundCapacity,
+    action,
+    cost,
+
+    // Trasanction
     acquisition,
     turnOver,
     returned,
-    cost,
+    // Officer details
+
     office,
     rank,
     lastName,
     firstName,
     middleName,
     QLFR,
+    email,
+    phoneNumber,
+    address,
+    age,
+    civilStatus,
+    gender,
+    status,
   } = req.body;
 
   try {
@@ -118,20 +180,36 @@ exports.updatedData = async function (req, res) {
       { _id: new ObjectId(id) },
       {
         $set: {
+          //Guns details
           Gtype: Gtype,
           Gname: Gname,
+          manufacturer: manufacturer,
           caliber: caliber,
           serialN: serialN,
+          barrel_Length: barrel_Length,
+          weight: weight,
+          roundCapacity: roundCapacity,
+          action: action,
+          cost: parseInt(cost),
+          // Trasanction
           acquisition: acquisition,
           turnOver: turnOver,
           returned: returned,
-          cost: parseInt(cost),
+          // Officer details
           office: office,
           rank: rank,
           lastName: lastName,
           firstName: firstName,
           middleName: middleName,
           QLFR: QLFR,
+          email: email,
+          phoneNumber: phoneNumber,
+          address: address,
+          age: age,
+          civilStatus: civilStatus,
+          gender: gender,
+          status: status,
+          //basic info
           updatedAt: updatedAt,
         },
       }

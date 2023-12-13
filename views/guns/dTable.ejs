@@ -406,12 +406,20 @@
                                 data-qualifier="<%= data.QLFR %>" data-rank="<%= data.rank %>"
                                 data-bs-target="#selectedData" data-id="<%= data.id %>"
                                 data-lastname="<%= data.lastName %>" data-firstname="<%= data.firstName %>"
-                                data-middlename="<%= data.middleName %>" data-qualifier="<%= data.QLFR %>"
-                                data-rank="<%= data.rank %>" data-office="<%= data.office %>"
+                                data-middlename="<%= data.middleName %>" 
+                                data-office="<%= data.office %>"
                                 data-guntype="<%= data.Gtype %>" data-gunname="<%= data.Gname %>"
                                 data-caliber="<%= data.caliber %>" data-serialnumber="<%= data.serialN %>"
                                 data-cost="<%= data.cost %>" data-acquisitiondate="<%= data.acquisition %>"
-                                data-turnover="<%= data.turnOver %>" data-returned="<%= data.returned %>">
+                                data-turnover="<%= data.turnOver %>" data-returned="<%= data.returned %>"
+                                data-email="<%= data.email %>" data-phonenumber="<%= data.phoneNumber %>"
+                                data-address="<%= data.address %>"  data-age="<%= data.age %>"
+                                data-gender="<%= data.gender %>" data-civilStatus="<%= data.civilStatus %>"
+                                data-status="<%= data.status %>" 
+                                data-barrelLength="<%= data.barrel_Length %>" data-weight="<%= data.weight %>"
+                                data-roundcapacity="<%= data.roundCapacity %>" data-action="<%= data.action %>"
+                                >
+                            
                                 <i class="bx bx-low-vision"></i>
                               </button>
                               <!-- Modal Edit -->
@@ -422,7 +430,14 @@
                                 data-office="<%= data.office %>" data-gunname="<%= data.Gname %>"
                                 data-caliber="<%= data.caliber %>" data-serialnumber="<%= data.serialN %>"
                                 data-cost="<%= data.cost %>" data-acquisition="<%= data.acquisition %>"
-                                data-turnover="<%= data.turnOver %>" data-returned="<%= data.returned %>">
+                                data-turnover="<%= data.turnOver %>" data-returned="<%= data.returned %>"
+                                data-email="<%= data.email %>" data-phonenumber="<%= data.phoneNumber %>"
+                                data-address="<%= data.address %>"  data-age="<%= data.age %>"
+                                data-gender="<%= data.gender %>" data-civilstatus="<%= data.civilStatus %>"
+                                data-status="<%= data.status %>" 
+                                data-barrellength="<%= data.barrel_Length %>" data-weight="<%= data.weight %>"
+                                data-roundcapacity="<%= data.roundCapacity %>" data-action="<%= data.action %>"
+                                >
                                 <i class='bx bx-edit'></i>
                               </button>
 
@@ -518,6 +533,34 @@
                           <td id="modalOffice"></td>
                         </tr>
                         <tr>
+                          <td><strong>Email</strong></td>
+                          <td id="modalEmail"></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Phone Number</strong></td>
+                          <td id="modalPhone"></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Address</strong></td>
+                          <td id="modalAddress"></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Age</strong></td>
+                          <td id="modalAge"></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Gender</strong></td>
+                          <td id="modalGender"></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Status</strong></td>
+                          <td id="modalStatus"></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Civil Status</strong></td>
+                          <td id="modalCivilStatus"></td>
+                        </tr>
+                        <tr>
                           <td><strong>Gun Type</strong></td>
                           <td id="modalGunType"></td>
                         </tr>
@@ -532,6 +575,22 @@
                         <tr>
                           <td><strong>Serial Number</strong></td>
                           <td id="modalSerialNumber"></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Barrel Length</strong></td>
+                          <td id="modalBarrelLength"></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Weight</strong></td>
+                          <td id="modalWeight"></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Round Capacity</strong></td>
+                          <td id="modalRoundCapacity"></td>
+                        </tr>
+                        <tr>
+                          <td><strong>Action</strong></td>
+                          <td id="modalAction"></td>
                         </tr>
                         <tr>
                           <td><strong>Cost</strong></td>
@@ -607,6 +666,37 @@
                                 autocomplete="office" required minlength="3" pattern="^[A-Z][a-zA-Z]*[^<>()]*$"></td>
                           </tr>
 
+                          <tr>
+                            <td><strong>Email</strong></td>
+                            <td><input type="email" class="form-control" id="editDataEmail" name="email"
+                                autocomplete="Email" required></td>
+
+                            <td><strong>Phone Number</strong></td>
+                            <td><input type="text" class="form-control" id="editDataPhoneNumber" name="phoneNumber"
+                                autocomplete="phoneNumber" required minlength="11" pattern="^[0-9]+$"></td>
+                          </tr>
+
+                          <tr>
+                            <td><strong>Address</strong></td>
+                            <td><input type="text" class="form-control" id="editDataAddress" name="address"></td>
+
+                            <td><strong>Age</strong></td>
+                            <td><input type="text" class="form-control" placeholder="Enter the Age" id="editDataAge"
+                              name="age" autocomplete="age" required min="4" pattern="^[0-9]+$"></td>
+                          </tr>
+
+                          <tr>
+                            <td><strong>Gender</strong></td>
+                            <td><input type="text"  class="form-control" id="editDataGender" name="gender"></td>
+
+                            <td><strong>Status</strong></td>
+                            <td><input type="text" class="form-control" id="editDataStatus" name="status"></td>
+                          </tr>
+
+                          <tr>
+                            <td><strong>Civil Status</strong></td>
+                            <td><input type="text" class="form-control" id="editDataCivilStatus" name="civilStatus"></td>
+                          </tr>
 
                           <tr>
                             <td><strong>Gun Type</strong></td>
@@ -618,6 +708,7 @@
                             <td><input type="text" class="form-control" id="editDataGunName" name="Gname"
                                 autocomplete="GunName" required minlength="3" oninput="validateInput(this)"></td>
                           </tr>
+                          
 
                           <tr>
                             <td><strong>Caliber</strong></td>
@@ -628,6 +719,26 @@
                             <td><strong>Serial Number</strong></td>
                             <td><input type="text" class="form-control" id="editDataSerialNumber" name="serialN"
                                 autocomplete="serialN" required minlength="4" pattern="^[A-Z][A-Za-z1-9@#$%!&*\s]*[^<>()]*$"></td>
+                          </tr>
+
+                          <tr>
+                              
+                              <td><strong>Barrel Length</strong></td>
+                              <td><input type="text" class="form-control" id="editDataBarrelLength" name="barrel_Length"
+                                  autocomplete="barrel_Length" required minlength="3" pattern="^[0-9][A-Z0-9\s-]*[^<>()!@#$%^&]*$"></td>
+
+                              <td><strong>Weight</strong></td>
+                              <td><input type="text" class="form-control" id="editDataWeight" name="weight"
+                                  autocomplete="weight" required minlength="3" pattern="^[0-9][A-Z0-9\s-]*[^<>()!@#$%^&]*$"></td>
+                          </tr>
+
+                          <tr>
+                            <td><strong>Round Capacity</strong></td>
+                            <td><input type="text" class="form-control" id="editDataRoundCapacity" name="roundCapacity"
+                                autocomplete="roundCapacity" required minlength="3" pattern="^[0-9][A-Z0-9\s-]*[^<>()!@#$%^&]*$"></td>
+
+                            <td><strong>Action</strong></td>
+                            <td><input type="text" class="form-control" id="editDataAction" name="action"></td>
                           </tr>
 
                           <tr>
@@ -754,6 +865,58 @@
                                 </tr>
 
                                 <tr>
+                                  <td><strong>Email</strong></td>
+                                  <td>
+                                    <input type="email" class="form-control" id="email" placeholder="Enter email"
+                                      name="email" autocomplete="email" required>
+                                  </td>
+
+                                  <td><strong>Phone Number</strong></td>
+                                  <td>
+                                    <input type="text" class="form-control" id="phoneNumber"
+                                      placeholder="Enter phone number" name="phoneNumber" autocomplete="phoneNumber"
+                                      required min="11" pattern="^[0-9]+$">
+                                  </td>
+                                </tr>
+
+                                <tr>
+                                  <td><strong>Address</strong></td>
+                                  <td>
+                                    <input type="text" class="form-control" id="address" placeholder="Enter address"
+                                      name="address" autocomplete="address">
+                                  </td>
+
+                                  <td><strong>Age</strong></td>
+                                  <td>
+                                    <input type="text" class="form-control" placeholder="Enter the Age" id="age"
+                                      name="age" autocomplete="age" required min="4" pattern="^[0-9]+$">
+                                  </td>
+                                </tr>
+
+                                <tr>
+                                  <td><strong>Gender</strong></td>
+                                  <td>
+                                    <input type="text" class="form-control" id="gender" placeholder="Enter Gender"
+                                      name="gender" autocomplete="gender" pattern="^[A-Z][a-zA-Z]*[^<>()]*$">
+                                  </td>
+
+                                  <td><strong>Status</strong></td>
+                                  <td>
+                                    <input type="text" class="form-control" placeholder="Enter the Status" id="status"
+                                      name="status" autocomplete="status" required min="4" pattern="^[A-Z][a-zA-Z]*[^<>()]*$">
+                                  </td>
+                                </tr>
+
+                                <tr>
+                                  <td><strong>Civil Status</strong></td>
+                                  <td>
+                                    <input type="text" class="form-control" id="civilStatus"
+                                      placeholder="Enter Civil Status" name="civilStatus" autocomplete="civilStatus"
+                                      pattern="^[A-Z][a-zA-Z]*[^<>()]*$">
+                                  </td>
+                                </tr>
+
+                                <tr>
 
                                   <td><strong>Gun Type</strong></td>
                                   <td>
@@ -783,6 +946,33 @@
                                       placeholder="Enter serial number" name="serialN" autocomplete="serialN" required
                                       min="4" pattern="^[A-Z][A-Za-z1-9@#$%!&*\s]*[^<>()]*$">
                                   </td>
+                                </tr>
+
+                                <tr>
+                                  <td><strong>Barrel Length</strong></td>
+                                  <td>
+                                    <input type="text" class="form-control" id="barrel_Length" placeholder="Barrel Length"
+                                      name="barrel_Length" autocomplete="barrel_Length" required min="3" pattern="^[0-9][A-Z0-9\s-]*[^<>()!@#$%^&]*$">
+                                  </td>
+
+                                  <td><strong>Weight</strong></td>
+                                  <td>
+                                    <input type="text" class="form-control" id="weight" placeholder="Weight" name="weight"
+                                      autocomplete="weight" required min="3" pattern="^[0-9][A-Z0-9\s-]*[^<>()!@#$%^&]*$">
+                                  </td>
+                                </tr>
+
+                                <tr>
+                                  <td><strong>Round Capacity</strong></td>
+                                  <td>
+                                    <input type="text" class="form-control" id="roundCapacity" placeholder="Round Capacity"
+                                      name="roundCapacity" autocomplete="roundCapacity" required min="3" pattern="^[0-9][A-Z0-9\s-]*[^<>()!@#$%^&]*$">
+                                  </td>
+
+                                  <td><strong>Action</strong></td>
+                                  <td>
+                                    <input type="text" class="form-control" id="action" placeholder="Action" name="action"
+                                      autocomplete="action">
                                 </tr>
 
 
@@ -960,6 +1150,17 @@
         var selectedDataAcquisitionDate = document.getElementById("modalAcquisitionDate");
         var selectedDataTurnOver = document.getElementById("modalTurnOver");
         var selectedDataReturned = document.getElementById("modalReturned");
+        var selectedDataEmail = document.getElementById("modalEmail");
+        var selectedDataPhoneNumber = document.getElementById("modalPhone");
+        var selectedDataAddress = document.getElementById("modalAddress");
+        var selectedDataAge = document.getElementById("modalAge");
+        var selectedDataGender = document.getElementById("modalGender");
+        var selectedDataStatus = document.getElementById("modalStatus");
+        var selectedDataCivilStatus = document.getElementById("modalCivilStatus");
+        var selectedDataBarrelLength = document.getElementById("modalBarrelLength");
+        var selectedDataWeight = document.getElementById("modalWeight");
+        var selectedDataRoundCapacity = document.getElementById("modalRoundCapacity");
+        var selectedDataAction = document.getElementById("modalAction");
         var selectedDataBtns = document.querySelectorAll(".selectedData");
 
 
@@ -982,6 +1183,17 @@
             var acquisitionDate = this.getAttribute("data-acquisitiondate");
             var turnOver = this.getAttribute("data-turnover");
             var returned = this.getAttribute("data-returned");
+            var email = this.getAttribute("data-email");
+            var phoneNumber = this.getAttribute("data-phoneNumber");
+            var address = this.getAttribute("data-address");
+            var age = this.getAttribute("data-age");
+            var civilStatus = this.getAttribute("data-civilStatus");
+            var gender = this.getAttribute("data-gender")
+            var status = this.getAttribute("data-status");
+            var barrel_Length = this.getAttribute("data-barrelLength")
+            var weight = this.getAttribute("data-weight");
+            var roundCapacity = this.getAttribute("data-roundcapacity");
+            var action = this.getAttribute("data-action");
 
             // Populate the selectedData modal with data
             selectedDataTitle.innerText = "Selected Data";
@@ -999,10 +1211,21 @@
             selectedDataAcquisitionDate.innerText = acquisitionDate;
             selectedDataTurnOver.innerText = turnOver;
             selectedDataReturned.innerText = returned;
+            selectedDataEmail.innerText = email;
+            selectedDataPhoneNumber.innerText = phoneNumber;
+            selectedDataAddress.innerText = address;
+            selectedDataAge.innerText = age;
+            selectedDataGender.innerText = gender;
+            selectedDataStatus.innerText = status;
+            selectedDataCivilStatus.innerText = civilStatus;
+            selectedDataBarrelLength.innerText = barrel_Length;
+            selectedDataWeight.innerText = weight;
+            selectedDataRoundCapacity.innerText = roundCapacity;
+            selectedDataAction.innerText = action;
           });
         });
 
-        // Function to clear the selectedData modal when it is hidden
+        //Hide if not selected
         selectedDataModal.addEventListener("hidden.bs.modal", function () {
           selectedDataTitle.innerText = "";
           selectedDataLastName.innerText = "";
@@ -1019,6 +1242,18 @@
           selectedDataAcquisitionDate.innerText = "";
           selectedDataTurnOver.innerText = "";
           selectedDataReturned.innerText = "";
+          selectedDataEmail.innerText = "";
+          selectedDataPhoneNumber.innerText = "";
+          selectedDataAddress.innerText = "";
+          selectedDataAge.innerText = "";
+          selectedDataGender.innerText = "";
+          selectedDataStatus.innerText = "";
+          selectedDataCivilStatus.innerText = "";
+          selectedDataBarrelLength.innerText = "";
+          selectedDataWeight.innerText = "";
+          selectedDataRoundCapacity.innerText = "";
+          selectedDataAction.innerText = "";
+
         });
 
         // Function to populate the EditData modal with data
@@ -1037,6 +1272,18 @@
           document.getElementById("editDataAcquisition").value = data.acquisition || "";
           document.getElementById("editDataTurnOver").value = data.turnover || "";
           document.getElementById("editDataReturned").value = data.returned || "";
+          document.getElementById("editDataEmail").value = data.email || "";
+          document.getElementById("editDataPhoneNumber").value = data.phonenumber || "";
+          document.getElementById("editDataAddress").value = data.address || "";
+          document.getElementById("editDataAge").value = data.age || "";
+          document.getElementById("editDataGender").value = data.gender || "";
+          document.getElementById("editDataStatus").value = data.status || "";
+          document.getElementById("editDataCivilStatus").value = data.civilstatus || "";
+          document.getElementById("editDataBarrelLength").value = data.barrellength || "";
+          document.getElementById("editDataWeight").value = data.weight || "";
+          document.getElementById("editDataRoundCapacity").value = data.roundcapacity || "";
+          document.getElementById("editDataAction").value = data.action || "";
+
 
 
           const editForm = document.getElementById("editForm");
@@ -1064,11 +1311,24 @@
               acquisition: this.dataset.acquisition,
               turnover: this.dataset.turnover,
               returned: this.dataset.returned,
+              email: this.dataset.email,
+              phonenumber: this.dataset.phonenumber,
+              address: this.dataset.address,
+              age: this.dataset.age,
+              status: this.dataset.status,
+              gender: this.dataset.gender,
+              weight: this.dataset.weight,
+              action: this.dataset.action,
+              civilstatus: this.dataset.civilstatus,
+              barrellength: this.dataset.barrellength,
+              roundcapacity: this.dataset.roundcapacity,
+
             };
             populateEditDataModal(data);
             console.log("ito ang populated data", data);
             console.log("ito id", data.acquisition)
             console.log("ito ang sta", data.office);
+            console.log("ito ang civil", data.civilStatus);
           });
         });
 

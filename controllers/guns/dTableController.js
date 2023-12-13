@@ -93,6 +93,7 @@ exports.getDTable = async function (req, res) {
         { office: searchRegex },
         { serialN: searchRegex },
         { caliber: searchRegex },
+        { status: searchRegex },
       ];
     }
     //----------------------------------------------------------------------------------------------
@@ -187,20 +188,34 @@ exports.getDTable = async function (req, res) {
     // Base Data from database
     const projection = {
       id: true,
+      //Guns details
       Gtype: true,
       Gname: true,
       caliber: true,
       serialN: true,
+      barrel_Length: true,
+      weight: true,
+      roundCapacity: true,
+      action: true,
+      cost: true,
+      // Trasanction
       acquisition: true,
       turnOver: true,
       returned: true,
-      cost: true,
+      // Officer details
       office: true,
       rank: true,
       lastName: true,
       firstName: true,
       middleName: true,
       QLFR: true,
+      email: true,
+      phoneNumber: true,
+      address: true,
+      age: true,
+      civilStatus: true,
+      gender: true,
+      status: true,
     };
 
     // Final filter to display
@@ -227,38 +242,72 @@ exports.getDTable = async function (req, res) {
     const datas = newData.map((row) => {
       const id = row._id.toString();
       const {
+        //Guns details
         Gtype,
         Gname,
+        manufacturer,
         caliber,
         serialN,
+        barrel_Length,
+        weight,
+        roundCapacity,
+        action,
+        cost,
+
+        // Trasanction
         acquisition,
         turnOver,
         returned,
-        cost,
+        // Officer details
+
         office,
         rank,
         lastName,
         firstName,
         middleName,
         QLFR,
+        email,
+        phoneNumber,
+        address,
+        age,
+        civilStatus,
+        gender,
+        status,
       } = row;
 
       return {
         id,
+        //Guns details
         Gtype,
         Gname,
+        manufacturer,
         caliber,
         serialN,
+        barrel_Length,
+        weight,
+        roundCapacity,
+        action,
+        cost,
+
+        // Trasanction
         acquisition,
         turnOver,
         returned,
-        cost,
+        // Officer details
+
         office,
         rank,
         lastName,
         firstName,
         middleName,
         QLFR,
+        email,
+        phoneNumber,
+        address,
+        age,
+        civilStatus,
+        gender,
+        status,
       };
     });
 
@@ -382,80 +431,98 @@ exports.exportToExcel = async function (req, res) {
       .project(projection)
       .toArray();
 
-    // Get the total count of records
-    const totalGunCount = await collection.countDocuments();
-
     // Create a new Excel workbook
     const wb = XLSX.utils.book_new();
+    const currentYear = new Date().getFullYear();
 
-    // Create a new worksheet for additional data (e.g., total count)
-    const additionalHeaders = [
-      "Type",
-      "Make",
-      "Cal",
-      "Serial Nr",
-      "Acquisition Date",
-      "Acquisition Cost",
-      "TurnOver",
-      "Returned",
-      "Office",
-      "Rank",
-      "Last Name",
-      "First Name",
-      "Middle Name",
-      "QLF",
+    // Define an array of month names
+    const monthNames = [
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
     ];
 
-    const additionalData = data.map((record) => ({
-      Type: record.Gtype,
-      Make: record.Gname,
-      Cal: record.caliber,
-      "Serial Nr": record.serialN,
-      "Acquisition Date": record.acquisition,
-      TurnOver: record.turnOver,
-      Returned: record.returned,
-      "Acquisition Cost": record.cost,
-      Office: record.office,
-      Rank: record.rank,
-      "Last Name": record.lastName,
-      "First Name": record.firstName,
-      "Middle Name": record.middleName,
-      QLF: record.QLFR,
-    }));
+    for (let i = 6; i <= 11; i++) {
+      // Filter data for each month
+      const filteredData = data.filter((record) => {
+        const turnOverDate = new Date(record.turnOver);
+        return (
+          turnOverDate.getMonth() === i &&
+          turnOverDate.getFullYear() === currentYear
+        );
+      });
 
-    const additionalWs = XLSX.utils.json_to_sheet(additionalData, {
-      header: additionalHeaders,
-      skipHeader: true, // Skip the header row when adding to the worksheet
-    });
+      const additionalHeaders = [
+        "Type",
+        "Make",
+        "Cal",
+        "Serial Nr",
+        "Acquisition Date",
+        "Acquisition Cost",
+        "TurnOver",
+        "Returned",
+        "Office",
+        "Rank",
+        "Last Name",
+        "First Name",
+        "Middle Name",
+        "QLF",
+      ];
 
-    // Manually set header values for additional data
-    additionalWs["A1"] = { v: "DESCRIPTION", t: "s" };
-    additionalWs["A2"] = { v: "Type" };
-    additionalWs["B2"] = { v: "Make" };
-    additionalWs["C2"] = { v: "Cal" };
-    additionalWs["D2"] = { v: "Serial Nr" };
-    additionalWs["E1"] = { v: "Inspection", t: "s" };
-    additionalWs["E2"] = { v: "Acquisition Date" };
-    additionalWs["F2"] = { v: "Acquisition Cost" };
-    additionalWs["G2"] = { v: "TurnOver" };
-    additionalWs["H2"] = { v: "Returned" };
-    additionalWs["I1"] = { v: "WHEREABOUTS", t: "s" };
-    additionalWs["I2"] = { v: "Office" };
-    additionalWs["J2"] = { v: "Rank" };
-    additionalWs["K2"] = { v: "Last Name" };
-    additionalWs["L2"] = { v: "First Name" };
-    additionalWs["M2"] = { v: "Middle Name" };
-    additionalWs["N2"] = { v: "QLF" };
+      const additionalData = filteredData.map((record) => ({
+        Type: record.Gtype,
+        Make: record.Gname,
+        Cal: record.caliber,
+        "Serial Nr": record.serialN,
+        "Acquisition Date": record.acquisition,
+        TurnOver: record.turnOver,
+        Returned: record.returned,
+        "Acquisition Cost": record.cost,
+        Office: record.office,
+        Rank: record.rank,
+        "Last Name": record.lastName,
+        "First Name": record.firstName,
+        "Middle Name": record.middleName,
+        QLF: record.QLFR,
+      }));
 
-    // Define merges for the DESCRIPTION, Acquisition Date, and WHEREABOUTS cells
-    additionalWs["!merges"] = [
-      { s: { r: 0, c: 0 }, e: { r: 0, c: 3 } }, // Merge A1 to D1 for DESCRIPTION
-      { s: { r: 0, c: 4 }, e: { r: 0, c: 7 } }, // Merge E1 to E2 for Acquisition Date
-      { s: { r: 0, c: 8 }, e: { r: 0, c: 13 } }, // Merge G1 to L1 for WHEREABOUTS
-    ];
+      const additionalWs = XLSX.utils.json_to_sheet(additionalData, {
+        header: additionalHeaders,
+        skipHeader: true,
+      });
 
-    // Add the data worksheet to the workbook
-    XLSX.utils.book_append_sheet(wb, additionalWs, "Records");
+      // Manually set header values for additional data
+      additionalWs["A1"] = { v: "DESCRIPTION", t: "s" };
+      additionalWs["A2"] = { v: "Type" };
+      additionalWs["B2"] = { v: "Make" };
+      additionalWs["C2"] = { v: "Cal" };
+      additionalWs["D2"] = { v: "Serial Nr" };
+      additionalWs["E1"] = { v: "Inspection", t: "s" };
+      additionalWs["E2"] = { v: "Acquisition Date" };
+      additionalWs["F2"] = { v: "Acquisition Cost" };
+      additionalWs["G2"] = { v: "TurnOver" };
+      additionalWs["H2"] = { v: "Returned" };
+      additionalWs["I1"] = { v: "WHEREABOUTS", t: "s" };
+      additionalWs["I2"] = { v: "Office" };
+      additionalWs["J2"] = { v: "Rank" };
+      additionalWs["K2"] = { v: "Last Name" };
+      additionalWs["L2"] = { v: "First Name" };
+      additionalWs["M2"] = { v: "Middle Name" };
+      additionalWs["N2"] = { v: "QLF" };
+
+      // Define merges for the DESCRIPTION, Acquisition Date, and WHEREABOUTS cells
+      additionalWs["!merges"] = [
+        { s: { r: 0, c: 0 }, e: { r: 0, c: 3 } }, // Merge A1 to D1 for DESCRIPTION
+        { s: { r: 0, c: 4 }, e: { r: 0, c: 7 } }, // Merge E1 to E2 for Acquisition Date
+        { s: { r: 0, c: 8 }, e: { r: 0, c: 13 } }, // Merge G1 to L1 for WHEREABOUTS
+      ];
+
+      // Add the data worksheet to the workbook
+      XLSX.utils.book_append_sheet(wb, additionalWs, monthNames[i - 6]);
+    }
 
     // Generate the Excel file as a buffer
     const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "buffer" });
@@ -494,20 +561,34 @@ exports.getSelect = async function (req, res) {
       {
         projection: {
           id: true,
+          //Guns details
           Gtype: true,
           Gname: true,
           caliber: true,
           serialN: true,
+          barrel_Length: true,
+          weight: true,
+          roundCapacity: true,
+          action: true,
+          cost: true,
+          // Trasanction
           acquisition: true,
           turnOver: true,
           returned: true,
-          cost: true,
+          // Officer details
           office: true,
           rank: true,
           lastName: true,
           firstName: true,
           middleName: true,
           QLFR: true,
+          email: true,
+          phoneNumber: true,
+          address: true,
+          age: true,
+          civilStatus: true,
+          gender: true,
+          status: true,
         },
       }
     );
@@ -517,20 +598,37 @@ exports.getSelect = async function (req, res) {
     }
 
     const {
+      //Guns details
       Gtype,
       Gname,
+      manufacturer,
       caliber,
       serialN,
+      barrel_Length,
+      weight,
+      roundCapacity,
+      action,
+      cost,
+
+      // Trasanction
       acquisition,
       turnOver,
       returned,
-      cost,
+      // Officer details
+
       office,
       rank,
       lastName,
       firstName,
       middleName,
       QLFR,
+      email,
+      phoneNumber,
+      address,
+      age,
+      civilStatus,
+      gender,
+      status,
     } = data;
 
     // console.log("Data is:", data);

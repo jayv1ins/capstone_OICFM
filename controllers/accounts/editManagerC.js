@@ -70,7 +70,7 @@ exports.getEdit = async function (req, res) {
     // Decrypt the password using the shift value from the database
     const decryptedPassword = decryptCaesar(password, shift);
 
-    return res.render("accounts/edit", {
+    return res.render("accounts/admin/edit", {
       user: req.user,
       data: {
         id,
