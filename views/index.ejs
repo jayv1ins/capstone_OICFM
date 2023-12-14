@@ -78,7 +78,7 @@
 
     <span class="logo_name">
       <%= user.firstName%>
-      <p style="font-size: small;">(Manager)</p>
+        <p style="font-size: small;">(Manager)</p>
     </span>
     </div>
     <ul class="nav-links">
@@ -129,126 +129,16 @@
             <i class='bx bx-menu sidebarBtn'></i>
             <span class="dashboard">Dashboard</span>
           </div>
-
         </nav>
 
-
-        <div class="home-content2">
-          <form onsubmit="handleFilterSubmit(event)" class="custom-form3">
-            <div style="display: none;">
-              <input id="startDate" name="startDate" class="custom-input3" required>
-              <input id="endDate" name="endDate" class="custom-input3" required>
-            </div>
-            <div>
-              <select id="monthDropdown" class="custom-dropdown3">
-                <option value="07">July</option>
-                <option value="08">August</option>
-                <option value="09">September</option>
-                <option value="10">October</option>
-                <option value="11">November</option>
-                <option value="12">December</option>
-              </select>
-              <a href="/index" class="custom-button secondary" id="resetButton">Reset</a>
-            </div>
-          </form>
-
-
+        <div class="home-content2">         
           <div class="dashboard_content">
-
-
             <div class="content">
               <!-- Main Content -->
-              <div class="main-content">
-
-
-                <div class="product-top-chart flex">
-                  <div class="product-bottom-chart-left top-chart-box" style="margin-right: 5px;">
-                    <h2 class="heading">Total NO. of Guns</h2>
-                    <div id="chart1"></div>
-                  </div>
-
-                  <div class="product-bottom-chart-left top-chart-box" style="margin-right: 5px;">
-                    <h2 class="heading">Total Cost</h2>
-                    <div id="chart2"></div>
-                  </div>
-
-                  <div class="product-bottom-chart-left top-chart-box" style="margin-right: 5px;">
-                    <h2 class="heading">Authorized Users</h2>
-                    <div id="chart3"></div>
-                  </div>
-
-                  <div class="product-bottom-chart-left top-chart-box" style="margin-right: 5px;">
-                    <h2 class="heading">Losses</h2>
-                    <div id="chart4"></div>
-                  </div>
-
-                </div>
-
-
-                <div class="product-top-chart flex">
-                  <div class="product-bottom-chart-left top-chart-box" style="margin-right: 5px; height: 1100px; width: 50%;">
-                    <h2 class="heading">Total No. of Officers per Rank</h2>
-                    <div id="chart5"></div>
-
-
-                    <hr>
-                    <h2 class="heading">Monthly Unscanned per Rank</h2>
-                    <div id="chart8"></div>
-
-                  </div>
-
-
-
-                  <div class="product-bottom-chart-left top-chart-box" style="margin-right: 5px; height: 1100px;width: 50%;">
-                    <h2 class="heading">Total No. of Guns per Gun Name</h2>
-                    <div id="chart6"></div>
-
-                    <hr>
-                    <h2 class="heading">Gun Type Archived Frequency Monitoring</h2>
-                    <div id="chart9"></div>
-                  </div>
-
-                  <div class="product-bottom-chart-left top-chart-box" style="width: 300px; height: 1100px;width: 45%;">
-                    <h2 class="heading">Table: No. of Guns per Gun Name</h2>
-                    <div id="chart7"></div>
-
-                    <hr>
-                    <h2 class="heading">Number of Guns per Gun Type</h2>
-                    <div id="chart10"></div>
-                  </div>
-
-                </div>
-
-                <div class="product-top-chart flex">
-                  <div class="product-bottom-chart-left top-chart-box" style="margin-right: 5px; height: 525px; width: 50%;">
-                    <h2 class="heading">Officers Losses per Rank </h2>
-                    <div id="chart11"></div>
-
-                  </div>
-
-                  <div class="product-bottom-chart-left top-chart-box" style="margin-right: 5px; height: 525px; width: 50%;">
-                    <h2 class="heading">Officers Losses per office</h2>
-                    <div id="chart12"></div>
-
-                  </div>
-
-                </div>
-
-                <div class="product-top-chart flex">
-                  <div class="product-bottom-chart-left top-chart-box"
-                    style="margin-right: 5px; height: 525px; width: 50%;">
-                    <h2 class="heading">Total Cost Per Gun Name</h2>
-                    <div id="chart14"></div>
-
-                  </div>
-
-                  <div class="product-bottom-chart-left top-chart-box"
-                    style="margin-right: 5px; height: 525px; width: 50%;">
-                    <h2 class="heading">Number of Gun Acquired Per Date</h2>
-                    <div id="chart16"></div>
-                  </div>
-
-                </div>
+              <div class="main-content" >
+                <iframe width="100%" height="800"
+                  src="https://lookerstudio.google.com/embed/reporting/85ed7c46-3c78-4c1c-8cea-2eb0a2773d87/page/vkFlD"
+                  frameborder="0" style="border:0" allowfullscreen></iframe>       
 
               </div>
 
@@ -277,14 +167,14 @@
                 ]
               });
             });
-      
+
             this.classList.add('activeDropDown');
           } else {
             charts.forEach(chart => chart.setFilter({}));
-      
+
             this.classList.remove('active');
           }
-      
+
           // Set the start and end date input values
           document.getElementById('startDate').value = formattedStartDate;
           document.getElementById('endDate').value = formattedEndDate;
@@ -396,12 +286,19 @@
 </body>
 
 <style>
+
+iframe{
+  margin-top: 20px;
+ 
+  
+}
+
   html {
     font-size: 62.5%;
   }
 
   .dashboard_content {
-    background: #18242c;
+    background: #fff;
     display: flex;
     overflow-x: hidden;
   }
@@ -424,6 +321,7 @@
     font-weight: 500;
     text-align: left;
   }
+
   .heading2 {
     font-size: 2.5rem;
     color: #fcfcfc;
@@ -475,8 +373,8 @@
     margin-top: 4rem;
     font-size: 1.6rem;
     justify-content: flex-start;
-    
-   
+
+
 
   }
 
@@ -495,7 +393,7 @@
 
   }
 
-  #chart8{
+  #chart8 {
     height: 475px;
   }
 
@@ -561,7 +459,7 @@
     width: 38%;
 
   }
-  
+
 
   .bottom-chart {
     width: 60%;
