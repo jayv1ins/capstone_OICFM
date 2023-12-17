@@ -306,7 +306,6 @@
 
                       <div class="gauge__labels">
                         <div class="gauge__label-target">
-                          <%= TotalGun %>
                         </div>
                       </div>
                     </div>
@@ -413,7 +412,8 @@
                                 data-cost="<%= data.cost %>" data-acquisitiondate="<%= data.acquisition %>"
                                 data-turnover="<%= data.turnOver %>" data-returned="<%= data.returned %>"
                                 data-email="<%= data.email %>" data-phonenumber="<%= data.phoneNumber %>"
-                                data-address="<%= data.address %>"  data-age="<%= data.age %>"
+                                data-street="<%= data.street %>" data-barangay="<%= data.barangay %>"
+                                data-city="<%= data.city %>" data-age="<%= data.age %>"
                                 data-gender="<%= data.gender %>" data-civilStatus="<%= data.civilStatus %>"
                                 data-status="<%= data.status %>" 
                                 data-barrelLength="<%= data.barrel_Length %>" data-weight="<%= data.weight %>"
@@ -432,7 +432,8 @@
                                 data-cost="<%= data.cost %>" data-acquisition="<%= data.acquisition %>"
                                 data-turnover="<%= data.turnOver %>" data-returned="<%= data.returned %>"
                                 data-email="<%= data.email %>" data-phonenumber="<%= data.phoneNumber %>"
-                                data-address="<%= data.address %>"  data-age="<%= data.age %>"
+                                data-street="<%= data.street %>" data-barangay="<%= data.barangay %>"
+                                data-city="<%= data.city %>" data-age="<%= data.age %>"
                                 data-gender="<%= data.gender %>" data-civilstatus="<%= data.civilStatus %>"
                                 data-status="<%= data.status %>" 
                                 data-barrellength="<%= data.barrel_Length %>" data-weight="<%= data.weight %>"
@@ -541,9 +542,16 @@
                           <td id="modalPhone"></td>
                         </tr>
                         <tr>
-                          <td><strong>Address</strong></td>
-                          <td id="modalAddress"></td>
+                          <td><strong>Street</strong></td>
+                          <td id="modalStreet"></td>
                         </tr>
+                        <tr>
+                          <td><strong>Barrangay</strong></td>
+                          <td id="modalBarrangay"></td>
+                        </tr>
+                        <tr>
+                          <td><strong>City</strong></td>
+                          <td id="modalCity"></td>
                         <tr>
                           <td><strong>Age</strong></td>
                           <td id="modalAge"></td>
@@ -677,8 +685,14 @@
                           </tr>
 
                           <tr>
-                            <td><strong>Address</strong></td>
-                            <td><input type="text" class="form-control" id="editDataAddress" name="address"></td>
+                            <td><strong>Street</strong></td>
+                            <td><input type="text" class="form-control" id="editDataStreet" name="street"></td> 
+
+                            <td><strong>Barangay</strong></td>
+                            <td><input type="text" class="form-control" id="editDataBarangay" name="barangay"></td>
+
+                            <td><strong>City</strong></td>
+                            <td><input type="text" class="form-control" id="editDataCity" name="city"></td>
 
                             <td><strong>Age</strong></td>
                             <td><input type="text" class="form-control" placeholder="Enter the Age" id="editDataAge"
@@ -880,10 +894,20 @@
                                 </tr>
 
                                 <tr>
-                                  <td><strong>Address</strong></td>
+                                  <td><strong>Street</strong></td>
                                   <td>
-                                    <input type="text" class="form-control" id="address" placeholder="Enter address"
-                                      name="address" autocomplete="address">
+                                    <input type="text" class="form-control" id="address" placeholder="Enter Street"
+                                      name="street" autocomplete="street">
+                                  </td>
+                                  <td><strong>Barangay</strong></td>
+                                  <td>
+                                    <input type="text" class="form-control" id="barangay" placeholder="Enter Barangay"
+                                      name="barangay" autocomplete="barangay">
+                                  </td>
+                                  <td><strong>City</strong></td>
+                                  <td>
+                                    <input type="text" class="form-control" id="city" placeholder="Enter City"
+                                      name="city" autocomplete="city">  
                                   </td>
 
                                   <td><strong>Age</strong></td>
@@ -1152,7 +1176,9 @@
         var selectedDataReturned = document.getElementById("modalReturned");
         var selectedDataEmail = document.getElementById("modalEmail");
         var selectedDataPhoneNumber = document.getElementById("modalPhone");
-        var selectedDataAddress = document.getElementById("modalAddress");
+        var selectedDataStreet = document.getElementById("modalStreet");
+        var selectedDataBarrangay = document.getElementById("modalBarrangay");
+        var selectedDataCity = document.getElementById("modalCity");
         var selectedDataAge = document.getElementById("modalAge");
         var selectedDataGender = document.getElementById("modalGender");
         var selectedDataStatus = document.getElementById("modalStatus");
@@ -1185,7 +1211,9 @@
             var returned = this.getAttribute("data-returned");
             var email = this.getAttribute("data-email");
             var phoneNumber = this.getAttribute("data-phoneNumber");
-            var address = this.getAttribute("data-address");
+            var street = this.getAttribute("data-street");
+            var barrangay = this.getAttribute("data-barrangay");
+            var city = this.getAttribute("data-city");
             var age = this.getAttribute("data-age");
             var civilStatus = this.getAttribute("data-civilStatus");
             var gender = this.getAttribute("data-gender")
@@ -1213,7 +1241,9 @@
             selectedDataReturned.innerText = returned;
             selectedDataEmail.innerText = email;
             selectedDataPhoneNumber.innerText = phoneNumber;
-            selectedDataAddress.innerText = address;
+            selectedDataStreet.innerText = street;
+            selectedDataBarrangay.innerText = barrangay;
+            selectedDataCity.innerText = city;
             selectedDataAge.innerText = age;
             selectedDataGender.innerText = gender;
             selectedDataStatus.innerText = status;
@@ -1244,7 +1274,9 @@
           selectedDataReturned.innerText = "";
           selectedDataEmail.innerText = "";
           selectedDataPhoneNumber.innerText = "";
-          selectedDataAddress.innerText = "";
+          selectedDataStreet.innerText = "";
+          selectedDataBarrangay.innerText = "";
+          selectedDataCity.innerText = "";
           selectedDataAge.innerText = "";
           selectedDataGender.innerText = "";
           selectedDataStatus.innerText = "";
@@ -1274,7 +1306,9 @@
           document.getElementById("editDataReturned").value = data.returned || "";
           document.getElementById("editDataEmail").value = data.email || "";
           document.getElementById("editDataPhoneNumber").value = data.phonenumber || "";
-          document.getElementById("editDataAddress").value = data.address || "";
+          document.getElementById("editDataStreet").value = data.street || "";
+          document.getElementById("editDataBarrangay").value = data.barangay || "";
+          document.getElementById("editDataCity").value = data.city || "";
           document.getElementById("editDataAge").value = data.age || "";
           document.getElementById("editDataGender").value = data.gender || "";
           document.getElementById("editDataStatus").value = data.status || "";
@@ -1313,7 +1347,9 @@
               returned: this.dataset.returned,
               email: this.dataset.email,
               phonenumber: this.dataset.phonenumber,
-              address: this.dataset.address,
+              street: this.dataset.street,
+              barangay: this.dataset.barangay,
+              city: this.dataset.city,
               age: this.dataset.age,
               status: this.dataset.status,
               gender: this.dataset.gender,

@@ -37,8 +37,23 @@ async function fetchData() {
       .toArray();
 
     console.log("New Documents:");
-    newDocuments.forEach((document) => {
-      console.log("Details:", document);
+
+    // Find unique Gnames
+    const uniqueGnames = [
+      ...new Set(newDocuments.map((document) => document.Gname)),
+    ];
+
+    // Log details and count for each unique Gname
+    uniqueGnames.forEach(async (gname) => {
+      const count = await collection.countDocuments({
+        archived: true,
+        updatedAt: {
+          $gte: start,
+          $lte: end,
+        },
+        Gname: gname,
+      });
+      console.log(`Gname: ${gname}, Count: ${count}`);
     });
 
     // Count and log the total number of new and archived documents

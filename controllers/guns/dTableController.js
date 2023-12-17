@@ -94,6 +94,7 @@ exports.getDTable = async function (req, res) {
         { serialN: searchRegex },
         { caliber: searchRegex },
         { status: searchRegex },
+        { city: searchRegex },
       ];
     }
     //----------------------------------------------------------------------------------------------
@@ -211,7 +212,9 @@ exports.getDTable = async function (req, res) {
       QLFR: true,
       email: true,
       phoneNumber: true,
-      address: true,
+      street: true,
+      barangay: true,
+      city: true,
       age: true,
       civilStatus: true,
       gender: true,
@@ -268,7 +271,9 @@ exports.getDTable = async function (req, res) {
         QLFR,
         email,
         phoneNumber,
-        address,
+        street,
+        barangay,
+        city,
         age,
         civilStatus,
         gender,
@@ -433,9 +438,8 @@ exports.exportToExcel = async function (req, res) {
 
     // Create a new Excel workbook
     const wb = XLSX.utils.book_new();
-    const currentYear = new Date().getFullYear();
 
-    // Define an array of month names
+    const currentYear = new Date().getFullYear();
     const monthNames = [
       "July",
       "August",
@@ -445,8 +449,55 @@ exports.exportToExcel = async function (req, res) {
       "December",
     ];
 
+    // Create a sheet for all months
+    const allMonthsHeaders = [
+      "Type",
+      "Make",
+      "Cal",
+      "Serial Nr",
+      "Acquisition Date",
+      "Acquisition Cost",
+      "TurnOver",
+      "Returned",
+      "Office",
+      "Rank",
+      "Last Name",
+      "First Name",
+      "Middle Name",
+      "QLF",
+    ];
+
+    const allMonthsData = data.map((record) => ({
+      Type: record.Gtype,
+      Make: record.Gname,
+      Cal: record.caliber,
+      "Serial Nr": record.serialN,
+      "Acquisition Date": record.acquisition,
+      TurnOver: record.turnOver,
+      Returned: record.returned,
+      "Acquisition Cost": record.cost,
+      Office: record.office,
+      Rank: record.rank,
+      "Last Name": record.lastName,
+      "First Name": record.firstName,
+      "Middle Name": record.middleName,
+      QLF: record.QLFR,
+    }));
+
+    const allMonthsWs = XLSX.utils.json_to_sheet(allMonthsData, {
+      header: allMonthsHeaders,
+    });
+
+    allMonthsWs["!merges"] = [
+      { s: { r: 0, c: 0 }, e: { r: 0, c: 3 } },
+      { s: { r: 0, c: 4 }, e: { r: 0, c: 7 } },
+      { s: { r: 0, c: 8 }, e: { r: 0, c: 13 } },
+    ];
+
+    XLSX.utils.book_append_sheet(wb, allMonthsWs, "AllMonths");
+
+    // Create sheets for individual months
     for (let i = 6; i <= 11; i++) {
-      // Filter data for each month
       const filteredData = data.filter((record) => {
         const turnOverDate = new Date(record.turnOver);
         return (
@@ -455,24 +506,8 @@ exports.exportToExcel = async function (req, res) {
         );
       });
 
-      const additionalHeaders = [
-        "Type",
-        "Make",
-        "Cal",
-        "Serial Nr",
-        "Acquisition Date",
-        "Acquisition Cost",
-        "TurnOver",
-        "Returned",
-        "Office",
-        "Rank",
-        "Last Name",
-        "First Name",
-        "Middle Name",
-        "QLF",
-      ];
-
-      const additionalData = filteredData.map((record) => ({
+      const monthHeaders = [...allMonthsHeaders]; // Copy headers
+      const monthData = filteredData.map((record) => ({
         Type: record.Gtype,
         Make: record.Gname,
         Cal: record.caliber,
@@ -489,40 +524,78 @@ exports.exportToExcel = async function (req, res) {
         QLF: record.QLFR,
       }));
 
-      const additionalWs = XLSX.utils.json_to_sheet(additionalData, {
-        header: additionalHeaders,
-        skipHeader: true,
+      const monthWs = XLSX.utils.json_to_sheet(monthData, {
+        header: monthHeaders,
       });
 
-      // Manually set header values for additional data
-      additionalWs["A1"] = { v: "DESCRIPTION", t: "s" };
-      additionalWs["A2"] = { v: "Type" };
-      additionalWs["B2"] = { v: "Make" };
-      additionalWs["C2"] = { v: "Cal" };
-      additionalWs["D2"] = { v: "Serial Nr" };
-      additionalWs["E1"] = { v: "Inspection", t: "s" };
-      additionalWs["E2"] = { v: "Acquisition Date" };
-      additionalWs["F2"] = { v: "Acquisition Cost" };
-      additionalWs["G2"] = { v: "TurnOver" };
-      additionalWs["H2"] = { v: "Returned" };
-      additionalWs["I1"] = { v: "WHEREABOUTS", t: "s" };
-      additionalWs["I2"] = { v: "Office" };
-      additionalWs["J2"] = { v: "Rank" };
-      additionalWs["K2"] = { v: "Last Name" };
-      additionalWs["L2"] = { v: "First Name" };
-      additionalWs["M2"] = { v: "Middle Name" };
-      additionalWs["N2"] = { v: "QLF" };
-
-      // Define merges for the DESCRIPTION, Acquisition Date, and WHEREABOUTS cells
-      additionalWs["!merges"] = [
-        { s: { r: 0, c: 0 }, e: { r: 0, c: 3 } }, // Merge A1 to D1 for DESCRIPTION
-        { s: { r: 0, c: 4 }, e: { r: 0, c: 7 } }, // Merge E1 to E2 for Acquisition Date
-        { s: { r: 0, c: 8 }, e: { r: 0, c: 13 } }, // Merge G1 to L1 for WHEREABOUTS
+      monthWs["!merges"] = [
+        { s: { r: 0, c: 0 }, e: { r: 0, c: 3 } },
+        { s: { r: 0, c: 4 }, e: { r: 0, c: 7 } },
+        { s: { r: 0, c: 8 }, e: { r: 0, c: 13 } },
       ];
 
-      // Add the data worksheet to the workbook
-      XLSX.utils.book_append_sheet(wb, additionalWs, monthNames[i - 6]);
+      XLSX.utils.book_append_sheet(wb, monthWs, monthNames[i - 6]);
     }
+
+    // Create a sheet for current month's statistics
+    const currentMonth = new Date().getMonth() + 1;
+    const lastDay = new Date(currentYear, currentMonth, 0).getDate();
+    const startString = `${currentYear}-${currentMonth}-01`;
+    const endString = `${currentYear}-${currentMonth}-${lastDay}`;
+
+    const New = await collection.countDocuments({
+      archived: false,
+      createdAt: {
+        $gte: startString,
+        $lte: endString,
+      },
+    });
+
+    const Scanned = await collection.countDocuments({
+      archived: false,
+      turnOver: {
+        $gte: startString,
+        $lte: endString,
+      },
+    });
+
+    const NotScanned = await collection.countDocuments({
+      archived: false,
+      turnOver: {
+        $gte: `${currentYear}-01-01`,
+        $lte: `${currentYear}-${currentMonth - 1}-${lastDay}`,
+      },
+    });
+
+    const Remove = await collection.countDocuments({
+      archived: true,
+      updatedAt: {
+        $gte: startString,
+        $lte: endString,
+      },
+    });
+
+    const currentMonthStatsHeaders = ["Category", "Count"];
+
+    const currentMonthStatsData = [
+      { Category: "New", Count: New },
+      { Category: "Scanned", Count: Scanned },
+      { Category: "Not Scanned", Count: NotScanned },
+      { Category: "Losses", Count: Remove },
+    ];
+
+    const currentMonthStatsWs = XLSX.utils.json_to_sheet(
+      currentMonthStatsData,
+      {
+        header: currentMonthStatsHeaders,
+      }
+    );
+
+    XLSX.utils.book_append_sheet(
+      wb,
+      currentMonthStatsWs,
+      "CurrentMonthStatistics"
+    );
 
     // Generate the Excel file as a buffer
     const excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "buffer" });
