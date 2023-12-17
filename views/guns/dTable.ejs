@@ -546,8 +546,8 @@
                           <td id="modalStreet"></td>
                         </tr>
                         <tr>
-                          <td><strong>Barrangay</strong></td>
-                          <td id="modalBarrangay"></td>
+                          <td><strong>Barangay</strong></td>
+                          <td id="modalBarangay"></td>
                         </tr>
                         <tr>
                           <td><strong>City</strong></td>
@@ -690,7 +690,9 @@
 
                             <td><strong>Barangay</strong></td>
                             <td><input type="text" class="form-control" id="editDataBarangay" name="barangay"></td>
+                          </tr>
 
+                          <tr>
                             <td><strong>City</strong></td>
                             <td><input type="text" class="form-control" id="editDataCity" name="city"></td>
 
@@ -904,6 +906,10 @@
                                     <input type="text" class="form-control" id="barangay" placeholder="Enter Barangay"
                                       name="barangay" autocomplete="barangay">
                                   </td>
+
+                                </tr>
+
+                                <tr>
                                   <td><strong>City</strong></td>
                                   <td>
                                     <input type="text" class="form-control" id="city" placeholder="Enter City"
@@ -1177,7 +1183,7 @@
         var selectedDataEmail = document.getElementById("modalEmail");
         var selectedDataPhoneNumber = document.getElementById("modalPhone");
         var selectedDataStreet = document.getElementById("modalStreet");
-        var selectedDataBarrangay = document.getElementById("modalBarrangay");
+        var selectedDataBarangay = document.getElementById("modalBarangay");
         var selectedDataCity = document.getElementById("modalCity");
         var selectedDataAge = document.getElementById("modalAge");
         var selectedDataGender = document.getElementById("modalGender");
@@ -1212,7 +1218,7 @@
             var email = this.getAttribute("data-email");
             var phoneNumber = this.getAttribute("data-phoneNumber");
             var street = this.getAttribute("data-street");
-            var barrangay = this.getAttribute("data-barrangay");
+            var barangay = this.getAttribute("data-barangay");
             var city = this.getAttribute("data-city");
             var age = this.getAttribute("data-age");
             var civilStatus = this.getAttribute("data-civilStatus");
@@ -1242,7 +1248,7 @@
             selectedDataEmail.innerText = email;
             selectedDataPhoneNumber.innerText = phoneNumber;
             selectedDataStreet.innerText = street;
-            selectedDataBarrangay.innerText = barrangay;
+            selectedDataBarangay.innerText = barangay;
             selectedDataCity.innerText = city;
             selectedDataAge.innerText = age;
             selectedDataGender.innerText = gender;
@@ -1275,7 +1281,7 @@
           selectedDataEmail.innerText = "";
           selectedDataPhoneNumber.innerText = "";
           selectedDataStreet.innerText = "";
-          selectedDataBarrangay.innerText = "";
+          selectedDataBarangay.innerText = "";
           selectedDataCity.innerText = "";
           selectedDataAge.innerText = "";
           selectedDataGender.innerText = "";
@@ -1285,6 +1291,7 @@
           selectedDataWeight.innerText = "";
           selectedDataRoundCapacity.innerText = "";
           selectedDataAction.innerText = "";
+          
 
         });
 
@@ -1307,7 +1314,7 @@
           document.getElementById("editDataEmail").value = data.email || "";
           document.getElementById("editDataPhoneNumber").value = data.phonenumber || "";
           document.getElementById("editDataStreet").value = data.street || "";
-          document.getElementById("editDataBarrangay").value = data.barangay || "";
+          document.getElementById("editDataBarangay").value = data.barangay || "";
           document.getElementById("editDataCity").value = data.city || "";
           document.getElementById("editDataAge").value = data.age || "";
           document.getElementById("editDataGender").value = data.gender || "";

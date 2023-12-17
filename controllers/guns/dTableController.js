@@ -308,7 +308,9 @@ exports.getDTable = async function (req, res) {
         QLFR,
         email,
         phoneNumber,
-        address,
+        street,
+        barangay,
+        city,
         age,
         civilStatus,
         gender,
@@ -616,98 +618,5 @@ exports.exportToExcel = async function (req, res) {
     res
       .status(500)
       .json({ error: "An error occurred while exporting data to Excel." });
-  }
-};
-
-exports.getSelect = async function (req, res) {
-  const id = String(req.params.id);
-
-  try {
-    await client.connect();
-    const db = client.db("PNP_management");
-    const collection = db.collection("Record");
-
-    const data = await collection.findOne(
-      {
-        _id: new ObjectId(id),
-      },
-      {
-        projection: {
-          id: true,
-          //Guns details
-          Gtype: true,
-          Gname: true,
-          caliber: true,
-          serialN: true,
-          barrel_Length: true,
-          weight: true,
-          roundCapacity: true,
-          action: true,
-          cost: true,
-          // Trasanction
-          acquisition: true,
-          turnOver: true,
-          returned: true,
-          // Officer details
-          office: true,
-          rank: true,
-          lastName: true,
-          firstName: true,
-          middleName: true,
-          QLFR: true,
-          email: true,
-          phoneNumber: true,
-          address: true,
-          age: true,
-          civilStatus: true,
-          gender: true,
-          status: true,
-        },
-      }
-    );
-
-    if (!data) {
-      return res.status(404).send("Data not found");
-    }
-
-    const {
-      //Guns details
-      Gtype,
-      Gname,
-      manufacturer,
-      caliber,
-      serialN,
-      barrel_Length,
-      weight,
-      roundCapacity,
-      action,
-      cost,
-
-      // Trasanction
-      acquisition,
-      turnOver,
-      returned,
-      // Officer details
-
-      office,
-      rank,
-      lastName,
-      firstName,
-      middleName,
-      QLFR,
-      email,
-      phoneNumber,
-      address,
-      age,
-      civilStatus,
-      gender,
-      status,
-    } = data;
-
-    // console.log("Data is:", data);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send(error);
-    await client.close();
   }
 };
