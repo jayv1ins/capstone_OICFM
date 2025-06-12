@@ -17,3 +17,13 @@ While the centralized **PNP Logistics Data Information and Management System (LD
 **OICFM-PNP** bridges gaps in inventory control, enhances public safety, and serves as a model for other agencies. By addressing current system limitations, NPD can achieve precise, secure, and efficient firearm management.
 
 [OICFM-PNP_ A LAN-Based System that Utilizes Data Analytics and Optical Character Recognition (OCR) Technology (User Manual).pdf](https://github.com/user-attachments/files/18464754/OICFM-PNP_.A.LAN-Based.System.that.Utilizes.Data.Analytics.and.Optical.Character.Recognition.OCR.Technology.User.Manual.pdf)
+
+
+
+## 🚀 Technologies Used
+
+- **Node.js**
+- **Express.js**
+- **MongoDB** with **Mongoose**
+- **Custom Caesar Cipher encryption** logic (JavaScript)
+- **Google OCR** 
